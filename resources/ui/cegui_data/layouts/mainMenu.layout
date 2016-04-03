@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="mainMenuRoot" >
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Window type="GlossySerpent/FrameWindow" name="mainwindow" >
+            <Property name="Area" value="{{0,0},{0.120064,12},{0.302688,0},{0.831847,12}}" />
+            <Property name="Text" value="Main Menu" />
+            <Property name="TitlebarFont" value="DejaVuSans-HD-10" />
+            <Property name="SizingEnabled" value="false" />
+            <Property name="DragDropTarget" value="false" />
+            <Property name="DragMovingEnabled" value="false" />
+            <Property name="CloseButtonEnabled" value="false" />
+            <Property name="HorizontalAlignment" value="Centre" />
+            <Property name="AutoRenderingSurface" value="true" />
+            <AutoWindow namePath="__auto_titlebar__" >
+                <Property name="Font" value="DejaVuSans-HD-10" />
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="false" />
+                <Property name="DraggingEnabled" value="false" />
+            </AutoWindow>
+            <AutoWindow namePath="__auto_closebutton__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="true" />
+            </AutoWindow>
+            <Window type="GlossySerpent/Button32" name="Credits" >
+                <Property name="Area" value="{{0,0},{0.61064,0},{0.5,0},{0.682528,0}}" />
+                <Property name="Text" >Credits
+</Property>
+                <Property name="HorizontalAlignment" value="Centre" />
+            </Window>
+            <Window type="GlossySerpent/Button32" name="Exit" >
+                <Property name="Area" value="{{0,0},{0.750125,0},{0.5,0},{0.822013,0}}" />
+                <Property name="Text" >Exit
+</Property>
+                <Property name="HorizontalAlignment" value="Centre" />
+            </Window>
+            <Window type="GlossySerpent/Button32" name="MultiPlayer" >
+                <Property name="Area" value="{{0,0},{0.242183,0},{0.5,0},{0.314071,0}}" />
+                <Property name="Text" value="Multiple Player" />
+                <Property name="HorizontalAlignment" value="Centre" />
+            </Window>
+            <Window type="GlossySerpent/Button32" name="Profile" >
+                <Property name="Area" value="{{0,0},{0.375069,0},{0.5,0},{0.446957,0}}" />
+                <Property name="Text" value="Profile" />
+                <Property name="HorizontalAlignment" value="Centre" />
+            </Window>
+            <Window type="GlossySerpent/Button32" name="Settings" >
+                <Property name="Area" value="{{0,0},{0.493526,0},{0.5,0},{0.565414,0}}" />
+                <Property name="Text" value="Settings" />
+                <Property name="HorizontalAlignment" value="Centre" />
+            </Window>
+            <Window type="GlossySerpent/Button32" name="SinglePlayer" >
+                <Property name="Area" value="{{0,0},{0.104152,0},{0.5,0},{0.17604,0}}" />
+                <Property name="Text" value="Single Player" />
+                <Property name="HorizontalAlignment" value="Centre" />
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>

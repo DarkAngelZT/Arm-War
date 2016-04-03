@@ -1,0 +1,6 @@
+class NeoEvent
+{
+public:
+	std::string getData(int position)const;
+	int getTriggerId()const;
+};

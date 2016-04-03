@@ -1,0 +1,153 @@
+<GUILayout version="4">
+    <Window name="MultiPlayerRoot" type="DefaultWindow">
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Window name="HostSelectWnd" type="GlossySerpent/FrameWindow">
+            <Property name="Text" value="MultiPlayer" />
+            <Property name="TitlebarFont" value="DejaVuSans-HD-10" />
+            <Property name="SizingEnabled" value="False" />
+            <Property name="TitlebarEnabled" value="True" />
+            <Property name="Area" value="{{0.246237,0},{0.0850318,0},{0.717155,0},{0.935348,0}}" />
+            <Property name="DragMovingEnabled" value="False" />
+            <Window name="IP_Text" type="GlossySerpent/Editbox">
+                <Property name="MaxTextLength" value="1073741823" />
+                <Property name="Area" value="{{0.25483,0},{0.149063,0},{0.696901,0},{0.208051,0}}" />
+                <Property name="TextParsingEnabled" value="False" />
+            </Window>
+            <Window name="IP_Label" type="GlossySerpent/StaticText">
+                <Property name="Text" value="Host IP :" />
+                <Property name="HorzExtent" value="73" />
+                <Property name="VertExtent" value="16.2241" />
+                <Property name="FrameEnabled" value="False" />
+                <Property name="Area" value="{{0.0443885,0},{0.144194,0},{0.251954,0},{0.212545,0}}" />
+                <Property name="BackgroundEnabled" value="False" />
+            </Window>
+            <Window name="MyIP_Label" type="GlossySerpent/StaticText">
+                <Property name="Text" value="Your IP :" />
+                <Property name="HorzExtent" value="72" />
+                <Property name="VertExtent" value="16.2241" />
+                <Property name="FrameEnabled" value="False" />
+                <Property name="Area" value="{{0.0324958,0},{0.0445689,0},{0.237828,0},{0.111048,0}}" />
+                <Property name="BackgroundEnabled" value="False" />
+            </Window>
+            <Window name="MyIP_text" type="GlossySerpent/StaticText">
+                <Property name="FrameEnabled" value="False" />
+                <Property name="Area" value="{{0.244165,0},{0.0528083,0},{0.623702,0},{0.113669,0}}" />
+                <Property name="BackgroundEnabled" value="False" />
+            </Window>
+            <Window name="HostList" type="GlossySerpent/MultiColumnList">
+                <Property name="Area" value="{{0.046851,0},{0.248314,0},{0.70724,0},{0.829776,0}}" />
+            </Window>
+            <Window name="Create_btn" type="GlossySerpent/Button32">
+                <Property name="Text" value="Create Game" />
+                <Property name="Area" value="{{0.0479693,0},{0.889514,0},{0.34493,0},{0.961611,0}}" />
+            </Window>
+            <Window name="Join_btn" type="GlossySerpent/Button32">
+                <Property name="Text" value="Join Game" />
+                <Property name="Area" value="{{0.415399,0},{0.890825,0},{0.706132,0},{0.962922,0}}" />
+            </Window>
+            <Window name="Refresh_btn" type="GlossySerpent/Button32">
+                <Property name="Text" value="Refresh" />
+                <Property name="Area" value="{{0.730629,0},{0.319101,0},{0.973619,0},{0.391198,0}}" />
+            </Window>
+            <Window name="Cancel_btn" type="GlossySerpent/Button32">
+                <Property name="Text" value="Cancel" />
+                <Property name="Area" value="{{0.732886,0},{0.447753,0},{0.975876,0},{0.51985,0}}" />
+            </Window>
+            <Window name="JoinDes_btn" type="GlossySerpent/Button32">
+                <Property name="Text" value="Connect" />
+                <Property name="Area" value="{{0.724184,0},{0.144194,0},{0.953426,0},{0.205055,0}}" />
+            </Window>
+        </Window>
+        <Window name="Multi_PrepareWnd" type="GlossySerpent/FrameWindow">
+            <Property name="Text" value="MultiPlayer" />
+            <Property name="TitlebarFont" value="DejaVuSans-HD-10" />
+            <Property name="SizingEnabled" value="False" />
+            <Property name="TitlebarEnabled" value="True" />
+            <Property name="Area" value="{{0.168035,0},{0.0213378,0},{0.895064,0},{0.984714,0}}" />
+            <Property name="DragMovingEnabled" value="False" />
+            <Window name="mapOverview" type="GlossySerpent/StaticImage">
+                <Property name="Area" value="{{0.0315965,0},{0.105883,0},{0.409636,0},{0.532353,0}}" />
+            </Window>
+            <Window name="PlayerList" type="GlossySerpent/SerpentPanel">
+                <Property name="Area" value="{{0.466573,0},{0.017647,0},{0.982491,0},{0.541598,0}}" />
+                <Window name="VScrollbar" type="GlossySerpent/VerticalScrollbar">
+                    <Property name="PageSize" value="0" />
+                    <Property name="StepSize" value="1" />
+                    <Property name="AlwaysOnTop" value="True" />
+                    <Property name="OverlapSize" value="0" />
+                    <Property name="DocumentSize" value="1" />
+                    <Property name="ScrollPosition" value="0" />
+                    <Property name="Area" value="{{0.934643,0},{0.0369694,0},{0.982844,0},{0.950961,0}}" />
+                </Window>
+            </Window>
+            <Window name="chatWnd" type="GlossySerpent/MultiLineEditbox">
+                <Property name="Text">
+</Property>
+                <Property name="ReadOnly" value="True" />
+                <Property name="MaxTextLength" value="1073741823" />
+                <Property name="Area" value="{{0.0437105,0},{0.596639,0},{0.731527,0},{0.898739,0}}" />
+                <Property name="TextParsingEnabled" value="False" />
+            </Window>
+            <Window name="chatEdit" type="GlossySerpent/Editbox">
+                <Property name="MaxTextLength" value="1073741823" />
+                <Property name="Area" value="{{0.0510371,0},{0.921849,0},{0.598283,0},{0.973529,0}}" />
+                <Property name="TextParsingEnabled" value="False" />
+            </Window>
+            <Window name="Start_btn" type="GlossySerpent/Button32">
+                <Property name="Text" value="Start" />
+                <Property name="Area" value="{{0.78627,0},{0.8,0},{0.980441,0},{0.870168,0}}" />
+            </Window>
+            <Window name="chat_submit_btn" type="GlossySerpent/Button32">
+                <Property name="Text" value="send" />
+                <Property name="Area" value="{{0.605621,0},{0.920168,0},{0.725858,0},{0.976891,0}}" />
+            </Window>
+            <Window name="Cancel_btn" type="GlossySerpent/Button32">
+                <Property name="Text" value="Cancel" />
+                <Property name="Area" value="{{0.785439,0},{0.905882,0},{0.978101,0},{0.972689,0}}" />
+            </Window>
+            <Window name="Tank_btn" type="GlossySerpent/Button32">
+                <Property name="Text" value="Change Tank" />
+                <Property name="Area" value="{{0.785176,0},{0.609244,0},{0.979347,0},{0.679412,0}}" />
+            </Window>
+            <Window name="MapName_text" type="GlossySerpent/StaticText">
+                <Property name="Area" value="{{0.0275634,0},{0.0297522,0},{0.215715,0},{0.0830582,0}}" />
+            </Window>
+            <Window name="Rounds_label" type="GlossySerpent/StaticText">
+                <Property name="Text" value="Rounds:" />
+                <Property name="HorzExtent" value="71" />
+                <Property name="VertExtent" value="16.2241" />
+                <Property name="FrameEnabled" value="False" />
+                <Property name="Area" value="{{0.245883,0},{0.0289259,0},{0.357395,0},{0.0838846,0}}" />
+                <Property name="BackgroundEnabled" value="False" />
+            </Window>
+            <Window name="Rounds_edx" type="GlossySerpent/Editbox">
+                <Property name="MaxTextLength" value="1073741823" />
+                <Property name="Area" value="{{0.346555,0},{0.0347109,0},{0.454034,0},{0.0780991,0}}" />
+                <Property name="TextParsingEnabled" value="False" />
+            </Window>
+        </Window>
+        <Window name="MapSelection" type="GlossySerpent/FrameWindow">
+            <Property name="Text" value="Map Selection" />
+            <Property name="AlwaysOnTop" value="True" />
+            <Property name="TitlebarFont" value="DejaVuSans-HD-10" />
+            <Property name="SizingEnabled" value="False" />
+            <Property name="TitlebarEnabled" value="True" />
+            <Property name="Area" value="{{0.248485,0},{0.392038,0},{0.693988,0},{0.710508,0}}" />
+            <Property name="DragMovingEnabled" value="False" />
+            <Property name="CloseButtonEnabled" value="False" />
+            <Window name="MapList_cb" type="GlossySerpent/Combobox">
+                <Property name="ReadOnly" value="True" />
+                <Property name="Area" value="{{0.0313767,0},{0.0749998,0},{0.428387,0},{0.665,0}}" />
+                <Property name="MaxEditTextLength" value="1073741823" />
+            </Window>
+            <Window name="btn_ok" type="GlossySerpent/Button">
+                <Property name="Text" value="OK" />
+                <Property name="Area" value="{{0.0479976,0},{0.71,0},{0.282638,0},{0.92,0}}" />
+            </Window>
+            <Window name="btn_cancel" type="GlossySerpent/Button">
+                <Property name="Text" value="Cancel" />
+                <Property name="Area" value="{{0.703593,0},{0.72,0},{0.938234,0},{0.93,0}}" />
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>

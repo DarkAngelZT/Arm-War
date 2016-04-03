@@ -1,0 +1,172 @@
+<GUILayout version="4">
+    <Window name="AmmoRoot" type="DefaultWindow">
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Window name="AmmoWnd" type="GlossySerpent/TabControl">
+            <Property name="TabHeight" value="{0,24.2241}" />
+            <Property name="TabPanePosition" value="Top" />
+            <Property name="Area" value="{{0.353763,0},{0.0563695,0},{0.669257,0},{0.839809,0}}" />
+            <Window name="Tab 1" type="DefaultWindow">
+                <Property name="Text" value="Ammo" />
+                <Property name="Area" value="{{-0.00294276,0},{0,0},{0.990784,0},{1,0}}" />
+                <Window name="ammo_gbx" type="GlossySerpent/GroupBox">
+                    <Property name="Text" value="Ammo 1" />
+                    <Property name="RiseOnClickEnabled" value="False" />
+                    <Property name="Area" value="{{0.0414375,0},{0.013821,0},{0.943086,0},{0.221138,0}}" />
+                </Window>
+                <Window name="ammo_gbx1" type="GlossySerpent/GroupBox">
+                    <Property name="Text" value="Ammo 2" />
+                    <Property name="RiseOnClickEnabled" value="False" />
+                    <Property name="Area" value="{{0.0415506,0},{0.234553,0},{0.9432,0},{0.44187,0}}" />
+                </Window>
+                <Window name="ammo_gbx2" type="GlossySerpent/GroupBox">
+                    <Property name="Text" value="Ammo 3" />
+                    <Property name="RiseOnClickEnabled" value="False" />
+                    <Property name="Area" value="{{0.0447816,0},{0.457317,0},{0.946431,0},{0.664634,0}}" />
+                </Window>
+                <Window name="MaxAmmo_text" type="GlossySerpent/StaticText">
+                    <Property name="Text" value="Shell depot: 1/1" />
+                    <Property name="HorzExtent" value="140" />
+                    <Property name="VertExtent" value="16.2241" />
+                    <Property name="FrameEnabled" value="False" />
+                    <Property name="Area" value="{{0.0721647,0},{0.69187,0},{0.724379,0},{0.742683,0}}" />
+                    <Property name="BackgroundEnabled" value="False" />
+                </Window>
+                <Window name="Ammo1_text" type="GlossySerpent/StaticText">
+                    <Property name="Area" value="{{0.491044,0},{0.0720943,0},{0.735772,0},{0.132712,0}}" />
+                </Window>
+                <Window name="Ammo1_scb" type="GlossySerpent/HorizontalScrollbar">
+                    <Property name="PageSize" value="0" />
+                    <Property name="StepSize" value="1" />
+                    <Property name="AlwaysOnTop" value="True" />
+                    <Property name="OverlapSize" value="0" />
+                    <Property name="DocumentSize" value="1" />
+                    <Property name="ScrollPosition" value="0" />
+                    <Property name="Area" value="{{0.0918684,0},{0.155977,0},{0.910862,0},{0.203802,0}}" />
+                </Window>
+                <Window name="Ammo2_cbx" type="GlossySerpent/Combobox">
+                    <Property name="ReadOnly" value="True" />
+                    <Property name="AlwaysOnTop" value="True" />
+                    <Property name="Area" value="{{0.095776,0},{0.281309,0},{0.442356,0},{0.478862,0}}" />
+                    <Property name="MaxEditTextLength" value="1073741823" />
+                </Window>
+                <Window name="Ammo2_text" type="GlossySerpent/StaticText">
+                    <Property name="Area" value="{{0.497393,0},{0.282663,0},{0.739003,0},{0.347346,0}}" />
+                </Window>
+                <Window name="Ammo2_scb" type="GlossySerpent/HorizontalScrollbar">
+                    <Property name="PageSize" value="0" />
+                    <Property name="StepSize" value="1" />
+                    <Property name="AlwaysOnTop" value="True" />
+                    <Property name="OverlapSize" value="0" />
+                    <Property name="DocumentSize" value="1" />
+                    <Property name="ScrollPosition" value="0" />
+                    <Property name="Area" value="{{0.0981044,0},{0.361024,0},{0.901848,0},{0.407892,0}}" />
+                </Window>
+                <Window name="Ammo3_text" type="GlossySerpent/StaticText">
+                    <Property name="Area" value="{{0.508957,0},{0.497417,0},{0.739853,0},{0.563773,0}}" />
+                </Window>
+                <Window name="Ammo3_scb" type="GlossySerpent/HorizontalScrollbar">
+                    <Property name="PageSize" value="0" />
+                    <Property name="StepSize" value="1" />
+                    <Property name="AlwaysOnTop" value="True" />
+                    <Property name="OverlapSize" value="0" />
+                    <Property name="DocumentSize" value="1" />
+                    <Property name="ScrollPosition" value="0" />
+                    <Property name="Area" value="{{0.0988976,0},{0.586896,0},{0.910635,0},{0.637471,0}}" />
+                </Window>
+                <Window name="Ammo1_cbx" type="GlossySerpent/Combobox">
+                    <Property name="ReadOnly" value="True" />
+                    <Property name="AlwaysOnTop" value="True" />
+                    <Property name="Area" value="{{0.0871027,0},{0.0785355,0},{0.442015,0},{0.278554,0}}" />
+                    <Property name="MaxEditTextLength" value="1073741823" />
+                </Window>
+                <Window name="Ammo3_cbx" type="GlossySerpent/Combobox">
+                    <Property name="ReadOnly" value="True" />
+                    <Property name="AlwaysOnTop" value="True" />
+                    <Property name="Area" value="{{0.098327,0},{0.509692,0},{0.444566,0},{0.72561,0}}" />
+                    <Property name="MaxEditTextLength" value="1073741823" />
+                </Window>
+            </Window>
+            <Window name="Tab 2" type="DefaultWindow">
+                <Property name="Text" value="Items" />
+                <Property name="Visible" value="False" />
+                <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+                <Window name="items_gbx" type="GlossySerpent/GroupBox">
+                    <Property name="Text" value="Loaded Items" />
+                    <Property name="RiseOnClickEnabled" value="False" />
+                    <Property name="Area" value="{{0.0326879,0},{0.0231707,0},{0.939543,0},{0.273171,0}}" />
+                </Window>
+                <Window name="ItemsPanel" type="GlossySerpent/SimplePanel">
+                    <Property name="Area" value="{{0.0490317,0},{0.295935,0},{0.943493,0},{0.970731,0}}" />
+                    <Window name="coming_soon" type="GlossySerpent/StaticText">
+                        <Property name="Text" value="Coming Soon...&gt;&lt;" />
+                        <Property name="HorzExtent" value="159" />
+                        <Property name="VertExtent" value="16.2241" />
+                        <Property name="FrameEnabled" value="False" />
+                        <Property name="Area" value="{{0.192617,0},{0.414458,0},{0.795939,0},{0.55,0}}" />
+                        <Property name="BackgroundEnabled" value="False" />
+                    </Window>
+                </Window>
+                <Window name="DropBtn1" type="GlossySerpent/Button32">
+                    <Property name="Text" value="Drop" />
+                    <Property name="AlwaysOnTop" value="True" />
+                    <Property name="Area" value="{{0.0872332,0},{0.194309,0},{0.275032,0},{0.245122,0}}" />
+                </Window>
+                <Window name="DropBtn2" type="GlossySerpent/Button32">
+                    <Property name="Text" value="Drop" />
+                    <Property name="AlwaysOnTop" value="True" />
+                    <Property name="Area" value="{{0.29716,0},{0.195528,0},{0.482178,0},{0.244309,0}}" />
+                </Window>
+                <Window name="DropBtn3" type="GlossySerpent/Button32">
+                    <Property name="Text" value="Drop" />
+                    <Property name="AlwaysOnTop" value="True" />
+                    <Property name="Area" value="{{0.514448,0},{0.197561,0},{0.69883,0},{0.246341,0}}" />
+                </Window>
+                <Window name="DropBtn4" type="GlossySerpent/Button32">
+                    <Property name="Text" value="Drop" />
+                    <Property name="AlwaysOnTop" value="True" />
+                    <Property name="Area" value="{{0.726284,0},{0.198781,0},{0.921786,0},{0.245529,0}}" />
+                </Window>
+                <Window name="Item1_icon" type="GlossySerpent/StaticImage">
+                    <Property name="AlwaysOnTop" value="True" />
+                    <Property name="Area" value="{{0.0979803,0},{0.0813006,0},{0.262818,0},{0.189023,0}}" />
+                </Window>
+                <Window name="Item2_icon" type="GlossySerpent/StaticImage">
+                    <Property name="AlwaysOnTop" value="True" />
+                    <Property name="Area" value="{{0.309979,0},{0.0788619,0},{0.469574,0},{0.190651,0}}" />
+                </Window>
+                <Window name="Item3_icon" type="GlossySerpent/StaticImage">
+                    <Property name="AlwaysOnTop" value="True" />
+                    <Property name="Area" value="{{0.518399,0},{0.0760163,0},{0.690387,0},{0.189838,0}}" />
+                </Window>
+                <Window name="Item4_icon" type="GlossySerpent/StaticImage">
+                    <Property name="AlwaysOnTop" value="True" />
+                    <Property name="Area" value="{{0.735476,0},{0.0772358,0},{0.904048,0},{0.186993,0}}" />
+                </Window>
+            </Window>
+        </Window>
+        <Window name="btn_ok" type="GlossySerpent/Button32">
+            <Property name="Text" value="Fight!" />
+            <Property name="Area" value="{{0.559042,0},{0.858917,0},{0.665347,0},{0.91465,0}}" />
+        </Window>
+        <Window name="MessageBox" type="GlossySerpent/FrameWindow">
+            <Property name="Text" value="Oops!" />
+            <Property name="TitlebarFont" value="DejaVuSans-HD-10" />
+            <Property name="TitlebarEnabled" value="True" />
+            <Property name="Area" value="{{0.330596,0},{0.344267,0},{0.695943,0},{0.533758,0}}" />
+            <Property name="CloseButtonEnabled" value="False" />
+            <Window name="text" type="GlossySerpent/StaticText">
+                <Property name="Text" value="You can not have more than 4 items!" />
+                <Property name="HorzExtent" value="327" />
+                <Property name="VertExtent" value="16.2241" />
+                <Property name="FrameEnabled" value="False" />
+                <Property name="VertFormatting" value="TopAligned" />
+                <Property name="Area" value="{{0.0361201,0},{0.0878974,0},{0.989799,0},{0.630891,0}}" />
+                <Property name="BackgroundEnabled" value="False" />
+            </Window>
+            <Window name="btn_ok" type="GlossySerpent/Button">
+                <Property name="Text" value="OK" />
+                <Property name="Area" value="{{0.660535,0},{0.558824,0},{0.905184,0},{0.926471,0}}" />
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>

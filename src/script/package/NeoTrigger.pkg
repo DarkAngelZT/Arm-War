@@ -1,0 +1,17 @@
+class NeoTrigger
+{
+public:
+	static NeoTrigger* create(bool alive=true);
+	void drop();
+
+	bool isAlive()const;
+	void setAlive(bool alive);
+	
+	void setDisabled(bool dis);
+	bool isDisabled()const;
+	
+	void Reset();
+	
+	void setTriggerFunction(std::string funcName);
+	void addTriggerCondition(int cid);
+};

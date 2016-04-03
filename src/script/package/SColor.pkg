@@ -1,0 +1,225 @@
+namespace irr
+{
+namespace video
+{
+	//! An enum for the color format of textures used by the Irrlicht Engine.
+	/** A color format specifies how color information is stored. */
+	enum ECOLOR_FORMAT
+	{
+		//! 16 bit color format used by the software driver.
+		/** It is thus preferred by all other irrlicht engine video drivers.
+		There are 5 bits for every color component, and a single bit is left
+		for alpha information. */
+		ECF_A1R5G5B5 = 0,
+
+		//! Standard 16 bit color format.
+		ECF_R5G6B5,
+
+		//! 24 bit color, no alpha channel, but 8 bit for red, green and blue.
+		ECF_R8G8B8,
+
+		//! Default 32 bit color format. 8 bits are used for every component: red, green, blue and alpha.
+		ECF_A8R8G8B8,
+
+		/** Floating Point formats. The following formats may only be used for render target textures. */
+
+		//! 16 bit floating point format using 16 bits for the red channel.
+		ECF_R16F,
+
+		//! 32 bit floating point format using 16 bits for the red channel and 16 bits for the green channel.
+		ECF_G16R16F,
+
+		//! 64 bit floating point format 16 bits are used for the red, green, blue and alpha channels.
+		ECF_A16B16G16R16F,
+
+		//! 32 bit floating point format using 32 bits for the red channel.
+		ECF_R32F,
+
+		//! 64 bit floating point format using 32 bits for the red channel and 32 bits for the green channel.
+		ECF_G32R32F,
+
+		//! 128 bit floating point format. 32 bits are used for the red, green, blue and alpha channels.
+		ECF_A32B32G32R32F,
+
+		//! Unknown color format:
+		ECF_UNKNOWN
+	};
+
+
+	//! Creates a 16 bit A1R5G5B5 color
+	inline unsigned short RGBA16(int r, int g, int b, int a=0xFF);
+
+
+	//! Creates a 16 bit A1R5G5B5 color
+	inline unsigned short RGB16(int r, int g, int b);
+
+
+	//! Creates a 16bit A1R5G5B5 color, based on 16bit input values
+	inline unsigned short RGB16from16(unsigned short r, unsigned short g, unsigned short b);
+
+
+	//! Converts a 32bit (X8R8G8B8) color to a 16bit A1R5G5B5 color
+	inline unsigned short X8R8G8B8toA1R5G5B5(int color);
+
+
+	//! Converts a 32bit (A8R8G8B8) color to a 16bit A1R5G5B5 color
+	inline unsigned short A8R8G8B8toA1R5G5B5(int color);
+
+
+	//! Converts a 32bit (A8R8G8B8) color to a 16bit R5G6B5 color
+	inline unsigned short A8R8G8B8toR5G6B5(int color);
+
+
+	//! Convert A8R8G8B8 Color from A1R5G5B5 color
+	/** build a nicer 32bit Color by extending dest lower bits with source high bits. */
+	inline int A1R5G5B5toA8R8G8B8(unsigned short color);
+
+
+	//! Returns A8R8G8B8 Color from R5G6B5 color
+	inline int R5G6B5toA8R8G8B8(unsigned short color);
+
+
+	//! Returns A1R5G5B5 Color from R5G6B5 color
+	inline unsigned short R5G6B5toA1R5G5B5(unsigned short color);
+
+
+	//! Returns R5G6B5 Color from A1R5G5B5 color
+	inline unsigned short A1R5G5B5toR5G6B5(unsigned short color);
+
+
+
+	//! Returns the alpha component from A1R5G5B5 color
+	/** In Irrlicht, alpha refers to opacity.
+	\return The alpha value of the color. 0 is transparent, 1 is opaque. */
+	inline int getAlpha(unsigned short color);
+
+
+	//! Returns the red component from A1R5G5B5 color.
+	/** Shift left by 3 to get 8 bit value. */
+	inline int getRed(unsigned short color);
+
+	//! Returns the green component from A1R5G5B5 color
+	/** Shift left by 3 to get 8 bit value. */
+	inline int getGreen(unsigned short color);
+
+	//! Returns the blue component from A1R5G5B5 color
+	/** Shift left by 3 to get 8 bit value. */
+	inline int getBlue(unsigned short color);
+
+
+	//! Returns the average from a 16 bit A1R5G5B5 color
+	inline int getAverage(signed short color);
+
+	class SColor
+	{
+	public:
+
+		SColor();
+
+		SColor (int a, int r, int g, int b);
+
+		SColor(int clr);
+
+		int getAlpha() const ;
+
+		int getRed() const ;
+
+		int getGreen() const;
+
+		int getBlue() const;
+
+		float getLightness() const;
+
+		float getLuminance() const;
+
+		int getAverage() const;
+
+		void setAlpha(int a) ;
+
+		void setRed(int r);
+
+		void setGreen(int g) ;
+
+		void setBlue(int b);
+
+		unsigned short toA1R5G5B5() const;
+
+		void toOpenGLColor(unsigned char* dest) const;
+
+		void set(int a, int r, int g, int b);
+		void set(int col);
+
+		bool operator==(const SColor& other) const ;
+
+		bool operator<(const SColor& other) const ;
+
+		SColor operator+(const SColor& other) const;
+
+		SColor getInterpolated(const SColor &other, float d) const;
+
+		SColor getInterpolated_quadratic(const SColor& c1, const SColor& c2, float d) const;
+
+		void setData(const void *data, ECOLOR_FORMAT format);
+
+		void getData(void *data, ECOLOR_FORMAT format);
+
+		int color;
+	};
+
+	class SColorf
+	{
+	public:
+		SColorf() ;
+
+		SColorf(float r, float g, float b, float a = 1.0f);
+
+		SColorf(SColor c);
+
+		SColor toSColor() const;
+
+		void set(float rr, float gg, float bb) ;
+
+		void set(float aa, float rr, float gg, float bb) ;
+
+		SColorf getInterpolated(const SColorf &other, float d) const;
+
+		inline SColorf getInterpolated_quadratic(const SColorf& c1, const SColorf& c2,
+				float d) const;
+
+		void setColorComponentValue(int index, float value);
+
+		float getAlpha() const;
+
+		float getRed() const ;
+
+		float getGreen() const;
+
+		float getBlue() const;
+
+		float r;
+
+		//! green color component
+		float g;
+
+		//! blue component
+		float b;
+
+		//! alpha color component
+		float a;
+	};
+
+	class SColorHSL
+	{
+	public:
+		SColorHSL ( float h = 0.f, float s = 0.f, float l = 0.f );
+		void fromRGB(const SColorf &color);
+		void toRGB(SColorf &color) const;
+
+		float Hue;
+		float Saturation;
+		float Luminance;
+
+	};
+
+} // end namespace video
+} // end namespace irr

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Imageset Name="baseBg" Imagefile="base_bg.png" NativeHorzRes="800" NativeVertRes="600" AutoScaled="true" >
+    <Image Name="full" XPos="200" YPos="0" Width="100" Height="100" />
+    <Image Name="fade_out" XPos="0" YPos="0" Width="200" Height="200" />
+</Imageset>

@@ -1,0 +1,10 @@
+/****************************************************
+	EventArgs casting helper functions.
+	These are not part of the core Neo Game Framework API, merely here for
+	convenience
+*****************************************************/
+$[
+function toNeoEvent(e)
+    return tolua.cast(e,"const NeoEvent")
+end
+$]

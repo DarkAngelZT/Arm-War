@@ -1,0 +1,6 @@
+class Application
+{
+	static Application* getInstance();
+	bool isRunning() const;
+	void Quit();
+};

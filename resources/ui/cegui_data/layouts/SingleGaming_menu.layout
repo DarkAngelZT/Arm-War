@@ -1,0 +1,120 @@
+<GUILayout version="4">
+    <Window name="SingleGameMenuRoot" type="DefaultWindow">
+        <Property name="AlwaysOnTop" value="True" />
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Window name="Background" type="GlossySerpent/SimplePanel">
+            <Property name="Alpha" value="0.4" />
+            <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        </Window>
+        <Window name="menuWnd" type="GlossySerpent/FrameWindow">
+            <Property name="Text" value="Game Paused" />
+            <Property name="AlwaysOnTop" value="True" />
+            <Property name="TitlebarFont" value="DejaVuSans-HD-10" />
+            <Property name="SizingEnabled" value="False" />
+            <Property name="TitlebarEnabled" value="True" />
+            <Property name="Area" value="{{0.348876,0},{0.115287,0},{0.646774,0},{0.706051,0}}" />
+            <Property name="DragMovingEnabled" value="False" />
+            <Property name="CloseButtonEnabled" value="False" />
+            <Window name="btn_resume" type="GlossySerpent/Button32">
+                <Property name="Text" value="Resume" />
+                <Property name="Area" value="{{0.2,0},{0.079287,0},{0.8,0},{0.200807,0}}" />
+            </Window>
+            <Window name="btn_option" type="GlossySerpent/Button32">
+                <Property name="Text">options
+</Property>
+                <Property name="Area" value="{{0.2,0},{0.30153,0},{0.8,0},{0.425745,0}}" />
+            </Window>
+            <Window name="btn_Restart" type="GlossySerpent/Button32">
+                <Property name="Text" value="Restart" />
+                <Property name="Area" value="{{0.2,0},{0.536132,0},{0.8,0},{0.665738,0}}" />
+            </Window>
+            <Window name="btn_Quit" type="GlossySerpent/Button32">
+                <Property name="Text" value="Quit" />
+                <Property name="Area" value="{{0.2,0},{0.768394,0},{0.8,0},{0.889914,0}}" />
+            </Window>
+        </Window>
+        <Window name="Options" type="GlossySerpent/FrameWindow">
+            <Property name="Visible" value="False" />
+            <Property name="AlwaysOnTop" value="True" />
+            <Property name="TitlebarFont" value="DejaVuSans-HD-10" />
+            <Property name="SizingEnabled" value="False" />
+            <Property name="TitlebarEnabled" value="True" />
+            <Property name="Area" value="{{0.349169,0},{0.111784,0},{0.648045,0},{0.70892,0}}" />
+            <Property name="DragMovingEnabled" value="False" />
+            <Window name="BGMVolumeText" type="GlossySerpent/StaticText">
+                <Property name="Text" value="BGM Volume" />
+                <Property name="HorzExtent" value="112" />
+                <Property name="VertExtent" value="16.2241" />
+                <Property name="FrameEnabled" value="False" />
+                <Property name="Area" value="{{0.0762061,0},{0.0346681,0},{0.49301,0},{0.098002,0}}" />
+                <Property name="BackgroundEnabled" value="False" />
+            </Window>
+            <Window name="EffectVolumeText" type="GlossySerpent/StaticText">
+                <Property name="Text" value="Effect Volume" />
+                <Property name="HorzExtent" value="126" />
+                <Property name="VertExtent" value="16.2241" />
+                <Property name="FrameEnabled" value="False" />
+                <Property name="Area" value="{{0.0640638,0},{0.242001,0},{0.500492,0},{0.305335,0}}" />
+                <Property name="BackgroundEnabled" value="False" />
+            </Window>
+            <Window name="ResolutionText" type="GlossySerpent/StaticText">
+                <Property name="Text" value="Resolution" />
+                <Property name="HorzExtent" value="94" />
+                <Property name="VertExtent" value="16.2241" />
+                <Property name="FrameEnabled" value="False" />
+                <Property name="Area" value="{{0.0617335,0},{0.436,0},{0.478537,0},{0.499334,0}}" />
+                <Property name="BackgroundEnabled" value="False" />
+            </Window>
+            <Window name="btn_OK" type="GlossySerpent/Button32">
+                <Property name="Text" value="OK" />
+                <Property name="Area" value="{{0.066394,0},{0.839998,0},{0.424325,0},{0.940666,0}}" />
+            </Window>
+            <Window name="btn_Cancel" type="GlossySerpent/Button32">
+                <Property name="Text" value="Cancel" />
+                <Property name="Area" value="{{0.538308,0},{0.836665,0},{0.896239,0},{0.937332,0}}" />
+            </Window>
+            <Window name="Resolution_cb" type="GlossySerpent/Combobox">
+                <Property name="Area" value="{{0.0789861,0},{0.506665,0},{0.839207,0},{0.788665,0}}" />
+                <Property name="MaxEditTextLength" value="1073741823" />
+            </Window>
+            <Window name="BGMVolume_sb" type="GlossySerpent/HorizontalScrollbar">
+                <Property name="PageSize" value="0" />
+                <Property name="StepSize" value="1" />
+                <Property name="OverlapSize" value="0" />
+                <Property name="DocumentSize" value="1" />
+                <Property name="ScrollPosition" value="0" />
+                <Property name="Area" value="{{0.077596,0},{0.132001,0},{0.939206,0},{0.214001,0}}" />
+            </Window>
+            <Window name="EffectVolume_sb" type="GlossySerpent/HorizontalScrollbar">
+                <Property name="PageSize" value="0" />
+                <Property name="StepSize" value="1" />
+                <Property name="OverlapSize" value="0" />
+                <Property name="DocumentSize" value="1" />
+                <Property name="ScrollPosition" value="0" />
+                <Property name="Area" value="{{0.0729353,0},{0.320001,0},{0.934545,0},{0.402001,0}}" />
+            </Window>
+        </Window>
+        <Window name="QuitMenu" type="GlossySerpent/FrameWindow">
+            <Property name="Text" value="Quit Game" />
+            <Property name="Visible" value="False" />
+            <Property name="AlwaysOnTop" value="True" />
+            <Property name="TitlebarFont" value="DejaVuSerif-HD-10" />
+            <Property name="SizingEnabled" value="False" />
+            <Property name="TitlebarEnabled" value="True" />
+            <Property name="Area" value="{{0.34653,0},{0.19586,0},{0.647361,0},{0.541401,0}}" />
+            <Property name="CloseButtonEnabled" value="False" />
+            <Window name="btn_Quit2Menu" type="GlossySerpent/Button32">
+                <Property name="Text" value="Quit To Menu" />
+                <Property name="Area" value="{{0.123802,0},{0.0774417,0},{0.851461,0},{0.28924,0}}" />
+            </Window>
+            <Window name="btn_Quit2System" type="GlossySerpent/Button32">
+                <Property name="Text" value="Quit To System" />
+                <Property name="Area" value="{{0.128311,0},{0.360216,0},{0.85597,0},{0.562797,0}}" />
+            </Window>
+            <Window name="btn_Cancel" type="GlossySerpent/Button32">
+                <Property name="Text" value="Cancel" />
+                <Property name="Area" value="{{0.126321,0},{0.661201,0},{0.85398,0},{0.86839,0}}" />
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>

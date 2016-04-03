@@ -1,0 +1,11 @@
+<Imageset autoScaled="true" imagefile="rescueGuide.png" name="RescueGuid" version="2">
+    <Image height="34" name="Up" width="53" xPos="76" yPos="9" />
+    <Image height="33" name="Down" width="55" xPos="74" yPos="137" />
+    <Image height="55" name="Left" width="33" xPos="20" yPos="61" />
+    <Image height="54" name="Right" width="33" xPos="158" yPos="61" />
+    <Image height="42" name="LeftUp" width="42" xPos="10" yPos="10" />
+    <Image height="29" name="Target" width="29" xPos="89" yPos="76" />
+    <Image height="42" name="RightUp" width="43" xPos="142" yPos="10" />
+    <Image height="42" name="LeftDown" width="43" xPos="15" yPos="127" />
+    <Image height="42" name="RightDown" width="42" xPos="143" yPos="127" />
+</Imageset>

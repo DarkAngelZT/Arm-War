@@ -1,0 +1,11 @@
+class NeoGameLogic
+{
+public:
+	static NeoGameLogic*GetInstance();
+	static void Destroy();
+	void Update();
+
+	void RegisterTrigger(NeoTrigger* newTrigger);
+	void RemoveTrigger(NeoTrigger* trigger);
+	void ResetAllTriggers();
+};

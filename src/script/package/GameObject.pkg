@@ -1,0 +1,27 @@
+
+class GameObject
+{
+public:
+
+	void SetParent(GameObject*);
+	GameObject*GetParent()const;
+	void AddChild(GameObject*);
+	void RemoveChild(GameObject*child);
+	//remove all child (just unregister them, won't delete)
+	void RemoveChildren();
+	
+	//std::set<GameObject*>& GetChidren();
+	
+	void DestoryChild(GameObject*child);
+	void DestroyChidren();
+	//transform functions
+	void SetPostion(irr::core::vector3df& pos);
+	void SetRotation(irr::core::vector3df& rot);
+	irr::core::vector3df GetPostion()const;
+	irr::core::vector3df GetRotation()const;
+	int getId() const;
+	void setId(int id);
+	bool isActive() const;
+	void setActive(bool active);
+};
+

@@ -1,0 +1,61 @@
+<GUILayout version="4">
+    <Window name="ProfileMngRoot" type="DefaultWindow">
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Window name="wnd_AccountSelect" type="GlossySerpent/FrameWindow">
+            <Property name="Text" value="Select Account" />
+            <Property name="TitlebarFont" value="DejaVuSans-HD-10" />
+            <Property name="SizingEnabled" value="False" />
+            <Property name="TitlebarEnabled" value="True" />
+            <Property name="Area" value="{{0.314663,0},{0.194905,0},{0.735728,0},{0.936942,0}}" />
+            <Property name="DragMovingEnabled" value="False" />
+            <Property name="CloseButtonEnabled" value="False" />
+            <Window name="AccountList" type="GlossySerpent/Listbox">
+                <Property name="Area" value="{{0.0260696,0},{0.0115874,0},{0.987065,0},{0.873176,0}}" />
+            </Window>
+            <Window name="btn_ok" type="GlossySerpent/Button32">
+                <Property name="Text" value="OK" />
+                <Property name="Area" value="{{0.535754,0},{0.899143,0},{0.752974,0},{0.986052,0}}" />
+            </Window>
+            <Window name="btn_new" type="GlossySerpent/Button32">
+                <Property name="Text" value="New" />
+                <Property name="Area" value="{{0.287106,0},{0.901718,0},{0.520889,0},{0.984335,0}}" />
+            </Window>
+            <Window name="btn_delete" type="GlossySerpent/Button32">
+                <Property name="Text" value="Delete" />
+                <Property name="Area" value="{{0.0366686,0},{0.90086,0},{0.257909,0},{0.985624,0}}" />
+            </Window>
+            <Window name="btn_exit" type="GlossySerpent/Button32">
+                <Property name="Text" value="Quit" />
+                <Property name="Area" value="{{0.771477,0},{0.897641,0},{0.991018,0},{0.98455,0}}" />
+            </Window>
+        </Window>
+        <Window name="wnd_CreateAccount" type="GlossySerpent/FrameWindow">
+            <Property name="Text" value="Create Account" />
+            <Property name="AlwaysOnTop" value="True" />
+            <Property name="TitlebarFont" value="DejaVuSans-HD-10" />
+            <Property name="TitlebarEnabled" value="True" />
+            <Property name="Area" value="{{0.28827,0},{0.307961,0},{0.762121,0},{0.570701,0}}" />
+            <Window name="eb_name" type="GlossySerpent/Editbox">
+                <Property name="MaxTextLength" value="1073741823" />
+                <Property name="Area" value="{{0.280351,0},{0.157576,0},{0.914053,0},{0.407576,0}}" />
+                <Property name="TextParsingEnabled" value="False" />
+            </Window>
+            <Window name="label_name" type="GlossySerpent/StaticText">
+                <Property name="Text" value="Name :" />
+                <Property name="HorzExtent" value="63" />
+                <Property name="VertExtent" value="16.2241" />
+                <Property name="FrameEnabled" value="False" />
+                <Property name="Area" value="{{0.0977306,0},{0.148485,0},{0.242522,0},{0.398485,0}}" />
+                <Property name="BackgroundEnabled" value="False" />
+            </Window>
+            <Window name="btn_ok" type="GlossySerpent/Button32">
+                <Property name="Text" value="OK" />
+                <Property name="Area" value="{{0.68066,0},{0.624242,0},{0.93066,0},{0.874242,0}}" />
+            </Window>
+            <Window name="btn_cancel" type="GlossySerpent/Button32">
+                <Property name="Text" value="Cancel" />
+                <Property name="Area" value="{{0.305699,0},{0.625757,0},{0.555699,0},{0.875757,0}}" />
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>

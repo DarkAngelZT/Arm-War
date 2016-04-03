@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="OprionsRoot" >
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Window type="GlossySerpent/Combobox" name="Resolution_cb" >
+            <Property name="Area" value="{{0.317595,0},{0.182166,0},{0.567595,0},{0.432166,0}}" />
+            <Property name="ReadOnly" value="true" />
+            <AutoWindow namePath="__auto_editbox__" >
+                <Property name="ReadOnly" value="true" />
+                <Property name="SelectedTextColour" value="FFFFFFDD" />
+                <Property name="ActiveSelectionColour" value="FFFFB080" />
+                <Property name="InactiveSelectionColour" value="FFB18A50" />
+            </AutoWindow>
+            <AutoWindow namePath="__auto_droplist__" >
+                <AutoWindow namePath="__auto_hscrollbar__" >
+                    <AutoWindow namePath="__auto_incbtn__" >
+                        <Property name="RestoreOldCapture" value="true" />
+                    </AutoWindow>
+                    <AutoWindow namePath="__auto_decbtn__" >
+                        <Property name="RestoreOldCapture" value="true" />
+                    </AutoWindow>
+                    <AutoWindow namePath="__auto_thumb__" >
+                        <Property name="RestoreOldCapture" value="true" />
+                    </AutoWindow>
+                </AutoWindow>
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <Property name="VerticalScrollbar" value="true" />
+                    <AutoWindow namePath="__auto_incbtn__" >
+                        <Property name="RestoreOldCapture" value="true" />
+                    </AutoWindow>
+                    <AutoWindow namePath="__auto_decbtn__" >
+                        <Property name="RestoreOldCapture" value="true" />
+                    </AutoWindow>
+                    <AutoWindow namePath="__auto_thumb__" >
+                        <Property name="RestoreOldCapture" value="true" />
+                    </AutoWindow>
+                </AutoWindow>
+            </AutoWindow>
+        </Window>
+        <Window type="GlossySerpent/StaticText" name="Resolution_text" >
+            <Property name="Area" value="{{0.316618,0},{0.116879,0},{0.441496,0},{0.167834,0}}" />
+            <Property name="Text" value="Resolution" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="FrameEnabled" value="false" />
+            <Property name="BackgroundEnabled" value="false" />
+            <AutoWindow namePath="__auto_vscrollbar__" >
+                <Property name="VerticalScrollbar" value="true" />
+            </AutoWindow>
+        </Window>
+        <Window type="GlossySerpent/Checkbox" name="FullScreen_cb" >
+            <Property name="Area" value="{{0.317595,0},{0.253503,0},{0.558798,0},{0.296496,0}}" />
+            <Property name="Text" value="   Full Screen" />
+        </Window>
+        <Window type="GlossySerpent/StaticText" name="BGMVolume_text" >
+            <Property name="Area" value="{{0.323069,0},{0.334395,0},{0.45479,0},{0.386942,0}}" />
+            <Property name="Text" value="BGM Volume" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="FrameEnabled" value="false" />
+            <Property name="BackgroundEnabled" value="false" />
+            <AutoWindow namePath="__auto_vscrollbar__" >
+                <Property name="VerticalScrollbar" value="true" />
+            </AutoWindow>
+        </Window>
+        <Window type="GlossySerpent/HorizontalScrollbar" name="BGMVolume_sb" >
+            <Property name="Area" value="{{0.317595,0},{0.386306,0},{0.567595,0},{0.419745,0}}" />
+        </Window>
+        <Window type="GlossySerpent/StaticText" name="EffectVolume_text" >
+            <Property name="Area" value="{{0.32737,0},{0.475159,0},{0.461046,0},{0.529299,0}}" />
+            <Property name="Text" value="Effects Volume" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="FrameEnabled" value="false" />
+            <Property name="BackgroundEnabled" value="false" />
+            <AutoWindow namePath="__auto_vscrollbar__" >
+                <Property name="VerticalScrollbar" value="true" />
+            </AutoWindow>
+        </Window>
+        <Window type="GlossySerpent/HorizontalScrollbar" name="EffectVolume_sb" >
+            <Property name="Area" value="{{0.317595,0},{0.530573,0},{0.56955,0},{0.564012,0}}" />
+        </Window>
+        <Window type="GlossySerpent/Button32" name="btn_ok" >
+            <Property name="Area" value="{{0.283969,0},{0.75,0},{0.392229,0},{0.812102,0}}" />
+            <Property name="Text" value="OK" />
+        </Window>
+        <Window type="GlossySerpent/Button32" name="btn_cancel" >
+            <Property name="Area" value="{{0.500147,0},{0.749045,0},{0.608407,0},{0.811147,0}}" />
+            <Property name="Text" >Cancel
+</Property>
+        </Window>
+        <Window type="GlossySerpent/Checkbox32" name="RealTimeShadow" >
+            <Property name="Area" value="{{0.317595,0},{0.615286,0},{0.522629,0},{0.661465,0}}" />
+            <Property name="Text" >Real Time Shadow
+</Property>
+            <Property name="Selected" value="true" />
+        </Window>
+    </Window>
+</GUILayout>

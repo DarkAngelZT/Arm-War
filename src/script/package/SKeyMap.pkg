@@ -1,0 +1,29 @@
+
+namespace irr
+{
+
+	enum EKEY_ACTION
+	{
+		EKA_MOVE_FORWARD = 0,
+		EKA_MOVE_BACKWARD,
+		EKA_STRAFE_LEFT,
+		EKA_STRAFE_RIGHT,
+		EKA_JUMP_UP,
+		EKA_CROUCH,
+		EKA_COUNT,
+
+		EKA_FORCE_32BIT = 0x7fffffff
+	};
+
+	struct SKeyMap
+	{
+		SKeyMap() {}
+		SKeyMap(EKEY_ACTION action, EKEY_CODE keyCode) : Action(action), KeyCode(keyCode) {}
+
+		EKEY_ACTION Action;
+		EKEY_CODE KeyCode;
+	};
+
+} // end namespace irr
+
+

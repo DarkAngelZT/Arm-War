@@ -1,0 +1,72 @@
+
+namespace irr
+{
+namespace core
+{
+	class dimension2d
+	{
+		TOLUA_TEMPLATE_BIND(T, int,float)
+		public:
+			//! Default constructor for empty dimension
+			dimension2d() ;
+			//! Constructor with width and height
+			dimension2d(const T& width, const T& height);
+
+			dimension2d(const vector2d<T>& other); 
+
+
+			//! Equality operator
+			bool operator==(const dimension2d<T>& other) const;
+
+
+			bool operator==(const vector2d<T>& other) const;  // Defined in vector2d.h
+
+
+			//! Set to new values
+			dimension2d<T>& set(const T& width, const T& height);
+
+
+			//! Divide width and height by scalar
+			dimension2d<T> operator/(const T& scale) const;
+
+
+			//! Multiply width and height by scalar
+			dimension2d<T> operator*(const T& scale) const;
+
+
+			//! Add two dimensions
+			dimension2d<T> operator+(const dimension2d<T>& other) const;
+
+
+			//! Subtract one dimension from another
+			dimension2d<T> operator-(const dimension2d<T>& other) const;
+			
+			//! Get area
+			T getArea() const;
+
+			dimension2d<T> getOptimalSize(
+					bool requirePowerOfTwo=true,
+					bool requireSquare=false,
+					bool larger=true,
+					unsigned int maxValue = 0) const;
+
+			dimension2d<T> getInterpolated(const dimension2d<T>& other, float d) const;
+
+
+			//! Width of the dimension.
+			T Width;
+			//! Height of the dimension.
+			T Height;
+	};
+
+
+	$renaming dimension2d<float> @ dimension2df
+
+	$renaming dimension2d<unsigned int> @ dimension2du
+
+	$renaming dimension2d<int> @ dimension2di
+
+
+} // end namespace core
+} // end namespace irr
+

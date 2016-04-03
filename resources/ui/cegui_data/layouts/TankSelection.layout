@@ -1,0 +1,57 @@
+<GUILayout version="4">
+    <Window name="TankSelectionRoot" type="DefaultWindow">
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Window name="Tab_Tank" type="GlossySerpent/TabControl">
+            <Property name="TabHeight" value="{0,24.2241}" />
+            <Property name="TabPanePosition" value="Top" />
+            <Property name="Area" value="{{0.0243402,0},{0.0404459,0},{0.210802,0},{0.919427,0}}" />
+            <Window name="Tab 1" type="DefaultWindow">
+                <Property name="Text" value="Light" />
+                <Property name="Alpha" value="0.7" />
+                <Property name="Area" value="{{0,0},{0,0},{0.98827,0},{1,0}}" />
+                <Window name="List" type="GlossySerpent/Listbox">
+                    <Property name="Area" value="{{0.0400702,0},{0.0137682,0},{0.963766,0},{0.986597,0}}" />
+                </Window>
+            </Window>
+            <Window name="Tab 2" type="DefaultWindow">
+                <Property name="Text" value="Medium" />
+                <Property name="Alpha" value="0.7" />
+                <Property name="Visible" value="False" />
+                <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+                <Window name="List" type="GlossySerpent/Listbox">
+                    <Property name="Area" value="{{0.0273919,0},{0.0137682,0},{0.958912,0},{0.988407,0}}" />
+                </Window>
+            </Window>
+            <Window name="Tab 3" type="DefaultWindow">
+                <Property name="Text" value="Heavy" />
+                <Property name="Alpha" value="0.7" />
+                <Property name="Visible" value="False" />
+                <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+                <Window name="List" type="GlossySerpent/Listbox">
+                    <Property name="Area" value="{{0.0378768,0},{0.0119565,0},{0.95367,0},{0.986595,0}}" />
+                </Window>
+            </Window>
+            <Window name="Tab 4" type="DefaultWindow">
+                <Property name="Text" value="SPG" />
+                <Property name="Alpha" value="0.7" />
+                <Property name="Visible" value="False" />
+                <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+                <Window name="List" type="GlossySerpent/Listbox">
+                    <Property name="Area" value="{{0.0378769,0},{0.0137682,0},{0.958912,0},{0.988406,0}}" />
+                </Window>
+            </Window>
+        </Window>
+        <Window name="Tank_Info" type="GlossySerpent/SerpentPanel">
+            <Property name="Alpha" value="0.7" />
+            <Property name="Area" value="{{0.750635,0},{0.0531848,0},{0.982062,0},{0.651911,0}}" />
+        </Window>
+        <Window name="btn_OK" type="GlossySerpent/Button32">
+            <Property name="Text" value="OK" />
+            <Property name="Area" value="{{0.846725,0},{0.734395,0},{0.963783,0},{0.780573,0}}" />
+        </Window>
+        <Window name="btn_Cancel" type="GlossySerpent/Button32">
+            <Property name="Text" value="Cancel" />
+            <Property name="Area" value="{{0.848827,0},{0.809873,0},{0.965885,0},{0.856051,0}}" />
+        </Window>
+    </Window>
+</GUILayout>
