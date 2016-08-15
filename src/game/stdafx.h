@@ -11,6 +11,7 @@
 #include<memory>
 #include<irrlicht.h>
 #include <btBulletDynamicsCommon.h>
+#include "BulletCollision/CollisionDispatch/btGhostObject.h"
 #include "CEGUI/CEGUI.h"
 #include "CEGUI/RendererModules/Irrlicht/Renderer.h"
 #include "CEGUI/ScriptModules/Lua/ScriptModule.h"

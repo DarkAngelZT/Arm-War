@@ -48,12 +48,18 @@ void NeoPhysics::Init()
 			m_solver, m_collisionConfiguration);
 
 	m_dynamicsWorld->setGravity(btVector3(0, -10, 0));
+	//ghost object collision detection
+	m_ghostpairCallback = shared_ptr<btGhostPairCallback>(
+			new btGhostPairCallback());
+	m_dynamicsWorld->getBroadphase()->getOverlappingPairCache()->setInternalGhostPairCallback(
+			m_ghostpairCallback.get());
 }
 
 void NeoPhysics::Update(float timestep)
 {
 	if (fTimeScale > 0)
 	{
+		PreProcessingCall();
 		m_dynamicsWorld->stepSimulation(timestep * fTimeScale);
 		int numManifolds = m_dynamicsWorld->getDispatcher()->getNumManifolds();
 		std::set<std::pair<GameObject*, GameObject*>> new_contacts;
@@ -62,8 +68,10 @@ void NeoPhysics::Update(float timestep)
 			btPersistentManifold * contactManifold =
 					m_dynamicsWorld->getDispatcher()->getManifoldByIndexInternal(
 							i);
-			btCollisionObject* obj_a = contactManifold->getBody0();
-			btCollisionObject* obj_b = contactManifold->getBody1();
+			btCollisionObject* obj_a =
+					const_cast<btCollisionObject*>(contactManifold->getBody0());
+			btCollisionObject* obj_b =
+					const_cast<btCollisionObject*>(contactManifold->getBody1());
 			if (contactManifold->getNumContacts() > 0)
 			{
 				/* do some stuff here with the objects and contact points */
@@ -171,6 +179,25 @@ void NeoPhysics::Update(float timestep)
 		 }*/
 		//---------------------------------------//
 		m_contact = new_contacts;
+		//------ghost objects---------//
+		int i = 0;
+		for (std::vector<std::shared_ptr<btGhostObject>>::iterator iter =
+				m_ghostObjects.begin(); iter != m_ghostObjects.end();
+				iter++, i++)
+		{
+			int n_obj = iter->get()->getNumOverlappingObjects();
+			if (n_obj > 0)
+			{
+				m_ghostObjectCallbacks[i](i, iter->get()->getOverlappingPairs());
+			}
+		}
+		//clean up temporary collision shapes
+		for(i=0;i<m_temporaryCollisionShaps.size();i++)
+		{
+			RemoveCollisionShape(m_temporaryCollisionShaps[i]);
+		}
+		m_temporaryCollisionShaps.clear();
+		PostProcessingCall();
 	}
 }
 
@@ -183,6 +210,14 @@ void NeoPhysics::CleanUp()
 		btTypedConstraint* constraint = m_dynamicsWorld->getConstraint(i);
 		m_dynamicsWorld->removeConstraint(constraint);
 	}
+	//clean all the ghost objects
+	for (std::vector<std::shared_ptr<btGhostObject>>::iterator iter =
+			m_ghostObjects.begin(); iter != m_ghostObjects.end(); iter++)
+	{
+		m_dynamicsWorld->removeCollisionObject((*iter).get());
+	}
+	//clean up all ghost object callbacks
+	m_ghostObjectCallbacks.clear();
 //clean all the rigid bodies
 	for (std::vector<std::shared_ptr<btRigidBody>>::iterator iter =
 			m_rigidBodies.begin(); iter != m_rigidBodies.end(); iter++)
@@ -192,10 +227,17 @@ void NeoPhysics::CleanUp()
 	m_contact.clear();
 	m_constrains.clear();
 	m_rigidBodies.clear();
+	m_ghostObjects.clear();
 	m_motionStates.clear();
 	m_collisionShapes.clear();
-	m_collisionShapes.clear();
 	m_triangleMeshes.clear();
+
+	m_temporaryCollisionShaps.clear();
+
+	m_available_shapes.clear();
+	m_available_rigidbody.clear();
+	m_available_ghostObjects.clear();
+	m_available_Constraints.clear();
 }
 
 int NeoPhysics::CreateSphereShape(float radius)
@@ -395,8 +437,18 @@ void NeoPhysics::setWorldScale(float worldScale)
 
 int NeoPhysics::assignShapeIndex(std::shared_ptr<btCollisionShape>&ptr)
 {
-	m_collisionShapes.push_back(ptr);
-	return m_collisionShapes.size() - 1;
+	if (m_available_shapes.empty())
+	{
+		m_collisionShapes.push_back(ptr);
+		return m_collisionShapes.size() - 1;
+	}
+	else
+	{
+		int index = m_available_shapes.front();
+		m_available_shapes.pop_front();
+		m_collisionShapes[index] = ptr;
+		return index;
+	}
 }
 
 std::shared_ptr<btCollisionShape> NeoPhysics::getCollisionShape(int index)
@@ -504,8 +556,18 @@ int NeoPhysics::CreateBvhTriangleShape(int meshIndex,
 
 int NeoPhysics::assignRigidBodyIndex(std::shared_ptr<btRigidBody>&ptr)
 {
-	m_rigidBodies.push_back(ptr);
-	return m_rigidBodies.size() - 1;
+	if (m_available_rigidbody.empty())
+	{
+		m_rigidBodies.push_back(ptr);
+		return m_rigidBodies.size() - 1;
+	}
+	else
+	{
+		int index = m_available_rigidbody.front();
+		m_available_rigidbody.pop_front();
+		m_rigidBodies[index] = ptr;
+		return index;
+	}
 }
 
 btTriangleMesh* NeoPhysics::createTriangleMesh(irr::scene::IMesh*mesh,
@@ -601,7 +663,10 @@ void NeoPhysics::CompoundShapeAddChild(int shapeIndex, int childIndex,
 }
 
 int NeoPhysics::CreateRigidBody(int collisionShapeIndex, int sceneNodeIndex,
-		float mass)
+		float mass,
+		irr::core::vector3df pos /*= 	irr::core::vector3df(0, 0, 0)*/,
+		irr::core::vector3df rotation /*=
+		 irr::core::vector3df(0, 0, 0)*/)
 {
 	std::shared_ptr<btCollisionShape> pColl = getCollisionShape(
 			collisionShapeIndex);
@@ -613,10 +678,19 @@ int NeoPhysics::CreateRigidBody(int collisionShapeIndex, int sceneNodeIndex,
 	NeoMotionState* ms = new NeoMotionState();
 	ms->setNode(node);
 	std::shared_ptr<NeoMotionState> pMotion(ms);
-	m_motionStates.push_back(pMotion);
+	m_motionStates.insert(pMotion);
 	btRigidBody* rbody = new btRigidBody(mass, ms, pColl.get(), localInertia);
-	m_rigidBodies.push_back(std::shared_ptr<btRigidBody>(rbody));
-	return m_rigidBodies.size() - 1;
+	//set initial transform
+	irr::core::matrix4 mat;
+	mat.makeIdentity();
+	mat.setTranslation(pos);
+	mat.setRotationDegrees(rotation);
+	btTransform btTrans;
+	IrrlichtMatrixTobtTransform(mat, btTrans);
+	rbody->setWorldTransform(btTrans);
+
+	std::shared_ptr<btRigidBody> ptr(rbody);
+	return assignRigidBodyIndex(ptr);
 }
 
 int NeoPhysics::CreateHingeJoint(int rigidbody1, int rigidbody2,
@@ -628,16 +702,26 @@ int NeoPhysics::CreateHingeJoint(int rigidbody1, int rigidbody2,
 	if (!bodyA || !bodyB)
 		return -1;
 	btHingeConstraint* hinge = new btHingeConstraint(*bodyA, *bodyB,
-			irrToBulletVector(pivot1), irrToBulletVector(pivot2), irrToBulletVector(axisIn1),
-			irrToBulletVector(axisIn2));
+			irrToBulletVector(pivot1), irrToBulletVector(pivot2),
+			irrToBulletVector(axisIn1), irrToBulletVector(axisIn2));
 	std::shared_ptr<btTypedConstraint> ptr(hinge);
 	return assignConstraintIndex(ptr);
 }
 
 int NeoPhysics::assignConstraintIndex(std::shared_ptr<btTypedConstraint>& ptr)
 {
-	m_constrains.push_back(ptr);
-	return m_constrains.size() - 1;
+	if (m_available_Constraints.empty())
+	{
+		m_constrains.push_back(ptr);
+		return m_constrains.size() - 1;
+	}
+	else
+	{
+		int index = m_available_Constraints.front();
+		m_available_Constraints.pop_front();
+		m_constrains[index] = ptr;
+		return index;
+	}
 }
 
 void NeoPhysics::HingeSetLimit(int hingeindex, float low, float high,
@@ -666,9 +750,84 @@ void NeoPhysics::HingeEnablevoidAngularMotor(int hingeindex, bool enableMotor,
 		hinge->enableAngularMotor(enableMotor, targetVelocity, maxMotorImpulse);
 }
 
+void NeoPhysics::PreProcessingCall()
+{
+}
+
+void NeoPhysics::PostProcessingCall()
+{
+}
+
+void NeoPhysics::RemoveCollisionShape(int index)
+{
+	m_available_shapes.push_back(index);
+	m_collisionShapes[index] = NULL;
+}
+
+void NeoPhysics::RemoveRigidBody(int index)
+{
+	m_dynamicsWorld->removeRigidBody(m_rigidBodies[index].get());
+	m_available_rigidbody.push_back(index);
+	m_rigidBodies[index] = NULL;
+}
+
+int NeoPhysics::CreateGhostObject(int collisionSahpIndex,
+		std::function<void(int, btAlignedObjectArray<btCollisionObject*>&)> callback,
+		irr::core::vector3df pos, irr::core::vector3df rotation)
+{
+	btGhostObject* go = new btGhostObject();
+	go->setCollisionShape(m_collisionShapes[collisionSahpIndex].get());
+	//set transform
+	irr::core::matrix4 mat;
+	mat.makeIdentity();
+	mat.setTranslation(pos);
+	mat.setRotationDegrees(rotation);
+	btTransform btTrans;
+	IrrlichtMatrixTobtTransform(mat, btTrans);
+	go->setWorldTransform(btTrans);
+	m_dynamicsWorld->addCollisionObject(go);
+	std::shared_ptr<btGhostObject> ptr(go);
+	return assignGhostBodyIndex(ptr, callback);
+}
+
+int NeoPhysics::assignGhostBodyIndex(std::shared_ptr<btGhostObject>& ptr,
+		std::function<void(int, btAlignedObjectArray<btCollisionObject*>&)> callback)
+{
+	if (m_available_ghostObjects.empty())
+	{
+		m_ghostObjects.push_back(ptr);
+		m_ghostObjectCallbacks.push_back(callback);
+		return m_ghostObjects.size() - 1;
+	}
+	else
+	{
+		int index = m_available_ghostObjects.front();
+		m_available_ghostObjects.pop_front();
+		m_ghostObjects[index] = ptr;
+		m_ghostObjectCallbacks[index] = callback;
+		return index;
+	}
+}
+
+void NeoPhysics::RemoveGhostObject(int index)
+{
+	m_dynamicsWorld->removeCollisionObject(m_ghostObjects[index].get());
+	m_available_ghostObjects.push_back(index);
+	m_ghostObjects[index] = NULL;
+}
+
+void NeoPhysics::GetObjectsInArea(float radius, irr::core::vector3df pos,
+		std::function<void(int, btAlignedObjectArray<btCollisionObject*>&)> callback)
+{
+	int colshape = CreateSphereShape(radius);
+	CreateGhostObject(colshape, callback, pos);
+	m_temporaryCollisionShaps.push_back(colshape);
+}
+
 std::shared_ptr<btTriangleMesh> NeoPhysics::getTriangleMesh(int index)
 {
 	if (index >= 0 && index < m_triangleMeshes.size())
 		return m_triangleMeshes[index];
 	return NULL;
 }
+
