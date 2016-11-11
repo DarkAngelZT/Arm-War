@@ -12,7 +12,7 @@
 #include "CEGUI/RendererModules/Irrlicht/ResourceProvider.h"
 
 NeoGraphics* NeoGraphics::_instance = NULL;
-
+using namespace irr;
 NeoGraphics::NeoGraphics()
 {
 	// TODO Auto-generated constructor stub
@@ -46,13 +46,13 @@ void NeoGraphics::Init()
 	int w, h;
 	bool fscr = false;
 	std::string caption = "";
-	w = NeoScript::GetInstance()->GetScriptGlobalValue_int(
+	w = NeoScript::getInstance()->GetScriptGlobalValue_int(
 			"ApplicationSettings.resolution.width");
-	h = NeoScript::GetInstance()->GetScriptGlobalValue_int(
+	h = NeoScript::getInstance()->GetScriptGlobalValue_int(
 			"ApplicationSettings.resolution.height");
-	fscr = NeoScript::GetInstance()->GetScriptGlobalValue_bool(
+	fscr = NeoScript::getInstance()->GetScriptGlobalValue_bool(
 			"ApplicationSettings.fullscreen");
-	caption = NeoScript::GetInstance()->GetScriptGlobalValue_string(
+	caption = NeoScript::getInstance()->GetScriptGlobalValue_string(
 			"ApplicationSettings.caption");
 	device = createDevice(video::EDT_OPENGL, core::dimension2d<u32>(w, h), 16,
 			fscr, true, false, 0);
@@ -64,6 +64,7 @@ void NeoGraphics::Init()
 	driver = device->getVideoDriver();
 	smgr = device->getSceneManager();
 	guiEnv = device->getGUIEnvironment();
+	sfx_manager = std::make_shared<SfxManager>();
 	//----CEGUI init----//
 	uiRenderer = &(CEGUI::IrrlichtRenderer::bootstrapSystem(*device));
 	InitialiseResourceGroupDirectories();
@@ -78,7 +79,7 @@ void NeoGraphics::Drop()
 	_instance = NULL;
 }
 
-NeoGraphics* NeoGraphics::GetInstance()
+NeoGraphics* NeoGraphics::getInstance()
 {
 	if (_instance == NULL)
 		_instance = new NeoGraphics();
@@ -107,7 +108,7 @@ const IrrlichtDevice* NeoGraphics::getDevice()
 	return device;
 }
 
-const video::IVideoDriver* NeoGraphics::getDriver()
+const video::IVideoDriver* NeoGraphics::getVideoDriver()
 {
 	return driver;
 }
@@ -117,7 +118,7 @@ const gui::IGUIEnvironment* NeoGraphics::getGuiEnv()
 	return guiEnv;
 }
 
-const scene::ISceneManager* NeoGraphics::getSmgr()
+const scene::ISceneManager* NeoGraphics::getIrrSceneManger()
 {
 	return smgr;
 }
@@ -157,8 +158,9 @@ void NeoGraphics::RenderUI()
 	// calculate time elapsed
 	irr::u32 currTime = device->getTimer()->getRealTime();
 	// inject time pulse
-	const float elapsed = static_cast<float>(currTime - d_lastTime) / 1000.0f;
+	const float elapsed = static_cast<float>(currTime - d_lastTime) * 0.001f;
 	CEGUI::System::getSingleton().injectTimePulse(elapsed);
+	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(elapsed);
 	d_lastTime = currTime;
 	//render gui
 	CEGUI::System::getSingleton().renderAllGUIContexts();
@@ -170,15 +172,15 @@ void NeoGraphics::RenderUI()
 //		}
 }
 
-CEGUI::IrrlichtRenderer* NeoGraphics::GetUIRenderer() const
+CEGUI::IrrlichtRenderer* NeoGraphics::getUIRenderer() const
 {
 	return uiRenderer;
 }
 
-GameObject* NeoGraphics::GetAttachedGameObject(int idx)
+GameObject* NeoGraphics::GetAttachedGameObject(irr::scene::ISceneNode*node)
 {
-	std::unordered_map<int, GameObject*>::iterator iter = list_go_bindings.find(
-			idx);
+	std::unordered_map<irr::scene::ISceneNode*, GameObject*>::iterator iter = list_go_bindings.find(
+			node);
 	if (iter != list_go_bindings.end())
 	{
 		return iter->second;
@@ -186,9 +188,9 @@ GameObject* NeoGraphics::GetAttachedGameObject(int idx)
 	return NULL;
 }
 
-void NeoGraphics::BindSceneNodeToGameObject(int idx, GameObject* go)
+void NeoGraphics::BindSceneNodeToGameObject(irr::scene::ISceneNode*node, GameObject* go)
 {
-	list_go_bindings[idx] = go;
+	list_go_bindings[node] = go;
 }
 
 std::string NeoGraphics::GetAvailableResolution()
@@ -203,6 +205,61 @@ std::string NeoGraphics::GetAvailableResolution()
 		strlist.append(buffer);
 	}
 	return strlist;
+}
+
+shared_ptr<SfxManager> NeoGraphics::getSfxManager() const
+{
+	return sfx_manager;
+}
+
+irr::scene::IMeshSceneNode* NeoGraphics::AddOctreeSceneNode(
+		scene::IAnimatedMesh* mesh, scene::ISceneNode* parent, int id,
+		int minimalPolysPerNode, bool alsoAddIfMeshPointerZero)
+{
+	return smgr->addOctTreeSceneNode(mesh,parent,id,minimalPolysPerNode,alsoAddIfMeshPointerZero);
+}
+
+irr::scene::IMeshSceneNode* NeoGraphics::AddOctreeSceneNode(scene::IMesh* mesh,
+		scene::ISceneNode* parent, int id, int minimalPolysPerNode,
+		bool alsoAddIfMeshPointerZero)
+{
+	return smgr->addOctTreeSceneNode(mesh,parent,id,minimalPolysPerNode,alsoAddIfMeshPointerZero);
+}
+
+void NeoGraphics::RemoveSceneNode(irr::scene::ISceneNode* node)
+{
+	node->remove();
+	list_go_bindings.erase(node);
+}
+
+void NeoGraphics::CleanUp()
+{
+	smgr->clear();
+	smgr->getMeshCache()->clear();
+	sfx_manager->CleanUp();
+}
+
+irr::scene::ISceneNode* NeoGraphics::AddSkyDomeSceneNode(
+		video::ITexture* texture, unsigned int horiRes, unsigned int vertRes,
+		float texturePercentage, float spherePercentage, float radius,
+		irr::scene::ISceneNode* parent, int id)
+{
+	return smgr->addSkyDomeSceneNode(texture,horiRes,vertRes,texturePercentage,spherePercentage,radius,parent,id);
+}
+
+void NeoGraphics::UnloadTexture(video::ITexture* texture)
+{
+	driver->removeTexture(texture);
+}
+
+video::ITexture* NeoGraphics::LoadTexture(std::string& path)
+{
+	return driver->getTexture(path.c_str());
+}
+
+void NeoGraphics::SetAmbientLight(const irr::video::SColor& colour)
+{
+	smgr->setAmbientLight(colour);
 }
 
 void NeoGraphics::InitialiseDefaultResourceGroups()
@@ -223,311 +280,101 @@ void NeoGraphics::InitialiseDefaultResourceGroups()
 		parser->setProperty("SchemaDefaultResourceGroup", "schemas");
 }
 
-int NeoGraphics::GetMesh(std::string& file)
+irr::scene::IAnimatedMesh* NeoGraphics::GetMesh(std::string& file)
 {
-	scene::IMesh* mesh = smgr->getMesh(core::stringc(file.c_str()));
-	std::vector<scene::IMesh*>::iterator findit = std::find(list_mesh.begin(),
-			list_mesh.end(), mesh);
-	if (findit != list_mesh.end())
-	{
-		list_mesh.push_back(mesh);
-		return list_mesh.size() - 1;
-	}
-	else
-	{
-		return findit - list_mesh.begin();
-	}
+	return smgr->getMesh(core::stringc(file.c_str()));
 }
 
-int NeoGraphics::AddAnimatedMeshSceneNode(int meshidx, int parentIdx, int id,
+irr::scene::IAnimatedMeshSceneNode* NeoGraphics::AddAnimatedMeshSceneNode(
+		irr::scene::IAnimatedMesh* mesh, irr::scene::ISceneNode* parent, int id,
 		const core::vector3df& position, const core::vector3df& rotation,
 		const core::vector3df& scale, bool alsoAddIfMeshPointerZero)
 {
-	scene::IMesh*mesh = GetMesh(meshidx);
-	scene::ISceneNode*parentNode = NULL;
-	if (parentIdx > 0)
-		parentNode = GetSceneNode(parentIdx);
-	scene::ISceneNode*node = smgr->addAnimatedMeshSceneNode(
-			static_cast<scene::IAnimatedMesh*>(mesh), parentNode, id, position,
-			rotation, scale, alsoAddIfMeshPointerZero);
-	if (node != NULL)
-	{
-//		std::vector<scene::ISceneNode*>::iterator findit = std::find(
-//				list_scene_node.begin(), list_scene_node.end(), node);
-//		if (findit == list_scene_node.end())
-//		{
-		list_scene_node.push_back(node);
-		return list_scene_node.size() - 1;
-//		}
-//		else
-//		{
-//			return findit - list_scene_node.begin();
-//		}
-	}
-	return -1;
+	scene::IAnimatedMeshSceneNode*node = smgr->addAnimatedMeshSceneNode(mesh,
+			parent, id, position, rotation, scale,
+			alsoAddIfMeshPointerZero);
+	return node;
 }
 
-int NeoGraphics::AddMeshSceneNode(int meshIdx, int parentIdx, int id,
+irr::scene::IMeshSceneNode* NeoGraphics::AddMeshSceneNode(irr::scene::IMesh* mesh, irr::scene::ISceneNode* parent, int id,
 		const core::vector3df& position, const core::vector3df& rotation,
 		const core::vector3df& scale, bool alsoAddIfMeshPointerZero)
 {
-	scene::IMesh*mesh = GetMesh(meshIdx);
-	scene::ISceneNode*parentNode = NULL;
-	if (parentIdx > 0)
-		parentNode = GetSceneNode(parentIdx);
-	scene::ISceneNode*node = smgr->addMeshSceneNode(mesh, parentNode, id,
+	return smgr->addMeshSceneNode(mesh, parent, id,
 			position, rotation, scale, alsoAddIfMeshPointerZero);
-	if (node != NULL)
-	{
-//		std::vector<scene::ISceneNode*>::iterator findit = std::find(
-//				list_scene_node.begin(), list_scene_node.end(), node);
-//		if (findit == list_scene_node.end())
-//		{
-		list_scene_node.push_back(node);
-		return list_scene_node.size() - 1;
-//		}
-//		else
-//		{
-//			return findit - list_scene_node.begin();
-//		}
-	}
-	return -1;
 }
 
-int NeoGraphics::AddCameraSceneNode(int parentIdx,
-		const core::vector3df& position, const core::vector3df& lookat, int id,
-		bool makeActive)
+irr::scene::ICameraSceneNode * NeoGraphics::AddCameraSceneNode(
+		irr::scene::ISceneNode* parent, const core::vector3df& position,
+		const core::vector3df& lookat, int id, bool makeActive)
 {
-	scene::ISceneNode*parentNode = NULL;
-	if (parentIdx > 0)
-		parentNode = GetSceneNode(parentIdx);
-	scene::ISceneNode*node = smgr->addCameraSceneNode(parentNode, position,
+	return smgr->addCameraSceneNode(parent, position,
 			lookat, id, makeActive);
-	if (node != NULL)
-	{
-//		std::vector<scene::ISceneNode*>::iterator findit = std::find(
-//				list_scene_node.begin(), list_scene_node.end(), node);
-//		if (findit == list_scene_node.end())
-//		{
-		list_scene_node.push_back(node);
-		return list_scene_node.size() - 1;
-//		}
-//		else
-//		{
-//			return findit - list_scene_node.begin();
-//		}
-	}
-	return -1;
 }
 
-int NeoGraphics::AddCameraSceneNodeMaya(int parentIdx, float rotateSpeed,
-		float zoomSpeed, float translationSpeed, signed int id, float distance,
-		bool makeActive)
+irr::scene::ICameraSceneNode * NeoGraphics::AddCameraSceneNodeMaya(
+		irr::scene::ISceneNode* parent, float rotateSpeed, float zoomSpeed,
+		float translationSpeed, signed int id, float distance, bool makeActive)
 {
-	scene::ISceneNode*parentNode = NULL;
-	if (parentIdx > 0)
-		parentNode = GetSceneNode(parentIdx);
-	scene::ISceneNode*node = smgr->addCameraSceneNodeMaya(parentNode,
+	return smgr->addCameraSceneNodeMaya(parent,
 			rotateSpeed, zoomSpeed, translationSpeed, id, distance, makeActive);
-	if (node != NULL)
-	{
-//		std::vector<scene::ISceneNode*>::iterator findit = std::find(
-//				list_scene_node.begin(), list_scene_node.end(), node);
-//		if (findit == list_scene_node.end())
-//		{
-		list_scene_node.push_back(node);
-		return list_scene_node.size() - 1;
-//		}
-//		else
-//		{
-//			return findit - list_scene_node.begin();
-//		}
-	}
-	return -1;
 }
 
-int NeoGraphics::AddCameraSceneNodeFPS(int parentIdx, float rotateSpeed,
-		float moveSpeed, int id, SKeyMap* keyMapArray, int keyMapSize,
-		bool noVerticalMovement, int jumpSpeed, bool invertMouse,
-		bool makeActive)
+irr::scene::ICameraSceneNode * NeoGraphics::AddCameraSceneNodeFPS(
+		irr::scene::ISceneNode* parent, float rotateSpeed, float moveSpeed,
+		int id, SKeyMap* keyMapArray, int keyMapSize, bool noVerticalMovement,
+		int jumpSpeed, bool invertMouse, bool makeActive)
 {
-	scene::ISceneNode*parentNode = NULL;
-	if (parentIdx > 0)
-		parentNode = GetSceneNode(parentIdx);
-	scene::ISceneNode*node = smgr->addCameraSceneNodeFPS(parentNode,
-			rotateSpeed, moveSpeed, id, keyMapArray, keyMapSize,
-			noVerticalMovement, jumpSpeed, invertMouse, makeActive);
-	if (node != NULL)
-	{
-//		std::vector<scene::ISceneNode*>::iterator findit = std::find(
-//				list_scene_node.begin(), list_scene_node.end(), node);
-//		if (findit == list_scene_node.end())
-//		{
-		list_scene_node.push_back(node);
-		return list_scene_node.size() - 1;
-//		}
-//		else
-//		{
-//			return findit - list_scene_node.begin();
-//		}
-	}
-	return -1;
+	return smgr->addCameraSceneNodeFPS(parent, rotateSpeed, moveSpeed, id,
+			keyMapArray, keyMapSize, noVerticalMovement, jumpSpeed, invertMouse,
+			makeActive);
 }
 
-int NeoGraphics::AddLightSceneNode(int parentIdx,
-		const core::vector3df& position, video::SColorf color, float radius,
-		int id)
+irr::scene::ILightSceneNode * NeoGraphics::AddLightSceneNode(
+		irr::scene::ISceneNode* parent, const core::vector3df& position,
+		video::SColorf color, float radius, int id)
 {
-	scene::ISceneNode*parentNode = NULL;
-	if (parentIdx > 0)
-		parentNode = GetSceneNode(parentIdx);
-	scene::ISceneNode*node = smgr->addLightSceneNode(parentNode, position,
-			color, radius, id);
-	if (node != NULL)
-	{
-//		std::vector<scene::ISceneNode*>::iterator findit = std::find(
-//				list_scene_node.begin(), list_scene_node.end(), node);
-//		if (findit == list_scene_node.end())
-//		{
-		list_scene_node.push_back(node);
-		return list_scene_node.size() - 1;
-//		}
-//		else
-//		{
-//			return findit - list_scene_node.begin();
-//		}
-	}
-	return -1;
+	return smgr->addLightSceneNode(parent, position, color, radius, id);
 }
 
-int NeoGraphics::AddBillboardSceneNode(int parentIdx,
-		const core::dimension2d<float>& size, const core::vector3df& position,
-		int id, video::SColor colorTop, video::SColor colorBottom)
+irr::scene::IBillboardSceneNode * NeoGraphics::AddBillboardSceneNode(
+		irr::scene::ISceneNode* parent, const core::dimension2d<float>& size,
+		const core::vector3df& position, int id, video::SColor colorTop,
+		video::SColor colorBottom)
 {
-	scene::ISceneNode*parentNode = NULL;
-	if (parentIdx > 0)
-		parentNode = GetSceneNode(parentIdx);
-	scene::ISceneNode*node = smgr->addBillboardSceneNode(parentNode, size,
-			position, id, colorTop, colorBottom);
-	if (node != NULL)
-	{
-//		std::vector<scene::ISceneNode*>::iterator findit = std::find(
-//				list_scene_node.begin(), list_scene_node.end(), node);
-//		if (findit == list_scene_node.end())
-//		{
-		list_scene_node.push_back(node);
-		return list_scene_node.size() - 1;
-//		}
-//		else
-//		{
-//			return findit - list_scene_node.begin();
-//		}
-	}
-	return -1;
+	return smgr->addBillboardSceneNode(parent, size, position, id, colorTop,
+			colorBottom);
 }
 
-int NeoGraphics::AddParticleSystemSceneNode(bool withDefaultEmitter,
-		int parentIdx, int id, const core::vector3df& position,
-		const core::vector3df& rotation, const core::vector3df& scale)
+irr::scene::IParticleSystemSceneNode * NeoGraphics::AddParticleSystemSceneNode(
+		bool withDefaultEmitter, irr::scene::ISceneNode* parent, int id,
+		const core::vector3df& position, const core::vector3df& rotation,
+		const core::vector3df& scale)
 {
-	scene::ISceneNode*parentNode = NULL;
-	if (parentIdx > 0)
-		parentNode = GetSceneNode(parentIdx);
-	scene::ISceneNode*node = smgr->addParticleSystemSceneNode(
-			withDefaultEmitter, parentNode, id, position, rotation, scale);
-	if (node != NULL)
-	{
-//		std::vector<scene::ISceneNode*>::iterator findit = std::find(
-//				list_scene_node.begin(), list_scene_node.end(), node);
-//		if (findit == list_scene_node.end())
-//		{
-		list_scene_node.push_back(node);
-		return list_scene_node.size() - 1;
-//		}
-//		else
-//		{
-//			return findit - list_scene_node.begin();
-//		}
-	}
-	return -1;
+	return smgr->addParticleSystemSceneNode(withDefaultEmitter, parent, id,
+			position, rotation, scale);
 }
 
-int NeoGraphics::AddEmptySceneNode(int parentIdx, s32 id)
+irr::scene::ISceneNode* NeoGraphics::AddEmptySceneNode(
+		irr::scene::ISceneNode* parent, int id)
 {
-	scene::ISceneNode*parentNode = NULL;
-	if (parentIdx > 0)
-		parentNode = GetSceneNode(parentIdx);
-	scene::ISceneNode*node = smgr->addEmptySceneNode(parentNode, id);
-	if (node != NULL)
-	{
-//		std::vector<scene::ISceneNode*>::iterator findit = std::find(
-//				list_scene_node.begin(), list_scene_node.end(), node);
-//		if (findit == list_scene_node.end())
-//		{
-		list_scene_node.push_back(node);
-		return list_scene_node.size() - 1;
-//		}
-//		else
-//		{
-//			return findit - list_scene_node.begin();
-//		}
-	}
-	return -1;
+	return smgr->addEmptySceneNode(parent, id);
 }
 
-int NeoGraphics::AddDummyTransformationSceneNode(int parentIdx, s32 id)
+irr::scene::IDummyTransformationSceneNode* NeoGraphics::AddDummyTransformationSceneNode(
+		irr::scene::ISceneNode* parent, int id)
 {
-	scene::ISceneNode*parentNode = NULL;
-	if (parentIdx > 0)
-		parentNode = GetSceneNode(parentIdx);
-	scene::ISceneNode*node = smgr->addDummyTransformationSceneNode(parentNode,
-			id);
-	if (node != NULL)
-	{
-//		std::vector<scene::ISceneNode*>::iterator findit = std::find(
-//				list_scene_node.begin(), list_scene_node.end(), node);
-//		if (findit == list_scene_node.end())
-//		{
-		list_scene_node.push_back(node);
-		return list_scene_node.size() - 1;
-//		}
-//		else
-//		{
-//			return findit - list_scene_node.begin();
-//		}
-	}
-	return -1;
+	return smgr->addDummyTransformationSceneNode(parent, id);
 }
 
-int NeoGraphics::GetActiveCamera()
+irr::scene::ICameraSceneNode* NeoGraphics::GetActiveCamera()
 {
-	scene::ISceneNode*node = smgr->getActiveCamera();
-	if (node != NULL)
-	{
-		std::vector<scene::ISceneNode*>::iterator findit = std::find(
-				list_scene_node.begin(), list_scene_node.end(), node);
-		if (findit == list_scene_node.end())
-		{
-			list_scene_node.push_back(node);
-			return list_scene_node.size() - 1;
-		}
-		else
-		{
-			return findit - list_scene_node.begin();
-		}
-	}
-	return -1;
+	return smgr->getActiveCamera();
 }
 
-void NeoGraphics::SetActiveCamera(int cameraIdx)
+void NeoGraphics::SetActiveCamera(irr::scene::ICameraSceneNode*camera)
 {
-	scene::ISceneNode* node = GetSceneNode(cameraIdx);
-	if (node->getType() == scene::ESNT_CAMERA
-			|| node->getType() == scene::ESNT_CAMERA_FPS
-			|| node->getType() == scene::ESNT_CAMERA_MAYA)
-	{
-		smgr->setActiveCamera(static_cast<scene::ICameraSceneNode*>(node));
-	}
+	smgr->setActiveCamera(camera);
 }
 
 bool NeoGraphics::loadScene(std::string file)
@@ -535,56 +382,12 @@ bool NeoGraphics::loadScene(std::string file)
 	return smgr->loadScene(file.c_str());
 }
 
-scene::ISceneNode* NeoGraphics::GetSceneNode(int idx)
+void NeoGraphics::ClearAllNodes()
 {
-	return list_scene_node[idx];
+	smgr->clear();
 }
 
-int NeoGraphics::RegisterSceneNode(irr::scene::ISceneNode* node)
-{
-	std::vector<scene::ISceneNode*>::iterator findit = std::find(
-			list_scene_node.begin(), list_scene_node.end(), node);
-	if (findit != list_scene_node.end())
-	{
-		return findit - list_scene_node.begin();
-	}
-	else
-	{
-		list_scene_node.push_back(node);
-		return list_scene_node.size() - 1;
-	}
-}
-
-void NeoGraphics::RemoveSceneNode(int index)
-{
-	if (index < list_scene_node.size())
-	{
-		scene::ISceneNode* node = list_scene_node[index];
-		node->remove();
-		list_scene_node[index] = NULL;
-		list_go_bindings.erase(index);
-	}
-}
-
-void NeoGraphics::ClearNodes()
-{
-	for (std::vector<scene::ISceneNode*>::iterator iter =
-			list_scene_node.begin(); iter != list_scene_node.end(); iter++)
-	{
-		(*iter)->remove();
-	}
-	list_scene_node.clear();
-}
-
-scene::IMesh* NeoGraphics::GetMesh(int idx)
-{
-	if (idx > 0)
-		return list_mesh[idx];
-	else
-		return NULL;
-}
-
-int NeoGraphics::getFps()
+float NeoGraphics::getFps()
 {
 	return driver->getFPS();
 }

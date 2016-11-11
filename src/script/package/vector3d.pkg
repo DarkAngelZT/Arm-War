@@ -159,15 +159,6 @@ namespace core
 		(in degrees) represented by this vector. */
 		vector3d<T> rotationToDirection(const vector3d<T> & forwards = vector3d<T>(0, 0, 1)) const;
 
-		//! Fills an array of 4 values with the vector data (usually floats).
-		/** Useful for setting in shader constants for example. The fourth value
-		will always be 0. */
-		void getAs4Values(T* array) const;
-
-		//! Fills an array of 3 values with the vector data (usually floats).
-		/** Useful for setting in shader constants for example.*/
-		void getAs3Values(T* array) const;
-
 
 		//! X coordinate of the vector
 		T X;

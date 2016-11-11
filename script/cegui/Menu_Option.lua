@@ -100,7 +100,7 @@ local root = winMgr:loadLayoutFromFile("Options.layout")
 g_ui_table.options=root
 --初始化支持的分辨率列表
 options_menu.resolution_list = {}
-local rstr = NeoGraphics:GetInstance():GetAvailableResolution()
+local rstr = NeoGraphics:getInstance():GetAvailableResolution()
 local rlist =split(rstr,";")
 local r
 for r=1 , #rlist do

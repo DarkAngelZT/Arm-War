@@ -14,21 +14,21 @@ Application::Application()
 	running = true;
 	using namespace CEGUI;
 
-	NeoScript::GetInstance()->Init();
-	if(NeoScript::GetInstance()->ExecuteScriptFile("./script/startup.lua")<0)
+	NeoScript::getInstance()->Init();
+	if(NeoScript::getInstance()->ExecuteScriptFile("./script/startup.lua")<0)
 	{
 		exit(-1);
 	}
-	NeoGraphics::GetInstance()->Init();
+	NeoGraphics::getInstance()->Init();
 	NeoPhysics::getInstance()->Init();
 
 	LuaScriptModule& scrptmod(
-			LuaScriptModule::create(NeoScript::GetInstance()->getLuaState()));
+			LuaScriptModule::create(NeoScript::getInstance()->getLuaState()));
 	System::getSingleton().setScriptingModule(&scrptmod);
 
 	NeoGameLogic::GetInstance()->Init();
-	//test
 	System::getSingleton().executeScriptFile("init.lua");
+
 }
 
 void Application::CleanUp()
@@ -46,8 +46,8 @@ void Application::MainLoop()
 {
 	while (running)
 	{
-		NeoGraphics::GetInstance()->Update();
-		NeoPhysics::getInstance()->Update(1.0/NeoGraphics::GetInstance()->getFps());
+		NeoGraphics::getInstance()->Update();
+		NeoPhysics::getInstance()->Update(1.0/NeoGraphics::getInstance()->getFps());
 		NeoGameLogic::GetInstance()->Update();
 	}
 }

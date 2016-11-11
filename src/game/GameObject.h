@@ -26,7 +26,7 @@ public:
 	shared_ptr<T>  AddComponent(std::string&key);
 	void RemoveComponent(std::string&key);
 	irr::scene::ISceneNode* GetSceneNode();
-	void BindSceneNode(int nodeIndex);
+	void BindSceneNode(irr::scene::ISceneNode*node);
 
 	void SetParent(GameObject*);
 	GameObject*GetParent()const;
@@ -55,7 +55,15 @@ public:
 	virtual void OnCollision(GameObject*another);
 	virtual void OnCollisionExit(GameObject*another);
 	virtual void OnContactCallback(btPersistentManifold*pm,GameObject*another);
-	//----------------------------
+	const std::shared_ptr<btRigidBody> getRigidBody() const;
+	void setRigidBody(const std::shared_ptr<btRigidBody> rigidBody);
+	std::string getLuaIndentifier() const;
+	void setLuaIndentifier(const std::string& luaIndentifier);
+
+	//-----lua helper functions------------
+	void setOnCollisionEnterLuaCallback(std::string&func);
+	void setOnCollisionLuaCallback(std::string&func);
+	void setOnCollisionExitLuaCallback(std::string&func);
 
 private:
 	std::map<std::string,std::shared_ptr<NeoData>>components;
@@ -64,16 +72,14 @@ private:
 	irr::scene::ISceneNode*m_sceneNode;
 	std::shared_ptr<btRigidBody>m_rigidBody;
 	int id;
+	std::string lua_indentifier;
 	bool visible;
 	bool enablePyhsics;
 	bool active;
-//	std::set<std::function<void(GameObject*)>>m_on_collisionEnter_callbacks;
-//	std::set<std::function<void(GameObject*)>>m_on_collision_callbacks;
-//	std::set<std::function<void(GameObject*)>>m_on_collisionExit_callbacks;
-//	std::set<std::function<void(btPersistentManifold*,GameObject*)>>m_on_contact_callbacks;
-	std::vector<std::string>m_lua_OnCollisionEnter_callback;
-	std::vector<std::string>m_lua_OnCollision_callback;
-	std::vector<std::string>m_lua_OnCollisionExit_callback;
+
+	std::string m_lua_OnCollisionEnter_callback;
+	std::string m_lua_OnCollision_callback;
+	std::string m_lua_OnCollisionExit_callback;
 };
 
 

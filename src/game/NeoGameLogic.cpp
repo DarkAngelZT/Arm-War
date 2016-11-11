@@ -98,9 +98,9 @@ NeoGameLogic::~NeoGameLogic()
 {
 	// TODO 自动生成的析构函数存根
 	NeoEventHandler* eventHandler =
-			static_cast<NeoEventHandler*>(NeoGraphics::GetInstance()->getDevice()->getEventReceiver());
+			static_cast<NeoEventHandler*>(NeoGraphics::getInstance()->getDevice()->getEventReceiver());
 	delete eventHandler;
-	NeoGraphics::GetInstance()->getDevice()->setEventReceiver(NULL);
+	NeoGraphics::getInstance()->getDevice()->setEventReceiver(NULL);
 }
 
 NeoGameLogic* NeoGameLogic::GetInstance()
@@ -123,7 +123,7 @@ void NeoGameLogic::Destroy()
 void NeoGameLogic::Init()
 {
 	NeoEventHandler* eventHandler = new NeoEventHandler();
-	NeoGraphics::GetInstance()->getDevice()->setEventReceiver(eventHandler);
+	NeoGraphics::getInstance()->getDevice()->setEventReceiver(eventHandler);
 }
 
 void NeoGameLogic::Update()

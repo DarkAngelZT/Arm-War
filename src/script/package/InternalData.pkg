@@ -1,0 +1,38 @@
+/***Physics*****/
+class BasicExplosionParams
+{
+public:
+	BasicExplosionParams();
+	virtual ~BasicExplosionParams();
+
+	//---lua interface---//
+	void PushScriptValue(std::string&value);
+	void ClearScriptValues();
+	bool SetScriptValueAt(int i,std::string&v);
+	//---------------//
+	float fRange;
+	float fImpulse;
+	bool bAttenuateByRange;
+	int nEventID;
+
+	irr::core::vector3d<float> origin;
+};
+
+/***Graphics**/
+class BasicExplosionEffectParams
+{
+public:
+	BasicExplosionEffectParams();
+	virtual ~BasicExplosionEffectParams();
+
+	irr::core::vector3d<float> origin;
+	irr::core::vector3d<float> rotation;
+	float fRadius;
+	std::string material_name_high_speed;
+	std::string material_name_low_speed;
+	irr::video::SColor start_color_high_speed;
+	irr::video::SColor end_color_high_speed;
+	irr::video::SColor start_color_low_speed;
+	irr::video::SColor end_color_low_speed;
+	irr::video::SColor shock_wave_color;
+};

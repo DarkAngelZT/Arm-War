@@ -1,0 +1,31 @@
+namespace irr
+{
+namespace scene
+{
+
+//! A particle affector which applies gravity to particles.
+class IParticleGravityAffector : public IParticleAffector
+{
+public:
+
+	//! Set the time in milliseconds when the gravity force is totally lost
+	/** At that point the particle does not move any more. */
+	virtual void setTimeForceLost( float timeForceLost );
+
+	//! Set the direction and force of gravity in all 3 dimensions.
+	virtual void setGravity( const irr::core::vector3d<float>& gravity );
+
+	//! Get the time in milliseconds when the gravity force is totally lost
+	virtual float getTimeForceLost() const;
+
+	//! Get the direction and force of gravity.
+	virtual const irr::core::vector3d<float>& getGravity() const;
+
+	//! Get emitter type
+	virtual E_PARTICLE_AFFECTOR_TYPE getType() const;
+};
+
+} // end namespace scene
+} // end namespace irr
+
+

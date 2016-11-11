@@ -1,0 +1,29 @@
+namespace irr
+{
+namespace scene
+{
+
+//! A particle affector which rotates the particle system.
+class IParticleRotationAffector : public IParticleAffector
+{
+public:
+
+	//! Set the point that particles will rotate around
+	virtual void setPivotPoint( const irr::core::vector3d<float>& point );
+
+	//! Set the speed in degrees per second in all 3 dimensions
+	virtual void setSpeed( const irr::core::vector3d<float>& speed );
+
+	//! Get the point that particles are attracted to
+	virtual const irr::core::vector3d<float>& getPivotPoint() const;
+
+	//! Get the speed in degrees per second in all 3 dimensions
+	virtual const irr::core::vector3d<float>& getSpeed() const;
+
+	//! Get emitter type
+	virtual E_PARTICLE_AFFECTOR_TYPE getType() const ;
+};
+
+} // end namespace scene
+} // end namespace irr
+

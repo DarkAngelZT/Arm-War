@@ -96,3 +96,14 @@ NeoScene::~NeoScene()
 	Clean();
 }
 
+Explosion* NeoScene::CreateExplosion(std::string explosion_type,
+		NeoData& visual_data, NeoData& physics_data)
+{
+	return object_pool_explosion.Create(explosion_type,visual_data,physics_data).get();
+}
+
+std::shared_ptr<Explosion> NeoScene::CreateExplosion(std::string& explosion_type,
+		NeoData& visual_data, NeoData& physics_data)
+{
+	return object_pool_explosion.Create(explosion_type,visual_data,physics_data);
+}

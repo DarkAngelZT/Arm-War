@@ -6,6 +6,7 @@
  */
 
 #include "NeoPhysics.h"
+#include "BasicExplosionPhysics.h"
 //#include<algorithm>
 
 NeoPhysics* NeoPhysics::_instance = NULL;
@@ -53,6 +54,9 @@ void NeoPhysics::Init()
 			new btGhostPairCallback());
 	m_dynamicsWorld->getBroadphase()->getOverlappingPairCache()->setInternalGhostPairCallback(
 			m_ghostpairCallback.get());
+	//---Explosion creators---//
+	RegisterExplosionCreator("BasicExplosionPhysics",
+			BasicExplosionPhysics::Create);
 }
 
 void NeoPhysics::Update(float timestep)
@@ -188,11 +192,12 @@ void NeoPhysics::Update(float timestep)
 			int n_obj = iter->get()->getNumOverlappingObjects();
 			if (n_obj > 0)
 			{
-				m_ghostObjectCallbacks[i](i, iter->get()->getOverlappingPairs());
+				m_ghostObjectCallbacks[i](i,
+						iter->get()->getOverlappingPairs());
 			}
 		}
 		//clean up temporary collision shapes
-		for(i=0;i<m_temporaryCollisionShaps.size();i++)
+		for (i = 0; i < m_temporaryCollisionShaps.size(); i++)
 		{
 			RemoveCollisionShape(m_temporaryCollisionShaps[i]);
 		}
@@ -240,22 +245,24 @@ void NeoPhysics::CleanUp()
 	m_available_Constraints.clear();
 }
 
-int NeoPhysics::CreateSphereShape(float radius)
+int NeoPhysics::CreateSphereShape(float radius, const irr::core::vector3df& scale)
 {
-	std::shared_ptr<btCollisionShape> ptr(new btSphereShape(radius));
+	std::shared_ptr<btCollisionShape> ptr(new btSphereShape(radius*scale.X));
 	return assignShapeIndex(ptr);
 }
 
-int NeoPhysics::CreateBoxShape(irr::core::vector3df& size)
+int NeoPhysics::CreateBoxShape(irr::core::vector3df& size, const irr::core::vector3df& scale)
 {
-	btVector3 halfext(size.X * 0.5f, size.Y * 0.5f, size.Z * 0.5f);
+	irr::core::vector3df size_real=size*scale;
+	btVector3 halfext(size_real.X * 0.5f, size_real.Y * 0.5f, size_real.Z * 0.5f);
 	std::shared_ptr<btCollisionShape> ptr(new btBoxShape(halfext));
 	return assignShapeIndex(ptr);
 }
 
-int NeoPhysics::CreateCylinderShape(irr::core::vector3df& extents, char align)
+int NeoPhysics::CreateCylinderShape(irr::core::vector3df& extents, char align, const irr::core::vector3df& scale)
 {
-	btVector3 halfext(extents.X * 0.5f, extents.Y * 0.5f, extents.Z * 0.5f);
+	irr::core::vector3df extents_real=extents*scale;
+	btVector3 halfext(extents_real.X * 0.5f, extents_real.Y * 0.5f, extents_real.Z * 0.5f);
 	std::shared_ptr<btCollisionShape> ptr;
 	switch (align)
 	{
@@ -278,7 +285,7 @@ int NeoPhysics::CreateCylinderShape(irr::core::vector3df& extents, char align)
 	return assignShapeIndex(ptr);
 }
 
-int NeoPhysics::CreateCapsuleShape(float radius, float height, char align)
+int NeoPhysics::CreateCapsuleShape(float radius, float height, char align, const irr::core::vector3df& scale)
 {
 	std::shared_ptr<btCollisionShape> ptr;
 	switch (align)
@@ -286,27 +293,27 @@ int NeoPhysics::CreateCapsuleShape(float radius, float height, char align)
 	case 'X':
 	case 'x':
 		ptr = std::shared_ptr<btCollisionShape>(
-				new btCapsuleShapeX(radius, height));
+				new btCapsuleShapeX(radius*scale.Y, height*scale.X));
 		break;
 	case 'Y':
 	case 'y':
 		ptr = std::shared_ptr<btCollisionShape>(
-				new btCapsuleShape(radius, height));
+				new btCapsuleShape(radius*scale.X, height*scale.Y));
 		break;
 	case 'Z':
 	case 'z':
 		ptr = std::shared_ptr<btCollisionShape>(
-				new btCapsuleShapeZ(radius, height));
+				new btCapsuleShapeZ(radius*scale.Y, height*scale.Z));
 		break;
 	default:
 		ptr = std::shared_ptr<btCollisionShape>(
-				new btCapsuleShape(radius, height));
+				new btCapsuleShape(radius*scale.X, height*scale.Y));
 		break;
 	}
 	return assignShapeIndex(ptr);
 }
 
-int NeoPhysics::CreateConeShape(float radius, float height, char align)
+int NeoPhysics::CreateConeShape(float radius, float height, char align, const irr::core::vector3df& scale)
 {
 	std::shared_ptr<btCollisionShape> ptr;
 	switch (align)
@@ -314,21 +321,21 @@ int NeoPhysics::CreateConeShape(float radius, float height, char align)
 	case 'X':
 	case 'x':
 		ptr = std::shared_ptr<btCollisionShape>(
-				new btConeShapeX(radius, height));
+				new btConeShapeX(radius*scale.Y, height*scale.X));
 		break;
 	case 'Y':
 	case 'y':
 		ptr = std::shared_ptr<btCollisionShape>(
-				new btConeShape(radius, height));
+				new btConeShape(radius*scale.X, height*scale.Y));
 		break;
 	case 'Z':
 	case 'z':
 		ptr = std::shared_ptr<btCollisionShape>(
-				new btConeShapeZ(radius, height));
+				new btConeShapeZ(radius*scale.Y, height*scale.Z));
 		break;
 	default:
 		ptr = std::shared_ptr<btCollisionShape>(
-				new btConeShape(radius, height));
+				new btConeShape(radius*scale.X, height*scale.Y));
 		break;
 	}
 	return assignShapeIndex(ptr);
@@ -475,13 +482,13 @@ std::shared_ptr<btTypedConstraint> NeoPhysics::getConstraint(int index)
 		return NULL;
 }
 
-int NeoPhysics::CreateConvexHullShape(int meshIndex, irr::core::vector3df scale)
+int NeoPhysics::CreateConvexHullShape(irr::scene::IMesh*mesh,
+		irr::core::vector3df scale)
 {
 	int i, j;
 	int numVertices;
 	btConvexHullShape *hullShape = new btConvexHullShape();
-	irr::scene::IMesh* collMesh = NeoGraphics::GetInstance()->GetMesh(
-			meshIndex);
+	irr::scene::IMesh* collMesh = mesh;
 	for (i = 0; i < collMesh->getMeshBufferCount(); i++)
 	{
 		auto mb = collMesh->getMeshBuffer(i);
@@ -521,10 +528,9 @@ int NeoPhysics::CreateConvexHullShape(int meshIndex, irr::core::vector3df scale)
 	return assignShapeIndex(ptr);
 }
 
-int NeoPhysics::CreateConvexTriangleMeshShape(int meshIndex,
+int NeoPhysics::CreateConvexTriangleMeshShape(irr::scene::IMesh*mesh,
 		irr::core::vector3df scale)
 {
-	irr::scene::IMesh*mesh = NeoGraphics::GetInstance()->GetMesh(meshIndex);
 	if (mesh)
 	{
 		btTriangleMesh* btMesh = createTriangleMesh(mesh, scale);
@@ -535,10 +541,9 @@ int NeoPhysics::CreateConvexTriangleMeshShape(int meshIndex,
 	return -1;
 }
 
-int NeoPhysics::CreateBvhTriangleShape(int meshIndex,
+int NeoPhysics::CreateBvhTriangleShape(irr::scene::IMesh*mesh,
 		irr::core::vector3df scale)
 {
-	irr::scene::IMesh*mesh = NeoGraphics::GetInstance()->GetMesh(meshIndex);
 	if (mesh)
 	{
 		btTriangleMesh* btMesh = createTriangleMesh(mesh, scale);
@@ -662,16 +667,14 @@ void NeoPhysics::CompoundShapeAddChild(int shapeIndex, int childIndex,
 			trans, pChild.get());
 }
 
-int NeoPhysics::CreateRigidBody(int collisionShapeIndex, int sceneNodeIndex,
-		float mass,
+int NeoPhysics::CreateRigidBody(int collisionShapeIndex,
+		irr::scene::ISceneNode*node, float mass,
 		irr::core::vector3df pos /*= 	irr::core::vector3df(0, 0, 0)*/,
 		irr::core::vector3df rotation /*=
 		 irr::core::vector3df(0, 0, 0)*/)
 {
 	std::shared_ptr<btCollisionShape> pColl = getCollisionShape(
 			collisionShapeIndex);
-	irr::scene::ISceneNode*node = NeoGraphics::GetInstance()->GetSceneNode(
-			sceneNodeIndex);
 	btVector3 localInertia(0, 0, 0);
 	pColl->calculateLocalInertia(mass, localInertia);
 
@@ -831,3 +834,19 @@ std::shared_ptr<btTriangleMesh> NeoPhysics::getTriangleMesh(int index)
 	return NULL;
 }
 
+std::shared_ptr<ExplosionPhysics> NeoPhysics::CreateExplosion(std::string type,
+		NeoData& params)
+{
+	if (d_explosion_type.count(type) > 0)
+	{
+		return d_explosion_type[type](params);
+	}
+	//return empty pointer if failed to find type
+	return std::shared_ptr<ExplosionPhysics>();
+}
+
+void NeoPhysics::RegisterExplosionCreator(std::string type,
+		std::function<std::shared_ptr<ExplosionPhysics>(NeoData&)> functor)
+{
+	d_explosion_type[type] = functor;
+}

@@ -14,9 +14,15 @@
 #include <map>
 #include <functional>
 #include "NeoMotionState.h"
+#include "ExplosionPhysics.h"
 /*
  *物理系统封装类
  */
+class NeoMotionState;
+class GameObject;
+class ExplosionPhysics;
+class NeoData;
+
 class NeoPhysics
 {
 public:
@@ -27,19 +33,24 @@ public:
 	void CleanUp();
 	//=======creation wrapper=====
 	//-------collision shapes-----
-	int CreateSphereShape(float radius);
-	int CreateBoxShape(irr::core::vector3df&size);
-	int CreateCylinderShape(irr::core::vector3df&extents, char align = 'Y');
-	int CreateCapsuleShape(float radius, float height, char align = 'Y');
-	int CreateConeShape(float radius, float height, char align = 'Y');
+	int CreateSphereShape(float radius, const irr::core::vector3df& scale =
+			irr::core::vector3df(1, 1, 1));
+	int CreateBoxShape(irr::core::vector3df&size,
+			const irr::core::vector3df& scale = irr::core::vector3df(1, 1, 1));
+	int CreateCylinderShape(irr::core::vector3df&extents, char align = 'Y',
+			const irr::core::vector3df& scale = irr::core::vector3df(1, 1, 1));
+	int CreateCapsuleShape(float radius, float height, char align = 'Y',
+			const irr::core::vector3df& scale = irr::core::vector3df(1, 1, 1));
+	int CreateConeShape(float radius, float height, char align = 'Y',
+			const irr::core::vector3df& scale = irr::core::vector3df(1, 1, 1));
 	int CreateMultiSphereShape(irr::core::vector3df positions[],
 			float radiuses[], int numSpheres);
-	int CreateConvexHullShape(int meshIndex, irr::core::vector3df scale =
-			irr::core::vector3df(1, 1, 1));
-	int CreateConvexTriangleMeshShape(int meshIndex,
+	int CreateConvexHullShape(irr::scene::IMesh*mesh,
 			irr::core::vector3df scale = irr::core::vector3df(1, 1, 1));
-	int CreateBvhTriangleShape(int meshIndex, irr::core::vector3df scale =
-			irr::core::vector3df(1, 1, 1));
+	int CreateConvexTriangleMeshShape(irr::scene::IMesh*mesh,
+			irr::core::vector3df scale = irr::core::vector3df(1, 1, 1));
+	int CreateBvhTriangleShape(irr::scene::IMesh*mesh,
+			irr::core::vector3df scale = irr::core::vector3df(1, 1, 1));
 	//int CreateHeightfieldTerrainShape(int meshIndex);
 	//int CreateStaticPlaneShape();
 	int CreateCompoundShape();
@@ -48,7 +59,8 @@ public:
 			irr::core::vector3df localRotation = irr::core::vector3df(0, 0, 0));
 	void RemoveCollisionShape(int index);
 	//------rigid body-------
-	int CreateRigidBody(int collisionShapeIndex, int sceneNodeIndex, float mass,
+	int CreateRigidBody(int collisionShapeIndex, irr::scene::ISceneNode*node,
+			float mass,
 			irr::core::vector3df pos = irr::core::vector3df(0, 0, 0),
 			irr::core::vector3df rotation = irr::core::vector3df(0, 0, 0));
 	void RemoveRigidBody(int index);
@@ -67,6 +79,11 @@ public:
 			irr::core::vector3df pos = irr::core::vector3df(0, 0, 0),
 			irr::core::vector3df rotation = irr::core::vector3df(0, 0, 0));
 	void RemoveGhostObject(int index);
+	//-----explosion physics---
+	std::shared_ptr<ExplosionPhysics> CreateExplosion(std::string type,
+			NeoData&params);
+	void RegisterExplosionCreator(std::string type,
+			std::function<std::shared_ptr<ExplosionPhysics>(NeoData&)> functor);
 	//---------------useful functions---------
 	void GetObjectsInArea(float radius, irr::core::vector3df pos,
 			std::function<void(int, btAlignedObjectArray<btCollisionObject*>&)> callback);
@@ -138,8 +155,9 @@ private:
 	std::vector<std::shared_ptr<btTypedConstraint>> m_constrains;
 
 	std::vector<std::shared_ptr<btGhostObject>> m_ghostObjects;
-	std::vector<std::function<void(int, btAlignedObjectArray<btCollisionObject*>&)>> m_ghostObjectCallbacks;
-	shared_ptr<btGhostPairCallback> m_ghostpairCallback;
+	std::vector<
+			std::function<void(int, btAlignedObjectArray<btCollisionObject*>&)>> m_ghostObjectCallbacks;
+	std::shared_ptr<btGhostPairCallback> m_ghostpairCallback;
 
 	std::list<int> m_available_shapes;
 	std::list<int> m_available_rigidbody;
@@ -157,6 +175,8 @@ private:
 	std::set<std::pair<GameObject*, GameObject*>> m_contact;
 	std::vector<int> m_temporaryCollisionShaps;
 	//-----Internal functions-----//
+	std::map<std::string,
+			std::function<std::shared_ptr<ExplosionPhysics>(NeoData&)>> d_explosion_type;
 };
 
 #endif /* SRC_PHYSICS_NEOPHYSICS_H_ */

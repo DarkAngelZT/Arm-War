@@ -1,0 +1,15 @@
+namespace irr
+{
+
+namespace io
+{
+//! An object which is able to serialize and deserialize its attributes into an attributes object
+class IAttributeExchangingObject : public IReferenceCounted
+{
+public:
+
+};
+
+} // end namespace io
+} // end namespace irr
+

@@ -1,0 +1,25 @@
+namespace irr
+{
+namespace scene
+{
+	//! Animates a scene node. Can animate position, rotation, material, and so on.
+	/** A scene node animator is able to animate a scene node in a very simple way. It may
+	change its position, rotation, scale and/or material. There are lots of animators
+	to choose from. You can create scene node animators with the ISceneManager interface.
+	*/
+	class ISceneNodeAnimator : public irr::io::IAttributeExchangingObject
+	{
+	public:
+
+		//! Returns type of the scene node animator
+		virtual ESCENE_NODE_ANIMATOR_TYPE getType() const;
+
+		//! Returns if the animator has finished.
+		/** This is only valid for non-looping animators with a discrete end state.
+		\return true if the animator has finished, false if it is still running. */
+		virtual bool hasFinished(void) const;
+	};
+
+
+} // end namespace scene
+} // end namespace irr

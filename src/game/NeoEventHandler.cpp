@@ -8,6 +8,7 @@
 #include "NeoEventHandler.h"
 #include "stdafx.h"
 #include "NeoGameLogic.h"
+#include <algorithm>
 NeoEventHandler::NeoEventHandler()
 {
 	// TODO 自动生成的构造函数存根
@@ -17,6 +18,7 @@ NeoEventHandler::NeoEventHandler()
 NeoEventHandler::~NeoEventHandler()
 {
 	// TODO 自动生成的析构函数存根
+	ClearAddtionalEventHandler();
 }
 
 bool NeoEventHandler::OnEvent(const irr::SEvent& event)
@@ -89,6 +91,30 @@ bool NeoEventHandler::OnEvent(const irr::SEvent& event)
 	default:
 		break;
 	}
-	NeoGraphics::GetInstance()->GetUIRenderer()->injectEvent(event);
+	NeoGraphics::getInstance()->getUIRenderer()->injectEvent(event);
+	for (irr::IEventReceiver*receiver : additional_receivers)
+	{
+		receiver->OnEvent(event);
+	}
 	return false;
+}
+
+void NeoEventHandler::AddAdditionalEventHandler(irr::IEventReceiver* handler)
+{
+	additional_receivers.push_back(handler);
+}
+
+void NeoEventHandler::RemoveAddtionalEventHandler(irr::IEventReceiver* handler)
+{
+	auto it = std::find(additional_receivers.begin(),
+			additional_receivers.end(), handler);
+	if (it != additional_receivers.end())
+	{
+		additional_receivers.erase(it);
+	}
+}
+
+void NeoEventHandler::ClearAddtionalEventHandler()
+{
+	additional_receivers.clear();
 }

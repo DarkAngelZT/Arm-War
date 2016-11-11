@@ -26,7 +26,7 @@ NeoScript::NeoScript()
 
 }
 
-NeoScript* NeoScript::GetInstance()
+NeoScript* NeoScript::getInstance()
 {
 	if (_instance == NULL)
 	{

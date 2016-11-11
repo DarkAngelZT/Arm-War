@@ -26,6 +26,7 @@ extern "C"
 #include "tolua++.h"
 
 #include "Application.h"
+#include "../Utilities/InternalDataStructures.h"
 #include "../graphics/NeoGraphics.h"
 #include "../script/NeoScript.h"
 #include "../physics/NeoPhysics.h"

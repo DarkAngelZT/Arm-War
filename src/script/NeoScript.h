@@ -12,7 +12,7 @@
 #include "../game/NeoEvent.h"
 class NeoScript {
 public:
-	static NeoScript* GetInstance();
+	static NeoScript* getInstance();
 	static void Destroy();
 	void Init(lua_State* lua_State=0);
 	int ExecuteScriptFile(std::string fname);

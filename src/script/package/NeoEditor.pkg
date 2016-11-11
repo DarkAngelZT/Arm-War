@@ -1,0 +1,18 @@
+class NeoEditor
+{
+public:
+	enum OBJECT_OPS
+	{
+		EDITOR_SELECT = 1,
+		EDITOR_MOVE,
+		EDITOR_SCALE,
+		EDITOR_ROTATE
+	};
+	//===lua API===//
+	static NeoEditor* getInstance();
+
+	void CreateFileOpenDialog(const std::string& lua_callback);
+	void ShowSelectionCursor(irr::scene::ISceneNode* node,bool visible = true);
+	void Init();
+	void CleanUp();
+};

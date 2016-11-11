@@ -1,0 +1,48 @@
+namespace irr
+{
+namespace scene
+{
+
+//! A particle affector which attracts or detracts particles.
+class IParticleAttractionAffector : public IParticleAffector
+{
+public:
+
+	//! Set the point that particles will attract to
+	virtual void setPoint( const irr::core::vector3d<float>& point ) ;
+
+	//! Set whether or not the particles are attracting or detracting
+	virtual void setAttract( bool attract ) ;
+
+	//! Set whether or not this will affect particles in the X direction
+	virtual void setAffectX( bool affect ) ;
+
+	//! Set whether or not this will affect particles in the Y direction
+	virtual void setAffectY( bool affect ) ;
+
+	//! Set whether or not this will affect particles in the Z direction
+	virtual void setAffectZ( bool affect ) ;
+
+	//! Get the point that particles are attracted to
+	virtual const irr::core::vector3d<float>& getPoint() const ;
+
+	//! Get whether or not the particles are attracting or detracting
+	virtual bool getAttract() const ;
+
+	//! Get whether or not the particles X position are affected
+	virtual bool getAffectX() const ;
+
+	//! Get whether or not the particles Y position are affected
+	virtual bool getAffectY() const ;
+
+	//! Get whether or not the particles Z position are affected
+	virtual bool getAffectZ() const ;
+
+	//! Get emitter type
+	virtual E_PARTICLE_AFFECTOR_TYPE getType() const;
+};
+
+} // end namespace scene
+} // end namespace irr
+
+

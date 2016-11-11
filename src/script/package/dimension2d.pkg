@@ -5,21 +5,21 @@ namespace core
 {
 	class dimension2d
 	{
-		TOLUA_TEMPLATE_BIND(T, int,float)
+		TOLUA_TEMPLATE_BIND(T, int,float, unsigned)
 		public:
 			//! Default constructor for empty dimension
 			dimension2d() ;
 			//! Constructor with width and height
 			dimension2d(const T& width, const T& height);
 
-			dimension2d(const vector2d<T>& other); 
+			dimension2d(const irr::core::vector2d<T>& other);
 
 
 			//! Equality operator
 			bool operator==(const dimension2d<T>& other) const;
 
 
-			bool operator==(const vector2d<T>& other) const;  // Defined in vector2d.h
+			bool operator==(const irr::core::vector2d<T>& other) const;  // Defined in vector2d.h
 
 
 			//! Set to new values
@@ -62,7 +62,7 @@ namespace core
 
 	$renaming dimension2d<float> @ dimension2df
 
-	$renaming dimension2d<unsigned int> @ dimension2du
+	$renaming dimension2d<unsigned> @ dimension2du
 
 	$renaming dimension2d<int> @ dimension2di
 

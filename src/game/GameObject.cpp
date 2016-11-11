@@ -16,6 +16,7 @@ GameObject::GameObject()
 	active = true;
 	visible = true;
 	enablePyhsics = true;
+	lua_indentifier = "";
 }
 
 GameObject::~GameObject()
@@ -39,7 +40,8 @@ int GameObject::getId() const
 template<typename T>
 shared_ptr<T> GameObject::GetComponent(std::string& key)
 {
-	std::map<std::string, std::shared_ptr<NeoData>>::iterator iter = components.find(key);
+	std::map<std::string, std::shared_ptr<NeoData>>::iterator iter =
+			components.find(key);
 	if (iter != components.end())
 	{
 		shared_ptr<T> ptr = static_cast<NeoTypedData<T>>(*iter->second)->getData();
@@ -194,10 +196,10 @@ irr::scene::ISceneNode* GameObject::GetSceneNode()
 	return m_sceneNode;
 }
 
-void GameObject::BindSceneNode(int nodeIndex)
+void GameObject::BindSceneNode(irr::scene::ISceneNode*node)
 {
-	m_sceneNode = NeoGraphics::GetInstance()->GetSceneNode(nodeIndex);
-	NeoGraphics::GetInstance()->BindSceneNodeToGameObject(nodeIndex, this);
+	m_sceneNode = node;
+	NeoGraphics::getInstance()->BindSceneNodeToGameObject(node, this);
 }
 
 bool GameObject::isVisible() const
@@ -218,4 +220,77 @@ bool GameObject::isEnablePyhsics() const
 void GameObject::setEnablePyhsics(bool enablePyhsics)
 {
 	this->enablePyhsics = enablePyhsics;
+}
+
+const std::shared_ptr<btRigidBody> GameObject::getRigidBody() const
+{
+	return m_rigidBody;
+}
+
+void GameObject::setRigidBody(const std::shared_ptr<btRigidBody> rigidBody)
+{
+	m_rigidBody = rigidBody;
+}
+
+void GameObject::OnCollisionEnter(GameObject* another)
+{
+	if (m_lua_OnCollisionEnter_callback.empty())
+		return;
+	std::vector<std::string> data;
+	data.push_back(getLuaIndentifier());
+	data.push_back(another->getLuaIndentifier());
+	NeoScript::getInstance()->ExecuteScriptedFunction(
+			m_lua_OnCollisionEnter_callback, data);
+}
+
+void GameObject::OnCollision(GameObject* another)
+{
+	if (m_lua_OnCollision_callback.empty())
+		return;
+	std::vector<std::string> data;
+	data.push_back(getLuaIndentifier());
+	data.push_back(another->getLuaIndentifier());
+	NeoScript::getInstance()->ExecuteScriptedFunction(
+			m_lua_OnCollision_callback, data);
+}
+
+void GameObject::OnCollisionExit(GameObject* another)
+{
+	if (m_lua_OnCollisionExit_callback.empty())
+		return;
+	std::vector<std::string> data;
+	data.push_back(getLuaIndentifier());
+	data.push_back(another->getLuaIndentifier());
+	NeoScript::getInstance()->ExecuteScriptedFunction(
+			m_lua_OnCollisionExit_callback, data);
+}
+
+void GameObject::OnContactCallback(btPersistentManifold* pm,
+		GameObject* another)
+{
+}
+
+std::string GameObject::getLuaIndentifier() const
+{
+	return lua_indentifier;
+}
+
+void GameObject::setLuaIndentifier(const std::string& luaIndentifier)
+{
+	lua_indentifier = luaIndentifier;
+}
+
+void GameObject::setOnCollisionEnterLuaCallback(std::string& func)
+{
+	m_lua_OnCollisionEnter_callback = func;
+}
+
+void GameObject::setOnCollisionLuaCallback(std::string& func)
+{
+	m_lua_OnCollision_callback = func;
+}
+
+void GameObject::setOnCollisionExitLuaCallback(std::string& func)
+{
+	m_lua_OnCollisionExit_callback = func;
 }

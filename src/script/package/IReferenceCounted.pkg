@@ -1,0 +1,16 @@
+namespace irr
+{
+	class IReferenceCounted
+	{
+	public:
+
+		void grab() const ;
+
+		bool drop() const;
+
+		//! Get the reference count.
+		/** \return Current value of the reference counter. */
+		int getReferenceCount() const;
+	};
+
+} // end namespace irr

@@ -1,0 +1,36 @@
+namespace irr
+{
+namespace scene
+{
+
+//! A particle emitter which emits particles along a ring shaped area.
+class IParticleRingEmitter : public IParticleEmitter
+{
+public:
+
+	//! Set the center of the ring
+	virtual void setCenter( const irr::core::vector3d<float>& center );
+
+	//! Set the radius of the ring
+	virtual void setRadius( float radius );
+
+	//! Set the thickness of the ring
+	virtual void setRingThickness( float ringThickness );
+
+	//! Get the center of the ring
+	virtual const irr::core::vector3d<float>& getCenter() const;
+
+	//! Get the radius of the ring
+	virtual float getRadius() const;
+
+	//! Get the thickness of the ring
+	virtual float getRingThickness() const;
+
+	//! Get emitter type
+	virtual E_PARTICLE_EMITTER_TYPE getType() const ;
+};
+
+} // end namespace scene
+} // end namespace irr
+
+

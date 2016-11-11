@@ -1,0 +1,7 @@
+*.log
+*.log~
+*.md~
+*.d
+*.o
+*.mk
+makefile

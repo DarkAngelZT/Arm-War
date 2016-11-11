@@ -15,13 +15,15 @@ public:
 	void DestoryChild(GameObject*child);
 	void DestroyChidren();
 	//transform functions
-	void SetPostion(irr::core::vector3df& pos);
-	void SetRotation(irr::core::vector3df& rot);
-	irr::core::vector3df GetPostion()const;
-	irr::core::vector3df GetRotation()const;
+	void SetPostion(irr::core::vector3d<float>& pos);
+	void SetRotation(irr::core::vector3d<float>& rot);
+	irr::core::vector3d<float> GetPostion()const;
+	irr::core::vector3d<float> GetRotation()const;
 	int getId() const;
 	void setId(int id);
 	bool isActive() const;
 	void setActive(bool active);
+	std::string getLuaIndentifier() const;
+	void setLuaIndentifier(const std::string& luaIndentifier);
 };
 

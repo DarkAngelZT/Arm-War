@@ -1,0 +1,35 @@
+namespace irr
+{
+namespace scene
+{
+
+//! Types of built in particle affectors
+enum E_PARTICLE_AFFECTOR_TYPE
+{
+	EPAT_NONE = 0,
+	EPAT_ATTRACT,
+	EPAT_FADE_OUT,
+	EPAT_GRAVITY,
+	EPAT_ROTATE,
+	EPAT_SCALE,
+	EPAT_COUNT
+};
+
+//! A particle affector modifies particles.
+class IParticleAffector : public irr::io::IAttributeExchangingObject
+{
+public:
+	//! Sets whether or not the affector is currently enabled.
+	virtual void setEnabled(bool enabled);
+
+	//! Gets whether or not the affector is currently enabled.
+	virtual bool getEnabled() const;
+
+	//! Get emitter type
+	virtual E_PARTICLE_AFFECTOR_TYPE getType() const;
+};
+
+} // end namespace scene
+} // end namespace irr
+
+

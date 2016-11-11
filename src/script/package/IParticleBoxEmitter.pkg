@@ -1,0 +1,24 @@
+namespace irr
+{
+namespace scene
+{
+
+//! A particle emitter which emits particles from a box shaped space
+class IParticleBoxEmitter : public IParticleEmitter
+{
+public:
+
+	//! Set the box shape
+	virtual void setBox( const irr::core::aabbox3df& box ) ;
+
+	//! Get the box shape set
+	virtual const irr::core::aabbox3df& getBox() const ;
+
+	//! Get emitter type
+	virtual irr::scene::E_PARTICLE_EMITTER_TYPE getType() const ;
+};
+
+} // end namespace scene
+} // end namespace irr
+
+

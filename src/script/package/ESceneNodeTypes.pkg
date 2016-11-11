@@ -1,0 +1,43 @@
+namespace irr
+{
+namespace scene
+{
+
+	//! An enumeration for all types of built-in scene nodes
+	/** A scene node type is represented by a four character code
+	such as 'cube' or 'mesh' instead of simple numbers, to avoid
+	name clashes with external scene nodes.*/
+	enum ESCENE_NODE_TYPE
+	{
+		ESNT_SCENE_MANAGER = 1735290227,
+		ESNT_CUBE = 1700951395,
+		ESNT_SPHERE = 1919447155,
+		ESNT_TEXT = 1954047348,
+		ESNT_WATER_SURFACE = 1920229751,
+		ESNT_TERRAIN = 1920099700,
+		ESNT_SKY_BOX = 1601792883,
+		ESNT_SKY_DOME = 1685678963,
+		ESNT_SHADOW_VOLUME = 2003069043,
+		ESNT_OCTREE = 1920230255,
+		ESNT_MESH = 1752393069,
+		ESNT_LIGHT = 1952999276,
+		ESNT_EMPTY = 2037673317,
+		ESNT_DUMMY_TRANSFORMATION = 2037214564,
+		ESNT_CAMERA = 1601003875,
+		ESNT_BILLBOARD = 1819044194,
+		ESNT_ANIMATED_MESH = 1752395105,
+		ESNT_PARTICLE_SYSTEM = 1818457200,
+		ESNT_Q3SHADER_SCENE_NODE = 1752380273,
+		ESNT_MD3_SCENE_NODE = 1597203565,
+		ESNT_VOLUME_LIGHT = 1819045750,
+		ESNT_CAMERA_MAYA = 1299013987,
+		ESNT_CAMERA_FPS = 1181573475,
+		ESNT_UNKNOWN = 1852534389,
+		ESNT_ANY = 1601793633
+	};
+
+
+
+} // end namespace scene
+} // end namespace irr
+

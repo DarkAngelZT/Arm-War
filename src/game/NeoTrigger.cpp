@@ -66,7 +66,7 @@ void NeoTrigger::Trigger(int tid, int argc, ...)
 			NeoEvent data2lua;
 			data2lua.nEventId = tid;
 			data2lua.data = param;
-			NeoScript::GetInstance()->ExecuteScriptedEventFunction(
+			NeoScript::getInstance()->ExecuteScriptedEventFunction(
 					str_trigger_func_name, data2lua);
 		}
 	}
@@ -91,7 +91,7 @@ void NeoTrigger::Trigger(int tid, int argc, va_list args)
 			NeoEvent data2lua;
 			data2lua.nEventId = tid;
 			data2lua.data = param;
-			NeoScript::GetInstance()->ExecuteScriptedEventFunction(
+			NeoScript::getInstance()->ExecuteScriptedEventFunction(
 					str_trigger_func_name, data2lua);
 		}
 	}
@@ -111,7 +111,7 @@ void NeoTrigger::Trigger(int tid, std::vector<std::string>& params)
 			NeoEvent data2lua;
 			data2lua.nEventId = tid;
 			data2lua.data = params;
-			NeoScript::GetInstance()->ExecuteScriptedEventFunction(
+			NeoScript::getInstance()->ExecuteScriptedEventFunction(
 					str_trigger_func_name, data2lua);
 		}
 	}

@@ -1,0 +1,7 @@
+class SfxManager
+{
+public:
+	void Init();
+
+	void AddSpriteTexture(std::string sprite_file, int row, int column);
+};

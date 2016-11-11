@@ -11,3 +11,4 @@
 #include "../game/NeoEvent.h"
 #include "../game/GameObject.h"
 #include "../game/NeoScene.h"
+#include "../Editor/NeoEditor.h"
