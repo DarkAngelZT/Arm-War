@@ -294,8 +294,8 @@ void NeoScript::GetScriptField(std::string valname)
 	}
 }
 
-void NeoScript::ExecuteScriptedFunction(std::string func_name,
-		std::vector<std::string>& params)
+void NeoScript::ExecuteScriptedFunction(const std::string& func_name,
+		const std::vector<std::string>& params)
 {
 	int top = lua_gettop(lua_S);
 	GetScriptField(func_name.c_str());
@@ -311,7 +311,7 @@ void NeoScript::ExecuteScriptedFunction(std::string func_name,
 	int nParams = params.size();
 	if (nParams > 0)
 	{
-		for (std::vector<std::string>::iterator iter = params.begin();
+		for (std::vector<std::string>::const_iterator iter = params.begin();
 				iter != params.end(); iter++)
 		{
 			lua_pushstring(lua_S, iter->c_str());
@@ -321,7 +321,7 @@ void NeoScript::ExecuteScriptedFunction(std::string func_name,
 	lua_settop(lua_S, top);
 }
 
-void NeoScript::ExecuteScriptedEventFunction(std::string& func_name,
+void NeoScript::ExecuteScriptedEventFunction(const std::string& func_name,
 		NeoEvent& e)
 {
 	int top = lua_gettop(lua_S);

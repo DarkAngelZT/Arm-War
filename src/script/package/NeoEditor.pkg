@@ -12,7 +12,12 @@ public:
 	static NeoEditor* getInstance();
 
 	void CreateFileOpenDialog(const std::string& lua_callback);
-	void ShowSelectionCursor(irr::scene::ISceneNode* node,bool visible = true);
+	void ShowSelectionCursor(bool visible = true, const irr::core::vector3d<float>& position = irr::core::vector3d<float>(0,0,0));
+	void setSelectionCursorPosition(const irr::core::vector3d<float>& position);
+	const irr::core::vector3d<float>& getSelectionCursorPosition();
+	irr::scene::ISceneNode* getSelectedSceneNode();
+	const irr::core::position2di& getMouseMoveDelta();
+	bool isSelectionCursor(irr::scene::ISceneNode*node);
 	void Init();
 	void CleanUp();
 };

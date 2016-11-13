@@ -34,7 +34,8 @@ public:
 		return sfx_manager.get();
 	}
 	std::string GetAvailableResolution();
-	irr::scene::IAnimatedMesh* GetMesh(std::string&file);
+	void setWindowCaption(const std::string& title);
+	irr::scene::IAnimatedMesh* getMesh(std::string&file);
 	irr::scene::IAnimatedMeshSceneNode* AddAnimatedMeshSceneNode(
 			irr::scene::IAnimatedMesh* mesh, irr::scene::ISceneNode* parent = 0,
 			int id = -1,
@@ -126,6 +127,7 @@ public:
 	void UnloadTexture(video::ITexture*texture);
 
 	float getFps();
+	std::vector<std::string> getMeshTexturePath(irr::scene::IMesh*mesh);
 	//-------c++ API---------//
 
 private:

@@ -1,6 +1,8 @@
 <Imageset autoScaled="false" imagefile="editor_icons.png" name="editor" nativeHorzRes="800" nativeVertRes="600" version="2">
-    <Image autoScaled="false" height="16" name="open" width="16" xPos="0" yPos="0" />
-    <Image autoScaled="false" height="16" name="move" width="16" xPos="16" yPos="0" />
-    <Image autoScaled="false" height="16" name="rotate" width="16" xPos="32" yPos="0" />
-    <Image autoScaled="false" height="16" name="scale" width="16" xPos="48" yPos="0" />
+    <Image autoScaled="false" height="16" name="copy" width="16" xPos="0" yPos="0" />
+    <Image autoScaled="false" height="16" name="open" width="16" xPos="16" yPos="0" />
+    <Image autoScaled="false" height="16" name="move" width="16" xPos="32" yPos="0" />
+    <Image autoScaled="false" height="16" name="scale" width="16" xPos="80" yPos="0" />
+    <Image height="16" name="rotate" width="16" xPos="49" yPos="0" />
+    <Image height="16" name="save" width="16" xPos="64" yPos="0" />
 </Imageset>

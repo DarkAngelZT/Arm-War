@@ -7,10 +7,11 @@ public:
 
 	SfxManager*getSfxManager();
 	std::string GetAvailableResolution();
+	void setWindowCaption(const std::string& title);
 
 	void RenderUI();
 
-	irr::scene::IAnimatedMesh* GetMesh(std::string&file);
+	irr::scene::IAnimatedMesh* getMesh(std::string&file);
 	irr::scene::IAnimatedMeshSceneNode* AddAnimatedMeshSceneNode(
 			irr::scene::IAnimatedMesh* mesh, irr::scene::ISceneNode* parent = 0,
 			int id = -1, const irr::core::vector3d<float>& position =
@@ -97,6 +98,7 @@ public:
 	bool loadScene(std::string file);
 
 	float getFps();
+	std::vector<std::string> getMeshTexturePath(irr::scene::IMesh*mesh);
 	void CleanUp();
 	irr::video::ITexture* LoadTexture(std::string& path);
 	void UnloadTexture(irr::video::ITexture*texture);

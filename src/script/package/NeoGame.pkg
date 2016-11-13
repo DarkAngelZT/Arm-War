@@ -1,6 +1,8 @@
 $#include "required.h"
 
 $pfile "Application.pkg"
+$pfile "std_vector.pkg"
+
 $pfile "aabbox3d.pkg"
 $pfile "dimension2d.pkg"
 $pfile "EMaterialFlags.pkg"

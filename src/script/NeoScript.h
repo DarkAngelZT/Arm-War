@@ -18,8 +18,8 @@ public:
 	int ExecuteScriptFile(std::string fname);
 	int ExecuteScriptGlobalFunc(std::string& func_name);
 	void ExecuteString(std::string& str);
-	void ExecuteScriptedFunction(std::string func_name,std::vector<std::string>&params);
-	void ExecuteScriptedEventFunction(std::string& func_name,NeoEvent&e);
+	void ExecuteScriptedFunction(const std::string& func_name,const std::vector<std::string>&params=std::vector<std::string>(0));
+	void ExecuteScriptedEventFunction(const std::string& func_name,NeoEvent&e);
 
 	std::string GetScriptGlobalValue_string(std::string valname);
 	int GetScriptGlobalValue_int(std::string valname);

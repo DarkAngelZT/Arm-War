@@ -1,0 +1,18 @@
+namespace std {
+
+class vector {
+
+	TOLUA_TEMPLATE_BIND(T, std::string, int, float)   // 添加我们想要的容器类型
+
+	void clear();
+	int size() const;
+
+	const T& operator[](int index) const;
+	T& operator[](int index);
+	void push_back(T val);
+
+	vector();
+	~vector();
+};
+
+}  // namespace std
