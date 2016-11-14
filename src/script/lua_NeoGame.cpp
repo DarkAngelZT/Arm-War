@@ -1,6 +1,6 @@
 /*
 ** Lua binding: NeoGame
-** Generated automatically by tolua++-1.0.93 on Sat Nov 12 17:12:24 2016.
+** Generated automatically by tolua++-1.0.93 on Sun Nov 13 17:27:26 2016.
 */
 
 #ifndef __cplusplus
@@ -169,7 +169,6 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"irr::io::IAttributeExchangingObject");
  tolua_usertype(tolua_S,"irr::core::dimension2d<unsigned>");
  tolua_usertype(tolua_S,"irr::core::vector2df");
- tolua_usertype(tolua_S,"std::vector<int>");
  tolua_usertype(tolua_S,"irr::core::aabbox3d<float>");
  tolua_usertype(tolua_S,"NeoEditor");
  tolua_usertype(tolua_S,"BasicExplosionEffectParams");
@@ -217,7 +216,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"irr::scene::ILightSceneNode");
  tolua_usertype(tolua_S,"irr::IReferenceCounted");
  tolua_usertype(tolua_S,"irr::scene::IParticleSphereEmitter");
- tolua_usertype(tolua_S,"irr::core::position2di");
+ tolua_usertype(tolua_S,"std::vector<int>");
  tolua_usertype(tolua_S,"irr::scene::IAnimatedMeshSceneNode");
  tolua_usertype(tolua_S,"irr::scene::IBillboardSceneNode");
  tolua_usertype(tolua_S,"irr::scene::IAnimatedMesh");
@@ -29800,6 +29799,39 @@ static int tolua_NeoGame_NeoEditor_getSelectionCursorPosition00(lua_State* tolua
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: setSelectionCursorScale of class  NeoEditor */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoEditor_setSelectionCursorScale00
+static int tolua_NeoGame_NeoEditor_setSelectionCursorScale00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoEditor",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoEditor* self = (NeoEditor*)  tolua_tousertype(tolua_S,1,0);
+  float scale = ((float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setSelectionCursorScale'", NULL);
+#endif
+  {
+   self->setSelectionCursorScale(scale);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setSelectionCursorScale'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: getSelectedSceneNode of class  NeoEditor */
 #ifndef TOLUA_DISABLE_tolua_NeoGame_NeoEditor_getSelectedSceneNode00
 static int tolua_NeoGame_NeoEditor_getSelectedSceneNode00(lua_State* tolua_S)
@@ -29827,38 +29859,6 @@ static int tolua_NeoGame_NeoEditor_getSelectedSceneNode00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'getSelectedSceneNode'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getMouseMoveDelta of class  NeoEditor */
-#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoEditor_getMouseMoveDelta00
-static int tolua_NeoGame_NeoEditor_getMouseMoveDelta00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"NeoEditor",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  NeoEditor* self = (NeoEditor*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getMouseMoveDelta'", NULL);
-#endif
-  {
-   const irr::core::position2di& tolua_ret = (const irr::core::position2di&)  self->getMouseMoveDelta();
-    tolua_pushusertype(tolua_S,(void*)&tolua_ret,"const irr::core::position2di");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getMouseMoveDelta'.",&tolua_err);
  return 0;
 #endif
 }
@@ -29893,6 +29893,40 @@ static int tolua_NeoGame_NeoEditor_isSelectionCursor00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'isSelectionCursor'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getSelectedCursorIndex of class  NeoEditor */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoEditor_getSelectedCursorIndex00
+static int tolua_NeoGame_NeoEditor_getSelectedCursorIndex00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoEditor",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"irr::scene::ISceneNode",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoEditor* self = (NeoEditor*)  tolua_tousertype(tolua_S,1,0);
+  irr::scene::ISceneNode* node = ((irr::scene::ISceneNode*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getSelectedCursorIndex'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getSelectedCursorIndex(node);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getSelectedCursorIndex'.",&tolua_err);
  return 0;
 #endif
 }
@@ -31672,9 +31706,10 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"ShowSelectionCursor",tolua_NeoGame_NeoEditor_ShowSelectionCursor01);
    tolua_function(tolua_S,"setSelectionCursorPosition",tolua_NeoGame_NeoEditor_setSelectionCursorPosition00);
    tolua_function(tolua_S,"getSelectionCursorPosition",tolua_NeoGame_NeoEditor_getSelectionCursorPosition00);
+   tolua_function(tolua_S,"setSelectionCursorScale",tolua_NeoGame_NeoEditor_setSelectionCursorScale00);
    tolua_function(tolua_S,"getSelectedSceneNode",tolua_NeoGame_NeoEditor_getSelectedSceneNode00);
-   tolua_function(tolua_S,"getMouseMoveDelta",tolua_NeoGame_NeoEditor_getMouseMoveDelta00);
    tolua_function(tolua_S,"isSelectionCursor",tolua_NeoGame_NeoEditor_isSelectionCursor00);
+   tolua_function(tolua_S,"getSelectedCursorIndex",tolua_NeoGame_NeoEditor_getSelectedCursorIndex00);
    tolua_function(tolua_S,"Init",tolua_NeoGame_NeoEditor_Init00);
    tolua_function(tolua_S,"CleanUp",tolua_NeoGame_NeoEditor_CleanUp00);
   tolua_endmodule(tolua_S);

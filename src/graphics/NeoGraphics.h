@@ -11,6 +11,7 @@
 #include "../game/stdafx.h"
 #include "sfx/SfxManager.h"
 #include <unordered_map>
+#include <functional>
 class GameObject;
 class SfxManager;
 using namespace irr;
@@ -129,7 +130,6 @@ public:
 	float getFps();
 	std::vector<std::string> getMeshTexturePath(irr::scene::IMesh*mesh);
 	//-------c++ API---------//
-
 private:
 	NeoGraphics();
 	virtual ~NeoGraphics();

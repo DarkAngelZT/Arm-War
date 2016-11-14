@@ -68,9 +68,17 @@ IDGenerator={
         self.ids={}
     end,
     Register=function (self,id)
-        ids[id]=true
+        self.ids[id]=true
+    end,
+    Unregister=function( self, id )
+        self.ids[id]=false
     end
 }
+
 function makeId()
     return IDGenerator:Generate()
+end
+
+function deleteId( id )
+    IDGenerator:Unregister(id)
 end

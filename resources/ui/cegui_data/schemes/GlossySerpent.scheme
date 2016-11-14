@@ -24,6 +24,7 @@ Last change:  $LastChangedDate: 2014-02-25 00:03:45 +0200 (Ma, 25 feb. 2014) $
 <GUIScheme version="5" name="GlossySerpent">
   <Imageset name="GlossySerpent" filename="GlossySerpent.imageset" />
   <Imageset name="GlossySerpentCursors" filename="GlossySerpentCursors.imageset" />
+  <Imageset name="editor" filename="editor_icon.imageset" />
   
   <!-- redefine both DejaVuSans*, DejaVuSerif* to DejaVuSans-HD*, DejaVuSerif-HD* -->
   <Font filename="DejaVuSans-HD-10.font" />
@@ -94,4 +95,6 @@ Last change:  $LastChangedDate: 2014-02-25 00:03:45 +0200 (Ma, 25 feb. 2014) $
 	<FalagardMapping windowType="GlossySerpent/Menubar"   targetType="CEGUI/Menubar"   renderer="Core/Menubar"   lookNFeel="GlossySerpent/Menubar" />
 	<FalagardMapping windowType="GlossySerpent/PopupMenu" targetType="CEGUI/PopupMenu" renderer="Core/PopupMenu" lookNFeel="GlossySerpent/PopupMenu" />
 	<FalagardMapping windowType="GlossySerpent/MenuItem"  targetType="CEGUI/MenuItem"  renderer="Core/MenuItem"  lookNFeel="GlossySerpent/MenuItem" />
+<!-- Added by neo @ Nov 2016-->
+      <FalagardMapping windowType="GlossySerpent/Tree" targetType="CEGUI/Tree"   renderer="Core/Tree"   lookNFeel="GlossySerpent/Tree" />
 </GUIScheme>

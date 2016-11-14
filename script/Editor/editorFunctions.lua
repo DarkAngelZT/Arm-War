@@ -101,7 +101,8 @@ function EditorObject:Clone()
 	obj.rotation=self.rotation
 	obj.scale=self.scale
 	obj.scene_node=self.scene_node
-
+	obj.mesh_path=self.mesh_path
+	obj.textures=self.textures
 	return obj
 end
 --[[map editor functions
@@ -125,6 +126,7 @@ function map_editor.RemoveObject(obj)
 				map_editor.node_object_table[node]=nil
 				node:remove()
 			end
+			deleteId(obj.id)
 			break
 		end
 	end
@@ -165,7 +167,7 @@ end
 --------------
 function map_editor.ImportStaticMesh( path, id )
 	local obj=EditorObject.new()
-	id=id or -1
+	id=id or makeId()
 	obj.id=id
 	obj.name="mesh"
 	obj.scene_type="mesh_static"
@@ -180,19 +182,21 @@ function map_editor.ImportStaticMesh( path, id )
 	node:setID(id)
 	obj.setSceneNode(node)
 	map_editor.AddObject(obj)
+	map_editor.isOnScene=true
 end
 
 function map_editor.ImportAnimatedMesh( path, id )
 	local obj=EditorObject.new()
-	id=id or -1
+	id=id or makeId()
 	obj.id=id
 
 	map_editor.AddObject(obj)
+	map_editor.isOnScene=true
 end
 
 function map_editor.ImportOctreeMesh( path, id )
 	local obj=EditorObject.new()
-	id=id or -1
+	id=id or makeId()
 	obj.id=id
 	obj.name="octree"
 	obj.scene_type="octree"
@@ -207,4 +211,5 @@ function map_editor.ImportOctreeMesh( path, id )
 	node:setID(id)
 	obj.setSceneNode(node)
 	map_editor.AddObject(obj)
+	map_editor.isOnScene=true
 end

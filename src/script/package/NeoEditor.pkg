@@ -15,9 +15,10 @@ public:
 	void ShowSelectionCursor(bool visible = true, const irr::core::vector3d<float>& position = irr::core::vector3d<float>(0,0,0));
 	void setSelectionCursorPosition(const irr::core::vector3d<float>& position);
 	const irr::core::vector3d<float>& getSelectionCursorPosition();
+	void setSelectionCursorScale(float scale);
 	irr::scene::ISceneNode* getSelectedSceneNode();
-	const irr::core::position2di& getMouseMoveDelta();
 	bool isSelectionCursor(irr::scene::ISceneNode*node);
+	int getSelectedCursorIndex(irr::scene::ISceneNode*node);
 	void Init();
 	void CleanUp();
 };

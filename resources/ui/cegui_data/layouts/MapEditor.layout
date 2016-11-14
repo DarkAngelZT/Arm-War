@@ -180,7 +180,7 @@
                 </Window>
             </Window>
         </Window>
-        <Window type="GlossySerpent/FrameWindow" name="Propety" >
+        <Window type="GlossySerpent/FrameWindow" name="Property" >
             <Property name="Area" value="{{0,0},{0,350},{0,229},{0,660}}" />
             <Property name="Text" value="Property" />
             <Property name="Alpha" value="0.9" />
@@ -209,6 +209,12 @@
                 <Property name="NonClient" value="true" />
                 <Property name="AlwaysOnTop" value="true" />
             </AutoWindow>
+            <Window type="GlossySerpent/Tree" name="Tree" >
+                <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <Property name="VerticalScrollbar" value="true" />
+                </AutoWindow>
+            </Window>
         </Window>
     </Window>
 </GUILayout>

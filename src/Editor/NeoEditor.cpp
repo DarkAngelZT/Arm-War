@@ -28,7 +28,7 @@ NeoEditor* NeoEditor::getInstance()
 void NeoEditor::CreateFileOpenDialog(const std::string& lua_callback)
 {
 	NeoGraphics::getInstance()->getGuiEnv()->addFileOpenDialog(
-			L"Please choose a file.");
+			L"Please choose a file.", true, 0, -1, true);
 	file_open_callback_lua = lua_callback;
 }
 
@@ -83,70 +83,6 @@ bool NeoEditor::OnEvent(const SEvent& event)
 		}
 		break;
 	}
-	case EET_KEY_INPUT_EVENT:
-	{
-		break;
-	}
-	case EET_MOUSE_INPUT_EVENT:
-	{
-		switch (event.MouseInput.Event)
-		{
-		case EMIE_LMOUSE_PRESSED_DOWN:
-		{
-			UpdateCursorPosInfo(event);
-			NeoScript::getInstance()->ExecuteScriptedFunction("map_editor.OnLButtonDown");
-			break;
-		}
-		case EMIE_RMOUSE_PRESSED_DOWN:
-		{
-			UpdateCursorPosInfo(event);
-			NeoScript::getInstance()->ExecuteScriptedFunction("map_editor.OnRButtonDown");
-			break;
-		}
-		case EMIE_LMOUSE_LEFT_UP:
-		{
-			UpdateCursorPosInfo(event);
-			NeoScript::getInstance()->ExecuteScriptedFunction("map_editor.OnLButtonUp");
-			break;
-		}
-		case EMIE_RMOUSE_LEFT_UP:
-		{
-			UpdateCursorPosInfo(event);
-			NeoScript::getInstance()->ExecuteScriptedFunction("map_editor.OnRButtonUp");
-			break;
-		}
-		case EMIE_MOUSE_WHEEL:
-		{
-			std::vector<std::string> params;
-			char in_val[4];
-			sprintf(in_val, "%.0f", event.MouseInput.Wheel);
-			params.push_back(in_val);
-			NeoScript::getInstance()->ExecuteScriptedFunction("map_editor.OnMouseWheel",params);
-			break;
-		}
-		case EMIE_MOUSE_MOVED:
-		{
-			UpdateCursorPosInfo(event);
-			NeoScript::getInstance()->ExecuteScriptedFunction("map_editor.OnMouseMove");
-			break;
-		}
-		case EMIE_MMOUSE_PRESSED_DOWN:
-		{
-			UpdateCursorPosInfo(event);
-			NeoScript::getInstance()->ExecuteScriptedFunction("map_editor.OnMButtonDown");
-			break;
-		}
-		case EMIE_MMOUSE_LEFT_UP:
-		{
-			UpdateCursorPosInfo(event);
-			NeoScript::getInstance()->ExecuteScriptedFunction("map_editor.OnMButtonUp");
-			break;
-		}
-		default:
-			break;
-		}
-		break;
-	}
 	default:
 		break;
 	}
@@ -156,6 +92,7 @@ bool NeoEditor::OnEvent(const SEvent& event)
 void NeoEditor::setSelectionCursorPosition(const irr::core::vector3df& position)
 {
 	m_selection_cursor->setPosition(position);
+	NeoScript::getInstance()->ExecuteScriptedFunction("map_editor.onSelectionCursorMove");
 }
 
 const irr::core::vector3df& NeoEditor::getSelectionCursorPosition()
@@ -173,16 +110,11 @@ irr::scene::ISceneNode* NeoEditor::getSelectedSceneNode()
 	return node;
 }
 
-const irr::core::position2di& NeoEditor::getMouseMoveDelta()
-{
-	return cursor_move_delta;
-}
-
 bool NeoEditor::isSelectionCursor(irr::scene::ISceneNode* node)
 {
-	for(int i=0;i<3;i++)
+	for (int i = 0; i < 3; i++)
 	{
-		if(m_arrows[i]==node)
+		if (m_arrows[i] == node)
 		{
 			return true;
 		}
@@ -190,37 +122,51 @@ bool NeoEditor::isSelectionCursor(irr::scene::ISceneNode* node)
 	return false;
 }
 
+void NeoEditor::setSelectionCursorScale(float scale)
+{
+	m_selection_cursor->setScale(core::vector3df(scale));
+}
+
+int NeoEditor::getSelectedCursorIndex(irr::scene::ISceneNode* node)
+{
+	for (int i = 0; i < 3; i++)
+	{
+		if (m_arrows[i] == node)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
 void NeoEditor::CreateSelectionCursor()
 {
-	float length = 15.0f;
-	irr::scene::IAnimatedMesh* x_arrow_mesh =
+	float length = 10.0f;
+	m_arrow_mesh[0] =
 			NeoGraphics::getInstance()->getIrrSceneManger()->addArrowMesh(
 					"selectionCursorX", video::SColor(255, 255, 0, 0),
-					video::SColor(255, 255, 0, 0), 4, 8, length, 12, 0.6f,
-					1.2f); //red
-	irr::scene::IAnimatedMesh* y_arrow_mesh =
+					video::SColor(255, 255, 0, 0), 4, 8, length, 8, 0.4f, 1.0f); //red
+	m_arrow_mesh[1] =
 			NeoGraphics::getInstance()->getIrrSceneManger()->addArrowMesh(
 					"selectionCursorY", video::SColor(255, 0, 0, 255),
-					video::SColor(255, 0, 0, 255), 4, 8, length, 12, 0.6f,
-					1.2f); //blue
-	irr::scene::IAnimatedMesh* z_arrow_mesh =
+					video::SColor(255, 0, 0, 255), 4, 8, length, 8, 0.4f, 1.0f); //blue
+	m_arrow_mesh[2] =
 			NeoGraphics::getInstance()->getIrrSceneManger()->addArrowMesh(
 					"selectionCursorZ", video::SColor(255, 0, 255, 0),
-					video::SColor(255, 0, 255, 0), 4, 8, length, 12, 0.6f,
-					1.2f); //green
+					video::SColor(255, 0, 255, 0), 4, 8, length, 8, 0.4f, 1.0f); //green
 
 	m_arrows[0] =
 			NeoGraphics::getInstance()->getIrrSceneManger()->addAnimatedMeshSceneNode(
-					x_arrow_mesh); //x axis
+					m_arrow_mesh[0]); //x axis
 	m_arrows[0]->setRotation(core::vector3df(0, 0, -90));
 
 	m_arrows[1] =
 			NeoGraphics::getInstance()->getIrrSceneManger()->addAnimatedMeshSceneNode(
-					y_arrow_mesh); //y axis(up)
+					m_arrow_mesh[1]); //y axis(up)
 
 	m_arrows[2] =
 			NeoGraphics::getInstance()->getIrrSceneManger()->addAnimatedMeshSceneNode(
-					z_arrow_mesh); //z axis*/
+					m_arrow_mesh[2]); //z axis*/
 	m_arrows[2]->setRotation(core::vector3df(90, 0, 0));
 	//cursor controller root
 	m_selection_cursor = NeoGraphics::getInstance()->AddEmptySceneNode();
@@ -228,9 +174,9 @@ void NeoEditor::CreateSelectionCursor()
 	{
 		m_arrows[i]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
 		m_arrows[i]->setMaterialFlag(irr::video::EMF_ZBUFFER, false);
+		m_arrows[i]->setMaterialType(irr::video::EMT_TRANSPARENT_ALPHA_CHANNEL);
 		m_selection_cursor->addChild(m_arrows[i]);
 	}
 
 	m_selection_cursor->setVisible(false);
-
 }
