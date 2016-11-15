@@ -18,7 +18,8 @@ property_wnd:addColumn("Property", 0, CEGUI.PropertyHelper:stringToUDim("{0.5,0}
 property_wnd:addColumn("Value", 1, CEGUI.PropertyHelper:stringToUDim("{0.5,0}"))
 root:getChild("Property"):addChild(property_wnd)
 property_wnd:setProperty("ColumnsMovable",CEGUI.PropertyHelper:boolToString(false))
-property_wnd:addRow()
+map_editor.property_wnd=property_wnd
+map_editor.tree=CEGUI.toTree(root:getChild("Scene/Tree"))
 --注册事件
 local menubar="Menubar"
 local fileOption=menubar.."/File/PopupMenu"

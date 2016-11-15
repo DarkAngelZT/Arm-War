@@ -14,6 +14,10 @@ function map_editor.Init()
 	IDGenerator:Reset()
 	map_editor.mouse_states:reset()
 	map_editor.isOnScene=true
+	--property window
+	map_editor.InitPropertyWindow()
+	--scene window
+	map_editor.InitSceneWindow()
 	--map name
 	map_editor.map_name="untitiled"
 	-- camera
@@ -28,7 +32,17 @@ function map_editor.Init()
 	map_editor.skyboxTexture=graphicWrapper:LoadTexture(DIR_RESOURCES.."sfx/env/skydome/cloud_skydome.jpg")
 	map_editor.skybox=graphicWrapper:AddSkyDomeSceneNode(map_editor.skyboxTexture,16,8,1.0)
 	--default ambient colour
-	graphicWrapper:SetAmbientLight(irr.video.SColor:new_local(255,255,253,242));
+	graphicWrapper:SetAmbientLight(irr.video.SColor:new_local(255,255,253,242))
+	--add root object
+	map_editor.root_object={
+		["ambient colour"]=irr.video.SColor:new_local(255,255,253,242),
+		["skydome texure"]=DIR_RESOURCES.."sfx/env/skydome/cloud_skydome.jpg",
+		property={
+			["ambient colour"]={},
+			["skydome texure"]={}
+		}
+	}
+	map_editor.UpdatePropertyWindow(map_editor.root_object)
 end
 
 --------------------------------------------
@@ -45,10 +59,164 @@ function map_editor.CleanUp()
 	-- clear scene node from c++ side
 	NeoEditor:getInstance():CleanUp()
 	NeoGraphics:getInstance():UnloadTexture(map_editor.skyboxTexture)
+	--clear property window
+	map_editor.ClearPropertyWindow()
+	--clear scene window
+	map_editor.ClearSceneWindow()
 	--restore window caption
 	NeoGraphics:getInstance():setWindowCaption(ApplicationSettings.caption)
 end
+------------------------------
+-- property window control
+------------------------------
+map_editor.property_parser={
+	["irr::core::vector3d<float>"] = function(text)
+		local parse=loadstring("return "..text)
+		if parse then
+			local raw=parse(text)
+			return irr.core.vector3df(raw[1],raw[2],raw[3])
+		end
+	end,
+	["irr.video.SColor"] = function( text )
+		local parse=loadstring("return "..text)
+		if parse then
+			local raw=parse(text)
+			for _,v in ipairs({'a','r','g','b'}) do
+				if not raw[v] or type(raw[v]) ~= "number" then
+					return
+				end
+			end
+			return irr.core.SColor:new_local(raw.a,raw.r,raw.g,raw.b)
+		end
+	end,
+	StringList = function ( text )
+		paths=split(text,":")
+		return paths
+	end,
+	string = function (text)
+		local parse=loadstring("return \""..text+"\"")
+		if parse then
+			local raw=parse(text)
+			return raw
+		end
+	end,
+	number = function ( text )
+		local parse=loadstring("return "..text)
+		if parse then
+			local raw=parse(text)
+			return raw
+		end
+	end,
+	int = function ( text )
+		local parse=loadstring("return "..text)
+		if parse then
+			local raw=parse(text)
+			return raw
+		end
+	end,
+	boolean=function ( text )
+		local parse=loadstring("return "..text)
+		if parse then
+			local raw=parse(text)
+			if type(raw) == "boolean" then
+				return raw
+			end
+		end
+	end
+}
+map_editor.property_converter={
+	["irr::core::vector3d<float>"] = function(vector)
+		return string.format("{%f, %f, %f}", vector.X, vector.Y, vector.Z)
+	end,
+	["irr::video::SColor"] = function( colour )
+		return string.format("{a=%d, r=%d, g=%d, b=%d}", 
+			colour:getAlpha(),colour:getRed(),colour:getGreen(),colour:getBlue())
+	end,
+	StringList = function ( list )
+		paths=""
+		if #list ==0 then
+			return paths
+		end
+		paths=list[1]
+		for i=1,#list do
+			paths=paths..":"..list[i]
+		end
+		return paths
+	end,
+	string = function (text)
+		return text
+	end,
+	number = function ( n )
+		return string.format("%f",n)
+	end,
+	int = function ( n )
+		return string.format("%d",n)
+	end,
+	boolean = function ( b )
+		return tostring(b)
+	end
+}
+function map_editor.InitPropertyWindow()
+	local wnd=map_editor.property_wnd
+end
 
+function map_editor.UpdatePropertyWindow( object )
+	local wnd=map_editor.property_wnd
+	wnd:resetList()
+	local row=0
+	if object == map_editor.root_object then
+		--add a "name" row to root object
+		wnd:addRow()
+		--key
+		local keycol=CEGUI.createListboxTextItem("Node Type",0)
+		keycol:setSelectionBrushImage("GlossySerpent/ListboxSelectionBrush")
+		--value
+		local valuecol=CEGUI.createListboxTextItem("Root Object",0,nil,true)
+		wnd:setItem(keycol,0,row)
+		wnd:setItem(valuecol,1,row)
+		row=row+1
+	end
+	for k,v in pairs(object.property) do
+		-- add row
+		wnd:addRow()
+		-- --key
+		local display=v.display or k
+		local keycol=CEGUI.createListboxTextItem(display,0)
+		keycol:setSelectionBrushImage("GlossySerpent/ListboxSelectionBrush")
+		-- --value
+		local datatype= v.type or tolua.type(object[k]):gsub("const ","")
+		local value=map_editor.property_converter[datatype](object[k])
+		local valuecol=CEGUI.createListboxTextItem(value)
+		wnd:setItem(keycol,0,row)
+		wnd:setItem(valuecol,1,row)
+		object.property[k].list_item=valuecol
+		row=row+1
+	end
+	wnd:autoSizeColumnHeader(1)
+end
+
+function map_editor.UpdatePropertyWindowSingleRow( object, key )
+	local wnd=map_editor.property_wnd
+	local data = object.property[key]
+	local datatype = data.type or tolua.type(object[key]):gsub("const ","")
+	local value=map_editor.property_converter[datatype](object[key])
+	local item = data.list_item
+	item:setText(value)
+	wnd:invalidate(true)
+end
+
+function map_editor.ClearPropertyWindow()
+	map_editor.property_wnd:resetList()
+end
+------------------------------
+-- scene window control
+------------------------------
+function map_editor.InitSceneWindow()
+	local tree=map_editor.tree
+end
+function map_editor.ClearSceneWindow()
+	map_editor.tree:resetList()
+end
 --------------------------------------------
 -- Event Handler
 --------------------------------------------
@@ -272,7 +440,6 @@ function map_editor.OnMouseMove(args)
 				elseif cursor == 2 then
 					delta.Z=event.moveDelta.x*zdir
 				end
-				print(event.moveDelta.x,event.moveDelta.y)
 				-- update position
 				for _,v in ipairs(map_editor.selected_objects) do
 					v:setPosition(v:getPosition()+delta)
@@ -281,7 +448,9 @@ function map_editor.OnMouseMove(args)
 				NeoEditor:getInstance():setSelectionCursorPosition(
 					NeoEditor:getInstance():getSelectionCursorPosition()+delta)
 				--update property panel
-
+				map_editor.UpdatePropertyWindowSingleRow(
+					map_editor.node_object_table[map_editor.selected_objects[1]:getID()]
+					,"position")
 			elseif #map_editor.selected_objects >0 then
 				--move object according to screen
 				local camera=map_editor.camera
@@ -302,7 +471,9 @@ function map_editor.OnMouseMove(args)
 				NeoEditor:getInstance():setSelectionCursorPosition(
 					NeoEditor:getInstance():getSelectionCursorPosition()+delta)
 				--update property panel
-
+				map_editor.UpdatePropertyWindowSingleRow(
+					map_editor.node_object_table[map_editor.selected_objects[1]:getID()]
+					,"position")
 			end
 		end
 	end
@@ -336,9 +507,11 @@ function map_editor.OnLButtonDown(event)
 		map_editor.ShowCursor(true, node:getAbsolutePosition())
 		map_editor:AddSelectedObject(node)
 		map_editor.mouse_states.onSelectionCursor=false
-			map_editor.mouse_states.onSelectionCursorIndex = -1
+		map_editor.mouse_states.onSelectionCursorIndex = -1
+		map_editor.UpdatePropertyWindow(map_editor.node_object_table[node:getID()])
 	else
 		map_editor.ShowCursor(false)
+		map_editor.UpdatePropertyWindow(map_editor.root_object)
 	end
 end
 
@@ -371,9 +544,11 @@ function map_editor.OnLButtonUp(event)
 		map_editor.ShowCursor(true, node:getAbsolutePosition())
 		map_editor:AddSelectedObject(node)
 		map_editor.mouse_states.onSelectionCursor=false
-			map_editor.mouse_states.onSelectionCursorIndex = -1
+		map_editor.mouse_states.onSelectionCursorIndex = -1
+		map_editor.UpdatePropertyWindow(map_editor.node_object_table[node:getID()])
 	else
 		map_editor.ShowCursor(false)
+		map_editor.UpdatePropertyWindow(map_editor.root_object)
 	end
 
 end

@@ -1,4 +1,6 @@
---define basice object for map editor
+--[[************************************
+ define basice object for map editor
+**************************************]]
 EditorObject=class()
 EditorObject.name="mesh"
 EditorObject.id=-1
@@ -10,6 +12,16 @@ EditorObject.scale=irr.core.vector3df:new_local(1,1,1)
 EditorObject.scene_node=nil
 EditorObject.mesh_path=nil
 EditorObject.textures={}
+--property table: property name --> property row id
+EditorObject.property={
+	name={},
+	id={readOnly=true,type="int"},
+	scene_type={display="Node Type"},
+	physics_type={display="Physics Type"},
+	position={}, rotation={},scale={},
+	mesh_path={display="Mesh"},
+	textures={type="StringList"}
+}
 
 function EditorObject:setID( id )
 	self.id=id
@@ -43,13 +55,12 @@ function EditorObject:setScale( scale )
 end
 
 function EditorObject:setSceneNode( node )
-	-- body
 	if node then
 		self.scene_node=node
 		self.position=node:getPosition()
 		self.rotation=node:getRotation()
 		self.scale=node:getScale()
-		map_editor.node_object_table[node]=self
+		map_editor.node_object_table[self.id]=self
 	end
 end
 ------------------------------
@@ -105,9 +116,25 @@ function EditorObject:Clone()
 	obj.textures=self.textures
 	return obj
 end
---[[map editor functions
+--[[*****************************************
+ define animated object based on basic object
+*******************************************]]
+--[[*****************************************
+ define billboard object based on basic object
+*******************************************]]
+--[[*****************************************
+ define light object based on basic object
+*******************************************]]
+--[[*****************************************
+ define spawn point based on basic object
+*******************************************]]
+--[[**************************************
+map editor functions
 these are additional functions for map_editor
-]]
+******************************************]]
+--------------------------------
+----- map editor functions -----
+--------------------------------
 --objects
 map_editor.objects={}
 --object look up table for reverse look up
@@ -123,7 +150,7 @@ function map_editor.RemoveObject(obj)
 			table.remove(map_editor.objects,obj)
 			local node=obj.scene_node
 			if node then
-				map_editor.node_object_table[node]=nil
+				map_editor.node_object_table[obj.id]=nil
 				node:remove()
 			end
 			deleteId(obj.id)
@@ -140,8 +167,8 @@ function map_editor.WriteVector3df( fileWriter, vector_name ,vector )
 end
 
 function map_editor.WriteSColor( fileWriter, scolor_name, color )
-	fileWriter:write(string.format("%s = irr.video.SColor:new_local(0x%x)\n",
-			scolor_name, color.color))
+	fileWriter:write(string.format("%s = irr.video.SColor:new_local(%d,%d,%d)\n",
+			scolor_name, color:getAlpha(), color:getRed(), color:getGreen(), color:getBlue()))
 end
 
 function map_editor.WriteString( fileWriter, string_name, value )
@@ -180,7 +207,7 @@ function map_editor.ImportStaticMesh( path, id )
 		obj.textures[#obj.textures+1]=list_path[i]
 	end
 	node:setID(id)
-	obj.setSceneNode(node)
+	obj:setSceneNode(node)
 	map_editor.AddObject(obj)
 	map_editor.isOnScene=true
 end
@@ -209,7 +236,7 @@ function map_editor.ImportOctreeMesh( path, id )
 		obj.textures[#obj.textures+1]=list_path[i]
 	end
 	node:setID(id)
-	obj.setSceneNode(node)
+	obj:setSceneNode(node)
 	map_editor.AddObject(obj)
 	map_editor.isOnScene=true
 end
