@@ -87,6 +87,15 @@ bool NeoEditor::OnEvent(const SEvent& event)
 						file_open_callback_lua, param);
 			break;
 		}
+		case irr::gui::EGET_FILE_CHOOSE_DIALOG_CANCELLED:
+		{
+			if (!file_open_callback_lua.empty())
+				NeoScript::getInstance()->ExecuteScriptedFunction(
+						file_open_callback_lua);
+			break;
+		}
+		default:
+			break;
 		}
 		break;
 	}
@@ -119,11 +128,11 @@ irr::scene::ISceneNode* NeoEditor::getSelectedSceneNode()
 	core::triangle3df outTriangle;
 	scene::ISceneNode* outNode;
 	//detect cursor first
-	for(int i=0;i<3;i++)
+	for (int i = 0; i < 3; i++)
 	{
-		if(colmgr->getCollisionPoint(
-				raytrace,m_arrows[i]->getTriangleSelector(),
-				outCollisionPoint,outTriangle,outNode))
+		if (colmgr->getCollisionPoint(raytrace,
+				m_arrows[i]->getTriangleSelector(), outCollisionPoint,
+				outTriangle, outNode))
 		{
 			return outNode;
 		}
@@ -174,14 +183,17 @@ void NeoEditor::setSceneNodeTriangleSelector(irr::scene::ISceneNode* node,
 	irr::scene::ESCENE_NODE_TYPE node_type = node->getType();
 	if (type == "normal")
 	{
-		switch(node_type){
-		case irr::scene::ESNT_ANIMATED_MESH :
+		switch (node_type)
+		{
+		case irr::scene::ESNT_ANIMATED_MESH:
 		{
 			selector = smgr->createTriangleSelector(
 					static_cast<scene::IAnimatedMeshSceneNode*>(node));
 			break;
 		}
-		case scene::ESNT_MESH : case scene::ESNT_CUBE : case scene::ESNT_SPHERE :
+		case scene::ESNT_MESH:
+		case scene::ESNT_CUBE:
+		case scene::ESNT_SPHERE:
 		{
 			selector = smgr->createTriangleSelector(
 					static_cast<scene::IMeshSceneNode*>(node)->getMesh(), node);
@@ -204,7 +216,9 @@ void NeoEditor::setSceneNodeTriangleSelector(irr::scene::ISceneNode* node,
 							static_cast<scene::IAnimatedMeshSceneNode*>(node)->getMesh(),
 							node, 128);
 			break;
-		case scene::ESNT_MESH : case scene::ESNT_CUBE : case scene::ESNT_SPHERE :
+		case scene::ESNT_MESH:
+		case scene::ESNT_CUBE:
+		case scene::ESNT_SPHERE:
 			selector = smgr->createOctreeTriangleSelector(
 					static_cast<scene::IMeshSceneNode*>(node)->getMesh(), node,
 					128);

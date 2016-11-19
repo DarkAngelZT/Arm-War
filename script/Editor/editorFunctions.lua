@@ -278,6 +278,10 @@ end
 --import functions
 --------------
 function map_editor.ImportStaticMesh( path, id )
+	if not path then
+		-- cancel button is clicked
+		map_editor.isOnScene=true
+	end
 	local obj=EditorObject.new()
 	id=id or makeId()
 	obj.id=id
@@ -300,6 +304,10 @@ function map_editor.ImportStaticMesh( path, id )
 end
 
 function map_editor.ImportAnimatedMesh( path, id )
+	if not path then
+		-- cancel button is clicked
+		map_editor.isOnScene=true
+	end
 	local obj=EditorObject.new()
 	id=id or makeId()
 	obj.id=id
@@ -310,6 +318,10 @@ function map_editor.ImportAnimatedMesh( path, id )
 end
 
 function map_editor.ImportOctreeMesh( path, id )
+	if not path then
+		-- cancel button is clicked
+		map_editor.isOnScene=true
+	end
 	local obj=EditorObject.new()
 	id=id or makeId()
 	obj.id=id

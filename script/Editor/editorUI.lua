@@ -710,7 +710,7 @@ function map_editor.OnKeyDown( args )
 	end
 	-- handle multi select event
 	map_editor.tree:setMultiselectEnabled(map_editor.key_states.control)
-	print(g_ui_table.editor:isCapturedByChild())
+	print(map_editor.property_editbox:hasInputFocus())
 
 end
 
