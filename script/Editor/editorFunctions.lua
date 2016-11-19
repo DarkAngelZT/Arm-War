@@ -281,6 +281,7 @@ function map_editor.ImportStaticMesh( path, id )
 	if not path then
 		-- cancel button is clicked
 		map_editor.isOnScene=true
+		return
 	end
 	local obj=EditorObject.new()
 	id=id or makeId()
@@ -307,6 +308,7 @@ function map_editor.ImportAnimatedMesh( path, id )
 	if not path then
 		-- cancel button is clicked
 		map_editor.isOnScene=true
+		return
 	end
 	local obj=EditorObject.new()
 	id=id or makeId()
@@ -321,6 +323,7 @@ function map_editor.ImportOctreeMesh( path, id )
 	if not path then
 		-- cancel button is clicked
 		map_editor.isOnScene=true
+		return
 	end
 	local obj=EditorObject.new()
 	id=id or makeId()
