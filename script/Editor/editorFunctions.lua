@@ -54,7 +54,7 @@ EditorObject.property={
 		end
 	},
 	mesh_path={
-		display="Mesh",
+		readOnly=true,display="Mesh",
 		set = function( obj, text )
 			obj.mesh_path=text
 		end
@@ -103,7 +103,7 @@ function EditorObject:setRotation( rotation )
 	-- body
 	if self.scene_node then
 		self.rotation=rotation
-		self.scene_node:setRotaion(rotation)
+		self.scene_node:setRotation(rotation)
 	end
 end
 

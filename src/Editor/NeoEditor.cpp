@@ -219,6 +219,7 @@ void NeoEditor::setSceneNodeTriangleSelector(irr::scene::ISceneNode* node,
 		case scene::ESNT_MESH:
 		case scene::ESNT_CUBE:
 		case scene::ESNT_SPHERE:
+		case scene::ESNT_OCTREE:
 			selector = smgr->createOctreeTriangleSelector(
 					static_cast<scene::IMeshSceneNode*>(node)->getMesh(), node,
 					128);

@@ -26,24 +26,27 @@ map_editor.tree=CEGUI.toTree(root:getChild("Scene/Tree"))
 --注册事件
 local menubar="Menubar"
 local fileOption=menubar.."/File/PopupMenu"
-
+--file menu
 root:getChild(fileOption.."/New"):subscribeEvent("Clicked","map_editor.Menu_File_callback")
 root:getChild(fileOption.."/Open"):subscribeEvent("Clicked","map_editor.Menu_File_callback")
 root:getChild(fileOption.."/Save"):subscribeEvent("Clicked","map_editor.Menu_File_callback")
 root:getChild(fileOption.."/Quit"):subscribeEvent("Clicked","map_editor.Menu_File_callback")
-
+--insert menu
 local insertOption=menubar.."/Insert/PopupMenu"
 root:getChild(insertOption.."/static_mesh"):subscribeEvent("Clicked","map_editor.Menu_Insert_callback")
 root:getChild(insertOption.."/animated_mesh"):subscribeEvent("Clicked","map_editor.Menu_Insert_callback")
 root:getChild(insertOption.."/oct"):subscribeEvent("Clicked","map_editor.Menu_Insert_callback")
 root:getChild(insertOption.."/billboard"):subscribeEvent("Clicked","map_editor.Menu_Insert_callback")
 root:getChild(insertOption.."/light"):subscribeEvent("Clicked","map_editor.Menu_Insert_callback")
-
+--property window
 property_wnd:subscribeEvent("SelectionChanged","map_editor.PropertyItemSelected")
 root:getChild("Property/submit"):subscribeEvent("Clicked","map_editor.PropertyChangeSubmitted")
-
+--tree
 map_editor.tree:subscribeEvent("SelectionChanged","map_editor.SceneTreeItemSelected")
-
+-- tool bar
+for _,v in pairs(map_editor.toolbar) do
+	v:subscribeEvent("Clicked","map_editor.ToolbarCallback")
+end
 -- mouse and key event
 root:subscribeEvent("MouseButtonDown","map_editor.OnMouseButtonDownEvent")
 root:subscribeEvent("MouseButtonUp","map_editor.OnMouseButtonUpEvent")

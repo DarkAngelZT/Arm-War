@@ -1,12 +1,29 @@
 map_editor={}
 
 map_editor.isOnScene=true
-map_editor.edit_mode=NeoEditor.EDITOR_SELECT
+map_editor.edit_mode=NeoEditor.EDITOR_MOVE
 map_editor.key_states=
 {
 	control=false,
 	shift=true
 }
+-- scene node icons
+map_editor.scene_node_icon=
+{
+	icon_root="editor/",
+	mesh_static="sceneNode_mesh",
+	mesh_animated="sceneNode_animated",
+	billboard="sceneNode_billboard",
+	light="sceneNode_light",
+	octree="sceneNode_octree",
+	event_point="event_point",
+	cube="sceneNode_cube",
+	sphere="sceneNode_sphere",
+	particle_sys="sceneNode_particleSystem",
+	camera="sceneNode_camera",
+	unknown="sceneNode_unknown"
+}
+dofile(DIR_SCRIPT.."Editor/toolbar.lua")
 --------------------------------------------
 -- initialize
 --------------------------------------------
@@ -19,6 +36,9 @@ function map_editor.Init()
 	IDGenerator:Reset()
 	map_editor.mouse_states:reset()
 	map_editor.isOnScene=true
+	-- reset tool bar state
+	map_editor.edit_mode=NeoEditor.EDITOR_MOVE
+	map_editor.InitToolbar()
 	--property window
 	map_editor.InitPropertyWindow()
 	--map name
@@ -231,6 +251,8 @@ function map_editor.InitSceneWindow()
 	local info=map_editor.scene_wnd_info
 	local root_node = CEGUI.createTreeItem("root",0)
 	root_node:setSelectionBrushImage("GlossySerpent/TextSelectionBrush")
+	root_node:setIcon(CEGUI.ImageManager:getSingleton():get(
+		map_editor.scene_node_icon.icon_root..map_editor.scene_node_icon.unknown))
 	tree:addItem(root_node)
 	info.root={
 		object=map_editor.root_object,
@@ -256,7 +278,12 @@ function map_editor.AddObjectToSceneWindow( obj, selected )
 		selected=selected
 	end
 	local new_node = CEGUI.createTreeItem(obj.name or obj.scene_type)
+	local icon_path = map_editor.scene_node_icon[obj.scene_type] or 
+		map_editor.scene_node_icon.unknown
+	local icon = CEGUI.ImageManager:getSingleton():get(
+		map_editor.scene_node_icon.icon_root..icon_path)
 	new_node:setID(obj.id)
+	new_node:setIcon(icon)
 	new_node:setSelectionBrushImage("GlossySerpent/TextSelectionBrush")
 	info[obj.id]={
 		object=obj,
@@ -589,91 +616,136 @@ function map_editor.OnMouseMove(args)
 		local pos = camera:getPosition()
 		local target=camera:getTarget()
 		local verizon_vect=pos-target
+		if map_editor.key_states.control then
+			-- 平移相机
+			verizon_vect:normalize()
+			local upaxis = irr.core.vector3df:new_local(camera:getUpVector())
+			local axis=upaxis:crossProduct(verizon_vect)
+			upaxis=verizon_vect:crossProduct(axis)
+			axis=axis*event.moveDelta.x
+			upaxis=upaxis*event.moveDelta.y
+			axis:normalize()
+			upaxis:normalize()
+			local delta = axis+upaxis
+			camera:setPosition(pos+delta)
+			camera:setTarget(target+delta)
+		else 
+			--旋转相机
+			local rotation_y=irr.core.vector3df:new_local(0,event.moveDelta.x,0)
+			local mat_y=irr.core.matrix4:new_local()
+			local axis=verizon_vect:crossProduct(camera:getUpVector())
+			axis:normalize()
+			mat_y:setRotationAxisRadians(math.rad(event.moveDelta.y),axis)
+			mat_y:setRotationDegrees(rotation_y)
+			mat_y:rotateVect(verizon_vect)
+			
+			verizon_vect=map_editor.rotateVectAxis(event.moveDelta.y,verizon_vect, axis)
 
-		local rotation_y=irr.core.vector3df:new_local(0,event.moveDelta.x,0)
-		local mat_y=irr.core.matrix4:new_local()
-		local axis=verizon_vect:crossProduct(camera:getUpVector())
-		axis:normalize()
-		mat_y:setRotationAxisRadians(math.rad(event.moveDelta.y),axis)
-		mat_y:setRotationDegrees(rotation_y)
-		mat_y:rotateVect(verizon_vect)
-		
-		verizon_vect=map_editor.rotateVectAxis(event.moveDelta.y,verizon_vect, axis)
-
-		pos=target+verizon_vect
-		camera:setPosition(pos)
-		--scale cursor
-		if #map_editor.selected_objects >0 then
-			local dist=(camera:getPosition()-NeoEditor:getInstance():getSelectionCursorPosition()):getLength()
-			local scale=dist/map_editor.camera_base_distance
-			NeoEditor:getInstance():setSelectionCursorScale(scale)
+			pos=target+verizon_vect
+			camera:setPosition(pos)
+			--scale cursor
+			if #map_editor.selected_objects >0 then
+				local dist=(camera:getPosition()-NeoEditor:getInstance():getSelectionCursorPosition()):getLength()
+				local scale=dist/map_editor.camera_base_distance
+				NeoEditor:getInstance():setSelectionCursorScale(scale)
+			end
 		end
 	end
 
 	if map_editor.mouse_states.lbutton then
-		if map_editor.edit_mode == NeoEditor.EDITOR_SELECT then
-			if map_editor.mouse_states.onSelectionCursor then
-				--move object align axis
-				local delta = irr.core.vector3df()
-				local camera=map_editor.camera
-				local cursor=map_editor.mouse_states.onSelectionCursorIndex
-				local lookVect=camera:getTarget()-camera:getPosition()
-				local xdir = 1
-				local zdir = 1
-				if lookVect.Z < 0 then
-					xdir=-1
-				end
-				if lookVect.X > 0 then
-					zdir=-1
-				end
-				if cursor == 0 then
-					delta.X=event.moveDelta.x*xdir
-				elseif cursor == 1 then
-					delta.Y = -event.moveDelta.y
-				elseif cursor == 2 then
-					delta.Z=event.moveDelta.x*zdir
-				end
-				local dist=(map_editor.camera:getPosition()-NeoEditor:getInstance():getSelectionCursorPosition()):getLength()
-				delta=delta*dist*0.005
-				-- update position
-				for _,v in ipairs(map_editor.selected_objects) do
-					v:setPosition(v.position+delta)
-				end
-				-- synchronize cursor position
-				NeoEditor:getInstance():setSelectionCursorPosition(
-					NeoEditor:getInstance():getSelectionCursorPosition()+delta)
-				--update property panel
-				map_editor.UpdatePropertyWindowSingleRow(
-					map_editor.selected_objects[1]
-					,"position")
-			elseif #map_editor.selected_objects >0 then
-				--move object according to screen
-				local camera=map_editor.camera
-				local lookVect=camera:getTarget()-camera:getPosition()
-				lookVect:normalize()
-				local upaxis = irr.core.vector3df:new_local(camera:getUpVector())
-				local axis=upaxis:crossProduct(lookVect)
-				upaxis=lookVect:crossProduct(axis)
-				axis=axis*event.moveDelta.x
-				upaxis=upaxis*event.moveDelta.y*-1
-				axis:normalize()
-				upaxis:normalize()
-				local delta = axis+upaxis
-				local dist=(map_editor.camera:getPosition()-NeoEditor:getInstance():getSelectionCursorPosition()):getLength()
-				delta=delta*dist*0.005
-				-- update position
-				for _,v in ipairs(map_editor.selected_objects) do
-					v:setPosition(v.position+delta)
-				end
-				-- synchronize cursor position
-				NeoEditor:getInstance():setSelectionCursorPosition(
-					NeoEditor:getInstance():getSelectionCursorPosition()+delta)
-				--update property panel
-				map_editor.UpdatePropertyWindowSingleRow(
-					map_editor.selected_objects[1]
-					,"position")
+		if map_editor.mouse_states.onSelectionCursor then
+			--move object align axis
+			local delta = irr.core.vector3df()
+			local camera=map_editor.camera
+			local cursor=map_editor.mouse_states.onSelectionCursorIndex
+			local lookVect=camera:getTarget()-camera:getPosition()
+			local xdir = 1
+			local zdir = 1
+			if lookVect.Z < 0 then
+				xdir=-1
 			end
+			if lookVect.X > 0 then
+				zdir=-1
+			end
+			if cursor == 0 then
+				delta.X=event.moveDelta.x*xdir
+			elseif cursor == 1 then
+				delta.Y = -event.moveDelta.y
+			elseif cursor == 2 then
+				delta.Z=event.moveDelta.x*zdir
+			end
+			
+			if map_editor.edit_mode == NeoEditor.EDITOR_MOVE then
+				local dist=(map_editor.camera:getPosition()-NeoEditor:getInstance():getSelectionCursorPosition()):getLength()
+				delta=delta*dist*0.005
+				-- update position
+				for _,v in ipairs(map_editor.selected_objects) do
+					v:setPosition(v.position+delta)
+				end
+				-- synchronize cursor position
+				NeoEditor:getInstance():setSelectionCursorPosition(
+					NeoEditor:getInstance():getSelectionCursorPosition()+delta)
+				--update property panel
+				map_editor.UpdatePropertyWindowSingleRow(
+					map_editor.selected_objects[1]
+					,"position")
+			elseif map_editor.edit_mode == NeoEditor.EDITOR_SCALE then
+				delta=delta*0.01
+				-- update scale
+				for _,v in ipairs(map_editor.selected_objects) do
+					v:setScale(v.scale+delta)
+				end
+				--update property panel
+				map_editor.UpdatePropertyWindowSingleRow(
+					map_editor.selected_objects[1]
+					,"scale")
+			elseif map_editor.edit_mode == NeoEditor.EDITOR_ROTATE then
+				delta = irr.core.vector3df()
+				if cursor == 0 then
+				delta.X = -event.moveDelta.y
+				elseif cursor == 1 then
+					delta.Y = event.moveDelta.x*zdir
+				elseif cursor == 2 then
+					delta.Z = -event.moveDelta.y
+				end
+				-- update rotation
+				for _,v in ipairs(map_editor.selected_objects) do
+					v:setRotation(v.rotation+delta)
+				end
+				--update property panel
+				map_editor.UpdatePropertyWindowSingleRow(
+					map_editor.selected_objects[1]
+					,"rotation")
+			end
+		elseif #map_editor.selected_objects >0 and 
+			map_editor.edit_mode == NeoEditor.EDITOR_MOVE then
+			--move object according to screen
+			local camera=map_editor.camera
+			local lookVect=camera:getTarget()-camera:getPosition()
+			lookVect:normalize()
+			local upaxis = irr.core.vector3df:new_local(camera:getUpVector())
+			local axis=upaxis:crossProduct(lookVect)
+			upaxis=lookVect:crossProduct(axis)
+			axis=axis*event.moveDelta.x
+			upaxis=upaxis*event.moveDelta.y*-1
+			axis:normalize()
+			upaxis:normalize()
+			local delta = axis+upaxis
+			local dist=(map_editor.camera:getPosition()-NeoEditor:getInstance():getSelectionCursorPosition()):getLength()
+			delta=delta*dist*0.005
+			-- update position
+			for _,v in ipairs(map_editor.selected_objects) do
+				v:setPosition(v.position+delta)
+			end
+			-- synchronize cursor position
+			NeoEditor:getInstance():setSelectionCursorPosition(
+				NeoEditor:getInstance():getSelectionCursorPosition()+delta)
+			--update property panel
+			map_editor.UpdatePropertyWindowSingleRow(
+				map_editor.selected_objects[1]
+				,"position")
 		end
+
 	end
 end
 
@@ -710,7 +782,6 @@ function map_editor.OnKeyDown( args )
 	end
 	-- handle multi select event
 	map_editor.tree:setMultiselectEnabled(map_editor.key_states.control)
-	print(map_editor.property_editbox:hasInputFocus())
 
 end
 
