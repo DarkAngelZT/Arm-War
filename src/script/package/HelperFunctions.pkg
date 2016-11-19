@@ -1,10 +1,47 @@
 /****************************************************
 	EventArgs casting helper functions.
 	These are not part of the core Neo Game Framework API, merely here for
-	convenience
+	convenience and performance
 *****************************************************/
 $[
 function toNeoEvent(e)
     return tolua.cast(e,"const NeoEvent")
+end
+$]
+/****************************************************
+	Bitwise operations.
+	The nested lua 5.1 don't have bitwise support
+*****************************************************/
+$[
+bit={}
+function bit.bnot(a)
+	return LuaHelper:BitNot(a)
+end
+function bit.band(a,...)
+	ret=a
+	for i=1,#arg do
+		ret=LuaHelper:BitAnd(ret,arg[i])
+	end
+	return ret
+end
+function bit.bor(a,...)
+	ret=a
+	for i=1,#arg do
+		ret=LuaHelper:BitOr(ret,arg[i])
+	end
+	return ret
+end
+function bit.bxor(a,...)
+	ret=a
+	for i=1,#arg do
+		ret=LuaHelper:BitXor(ret,arg[i])
+	end
+	return ret
+end
+function bit.lshift(a,n)
+	return LuaHelper:BitLshift(a,n)
+end
+function bit.rshift(a,n)
+	return LuaHelper:BitRshift(a,n)
 end
 $]

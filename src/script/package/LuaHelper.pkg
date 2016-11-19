@@ -1,0 +1,10 @@
+class LuaHelper
+{
+public:
+	static int BitAnd(int a,int b);
+	static int BitOr(int a,int b);
+	static int BitXor(int a,int b);
+	static int BitNot(int a);
+	static int BitLshift(int a,int n);
+	static int BitRshift(int a,int n);
+};

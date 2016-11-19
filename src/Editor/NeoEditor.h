@@ -32,6 +32,7 @@ public:
 	irr::scene::ISceneNode* getSelectedSceneNode();
 	bool isSelectionCursor(irr::scene::ISceneNode*node);
 	int getSelectedCursorIndex(irr::scene::ISceneNode*node);
+	void setSceneNodeTriangleSelector(irr::scene::ISceneNode*node,const std::string& type = "normal");
 	void Init();
 	void CleanUp();
 private:

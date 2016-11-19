@@ -2,6 +2,11 @@ map_editor={}
 
 map_editor.isOnScene=true
 map_editor.edit_mode=NeoEditor.EDITOR_SELECT
+map_editor.key_states=
+{
+	control=false,
+	shift=true
+}
 --------------------------------------------
 -- initialize
 --------------------------------------------
@@ -16,8 +21,6 @@ function map_editor.Init()
 	map_editor.isOnScene=true
 	--property window
 	map_editor.InitPropertyWindow()
-	--scene window
-	map_editor.InitSceneWindow()
 	--map name
 	map_editor.map_name="untitiled"
 	-- camera
@@ -34,14 +37,9 @@ function map_editor.Init()
 	--default ambient colour
 	graphicWrapper:SetAmbientLight(irr.video.SColor:new_local(255,255,253,242))
 	--add root object
-	map_editor.root_object={
-		["ambient colour"]=irr.video.SColor:new_local(255,255,253,242),
-		["skydome texure"]=DIR_RESOURCES.."sfx/env/skydome/cloud_skydome.jpg",
-		property={
-			["ambient colour"]={},
-			["skydome texure"]={}
-		}
-	}
+	map_editor.root_object=EditorRootObject.new()
+	--scene window
+	map_editor.InitSceneWindow()
 	map_editor.UpdatePropertyWindow(map_editor.root_object)
 end
 
@@ -53,9 +51,8 @@ function map_editor.CleanUp()
 	for k,_ in pairs(map_editor.objects) do
 		map_editor.objects[k]=nil
 	end
-	for k,_ in pairs(map_editor.node_object_table) do
-		map_editor.node_object_table[k]=nil
-	end
+	map_editor.ClearObjectLookUpTable()
+	map_editor:UnselectAllObjects()
 	-- clear scene node from c++ side
 	NeoEditor:getInstance():CleanUp()
 	NeoGraphics:getInstance():UnloadTexture(map_editor.skyboxTexture)
@@ -77,7 +74,7 @@ map_editor.property_parser={
 			return irr.core.vector3df(raw[1],raw[2],raw[3])
 		end
 	end,
-	["irr.video.SColor"] = function( text )
+	["irr::video::SColor"] = function( text )
 		local parse=loadstring("return "..text)
 		if parse then
 			local raw=parse(text)
@@ -86,7 +83,7 @@ map_editor.property_parser={
 					return
 				end
 			end
-			return irr.core.SColor:new_local(raw.a,raw.r,raw.g,raw.b)
+			return irr.video.SColor:new_local(raw.a,raw.r,raw.g,raw.b)
 		end
 	end,
 	StringList = function ( text )
@@ -94,7 +91,7 @@ map_editor.property_parser={
 		return paths
 	end,
 	string = function (text)
-		local parse=loadstring("return \""..text+"\"")
+		local parse=loadstring("return \""..text.."\"")
 		if parse then
 			local raw=parse(text)
 			return raw
@@ -156,43 +153,49 @@ map_editor.property_converter={
 		return tostring(b)
 	end
 }
+
 function map_editor.InitPropertyWindow()
 	local wnd=map_editor.property_wnd
+	map_editor.property_editbox:setText("")
+	map_editor.property_editbox:setReadOnly(true)
+	map_editor.property_submitbtn:disable()
+	wnd:invalidate(true)
 end
 
 function map_editor.UpdatePropertyWindow( object )
 	local wnd=map_editor.property_wnd
-	wnd:resetList()
-	local row=0
+	map_editor.ClearPropertyWindow()
 	if object == map_editor.root_object then
 		--add a "name" row to root object
-		wnd:addRow()
+		local row=wnd:addRow()
 		--key
 		local keycol=CEGUI.createListboxTextItem("Node Type",0)
-		keycol:setSelectionBrushImage("GlossySerpent/ListboxSelectionBrush")
 		--value
 		local valuecol=CEGUI.createListboxTextItem("Root Object",0,nil,true)
+		valuecol:setSelectionBrushImage("GlossySerpent/ListboxSelectionBrush")
 		wnd:setItem(keycol,0,row)
 		wnd:setItem(valuecol,1,row)
-		row=row+1
 	end
+	object:ClearItemKeyTable()
 	for k,v in pairs(object.property) do
 		-- add row
-		wnd:addRow()
+		local row=wnd:addRow()
 		-- --key
 		local display=v.display or k
 		local keycol=CEGUI.createListboxTextItem(display,0)
-		keycol:setSelectionBrushImage("GlossySerpent/ListboxSelectionBrush")
 		-- --value
 		local datatype= v.type or tolua.type(object[k]):gsub("const ","")
 		local value=map_editor.property_converter[datatype](object[k])
 		local valuecol=CEGUI.createListboxTextItem(value)
+		valuecol:setSelectionBrushImage("GlossySerpent/ListboxSelectionBrush")
+		valuecol:setID(row)
 		wnd:setItem(keycol,0,row)
 		wnd:setItem(valuecol,1,row)
 		object.property[k].list_item=valuecol
-		row=row+1
+		object:setPropertyItemKey(valuecol, k)
 	end
 	wnd:autoSizeColumnHeader(1)
+	map_editor.current_editted_object_property={obj=object}
 end
 
 function map_editor.UpdatePropertyWindowSingleRow( object, key )
@@ -202,20 +205,101 @@ function map_editor.UpdatePropertyWindowSingleRow( object, key )
 	local value=map_editor.property_converter[datatype](object[key])
 	local item = data.list_item
 	item:setText(value)
+	if item == map_editor.current_editted_object_property.item then
+		map_editor.property_editbox:setText(value)
+		if not object.property[key].readOnly then
+			map_editor.property_submitbtn:enable()
+		else
+			map_editor.property_submitbtn:disable()
+		end
+	end
 	wnd:invalidate(true)
 end
 
 function map_editor.ClearPropertyWindow()
 	map_editor.property_wnd:resetList()
+	map_editor.property_editbox:setText("")
+	map_editor.current_editted_object_property={}
+	map_editor.property_submitbtn:disable()
 end
 ------------------------------
 -- scene window control
 ------------------------------
+map_editor.scene_wnd_info={}
 function map_editor.InitSceneWindow()
 	local tree=map_editor.tree
+	local info=map_editor.scene_wnd_info
+	local root_node = CEGUI.createTreeItem("root",0)
+	root_node:setSelectionBrushImage("GlossySerpent/TextSelectionBrush")
+	tree:addItem(root_node)
+	info.root={
+		object=map_editor.root_object,
+		node=root_node
+	}
+	info[0]=info.root
 end
+
 function map_editor.ClearSceneWindow()
 	map_editor.tree:resetList()
+end
+
+function map_editor.getObjectByItemId( id )
+	return map_editor.scene_wnd_info[id].object
+end
+
+function map_editor.AddObjectToSceneWindow( obj, selected )
+	local tree=map_editor.tree
+	local info=map_editor.scene_wnd_info
+	if selected == nil then
+		selected=true
+	else
+		selected=selected
+	end
+	local new_node = CEGUI.createTreeItem(obj.name or obj.scene_type)
+	new_node:setID(obj.id)
+	new_node:setSelectionBrushImage("GlossySerpent/TextSelectionBrush")
+	info[obj.id]={
+		object=obj,
+		node=new_node
+	}
+	info.root.node:addItem(new_node)
+	new_node:setSelected(selected)
+	return new_node
+end
+
+function map_editor.RemoveObjectFromSceneWindow( object )
+	if object == map_editor.root_object then
+		--you can not delete root
+		return
+	end
+	local tree=map_editor.tree
+	local info=map_editor.scene_wnd_info
+	tree.removeItem(info[object.id].node)
+	info[object.id]=nil
+end
+
+function map_editor.setSceneWindowSelectedObject( object )
+	local tree=map_editor.tree
+	local info=map_editor.scene_wnd_info
+	--tree:clearAllSelections()
+	if object == map_editor.root_object then
+		info.root.node:setSelected(true)
+	else
+		local item=info[object.id].node
+		if item then
+			item:setSelected(true)
+		end
+	end
+	tree:invalidate(true)
+end
+
+function map_editor.UpdateSceneWindowObject( object )
+	local info=map_editor.scene_wnd_info
+	local item=info[object.id].node
+	if item then
+		item:setText(object.name)
+	end
+	map_editor.tree:invalidate(true)
 end
 --------------------------------------------
 -- Event Handler
@@ -254,6 +338,69 @@ function map_editor.Menu_Insert_callback( args )
 		NeoEditor:getInstance():CreateFileOpenDialog("map_editor.ImportAnimatedMesh")
 	end
 end
+
+function map_editor.PropertyChangeSubmitted( args )
+	local text = map_editor.property_editbox:getText()
+	-- apply changes to editor object
+	local item=map_editor.current_editted_object_property.item
+	local obj = map_editor.current_editted_object_property.obj
+	if not obj then
+		return
+	end
+	local key=obj:getPropertyKeyFromItem(item)
+	local type=obj.property[key].type or tolua.type(obj[key]):gsub("const ","")
+	local value=map_editor.property_parser[type](text)
+	obj.property[key].set(obj,value)
+	if key == "position" then
+		-- synchronize cursor if edited property is position
+		NeoEditor:getInstance():setSelectionCursorPosition(value)
+	elseif key == "name" then
+		-- synchronize scene window name
+		map_editor.UpdateSceneWindowObject(obj)
+	end
+	map_editor.UpdatePropertyWindowSingleRow(obj, key)
+end
+
+function map_editor.PropertyItemSelected( args )
+	local property_wnd = map_editor.property_wnd
+	local item = property_wnd:getFirstSelectedItem()
+	if not item then
+		map_editor.property_editbox:setText("")
+		map_editor.property_submitbtn:disable()
+		return
+	end
+	local gridRef=property_wnd:getItemGridReference(item)
+	if gridRef.column == 0 then
+		return
+	end
+	local  key = map_editor.current_editted_object_property.obj:getPropertyKeyFromItem(
+		item)
+	map_editor.property_editbox:setText(item:getText())
+	map_editor.current_editted_object_property.item=item
+	map_editor.current_editted_object_property.key=key
+	if not key or 
+		not map_editor.current_editted_object_property.obj[key] or 
+		map_editor.current_editted_object_property.obj.property[key].readOnly then
+		map_editor.property_editbox:setReadOnly(true)
+		map_editor.property_submitbtn:disable()
+	else
+		map_editor.property_editbox:setReadOnly(false)
+		map_editor.property_submitbtn:enable()
+	end
+end
+
+function map_editor.SceneTreeItemSelected( args )
+	local item = map_editor.tree:getFirstSelectedItem()
+	if not item then
+		map_editor.CancelAllSelections()
+		return
+	end
+	local obj = map_editor.getObjectByItemId(item:getID())
+	if map_editor.isObjectSelected(obj) then
+		return
+	end
+	map_editor.SelectObject(obj,not map_editor.key_states.control)
+end
 --------------------------------------------
 -- object handler
 --------------------------------------------
@@ -267,7 +414,7 @@ end
 
 function map_editor:UnselectObject(obj)
 	for k,v in ipairs(self.selected_objects) do
-		if self.selected_objects[k] == obj then
+		if v == obj then
 			table.remove(self.selected_objects,k)
 			break
 		end
@@ -275,12 +422,51 @@ function map_editor:UnselectObject(obj)
 end
 
 function map_editor:AddSelectedObject( obj )
-	for k,v in ipairs(self.selected_objects) do
-		if self.selected_objects[k] == obj then
+	for _,v in ipairs(self.selected_objects) do
+		if v == obj then
 			return
 		end
 	end
 	self.selected_objects[#self.selected_objects+1]=obj
+end
+
+function map_editor.isObjectSelected( obj )
+	for _,v in ipairs(map_editor.selected_objects) do
+		if v == obj then
+			return true
+		end
+	end
+
+	return false
+end
+
+function map_editor.SelectObject(obj, single)
+	local node=obj.scene_node
+	if single == nil then
+		single=true
+	else
+		single=single
+	end
+
+	if not node then
+		return
+	end
+	if single then
+		map_editor.CancelAllSelections()
+	end
+	map_editor.ShowCursor(true, node:getAbsolutePosition())
+	map_editor:AddSelectedObject(obj)
+	map_editor.mouse_states.onSelectionCursor=false
+	map_editor.mouse_states.onSelectionCursorIndex = -1
+	map_editor.UpdatePropertyWindow(obj)
+	map_editor.setSceneWindowSelectedObject(obj)
+end
+
+function map_editor.CancelAllSelections()
+	map_editor.ShowCursor(false)
+	map_editor:UnselectAllObjects()
+	map_editor.UpdatePropertyWindow(map_editor.root_object)
+	map_editor.tree:clearAllSelections()
 end
 --------------------------------------------
 -- mouse event handler
@@ -372,8 +558,8 @@ function map_editor.OnMouseWheel( args )
 		camera:setPosition(pos+delta)
 		--scale cursor
 		if #map_editor.selected_objects >0 then
-			dist=(camera:getPosition()-NeoEditor:getInstance():getSelectionCursorPosition()):getLength()
-			scale=dist/map_editor.camera_base_distance
+			local dist=(camera:getPosition()-NeoEditor:getInstance():getSelectionCursorPosition()):getLength()
+			local scale=dist/map_editor.camera_base_distance
 			NeoEditor:getInstance():setSelectionCursorScale(scale)
 		end
 	end
@@ -396,6 +582,7 @@ function map_editor.OnMouseMove(args)
 		--skip when doing ui operations
 		return
 	end
+
 	local event=CEGUI.toMouseEventArgs(args)
 	if map_editor.mouse_states.mbutton then
 		local camera=map_editor.camera
@@ -415,6 +602,12 @@ function map_editor.OnMouseMove(args)
 
 		pos=target+verizon_vect
 		camera:setPosition(pos)
+		--scale cursor
+		if #map_editor.selected_objects >0 then
+			local dist=(camera:getPosition()-NeoEditor:getInstance():getSelectionCursorPosition()):getLength()
+			local scale=dist/map_editor.camera_base_distance
+			NeoEditor:getInstance():setSelectionCursorScale(scale)
+		end
 	end
 
 	if map_editor.mouse_states.lbutton then
@@ -440,39 +633,44 @@ function map_editor.OnMouseMove(args)
 				elseif cursor == 2 then
 					delta.Z=event.moveDelta.x*zdir
 				end
+				local dist=(map_editor.camera:getPosition()-NeoEditor:getInstance():getSelectionCursorPosition()):getLength()
+				delta=delta*dist*0.005
 				-- update position
 				for _,v in ipairs(map_editor.selected_objects) do
-					v:setPosition(v:getPosition()+delta)
+					v:setPosition(v.position+delta)
 				end
 				-- synchronize cursor position
 				NeoEditor:getInstance():setSelectionCursorPosition(
 					NeoEditor:getInstance():getSelectionCursorPosition()+delta)
 				--update property panel
 				map_editor.UpdatePropertyWindowSingleRow(
-					map_editor.node_object_table[map_editor.selected_objects[1]:getID()]
+					map_editor.selected_objects[1]
 					,"position")
 			elseif #map_editor.selected_objects >0 then
 				--move object according to screen
 				local camera=map_editor.camera
-				local lookVect=camera:getPosition()-camera:getTarget()
+				local lookVect=camera:getTarget()-camera:getPosition()
 				lookVect:normalize()
 				local upaxis = irr.core.vector3df:new_local(camera:getUpVector())
-				local axis=lookVect:crossProduct(upaxis)
+				local axis=upaxis:crossProduct(lookVect)
+				upaxis=lookVect:crossProduct(axis)
 				axis=axis*event.moveDelta.x
 				upaxis=upaxis*event.moveDelta.y*-1
 				axis:normalize()
 				upaxis:normalize()
 				local delta = axis+upaxis
+				local dist=(map_editor.camera:getPosition()-NeoEditor:getInstance():getSelectionCursorPosition()):getLength()
+				delta=delta*dist*0.005
 				-- update position
 				for _,v in ipairs(map_editor.selected_objects) do
-					v:setPosition(v:getPosition()+delta)
+					v:setPosition(v.position+delta)
 				end
 				-- synchronize cursor position
 				NeoEditor:getInstance():setSelectionCursorPosition(
 					NeoEditor:getInstance():getSelectionCursorPosition()+delta)
 				--update property panel
 				map_editor.UpdatePropertyWindowSingleRow(
-					map_editor.node_object_table[map_editor.selected_objects[1]:getID()]
+					map_editor.selected_objects[1]
 					,"position")
 			end
 		end
@@ -481,10 +679,54 @@ end
 
 function map_editor.OnKeyDown( args )
 	local event=CEGUI.toKeyEventArgs(args)
+
+	if bit.band(event.sysKeys,CEGUI.SystemKeys.Control) ~= 0 then
+		map_editor.key_states.control=true
+	else
+		map_editor.key_states.control=false
+	end
+
+	if bit.band(event.sysKeys,CEGUI.SystemKeys.Shift) ~= 0 then
+		map_editor.key_states.shift=true
+	else
+		map_editor.key_states.shift=false
+	end
+	
+	if map_editor.key_states.Control then
+		--handle copy & paste event
+		if event.scancode == CEGUI.Key.V then
+			local graphicWrapper=NeoGraphics:getInstance()
+			graphicWrapper:setAppClipboardString(graphicWrapper:getTextFromOSClipboard())
+			CEGUI.System:getSingleton():getDefaultGUIContext():injectPasteRequest()
+		elseif event.scancode == CEGUI.Key.C then
+			local graphicWrapper=NeoGraphics:getInstance()
+			CEGUI.System:getSingleton():getDefaultGUIContext():injectCopyRequest()
+			graphicWrapper:setOSClipboardText(graphicWrapper:getAppClipboardString())
+		elseif event.scancode == CEGUI.Key.X then
+			local graphicWrapper=NeoGraphics:getInstance()
+			CEGUI.System:getSingleton():getDefaultGUIContext():injectCutRequest()
+			graphicWrapper:setOSClipboardText(graphicWrapper:getAppClipboardString())
+		end
+	end
+	-- handle multi select event
+	map_editor.tree:setMultiselectEnabled(map_editor.key_states.control)
+	print(g_ui_table.editor:isCapturedByChild())
+
 end
 
 function map_editor.OnKeyUp( args )
 	local event=CEGUI.toKeyEventArgs(args)
+	if bit.band(event.sysKeys,CEGUI.SystemKeys.Control) ~= 0 then
+		map_editor.key_states.control=true
+	else
+		map_editor.key_states.control=false
+	end
+
+	if bit.band(event.sysKeys,CEGUI.SystemKeys.Shift) ~= 0 then
+		map_editor.key_states.shift=true
+	else
+		map_editor.key_states.shift=false
+	end
 end
 
 ---------------
@@ -504,14 +746,16 @@ function map_editor.OnLButtonDown(event)
 				editor_wrapper:getSelectedCursorIndex(node)
 			return
 		end
-		map_editor.ShowCursor(true, node:getAbsolutePosition())
-		map_editor:AddSelectedObject(node)
-		map_editor.mouse_states.onSelectionCursor=false
-		map_editor.mouse_states.onSelectionCursorIndex = -1
-		map_editor.UpdatePropertyWindow(map_editor.node_object_table[node:getID()])
+		local singleMode = false
+		if bit.band(event.sysKeys,CEGUI.SystemKeys.Control) ==0 then
+			-- single select mode if control is not pressed
+			singleMode=true
+		end
+		map_editor.SelectObject(map_editor.getObjectByNodeID(node:getID()),singleMode)
 	else
-		map_editor.ShowCursor(false)
-		map_editor.UpdatePropertyWindow(map_editor.root_object)
+		if not map_editor.key_states.control then
+			map_editor.CancelAllSelections()
+		end
 	end
 end
 
@@ -541,14 +785,11 @@ function map_editor.OnLButtonUp(event)
 		if editor_wrapper:isSelectionCursor(node) then
 			return
 		end
-		map_editor.ShowCursor(true, node:getAbsolutePosition())
-		map_editor:AddSelectedObject(node)
-		map_editor.mouse_states.onSelectionCursor=false
-		map_editor.mouse_states.onSelectionCursorIndex = -1
-		map_editor.UpdatePropertyWindow(map_editor.node_object_table[node:getID()])
+		map_editor.SelectObject(map_editor.getObjectByNodeID(node:getID()))
 	else
-		map_editor.ShowCursor(false)
-		map_editor.UpdatePropertyWindow(map_editor.root_object)
+		if not map_editor.key_states.control then
+			map_editor.CancelAllSelections()
+		end
 	end
 
 end

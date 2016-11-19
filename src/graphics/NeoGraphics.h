@@ -128,6 +128,11 @@ public:
 	void UnloadTexture(video::ITexture*texture);
 
 	float getFps();
+	std::string getTextFromOSClipboard();
+	void setAppClipboardString(const std::string& text);
+	std::string getAppClipboardString();
+	void setOSClipboardText(const std::string& text);
+	std::string getOperatingSystemVersion();
 	std::vector<std::string> getMeshTexturePath(irr::scene::IMesh*mesh);
 	//-------c++ API---------//
 private:

@@ -10,6 +10,7 @@
 #include <vector>
 
 using namespace irr;
+using namespace irr::core;
 NeoEditor* NeoEditor::_instance = NULL;
 
 NeoEditor::NeoEditor()
@@ -48,6 +49,12 @@ void NeoEditor::Init()
 
 void NeoEditor::CleanUp()
 {
+	m_selection_cursor->remove();
+	for (int i = 0; i < 3; i++)
+	{
+		NeoGraphics::getInstance()->getIrrSceneManger()->getMeshCache()->removeMesh(
+				m_arrow_mesh[i]);
+	}
 	NeoGraphics::getInstance()->CleanUp();
 	static_cast<NeoEventHandler*>(NeoGraphics::getInstance()->getDevice()->getEventReceiver())->RemoveAddtionalEventHandler(
 			this);
@@ -92,7 +99,8 @@ bool NeoEditor::OnEvent(const SEvent& event)
 void NeoEditor::setSelectionCursorPosition(const irr::core::vector3df& position)
 {
 	m_selection_cursor->setPosition(position);
-	NeoScript::getInstance()->ExecuteScriptedFunction("map_editor.onSelectionCursorMove");
+	NeoScript::getInstance()->ExecuteScriptedFunction(
+			"map_editor.onSelectionCursorMove");
 }
 
 const irr::core::vector3df& NeoEditor::getSelectionCursorPosition()
@@ -102,12 +110,28 @@ const irr::core::vector3df& NeoEditor::getSelectionCursorPosition()
 
 irr::scene::ISceneNode* NeoEditor::getSelectedSceneNode()
 {
-	core::position2di cursor_position =
-			NeoGraphics::getInstance()->getDevice()->getCursorControl()->getPosition();
-	scene::ISceneNode *node =
-			NeoGraphics::getInstance()->getIrrSceneManger()->getSceneCollisionManager()->getSceneNodeFromScreenCoordinatesBB(
-					cursor_position, 0, true);
-	return node;
+	irr::scene::ISceneCollisionManager* colmgr =
+			NeoGraphics::getInstance()->getIrrSceneManger()->getSceneCollisionManager();
+	line3d<f32> raytrace =
+			colmgr->getRayFromScreenCoordinates(
+					NeoGraphics::getInstance()->getDevice()->getCursorControl()->getPosition());
+	core::vector3df outCollisionPoint;
+	core::triangle3df outTriangle;
+	scene::ISceneNode* outNode;
+	//detect cursor first
+	for(int i=0;i<3;i++)
+	{
+		if(colmgr->getCollisionPoint(
+				raytrace,m_arrows[i]->getTriangleSelector(),
+				outCollisionPoint,outTriangle,outNode))
+		{
+			return outNode;
+		}
+	}
+	//if not the cursor, then comes normal scene node
+	outNode = colmgr->getSceneNodeAndCollisionPointFromRay(raytrace,
+			outCollisionPoint, outTriangle);
+	return outNode;
 }
 
 bool NeoEditor::isSelectionCursor(irr::scene::ISceneNode* node)
@@ -139,6 +163,61 @@ int NeoEditor::getSelectedCursorIndex(irr::scene::ISceneNode* node)
 	return -1;
 }
 
+void NeoEditor::setSceneNodeTriangleSelector(irr::scene::ISceneNode* node,
+		const std::string& type)
+{
+	if (!node)
+		return;
+	scene::ITriangleSelector* selector;
+	scene::ISceneManager* smgr =
+			NeoGraphics::getInstance()->getIrrSceneManger();
+	irr::scene::ESCENE_NODE_TYPE node_type = node->getType();
+	if (type == "normal")
+	{
+		switch(node_type){
+		case irr::scene::ESNT_ANIMATED_MESH :
+		{
+			selector = smgr->createTriangleSelector(
+					static_cast<scene::IAnimatedMeshSceneNode*>(node));
+			break;
+		}
+		case scene::ESNT_MESH : case scene::ESNT_CUBE : case scene::ESNT_SPHERE :
+		{
+			selector = smgr->createTriangleSelector(
+					static_cast<scene::IMeshSceneNode*>(node)->getMesh(), node);
+			break;
+		}
+		default:
+			selector = smgr->createTriangleSelectorFromBoundingBox(node);
+			break;
+		}
+		node->setTriangleSelector(selector);
+		selector->drop();
+	}
+	else if (type == "octree")
+	{
+		switch (node_type)
+		{
+		case scene::ESNT_ANIMATED_MESH:
+			selector =
+					smgr->createOctreeTriangleSelector(
+							static_cast<scene::IAnimatedMeshSceneNode*>(node)->getMesh(),
+							node, 128);
+			break;
+		case scene::ESNT_MESH : case scene::ESNT_CUBE : case scene::ESNT_SPHERE :
+			selector = smgr->createOctreeTriangleSelector(
+					static_cast<scene::IMeshSceneNode*>(node)->getMesh(), node,
+					128);
+			break;
+		default:
+			return;
+		}
+
+		node->setTriangleSelector(selector);
+		selector->drop();
+	}
+}
+
 void NeoEditor::CreateSelectionCursor()
 {
 	float length = 10.0f;
@@ -159,15 +238,33 @@ void NeoEditor::CreateSelectionCursor()
 			NeoGraphics::getInstance()->getIrrSceneManger()->addAnimatedMeshSceneNode(
 					m_arrow_mesh[0]); //x axis
 	m_arrows[0]->setRotation(core::vector3df(0, 0, -90));
+	m_arrows[0]->setPosition(vector3df(1, 0, 0));
+	scene::ITriangleSelector* selector_x =
+			NeoGraphics::getInstance()->getIrrSceneManger()->createTriangleSelector(
+					m_arrows[0]);
+	m_arrows[0]->setTriangleSelector(selector_x);
+	selector_x->drop();
 
 	m_arrows[1] =
 			NeoGraphics::getInstance()->getIrrSceneManger()->addAnimatedMeshSceneNode(
 					m_arrow_mesh[1]); //y axis(up)
+	m_arrows[1]->setPosition(vector3df(0, 1, 0));
+	scene::ITriangleSelector* selector_y =
+			NeoGraphics::getInstance()->getIrrSceneManger()->createTriangleSelector(
+					m_arrows[1]);
+	m_arrows[1]->setTriangleSelector(selector_y);
+	selector_y->drop();
 
 	m_arrows[2] =
 			NeoGraphics::getInstance()->getIrrSceneManger()->addAnimatedMeshSceneNode(
 					m_arrow_mesh[2]); //z axis*/
 	m_arrows[2]->setRotation(core::vector3df(90, 0, 0));
+	m_arrows[2]->setPosition(vector3df(0, 0, 1));
+	scene::ITriangleSelector* selector_z =
+			NeoGraphics::getInstance()->getIrrSceneManger()->createTriangleSelector(
+					m_arrows[2]);
+	m_arrows[2]->setTriangleSelector(selector_z);
+	selector_z->drop();
 	//cursor controller root
 	m_selection_cursor = NeoGraphics::getInstance()->AddEmptySceneNode();
 	for (int i = 0; i < 3; i++)

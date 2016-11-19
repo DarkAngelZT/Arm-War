@@ -241,7 +241,7 @@ void NeoGraphics::RemoveSceneNode(irr::scene::ISceneNode* node)
 void NeoGraphics::CleanUp()
 {
 	smgr->clear();
-	smgr->getMeshCache()->clear();
+	smgr->getMeshCache()->clearUnusedMeshes();
 	sfx_manager->CleanUp();
 }
 
@@ -291,6 +291,21 @@ void NeoGraphics::setWindowCaption(const std::string& title)
 {
 	std::wstring caption(title.begin(), title.end());
 	device->setWindowCaption(caption.c_str());
+}
+
+void NeoGraphics::setAppClipboardString(const std::string& text)
+{
+	CEGUI::System::getSingleton().getClipboard()->setText(text.c_str());
+}
+
+void NeoGraphics::setOSClipboardText(const std::string& text)
+{
+	device->getOSOperator()->copyToClipboard(text.c_str());
+}
+
+std::string NeoGraphics::getAppClipboardString()
+{
+	return std::string(CEGUI::System::getSingleton().getClipboard()->getText().c_str());
 }
 
 void NeoGraphics::InitialiseDefaultResourceGroups()
@@ -420,4 +435,14 @@ void NeoGraphics::ClearAllNodes()
 float NeoGraphics::getFps()
 {
 	return driver->getFPS();
+}
+
+std::string NeoGraphics::getTextFromOSClipboard()
+{
+	return std::string(device->getOSOperator()->getTextFromClipboard());
+}
+
+std::string NeoGraphics::getOperatingSystemVersion()
+{
+	return std::string(device->getOSOperator()->getOperatingSystemVersion().c_str());
 }

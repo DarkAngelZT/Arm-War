@@ -1,6 +1,6 @@
 /*
 ** Lua binding: NeoGame
-** Generated automatically by tolua++-1.0.93 on Sun Nov 13 17:27:26 2016.
+** Generated automatically by tolua++-1.0.93 on Thu Nov 17 21:54:45 2016.
 */
 
 #ifndef __cplusplus
@@ -169,59 +169,60 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"irr::io::IAttributeExchangingObject");
  tolua_usertype(tolua_S,"irr::core::dimension2d<unsigned>");
  tolua_usertype(tolua_S,"irr::core::vector2df");
- tolua_usertype(tolua_S,"irr::core::aabbox3d<float>");
  tolua_usertype(tolua_S,"NeoEditor");
+ tolua_usertype(tolua_S,"irr::core::aabbox3d<float>");
  tolua_usertype(tolua_S,"BasicExplosionEffectParams");
- tolua_usertype(tolua_S,"irr::scene::IParticleBoxEmitter");
- tolua_usertype(tolua_S,"irr::core::dimension2df");
+ tolua_usertype(tolua_S,"NeoTrigger");
  tolua_usertype(tolua_S,"SfxManager");
- tolua_usertype(tolua_S,"irr::scene::ISceneNode");
+ tolua_usertype(tolua_S,"irr::core::dimension2df");
  tolua_usertype(tolua_S,"NeoGraphics");
+ tolua_usertype(tolua_S,"irr::scene::ISceneNode");
+ tolua_usertype(tolua_S,"GameObject");
  tolua_usertype(tolua_S,"irr::scene::IParticleRotationAffector");
  tolua_usertype(tolua_S,"irr::scene::IParticleAnimatedMeshSceneNodeEmitter");
  tolua_usertype(tolua_S,"irr::scene::IParticleCylinderEmitter");
- tolua_usertype(tolua_S,"GameObject");
+ tolua_usertype(tolua_S,"NeoEvent");
  tolua_usertype(tolua_S,"std::vector<std::string>");
  tolua_usertype(tolua_S,"irr::core::vector3d<int>");
  tolua_usertype(tolua_S,"Application");
- tolua_usertype(tolua_S,"irr::core::dimension2d<int>");
+ tolua_usertype(tolua_S,"LuaHelper");
  tolua_usertype(tolua_S,"irr::core::dimension2d<unsigned int>");
  tolua_usertype(tolua_S,"irr::scene::ISceneNodeAnimator");
  tolua_usertype(tolua_S,"irr::scene::IParticleRingEmitter");
  tolua_usertype(tolua_S,"irr::scene::IParticleAffector");
- tolua_usertype(tolua_S,"NeoEvent");
+ tolua_usertype(tolua_S,"irr::core::dimension2d<int>");
  tolua_usertype(tolua_S,"BasicExplosionParams");
  tolua_usertype(tolua_S,"irr::core::CMatrix4<float>");
- tolua_usertype(tolua_S,"NeoTrigger");
+ tolua_usertype(tolua_S,"irr::core::vector2d<float>");
  tolua_usertype(tolua_S,"irr::scene::IParticleSystemSceneNode");
  tolua_usertype(tolua_S,"irr::scene::IMeshSceneNode");
- tolua_usertype(tolua_S,"irr::core::vector2d<float>");
- tolua_usertype(tolua_S,"irr::core::vector2d<int>");
- tolua_usertype(tolua_S,"irr::scene::IParticleMeshEmitter");
- tolua_usertype(tolua_S,"irr::core::vector2d<unsigned>");
  tolua_usertype(tolua_S,"irr::core::vector3d<float>");
+ tolua_usertype(tolua_S,"irr::core::vector2d<int>");
+ tolua_usertype(tolua_S,"irr::scene::IParticleEmitter");
+ tolua_usertype(tolua_S,"irr::core::vector2d<unsigned>");
+ tolua_usertype(tolua_S,"irr::video::ITexture");
  tolua_usertype(tolua_S,"irr::scene::IParticleFadeOutAffector");
  tolua_usertype(tolua_S,"irr::core::aabbox3d<f32>");
  tolua_usertype(tolua_S,"irr::core::aabbox3d<int>");
  tolua_usertype(tolua_S,"irr::core::dimension2d<float>");
  tolua_usertype(tolua_S,"irr::scene::IParticleAttractionAffector");
- tolua_usertype(tolua_S,"irr::video::ITexture");
+ tolua_usertype(tolua_S,"irr::SKeyMap");
  tolua_usertype(tolua_S,"irr::scene::IMesh");
  tolua_usertype(tolua_S,"std::vector<float>");
- tolua_usertype(tolua_S,"irr::SKeyMap");
- tolua_usertype(tolua_S,"irr::video::SColor");
+ tolua_usertype(tolua_S,"irr::scene::ICameraSceneNode");
  tolua_usertype(tolua_S,"irr::video::SColorf");
+ tolua_usertype(tolua_S,"irr::video::SColor");
  tolua_usertype(tolua_S,"irr::video::SColorHSL");
- tolua_usertype(tolua_S,"irr::scene::IParticleEmitter");
- tolua_usertype(tolua_S,"irr::scene::ILightSceneNode");
  tolua_usertype(tolua_S,"irr::IReferenceCounted");
+ tolua_usertype(tolua_S,"irr::scene::ILightSceneNode");
  tolua_usertype(tolua_S,"irr::scene::IParticleSphereEmitter");
  tolua_usertype(tolua_S,"std::vector<int>");
  tolua_usertype(tolua_S,"irr::scene::IAnimatedMeshSceneNode");
  tolua_usertype(tolua_S,"irr::scene::IBillboardSceneNode");
  tolua_usertype(tolua_S,"irr::scene::IAnimatedMesh");
+ tolua_usertype(tolua_S,"irr::scene::IParticleMeshEmitter");
  tolua_usertype(tolua_S,"irr::scene::IShadowVolumeSceneNode");
- tolua_usertype(tolua_S,"irr::scene::ICameraSceneNode");
+ tolua_usertype(tolua_S,"irr::scene::IParticleBoxEmitter");
  tolua_usertype(tolua_S,"NeoGameLogic");
 }
 
@@ -1145,6 +1146,196 @@ static int tolua_NeoGame_std_vector_float__delete00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: BitAnd of class  LuaHelper */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_LuaHelper_BitAnd00
+static int tolua_NeoGame_LuaHelper_BitAnd00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"LuaHelper",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  int a = ((int)  tolua_tonumber(tolua_S,2,0));
+  int b = ((int)  tolua_tonumber(tolua_S,3,0));
+  {
+   int tolua_ret = (int)  LuaHelper::BitAnd(a,b);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'BitAnd'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: BitOr of class  LuaHelper */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_LuaHelper_BitOr00
+static int tolua_NeoGame_LuaHelper_BitOr00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"LuaHelper",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  int a = ((int)  tolua_tonumber(tolua_S,2,0));
+  int b = ((int)  tolua_tonumber(tolua_S,3,0));
+  {
+   int tolua_ret = (int)  LuaHelper::BitOr(a,b);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'BitOr'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: BitXor of class  LuaHelper */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_LuaHelper_BitXor00
+static int tolua_NeoGame_LuaHelper_BitXor00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"LuaHelper",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  int a = ((int)  tolua_tonumber(tolua_S,2,0));
+  int b = ((int)  tolua_tonumber(tolua_S,3,0));
+  {
+   int tolua_ret = (int)  LuaHelper::BitXor(a,b);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'BitXor'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: BitNot of class  LuaHelper */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_LuaHelper_BitNot00
+static int tolua_NeoGame_LuaHelper_BitNot00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"LuaHelper",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  int a = ((int)  tolua_tonumber(tolua_S,2,0));
+  {
+   int tolua_ret = (int)  LuaHelper::BitNot(a);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'BitNot'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: BitLshift of class  LuaHelper */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_LuaHelper_BitLshift00
+static int tolua_NeoGame_LuaHelper_BitLshift00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"LuaHelper",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  int a = ((int)  tolua_tonumber(tolua_S,2,0));
+  int n = ((int)  tolua_tonumber(tolua_S,3,0));
+  {
+   int tolua_ret = (int)  LuaHelper::BitLshift(a,n);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'BitLshift'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: BitRshift of class  LuaHelper */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_LuaHelper_BitRshift00
+static int tolua_NeoGame_LuaHelper_BitRshift00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"LuaHelper",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  int a = ((int)  tolua_tonumber(tolua_S,2,0));
+  int n = ((int)  tolua_tonumber(tolua_S,3,0));
+  {
+   int tolua_ret = (int)  LuaHelper::BitRshift(a,n);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'BitRshift'.",&tolua_err);
  return 0;
 #endif
 }
@@ -28541,6 +28732,170 @@ static int tolua_NeoGame_NeoGraphics_getFps00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: getTextFromOSClipboard of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_getTextFromOSClipboard00
+static int tolua_NeoGame_NeoGraphics_getTextFromOSClipboard00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getTextFromOSClipboard'", NULL);
+#endif
+  {
+   std::string tolua_ret = (std::string)  self->getTextFromOSClipboard();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getTextFromOSClipboard'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setAppClipboardString of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_setAppClipboardString00
+static int tolua_NeoGame_NeoGraphics_setAppClipboardString00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+  const std::string text = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setAppClipboardString'", NULL);
+#endif
+  {
+   self->setAppClipboardString(text);
+   tolua_pushcppstring(tolua_S,(const char*)text);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setAppClipboardString'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getAppClipboardString of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_getAppClipboardString00
+static int tolua_NeoGame_NeoGraphics_getAppClipboardString00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getAppClipboardString'", NULL);
+#endif
+  {
+   std::string tolua_ret = (std::string)  self->getAppClipboardString();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getAppClipboardString'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setOSClipboardText of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_setOSClipboardText00
+static int tolua_NeoGame_NeoGraphics_setOSClipboardText00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+  const std::string text = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setOSClipboardText'", NULL);
+#endif
+  {
+   self->setOSClipboardText(text);
+   tolua_pushcppstring(tolua_S,(const char*)text);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setOSClipboardText'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getOperatingSystemVersion of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_getOperatingSystemVersion00
+static int tolua_NeoGame_NeoGraphics_getOperatingSystemVersion00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getOperatingSystemVersion'", NULL);
+#endif
+  {
+   std::string tolua_ret = (std::string)  self->getOperatingSystemVersion();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getOperatingSystemVersion'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: getMeshTexturePath of class  NeoGraphics */
 #ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_getMeshTexturePath00
 static int tolua_NeoGame_NeoGraphics_getMeshTexturePath00(lua_State* tolua_S)
@@ -29932,6 +30287,42 @@ static int tolua_NeoGame_NeoEditor_getSelectedCursorIndex00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: setSceneNodeTriangleSelector of class  NeoEditor */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoEditor_setSceneNodeTriangleSelector00
+static int tolua_NeoGame_NeoEditor_setSceneNodeTriangleSelector00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoEditor",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"irr::scene::ISceneNode",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoEditor* self = (NeoEditor*)  tolua_tousertype(tolua_S,1,0);
+  irr::scene::ISceneNode* node = ((irr::scene::ISceneNode*)  tolua_tousertype(tolua_S,2,0));
+  const std::string type = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setSceneNodeTriangleSelector'", NULL);
+#endif
+  {
+   self->setSceneNodeTriangleSelector(node,type);
+   tolua_pushcppstring(tolua_S,(const char*)type);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setSceneNodeTriangleSelector'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: Init of class  NeoEditor */
 #ifndef TOLUA_DISABLE_tolua_NeoGame_NeoEditor_Init00
 static int tolua_NeoGame_NeoEditor_Init00(lua_State* tolua_S)
@@ -30060,6 +30451,15 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
     tolua_function(tolua_S,".call",tolua_NeoGame_std_vector_float__new00_local);
     tolua_function(tolua_S,"delete",tolua_NeoGame_std_vector_float__delete00);
    tolua_endmodule(tolua_S);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"LuaHelper","LuaHelper","",NULL);
+  tolua_beginmodule(tolua_S,"LuaHelper");
+   tolua_function(tolua_S,"BitAnd",tolua_NeoGame_LuaHelper_BitAnd00);
+   tolua_function(tolua_S,"BitOr",tolua_NeoGame_LuaHelper_BitOr00);
+   tolua_function(tolua_S,"BitXor",tolua_NeoGame_LuaHelper_BitXor00);
+   tolua_function(tolua_S,"BitNot",tolua_NeoGame_LuaHelper_BitNot00);
+   tolua_function(tolua_S,"BitLshift",tolua_NeoGame_LuaHelper_BitLshift00);
+   tolua_function(tolua_S,"BitRshift",tolua_NeoGame_LuaHelper_BitRshift00);
   tolua_endmodule(tolua_S);
   tolua_module(tolua_S,"irr",0);
   tolua_beginmodule(tolua_S,"irr");
@@ -31578,6 +31978,48 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    lua_settop(tolua_S, top);
   } /* end of embedded lua code */
 
+
+  { /* begin embedded lua code */
+   int top = lua_gettop(tolua_S);
+   static const unsigned char B[] = {
+    10, 98,105,116, 61,123,125, 10,102,117,110, 99,116,105,111,
+    110, 32, 98,105,116, 46, 98,110,111,116, 40, 97, 41, 10,114,
+    101,116,117,114,110, 32, 76,117, 97, 72,101,108,112,101,114,
+     58, 66,105,116, 78,111,116, 40, 97, 41, 10,101,110,100, 10,
+    102,117,110, 99,116,105,111,110, 32, 98,105,116, 46, 98, 97,
+    110,100, 40, 97, 44, 46, 46, 46, 41, 10,114,101,116, 61, 97,
+     10,102,111,114, 32,105, 61, 49, 44, 35, 97,114,103, 32,100,
+    111, 10,114,101,116, 61, 76,117, 97, 72,101,108,112,101,114,
+     58, 66,105,116, 65,110,100, 40,114,101,116, 44, 97,114,103,
+     91,105, 93, 41, 10,101,110,100, 10,114,101,116,117,114,110,
+     32,114,101,116, 10,101,110,100, 10,102,117,110, 99,116,105,
+    111,110, 32, 98,105,116, 46, 98,111,114, 40, 97, 44, 46, 46,
+     46, 41, 10,114,101,116, 61, 97, 10,102,111,114, 32,105, 61,
+     49, 44, 35, 97,114,103, 32,100,111, 10,114,101,116, 61, 76,
+    117, 97, 72,101,108,112,101,114, 58, 66,105,116, 79,114, 40,
+    114,101,116, 44, 97,114,103, 91,105, 93, 41, 10,101,110,100,
+     10,114,101,116,117,114,110, 32,114,101,116, 10,101,110,100,
+     10,102,117,110, 99,116,105,111,110, 32, 98,105,116, 46, 98,
+    120,111,114, 40, 97, 44, 46, 46, 46, 41, 10,114,101,116, 61,
+     97, 10,102,111,114, 32,105, 61, 49, 44, 35, 97,114,103, 32,
+    100,111, 10,114,101,116, 61, 76,117, 97, 72,101,108,112,101,
+    114, 58, 66,105,116, 88,111,114, 40,114,101,116, 44, 97,114,
+    103, 91,105, 93, 41, 10,101,110,100, 10,114,101,116,117,114,
+    110, 32,114,101,116, 10,101,110,100, 10,102,117,110, 99,116,
+    105,111,110, 32, 98,105,116, 46,108,115,104,105,102,116, 40,
+     97, 44,110, 41, 10,114,101,116,117,114,110, 32, 76,117, 97,
+     72,101,108,112,101,114, 58, 66,105,116, 76,115,104,105,102,
+    116, 40, 97, 44,110, 41, 10,101,110,100, 10,102,117,110, 99,
+    116,105,111,110, 32, 98,105,116, 46,114,115,104,105,102,116,
+     40, 97, 44,110, 41, 10,114,101,116,117,114,110, 32, 76,117,
+     97, 72,101,108,112,101,114, 58, 66,105,116, 82,115,104,105,
+    102,116, 40, 97, 44,110, 41, 10,101,110,100, 45, 45, 45, 45,
+    32
+   };
+   tolua_dobuffer(tolua_S,(char*)B,sizeof(B),"tolua: embedded Lua code 2");
+   lua_settop(tolua_S, top);
+  } /* end of embedded lua code */
+
   tolua_cclass(tolua_S,"GameObject","GameObject","",NULL);
   tolua_beginmodule(tolua_S,"GameObject");
    tolua_function(tolua_S,"SetParent",tolua_NeoGame_GameObject_SetParent00);
@@ -31640,6 +32082,11 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"SetAmbientLight",tolua_NeoGame_NeoGraphics_SetAmbientLight00);
    tolua_function(tolua_S,"loadScene",tolua_NeoGame_NeoGraphics_loadScene00);
    tolua_function(tolua_S,"getFps",tolua_NeoGame_NeoGraphics_getFps00);
+   tolua_function(tolua_S,"getTextFromOSClipboard",tolua_NeoGame_NeoGraphics_getTextFromOSClipboard00);
+   tolua_function(tolua_S,"setAppClipboardString",tolua_NeoGame_NeoGraphics_setAppClipboardString00);
+   tolua_function(tolua_S,"getAppClipboardString",tolua_NeoGame_NeoGraphics_getAppClipboardString00);
+   tolua_function(tolua_S,"setOSClipboardText",tolua_NeoGame_NeoGraphics_setOSClipboardText00);
+   tolua_function(tolua_S,"getOperatingSystemVersion",tolua_NeoGame_NeoGraphics_getOperatingSystemVersion00);
    tolua_function(tolua_S,"getMeshTexturePath",tolua_NeoGame_NeoGraphics_getMeshTexturePath00);
    tolua_function(tolua_S,"CleanUp",tolua_NeoGame_NeoGraphics_CleanUp00);
    tolua_function(tolua_S,"LoadTexture",tolua_NeoGame_NeoGraphics_LoadTexture00);
@@ -31710,6 +32157,7 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getSelectedSceneNode",tolua_NeoGame_NeoEditor_getSelectedSceneNode00);
    tolua_function(tolua_S,"isSelectionCursor",tolua_NeoGame_NeoEditor_isSelectionCursor00);
    tolua_function(tolua_S,"getSelectedCursorIndex",tolua_NeoGame_NeoEditor_getSelectedCursorIndex00);
+   tolua_function(tolua_S,"setSceneNodeTriangleSelector",tolua_NeoGame_NeoEditor_setSceneNodeTriangleSelector00);
    tolua_function(tolua_S,"Init",tolua_NeoGame_NeoEditor_Init00);
    tolua_function(tolua_S,"CleanUp",tolua_NeoGame_NeoEditor_CleanUp00);
   tolua_endmodule(tolua_S);

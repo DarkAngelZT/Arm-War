@@ -7347,8 +7347,8 @@ Brown/Orange:
             <ImageryComponent>
                 <!--<Image name="TaharezLook/TreeListClosed" /> -->
 		<Image name="GlossySerpent/GlyphArrowRight" />
-              <!--  <VertFormat type="Stretched" />
-                <HorzFormat type="Stretched" /> -->
+                <VertFormat type="Stretched" />
+                <HorzFormat type="Stretched" />
             </ImageryComponent>
         </ImagerySection>
         <ImagerySection name="CloseTreeButton">

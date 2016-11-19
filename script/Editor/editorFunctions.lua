@@ -12,17 +12,78 @@ EditorObject.scale=irr.core.vector3df:new_local(1,1,1)
 EditorObject.scene_node=nil
 EditorObject.mesh_path=nil
 EditorObject.textures={}
---property table: property name --> property row id
+--property table: properties to be available for property window
 EditorObject.property={
-	name={},
-	id={readOnly=true,type="int"},
-	scene_type={display="Node Type"},
-	physics_type={display="Physics Type"},
-	position={}, rotation={},scale={},
-	mesh_path={display="Mesh"},
-	textures={type="StringList"}
+	name={
+		set = function( obj, text )
+			obj.name=text
+		end
+	},
+	id={
+		readOnly=true,type="int",
+		set = function( obj, id )
+			obj.id=id
+		end 
+	},
+	scene_type={
+		display="Node Type",
+		readOnly=true,
+		set = function( obj, text )
+			obj.scene_type=text
+		end
+	},
+	physics_type={
+		display="Physics Type",
+		set = function( obj, text )
+			obj.physics_type=text
+		end
+	},
+	position={
+		set = function( obj, pos )
+			obj:setPosition(pos)
+		end
+	}, 
+	rotation={
+		set = function( obj, rot )
+			obj:setRotation(rot)
+		end
+	},
+	scale={
+		set = function( obj, scale )
+			obj:setScale(scale)
+		end
+	},
+	mesh_path={
+		display="Mesh",
+		set = function( obj, text )
+			obj.mesh_path=text
+		end
+	},
+	textures={
+		type="StringList",
+		set = function( obj, list )
+			obj.textures=deepcopy(list)
+		end
+	}
 }
 
+EditorObject.propertyItemTable={}
+-------------------
+-- property handler
+-------------------
+function EditorObject:getPropertyKeyFromItem( item )
+	return self.propertyItemTable[item:getID()]
+end
+
+function EditorObject:setPropertyItemKey( item, key )
+	self.propertyItemTable[item:getID()]=key
+end
+
+function EditorObject:ClearItemKeyTable()
+	self.propertyItemTable={}
+end
+
+-------------------
 function EditorObject:setID( id )
 	self.id=id
 	if self.scene_node then
@@ -105,17 +166,31 @@ end
 -- function for copy object
 ------------------------------
 function EditorObject:Clone()
-	local obj=EditorObject.new()
-	obj.scene_type=self.scene_type
-	obj.physics_type=self.physics_type
-	obj.position=self.position
-	obj.rotation=self.rotation
-	obj.scale=self.scale
-	obj.scene_node=self.scene_node
-	obj.mesh_path=self.mesh_path
-	obj.textures=self.textures
-	return obj
+	return deepcopy(self)
 end
+--[[************************************
+ define root object
+**************************************]]
+EditorRootObject=class(EditorObject)
+EditorRootObject["ambient colour"]=irr.video.SColor:new_local(255,255,253,242)
+EditorRootObject["skydome texure"]=DIR_RESOURCES.."sfx/env/skydome/cloud_skydome.jpg"
+EditorRootObject.property={
+	["ambient colour"]={
+		set = function(obj, color)
+			obj["ambient colour"]=color
+			NeoGraphics:getInstance():SetAmbientLight(color)
+		end
+	},
+	["skydome texure"]={
+		set = function(obj, text)
+			obj["skydome texure"]=text
+			NeoGraphics:getInstance():UnloadTexture(map_editor.skyboxTexture)
+			map_editor.skyboxTexture=NeoGraphics:getInstance():LoadTexture(text)
+			map_editor.skybox:setMaterialTexture(0,map_editor.skyboxTexture)
+		end
+	}
+}
+
 --[[*****************************************
  define animated object based on basic object
 *******************************************]]
@@ -156,6 +231,16 @@ function map_editor.RemoveObject(obj)
 			deleteId(obj.id)
 			break
 		end
+	end
+end
+
+function map_editor.getObjectByNodeID( nodeid )
+	return map_editor.node_object_table[nodeid]
+end
+
+function map_editor.ClearObjectLookUpTable( ... )
+	for k,_ in pairs(map_editor.node_object_table) do
+		map_editor.node_object_table[k]=nil
 	end
 end
 -----------------
@@ -207,9 +292,11 @@ function map_editor.ImportStaticMesh( path, id )
 		obj.textures[#obj.textures+1]=list_path[i]
 	end
 	node:setID(id)
+	NeoEditor:getInstance():setSceneNodeTriangleSelector(node,"normal")
 	obj:setSceneNode(node)
 	map_editor.AddObject(obj)
 	map_editor.isOnScene=true
+	map_editor.AddObjectToSceneWindow(obj,false)
 end
 
 function map_editor.ImportAnimatedMesh( path, id )
@@ -219,6 +306,7 @@ function map_editor.ImportAnimatedMesh( path, id )
 
 	map_editor.AddObject(obj)
 	map_editor.isOnScene=true
+	map_editor.AddObjectToSceneWindow(obj,false)
 end
 
 function map_editor.ImportOctreeMesh( path, id )
@@ -236,7 +324,9 @@ function map_editor.ImportOctreeMesh( path, id )
 		obj.textures[#obj.textures+1]=list_path[i]
 	end
 	node:setID(id)
+	NeoEditor:getInstance():setSceneNodeTriangleSelector(node,"octree")
 	obj:setSceneNode(node)
 	map_editor.AddObject(obj)
 	map_editor.isOnScene=true
+	map_editor.AddObjectToSceneWindow(obj,false)
 end

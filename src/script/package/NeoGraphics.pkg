@@ -98,6 +98,11 @@ public:
 	bool loadScene(std::string file);
 
 	float getFps();
+	std::string getTextFromOSClipboard();
+	void setAppClipboardString(const std::string& text);
+	std::string getAppClipboardString();
+	void setOSClipboardText(const std::string& text);
+	std::string getOperatingSystemVersion();
 	std::vector<std::string> getMeshTexturePath(irr::scene::IMesh*mesh);
 	void CleanUp();
 	irr::video::ITexture* LoadTexture(std::string& path);

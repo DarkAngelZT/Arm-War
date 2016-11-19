@@ -181,7 +181,7 @@
             </Window>
         </Window>
         <Window type="GlossySerpent/FrameWindow" name="Property" >
-            <Property name="Area" value="{{0,0},{0,350},{0,229},{0,660}}" />
+            <Property name="Area" value="{{0,0},{0,350},{0,229},{0,698}}" />
             <Property name="Text" value="Property" />
             <Property name="Alpha" value="0.9" />
             <Property name="CloseButtonEnabled" value="false" />
@@ -194,6 +194,20 @@
                 <Property name="NonClient" value="true" />
                 <Property name="AlwaysOnTop" value="true" />
             </AutoWindow>
+            <Window type="GlossySerpent/SimplePanel" name="panel" >
+                <Property name="Area" value="{{0,0},{0,0},{1,0},{1,-29}}" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            </Window>
+            <Window type="GlossySerpent/Editbox" name="Editbox" >
+                <Property name="Area" value="{{0,1},{1,-29},{1,-59},{1,0}}" />
+                <Property name="ClippedByParent" value="false" />
+            </Window>
+            <Window type="GlossySerpent/Button" name="submit" >
+                <Property name="Area" value="{{0,0},{1,-29},{0,60},{1,0}}" />
+                <Property name="Text" value="Submit" />
+                <Property name="ClippedByParent" value="false" />
+                <Property name="HorizontalAlignment" value="Right" />
+            </Window>
         </Window>
         <Window type="GlossySerpent/FrameWindow" name="Scene" >
             <Property name="Area" value="{{0,0},{0,84},{0,224},{0,331}}" />

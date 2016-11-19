@@ -16,9 +16,12 @@ property_wnd:setWidth(CEGUI.PropertyHelper:stringToUDim("{1,0}"))
 property_wnd:setHeight(CEGUI.PropertyHelper:stringToUDim("{1,0}"))
 property_wnd:addColumn("Property", 0, CEGUI.PropertyHelper:stringToUDim("{0.5,0}"))
 property_wnd:addColumn("Value", 1, CEGUI.PropertyHelper:stringToUDim("{0.5,0}"))
-root:getChild("Property"):addChild(property_wnd)
+root:getChild("Property/panel"):addChild(property_wnd)
 property_wnd:setProperty("ColumnsMovable",CEGUI.PropertyHelper:boolToString(false))
 map_editor.property_wnd=property_wnd
+property_wnd:setSelectionMode(CEGUI.MultiColumnList.CellSingle)
+map_editor.property_editbox=CEGUI.toEditbox(root:getChild("Property/Editbox"))
+map_editor.property_submitbtn=root:getChild("Property/submit")
 map_editor.tree=CEGUI.toTree(root:getChild("Scene/Tree"))
 --注册事件
 local menubar="Menubar"
@@ -35,8 +38,17 @@ root:getChild(insertOption.."/animated_mesh"):subscribeEvent("Clicked","map_edit
 root:getChild(insertOption.."/oct"):subscribeEvent("Clicked","map_editor.Menu_Insert_callback")
 root:getChild(insertOption.."/billboard"):subscribeEvent("Clicked","map_editor.Menu_Insert_callback")
 root:getChild(insertOption.."/light"):subscribeEvent("Clicked","map_editor.Menu_Insert_callback")
+
+property_wnd:subscribeEvent("SelectionChanged","map_editor.PropertyItemSelected")
+root:getChild("Property/submit"):subscribeEvent("Clicked","map_editor.PropertyChangeSubmitted")
+
+map_editor.tree:subscribeEvent("SelectionChanged","map_editor.SceneTreeItemSelected")
+
 -- mouse and key event
 root:subscribeEvent("MouseButtonDown","map_editor.OnMouseButtonDownEvent")
 root:subscribeEvent("MouseButtonUp","map_editor.OnMouseButtonUpEvent")
 root:subscribeEvent("MouseMove","map_editor.OnMouseMove")
 root:subscribeEvent("MouseWheel","map_editor.OnMouseWheel")
+
+root:subscribeEvent("KeyDown","map_editor.OnKeyDown")
+root:subscribeEvent("KeyUp","map_editor.OnKeyUp")
