@@ -301,7 +301,7 @@ function map_editor.RemoveObjectFromSceneWindow( object )
 	end
 	local tree=map_editor.tree
 	local info=map_editor.scene_wnd_info
-	tree.removeItem(info[object.id].node)
+	info.root.node:removeItem(info[object.id].node)
 	info[object.id]=nil
 end
 
@@ -328,6 +328,12 @@ function map_editor.UpdateSceneWindowObject( object )
 	end
 	map_editor.tree:invalidate(true)
 end
+--------------------------------------------
+-- logic data window
+--------------------------------------------
+--------------------------------------------
+-- animation window
+--------------------------------------------
 --------------------------------------------
 -- Event Handler
 --------------------------------------------
@@ -798,6 +804,19 @@ function map_editor.OnKeyUp( args )
 	else
 		map_editor.key_states.shift=false
 	end
+
+	if map_editor.key_states.control and 
+		event.scancode == CEGUI.Key.Delete then
+		-- remove all selected objects
+		for _,v in pairs(map_editor.selected_objects) do
+			-- do not remove root object
+			if v ~= map_editor.root_object then
+				map_editor.RemoveObjectFromSceneWindow(v)
+				map_editor.RemoveObject(v)
+			end
+		end
+		map_editor.CancelAllSelections()
+	end
 end
 
 ---------------
@@ -871,4 +890,16 @@ end
 
 function map_editor.OnRButtonUp(event)
 	map_editor.mouse_states.rbutton=false
+end
+---------------------------------------------------
+-- get center position in screen, for inported mesh
+---------------------------------------------------
+function map_editor.getImportPosition()
+	local camera = map_editor.camera
+	local pos = camera:getPosition()
+	local target = camera:getTarget()
+	local lookVect = target-pos
+	lookVect:normalize()
+	lookVect=lookVect*100
+	return pos+lookVect
 end

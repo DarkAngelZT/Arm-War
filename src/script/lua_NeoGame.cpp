@@ -1,6 +1,6 @@
 /*
 ** Lua binding: NeoGame
-** Generated automatically by tolua++-1.0.93 on Thu Nov 17 21:54:45 2016.
+** Generated automatically by tolua++-1.0.93 on Sat Nov 19 23:39:49 2016.
 */
 
 #ifndef __cplusplus
@@ -109,6 +109,13 @@ static int tolua_collect_irr__core__vector3d_int_ (lua_State* tolua_S)
 	return 0;
 }
 
+static int tolua_collect_BasicExplosionEffectParams (lua_State* tolua_S)
+{
+ BasicExplosionEffectParams* self = (BasicExplosionEffectParams*) tolua_tousertype(tolua_S,1,0);
+	Mtolua_delete(self);
+	return 0;
+}
+
 static int tolua_collect_irr__core__dimension2d_int_ (lua_State* tolua_S)
 {
  irr::core::dimension2d<int>* self = (irr::core::dimension2d<int>*) tolua_tousertype(tolua_S,1,0);
@@ -116,9 +123,9 @@ static int tolua_collect_irr__core__dimension2d_int_ (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_BasicExplosionEffectParams (lua_State* tolua_S)
+static int tolua_collect_irr__video__SLight (lua_State* tolua_S)
 {
- BasicExplosionEffectParams* self = (BasicExplosionEffectParams*) tolua_tousertype(tolua_S,1,0);
+ irr::video::SLight* self = (irr::video::SLight*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -137,16 +144,16 @@ static int tolua_collect_irr__core__vector2d_float_ (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_std__vector_std__string_ (lua_State* tolua_S)
+static int tolua_collect_irr__video__SColorf (lua_State* tolua_S)
 {
- std::vector<std::string>* self = (std::vector<std::string>*) tolua_tousertype(tolua_S,1,0);
+ irr::video::SColorf* self = (irr::video::SColorf*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
 
-static int tolua_collect_irr__video__SColorf (lua_State* tolua_S)
+static int tolua_collect_std__vector_std__string_ (lua_State* tolua_S)
 {
- irr::video::SColorf* self = (irr::video::SColorf*) tolua_tousertype(tolua_S,1,0);
+ std::vector<std::string>* self = (std::vector<std::string>*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -168,20 +175,21 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"irr::scene::IParticleGravityAffector");
  tolua_usertype(tolua_S,"irr::io::IAttributeExchangingObject");
  tolua_usertype(tolua_S,"irr::core::dimension2d<unsigned>");
- tolua_usertype(tolua_S,"irr::core::vector2df");
  tolua_usertype(tolua_S,"NeoEditor");
- tolua_usertype(tolua_S,"irr::core::aabbox3d<float>");
+ tolua_usertype(tolua_S,"irr::core::vector2df");
  tolua_usertype(tolua_S,"BasicExplosionEffectParams");
- tolua_usertype(tolua_S,"NeoTrigger");
+ tolua_usertype(tolua_S,"irr::core::aabbox3d<float>");
+ tolua_usertype(tolua_S,"irr::core::vector2d<float>");
  tolua_usertype(tolua_S,"SfxManager");
- tolua_usertype(tolua_S,"irr::core::dimension2df");
  tolua_usertype(tolua_S,"NeoGraphics");
- tolua_usertype(tolua_S,"irr::scene::ISceneNode");
+ tolua_usertype(tolua_S,"irr::core::dimension2df");
  tolua_usertype(tolua_S,"GameObject");
+ tolua_usertype(tolua_S,"irr::scene::ISceneNode");
+ tolua_usertype(tolua_S,"NeoEvent");
  tolua_usertype(tolua_S,"irr::scene::IParticleRotationAffector");
  tolua_usertype(tolua_S,"irr::scene::IParticleAnimatedMeshSceneNodeEmitter");
  tolua_usertype(tolua_S,"irr::scene::IParticleCylinderEmitter");
- tolua_usertype(tolua_S,"NeoEvent");
+ tolua_usertype(tolua_S,"irr::core::dimension2d<int>");
  tolua_usertype(tolua_S,"std::vector<std::string>");
  tolua_usertype(tolua_S,"irr::core::vector3d<int>");
  tolua_usertype(tolua_S,"Application");
@@ -190,35 +198,35 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"irr::scene::ISceneNodeAnimator");
  tolua_usertype(tolua_S,"irr::scene::IParticleRingEmitter");
  tolua_usertype(tolua_S,"irr::scene::IParticleAffector");
- tolua_usertype(tolua_S,"irr::core::dimension2d<int>");
+ tolua_usertype(tolua_S,"NeoTrigger");
  tolua_usertype(tolua_S,"BasicExplosionParams");
  tolua_usertype(tolua_S,"irr::core::CMatrix4<float>");
- tolua_usertype(tolua_S,"irr::core::vector2d<float>");
+ tolua_usertype(tolua_S,"irr::video::ITexture");
  tolua_usertype(tolua_S,"irr::scene::IParticleSystemSceneNode");
  tolua_usertype(tolua_S,"irr::scene::IMeshSceneNode");
  tolua_usertype(tolua_S,"irr::core::vector3d<float>");
  tolua_usertype(tolua_S,"irr::core::vector2d<int>");
  tolua_usertype(tolua_S,"irr::scene::IParticleEmitter");
  tolua_usertype(tolua_S,"irr::core::vector2d<unsigned>");
- tolua_usertype(tolua_S,"irr::video::ITexture");
+ tolua_usertype(tolua_S,"irr::SKeyMap");
  tolua_usertype(tolua_S,"irr::scene::IParticleFadeOutAffector");
  tolua_usertype(tolua_S,"irr::core::aabbox3d<f32>");
  tolua_usertype(tolua_S,"irr::core::aabbox3d<int>");
  tolua_usertype(tolua_S,"irr::core::dimension2d<float>");
  tolua_usertype(tolua_S,"irr::scene::IParticleAttractionAffector");
- tolua_usertype(tolua_S,"irr::SKeyMap");
+ tolua_usertype(tolua_S,"irr::scene::ICameraSceneNode");
  tolua_usertype(tolua_S,"irr::scene::IMesh");
  tolua_usertype(tolua_S,"std::vector<float>");
- tolua_usertype(tolua_S,"irr::scene::ICameraSceneNode");
  tolua_usertype(tolua_S,"irr::video::SColorf");
  tolua_usertype(tolua_S,"irr::video::SColor");
+ tolua_usertype(tolua_S,"irr::scene::IBillboardSceneNode");
  tolua_usertype(tolua_S,"irr::video::SColorHSL");
  tolua_usertype(tolua_S,"irr::IReferenceCounted");
  tolua_usertype(tolua_S,"irr::scene::ILightSceneNode");
  tolua_usertype(tolua_S,"irr::scene::IParticleSphereEmitter");
  tolua_usertype(tolua_S,"std::vector<int>");
  tolua_usertype(tolua_S,"irr::scene::IAnimatedMeshSceneNode");
- tolua_usertype(tolua_S,"irr::scene::IBillboardSceneNode");
+ tolua_usertype(tolua_S,"irr::video::SLight");
  tolua_usertype(tolua_S,"irr::scene::IAnimatedMesh");
  tolua_usertype(tolua_S,"irr::scene::IParticleMeshEmitter");
  tolua_usertype(tolua_S,"irr::scene::IShadowVolumeSceneNode");
@@ -6994,6 +7002,71 @@ static int tolua_NeoGame_irr_scene_IDummyTransformationSceneNode_getRelativeTran
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: setLightData of class  irr::scene::ILightSceneNode */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_irr_scene_ILightSceneNode_setLightData00
+static int tolua_NeoGame_irr_scene_ILightSceneNode_setLightData00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"irr::scene::ILightSceneNode",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::video::SLight",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  irr::scene::ILightSceneNode* self = (irr::scene::ILightSceneNode*)  tolua_tousertype(tolua_S,1,0);
+  const irr::video::SLight* light = ((const irr::video::SLight*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setLightData'", NULL);
+#endif
+  {
+   self->setLightData(*light);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setLightData'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getLightData of class  irr::scene::ILightSceneNode */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_irr_scene_ILightSceneNode_getLightData00
+static int tolua_NeoGame_irr_scene_ILightSceneNode_getLightData00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"irr::scene::ILightSceneNode",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  irr::scene::ILightSceneNode* self = (irr::scene::ILightSceneNode*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getLightData'", NULL);
+#endif
+  {
+   irr::video::SLight& tolua_ret = (irr::video::SLight&)  self->getLightData();
+    tolua_pushusertype(tolua_S,(void*)&tolua_ret,"irr::video::SLight");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getLightData'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: setVisible of class  irr::scene::ILightSceneNode */
 #ifndef TOLUA_DISABLE_tolua_NeoGame_irr_scene_ILightSceneNode_setVisible00
 static int tolua_NeoGame_irr_scene_ILightSceneNode_setVisible00(lua_State* tolua_S)
@@ -7087,6 +7160,71 @@ static int tolua_NeoGame_irr_scene_ILightSceneNode_getRadius00(lua_State* tolua_
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'getRadius'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setLightType of class  irr::scene::ILightSceneNode */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_irr_scene_ILightSceneNode_setLightType00
+static int tolua_NeoGame_irr_scene_ILightSceneNode_setLightType00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"irr::scene::ILightSceneNode",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  irr::scene::ILightSceneNode* self = (irr::scene::ILightSceneNode*)  tolua_tousertype(tolua_S,1,0);
+  irr::video::E_LIGHT_TYPE type = ((irr::video::E_LIGHT_TYPE) (int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setLightType'", NULL);
+#endif
+  {
+   self->setLightType(type);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setLightType'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getLightType of class  irr::scene::ILightSceneNode */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_irr_scene_ILightSceneNode_getLightType00
+static int tolua_NeoGame_irr_scene_ILightSceneNode_getLightType00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const irr::scene::ILightSceneNode",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const irr::scene::ILightSceneNode* self = (const irr::scene::ILightSceneNode*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getLightType'", NULL);
+#endif
+  {
+   irr::video::E_LIGHT_TYPE tolua_ret = (irr::video::E_LIGHT_TYPE)  self->getLightType();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getLightType'.",&tolua_err);
  return 0;
 #endif
 }
@@ -14544,6 +14682,423 @@ static int tolua_NeoGame_irr_scene_IShadowVolumeSceneNode_updateShadowVolumes00(
  tolua_error(tolua_S,"#ferror in function 'updateShadowVolumes'.",&tolua_err);
  return 0;
 #endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: new of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_irr_video_SLight_new00
+static int tolua_NeoGame_irr_video_SLight_new00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"irr::video::SLight",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   irr::video::SLight* tolua_ret = (irr::video::SLight*)  Mtolua_new((irr::video::SLight)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"irr::video::SLight");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: new_local of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_irr_video_SLight_new00_local
+static int tolua_NeoGame_irr_video_SLight_new00_local(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"irr::video::SLight",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   irr::video::SLight* tolua_ret = (irr::video::SLight*)  Mtolua_new((irr::video::SLight)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"irr::video::SLight");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: AmbientColor of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_get_irr__video__SLight_AmbientColor
+static int tolua_get_irr__video__SLight_AmbientColor(lua_State* tolua_S)
+{
+  irr::video::SLight* self = (irr::video::SLight*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'AmbientColor'",NULL);
+#endif
+   tolua_pushusertype(tolua_S,(void*)&self->AmbientColor,"irr::video::SColorf");
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: AmbientColor of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_set_irr__video__SLight_AmbientColor
+static int tolua_set_irr__video__SLight_AmbientColor(lua_State* tolua_S)
+{
+  irr::video::SLight* self = (irr::video::SLight*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'AmbientColor'",NULL);
+  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::video::SColorf",0,&tolua_err)))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->AmbientColor = *((irr::video::SColorf*)  tolua_tousertype(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: DiffuseColor of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_get_irr__video__SLight_DiffuseColor
+static int tolua_get_irr__video__SLight_DiffuseColor(lua_State* tolua_S)
+{
+  irr::video::SLight* self = (irr::video::SLight*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'DiffuseColor'",NULL);
+#endif
+   tolua_pushusertype(tolua_S,(void*)&self->DiffuseColor,"irr::video::SColorf");
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: DiffuseColor of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_set_irr__video__SLight_DiffuseColor
+static int tolua_set_irr__video__SLight_DiffuseColor(lua_State* tolua_S)
+{
+  irr::video::SLight* self = (irr::video::SLight*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'DiffuseColor'",NULL);
+  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::video::SColorf",0,&tolua_err)))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->DiffuseColor = *((irr::video::SColorf*)  tolua_tousertype(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: SpecularColor of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_get_irr__video__SLight_SpecularColor
+static int tolua_get_irr__video__SLight_SpecularColor(lua_State* tolua_S)
+{
+  irr::video::SLight* self = (irr::video::SLight*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'SpecularColor'",NULL);
+#endif
+   tolua_pushusertype(tolua_S,(void*)&self->SpecularColor,"irr::video::SColorf");
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: SpecularColor of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_set_irr__video__SLight_SpecularColor
+static int tolua_set_irr__video__SLight_SpecularColor(lua_State* tolua_S)
+{
+  irr::video::SLight* self = (irr::video::SLight*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'SpecularColor'",NULL);
+  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::video::SColorf",0,&tolua_err)))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->SpecularColor = *((irr::video::SColorf*)  tolua_tousertype(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: Attenuation of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_get_irr__video__SLight_Attenuation
+static int tolua_get_irr__video__SLight_Attenuation(lua_State* tolua_S)
+{
+  irr::video::SLight* self = (irr::video::SLight*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'Attenuation'",NULL);
+#endif
+   tolua_pushusertype(tolua_S,(void*)&self->Attenuation,"irr::core::vector3d<float>");
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: Attenuation of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_set_irr__video__SLight_Attenuation
+static int tolua_set_irr__video__SLight_Attenuation(lua_State* tolua_S)
+{
+  irr::video::SLight* self = (irr::video::SLight*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'Attenuation'",NULL);
+  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->Attenuation = *((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: OuterCone of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_get_irr__video__SLight_OuterCone
+static int tolua_get_irr__video__SLight_OuterCone(lua_State* tolua_S)
+{
+  irr::video::SLight* self = (irr::video::SLight*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'OuterCone'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->OuterCone);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: OuterCone of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_set_irr__video__SLight_OuterCone
+static int tolua_set_irr__video__SLight_OuterCone(lua_State* tolua_S)
+{
+  irr::video::SLight* self = (irr::video::SLight*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'OuterCone'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->OuterCone = ((float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: InnerCone of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_get_irr__video__SLight_InnerCone
+static int tolua_get_irr__video__SLight_InnerCone(lua_State* tolua_S)
+{
+  irr::video::SLight* self = (irr::video::SLight*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'InnerCone'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->InnerCone);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: InnerCone of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_set_irr__video__SLight_InnerCone
+static int tolua_set_irr__video__SLight_InnerCone(lua_State* tolua_S)
+{
+  irr::video::SLight* self = (irr::video::SLight*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'InnerCone'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->InnerCone = ((float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: Falloff of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_get_irr__video__SLight_Falloff
+static int tolua_get_irr__video__SLight_Falloff(lua_State* tolua_S)
+{
+  irr::video::SLight* self = (irr::video::SLight*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'Falloff'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->Falloff);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: Falloff of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_set_irr__video__SLight_Falloff
+static int tolua_set_irr__video__SLight_Falloff(lua_State* tolua_S)
+{
+  irr::video::SLight* self = (irr::video::SLight*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'Falloff'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->Falloff = ((float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: Position of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_get_irr__video__SLight_Position
+static int tolua_get_irr__video__SLight_Position(lua_State* tolua_S)
+{
+  irr::video::SLight* self = (irr::video::SLight*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'Position'",NULL);
+#endif
+   tolua_pushusertype(tolua_S,(void*)&self->Position,"irr::core::vector3d<float>");
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: Position of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_set_irr__video__SLight_Position
+static int tolua_set_irr__video__SLight_Position(lua_State* tolua_S)
+{
+  irr::video::SLight* self = (irr::video::SLight*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'Position'",NULL);
+  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->Position = *((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: Direction of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_get_irr__video__SLight_Direction
+static int tolua_get_irr__video__SLight_Direction(lua_State* tolua_S)
+{
+  irr::video::SLight* self = (irr::video::SLight*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'Direction'",NULL);
+#endif
+   tolua_pushusertype(tolua_S,(void*)&self->Direction,"irr::core::vector3d<float>");
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: Direction of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_set_irr__video__SLight_Direction
+static int tolua_set_irr__video__SLight_Direction(lua_State* tolua_S)
+{
+  irr::video::SLight* self = (irr::video::SLight*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'Direction'",NULL);
+  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->Direction = *((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: Radius of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_get_irr__video__SLight_Radius
+static int tolua_get_irr__video__SLight_Radius(lua_State* tolua_S)
+{
+  irr::video::SLight* self = (irr::video::SLight*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'Radius'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->Radius);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: Radius of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_set_irr__video__SLight_Radius
+static int tolua_set_irr__video__SLight_Radius(lua_State* tolua_S)
+{
+  irr::video::SLight* self = (irr::video::SLight*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'Radius'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->Radius = ((float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: Type of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_get_irr__video__SLight_Type
+static int tolua_get_irr__video__SLight_Type(lua_State* tolua_S)
+{
+  irr::video::SLight* self = (irr::video::SLight*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'Type'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->Type);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: Type of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_set_irr__video__SLight_Type
+static int tolua_set_irr__video__SLight_Type(lua_State* tolua_S)
+{
+  irr::video::SLight* self = (irr::video::SLight*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'Type'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->Type = ((irr::video::E_LIGHT_TYPE) (int)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: CastShadows of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_get_irr__video__SLight_CastShadows
+static int tolua_get_irr__video__SLight_CastShadows(lua_State* tolua_S)
+{
+  irr::video::SLight* self = (irr::video::SLight*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'CastShadows'",NULL);
+#endif
+  tolua_pushboolean(tolua_S,(bool)self->CastShadows);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: CastShadows of class  irr::video::SLight */
+#ifndef TOLUA_DISABLE_tolua_set_irr__video__SLight_CastShadows
+static int tolua_set_irr__video__SLight_CastShadows(lua_State* tolua_S)
+{
+  irr::video::SLight* self = (irr::video::SLight*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'CastShadows'",NULL);
+  if (!tolua_isboolean(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->CastShadows = ((bool)  tolua_toboolean(tolua_S,2,0))
+;
+ return 0;
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -30873,9 +31428,13 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_beginmodule(tolua_S,"scene");
     tolua_cclass(tolua_S,"ILightSceneNode","irr::scene::ILightSceneNode","irr::scene::ISceneNode",NULL);
     tolua_beginmodule(tolua_S,"ILightSceneNode");
+     tolua_function(tolua_S,"setLightData",tolua_NeoGame_irr_scene_ILightSceneNode_setLightData00);
+     tolua_function(tolua_S,"getLightData",tolua_NeoGame_irr_scene_ILightSceneNode_getLightData00);
      tolua_function(tolua_S,"setVisible",tolua_NeoGame_irr_scene_ILightSceneNode_setVisible00);
      tolua_function(tolua_S,"setRadius",tolua_NeoGame_irr_scene_ILightSceneNode_setRadius00);
      tolua_function(tolua_S,"getRadius",tolua_NeoGame_irr_scene_ILightSceneNode_getRadius00);
+     tolua_function(tolua_S,"setLightType",tolua_NeoGame_irr_scene_ILightSceneNode_setLightType00);
+     tolua_function(tolua_S,"getLightType",tolua_NeoGame_irr_scene_ILightSceneNode_getLightType00);
      tolua_function(tolua_S,"enableCastShadow",tolua_NeoGame_irr_scene_ILightSceneNode_enableCastShadow00);
      tolua_function(tolua_S,"getCastShadow",tolua_NeoGame_irr_scene_ILightSceneNode_getCastShadow00);
     tolua_endmodule(tolua_S);
@@ -31272,6 +31831,38 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
     tolua_beginmodule(tolua_S,"IShadowVolumeSceneNode");
      tolua_function(tolua_S,"setShadowMesh",tolua_NeoGame_irr_scene_IShadowVolumeSceneNode_setShadowMesh00);
      tolua_function(tolua_S,"updateShadowVolumes",tolua_NeoGame_irr_scene_IShadowVolumeSceneNode_updateShadowVolumes00);
+    tolua_endmodule(tolua_S);
+   tolua_endmodule(tolua_S);
+  tolua_endmodule(tolua_S);
+  tolua_module(tolua_S,"irr",0);
+  tolua_beginmodule(tolua_S,"irr");
+   tolua_module(tolua_S,"video",0);
+   tolua_beginmodule(tolua_S,"video");
+    tolua_constant(tolua_S,"ELT_POINT",irr::video::ELT_POINT);
+    tolua_constant(tolua_S,"ELT_SPOT",irr::video::ELT_SPOT);
+    tolua_constant(tolua_S,"ELT_DIRECTIONAL",irr::video::ELT_DIRECTIONAL);
+    tolua_constant(tolua_S,"ELT_COUNT",irr::video::ELT_COUNT);
+    #ifdef __cplusplus
+    tolua_cclass(tolua_S,"SLight","irr::video::SLight","",tolua_collect_irr__video__SLight);
+    #else
+    tolua_cclass(tolua_S,"SLight","irr::video::SLight","",NULL);
+    #endif
+    tolua_beginmodule(tolua_S,"SLight");
+     tolua_function(tolua_S,"new",tolua_NeoGame_irr_video_SLight_new00);
+     tolua_function(tolua_S,"new_local",tolua_NeoGame_irr_video_SLight_new00_local);
+     tolua_function(tolua_S,".call",tolua_NeoGame_irr_video_SLight_new00_local);
+     tolua_variable(tolua_S,"AmbientColor",tolua_get_irr__video__SLight_AmbientColor,tolua_set_irr__video__SLight_AmbientColor);
+     tolua_variable(tolua_S,"DiffuseColor",tolua_get_irr__video__SLight_DiffuseColor,tolua_set_irr__video__SLight_DiffuseColor);
+     tolua_variable(tolua_S,"SpecularColor",tolua_get_irr__video__SLight_SpecularColor,tolua_set_irr__video__SLight_SpecularColor);
+     tolua_variable(tolua_S,"Attenuation",tolua_get_irr__video__SLight_Attenuation,tolua_set_irr__video__SLight_Attenuation);
+     tolua_variable(tolua_S,"OuterCone",tolua_get_irr__video__SLight_OuterCone,tolua_set_irr__video__SLight_OuterCone);
+     tolua_variable(tolua_S,"InnerCone",tolua_get_irr__video__SLight_InnerCone,tolua_set_irr__video__SLight_InnerCone);
+     tolua_variable(tolua_S,"Falloff",tolua_get_irr__video__SLight_Falloff,tolua_set_irr__video__SLight_Falloff);
+     tolua_variable(tolua_S,"Position",tolua_get_irr__video__SLight_Position,tolua_set_irr__video__SLight_Position);
+     tolua_variable(tolua_S,"Direction",tolua_get_irr__video__SLight_Direction,tolua_set_irr__video__SLight_Direction);
+     tolua_variable(tolua_S,"Radius",tolua_get_irr__video__SLight_Radius,tolua_set_irr__video__SLight_Radius);
+     tolua_variable(tolua_S,"Type",tolua_get_irr__video__SLight_Type,tolua_set_irr__video__SLight_Type);
+     tolua_variable(tolua_S,"CastShadows",tolua_get_irr__video__SLight_CastShadows,tolua_set_irr__video__SLight_CastShadows);
     tolua_endmodule(tolua_S);
    tolua_endmodule(tolua_S);
   tolua_endmodule(tolua_S);

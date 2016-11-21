@@ -276,11 +276,14 @@ std::vector<std::string> NeoGraphics::getMeshTexturePath(
 	std::set<std::string> path_unique;
 	for (unsigned int i = 0; i < mesh->getMeshBufferCount(); i++)
 	{
-		std::string path_str = mesh->getMeshBuffer(i)->getMaterial().getTexture(
-				0)->getName().getPath().c_str();
+		irr::video::ITexture*texture =
+				mesh->getMeshBuffer(i)->getMaterial().getTexture(0);
+		if (!texture)
+			continue;
+		std::string path_str = texture->getName().getPath().c_str();
 		path_unique.insert(path_str);
 	}
-	for(std::string p : path_unique)
+	for (std::string p : path_unique)
 	{
 		result.push_back(p);
 	}
@@ -305,7 +308,8 @@ void NeoGraphics::setOSClipboardText(const std::string& text)
 
 std::string NeoGraphics::getAppClipboardString()
 {
-	return std::string(CEGUI::System::getSingleton().getClipboard()->getText().c_str());
+	return std::string(
+			CEGUI::System::getSingleton().getClipboard()->getText().c_str());
 }
 
 void NeoGraphics::InitialiseDefaultResourceGroups()
@@ -444,5 +448,6 @@ std::string NeoGraphics::getTextFromOSClipboard()
 
 std::string NeoGraphics::getOperatingSystemVersion()
 {
-	return std::string(device->getOSOperator()->getOperatingSystemVersion().c_str());
+	return std::string(
+			device->getOSOperator()->getOperatingSystemVersion().c_str());
 }

@@ -15,7 +15,7 @@ public:
 
 	//! Sets the light data associated with this ILightSceneNode
 	/** \param light The new light data. */
-	//virtual void setLightData(const video::SLight& light) = 0;
+	virtual void setLightData(const video::SLight& light) = 0;
 
 	//! Gets the light data associated with this ILightSceneNode
 	/** \return The light data. */
@@ -23,7 +23,7 @@ public:
 
 	//! Gets the light data associated with this ILightSceneNode
 	/** \return The light data. */
-	//virtual video::SLight& getLightData() = 0;
+	virtual video::SLight& getLightData() = 0;
 
 	//! Sets if the node should be visible or not.
 	/** All children of this node won't be visible either, when set
@@ -45,11 +45,11 @@ public:
 
 	//! Sets the light type.
 	/** \param type The new type. */
-	//virtual void setLightType(video::E_LIGHT_TYPE type) = 0;
+	virtual void setLightType(video::E_LIGHT_TYPE type) = 0;
 
 	//! Gets the light type.
 	/** \return The current light type. */
-	//virtual video::E_LIGHT_TYPE getLightType() const = 0;
+	virtual video::E_LIGHT_TYPE getLightType() const = 0;
 
 	//! Sets whether this light casts shadows.
 	/** Enabling this flag won't automatically cast shadows, the meshes

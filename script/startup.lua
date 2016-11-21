@@ -3,6 +3,7 @@ print '启动程序...'
 --注册系统变量
 DIR_DATA="resources/data/"
 DIR_RESOURCES="resources/"
+DIR_EDITOR="resources/Editor/"
 DIR_SCRIPT="script/"
 DIR_SCRIPT_CEGUI="script/cegui/"
 

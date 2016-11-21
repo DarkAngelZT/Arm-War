@@ -12,7 +12,8 @@ EditorObject.scale=irr.core.vector3df:new_local(1,1,1)
 EditorObject.scene_node=nil
 EditorObject.mesh_path=nil
 EditorObject.textures={}
---property table: properties to be available for property window
+EditorObject.logic_data={}
+-- property table: properties to be available for property window
 EditorObject.property={
 	name={
 		set = function( obj, text )
@@ -166,7 +167,12 @@ end
 -- function for copy object
 ------------------------------
 function EditorObject:Clone()
-	return deepcopy(self)
+	local obj = deepcopy(self)
+	if obj.scene_node then
+		obj.scene_node=obj.scene_node:clone()
+	end
+	map_editor.AddObject(obj)
+	return obj
 end
 --[[************************************
  define root object
@@ -194,15 +200,221 @@ EditorRootObject.property={
 --[[*****************************************
  define animated object based on basic object
 *******************************************]]
+EditorAnimatedMeshObject = class(EditorObject)
+EditorAnimatedMeshObject.name = "animated mesh"
+EditorAnimatedMeshObject.scene_type = "mesh_animated"
+EditorAnimatedMeshObject.animation={
+	-- { label = "animation1", from = 1, to = 10 }	 
+}
+EditorAnimatedMeshObject.autoplay=true
+EditorAnimatedMeshObject.startLoop=""
 --[[*****************************************
  define billboard object based on basic object
 *******************************************]]
+EditorBillboardObject = class(EditorObject)
+EditorBillboardObject.name = "billboard"
+EditorBillboardObject.scene_type = "billboard"
+--[[*****************************************
+ define cube object based on basic object
+*******************************************]]
+EditorCubeObject = class(EditorObject)
+EditorCubeObject.name = "cube"
+EditorCubeObject.scene_type = "cube"
+EditorCubeObject.size=10.0
+EditorCubeObject.property.mesh_path=nil -- we don't need path here
+EditorCubeObject.property.size=
+{
+	readOnly=true,
+	set = function( obj, n )
+		obj.size=n
+	end
+}
+--[[*****************************************
+ define sphere object based on basic object
+*******************************************]]
+EditorSphereObject = class(EditorObject)
+EditorSphereObject.name = "sphere"
+EditorSphereObject.scene_type = "sphere"
+EditorSphereObject.radius = 5.0
+
+EditorSphereObject.property.mesh_path=nil -- we don't need path here
+EditorSphereObject.property.radius=
+{
+	readOnly=true,
+	set = function( obj, r )
+		obj.radius=r
+	end
+}
 --[[*****************************************
  define light object based on basic object
 *******************************************]]
+EditorLightObject = class(EditorObject)
+EditorLightObject.name = "light"
+EditorLightObject.scene_type = "light"
+EditorLightObject.ambient_color = irr.video.SColorf:new_local()
+EditorLightObject.diffuse_color = irr.video.SColorf:new_local(1,1,1,1)
+EditorLightObject.specular_color = irr.video.SColorf:new_local(1,1,1,1)
+EditorLightObject.attenuation = irr.video.SColorf:new_local(0,0.01,0)
+EditorLightObject.direction = irr.core.vector3df(1,0,0)
+EditorLightObject.falloff=2
+EditorLightObject.outerCone = 45
+EditorLightObject.innerCone = 0
+EditorLightObject.radius=100
+EditorLightObject.cast_shadow=true
+EditorLightObject.light_type = "point"
+EditorLightObject.type_list={
+	point=irr.video.ELT_POINT,
+	spot=irr.video.ELT_SPOT,
+	directional=irr.video.ELT_DIRECTIONAL
+}
+-- set functions
+function EditorLightObject:setAmbientColor(color)
+	self.ambient_color=color
+	if self.scene_node then
+		self.scene_node:getLightData().AmbientColor=color
+	end
+end
+
+function EditorLightObject.setDiffuseColor( color )
+	self.diffuse_color=color
+	if self.scene_node then
+		self.scene_node:getLightData().DiffuseColor=color
+	end
+end
+
+function EditorLightObject.setSpecularColor( color )
+	self.specular_color=color
+	if self.scene_node then
+		self.scene_node:getLightData().SpecularColor=color
+	end
+end
+
+function EditorLightObject.setAtenuation( attenuation )
+	self.attenuation=color
+	if self.scene_node then
+		self.scene_node:getLightData().Attenuation=attenuation
+	end
+end
+
+function EditorLightObject.setDirection( dir )
+	self.Direction=color
+	if self.scene_node then
+		self.scene_node:getLightData().Direction=dir
+	end
+end
+
+function EditorLightObject.setOuterCone( outerCone )
+	self.outerCone=outerCone
+	if self.scene_node then
+		self.scene_node:getLightData().OuterCone=outerCone
+	end
+end
+
+function EditorLightObject.setInnerCone( innerCone )
+	self.InnerCone=innerCone
+	if self.scene_node then
+		self.scene_node:getLightData().InnerCone=innerCone
+	end
+end
+
+function EditorLightObject.setFalloff( f )
+	self.falloff=f
+	if self.scene_node then
+		self.scene_node:getLightData().Falloff=f
+	end
+end
+
+function EditorLightObject.setRadius( r )
+	self.radius=r
+	if self.scene_node then
+		self.scene_node:setRadius(r)
+	end
+end
+
+function EditorLightObject.setCastShadow( castShadow )
+	self.cast_shadow=castShadow
+	if self.scene_node then
+		self.scene_node:enableCastShadow(castShadow)
+	end
+end
+
+function EditorLightObject.setLightType( type )
+	self.light_type=type
+	if self.scene_node and self.type_list[type] then
+		self.scene_node:setLightType(self.type_list[type])
+	end
+end
+-- delete unneccessary properties
+EditorLightObject.property.mesh_path=nil
+EditorLightObject.property.textures=nil
+EditorLightObject.property.physics_type=nil
+-- add new property
+EditorLightObject.property.ambient_color={
+	display="Ambient Colour",
+	set=function( obj, color )
+		obj:setAmbientColor(color)
+	end
+}
+EditorLightObject.property.diffuse_color={
+	display="Diffuse Color",
+	set=function( obj, color )
+		obj:setDiffuseColor(color)
+	end
+}
+EditorLightObject.property.specular_color={
+	display="Specular Color",
+	set=function( obj, color )
+		obj:setSpecularColor(color)
+	end
+}
+EditorLightObject.property.direction={
+	set=function( obj, dir )
+		obj:setDirection(dir)
+	end
+}
+EditorLightObject.property.falloff={
+	set=function( obj, f )
+		obj:setFalloff(f)
+	end
+}
+EditorLightObject.property.innerCone={
+	display="Inner Cone",
+	set=function( obj, inner )
+		obj:setInnerCone(inner)
+	end
+}
+EditorLightObject.property.outerCone={
+	display="Outer Cone",
+	set=function( obj, outer )
+		obj:setOuterCone(outer)
+	end
+}
+EditorLightObject.property.radius={
+	set=function( obj, r )
+		obj:setRadius(r)
+	end
+}
+EditorLightObject.property.cast_shadow={
+	display="Cast Shadow",
+	set=function( obj, s )
+		obj:setCastShadow(s)
+	end
+}
+EditorLightObject.property.light_type={
+	display="Light Type",
+	set=function( obj, t )
+		obj:setLightType(t)
+	end
+}
 --[[*****************************************
  define spawn point based on basic object
 *******************************************]]
+EditorEventPointObject=class(EditorObject)
+EditorEventPointObject.name="event point"
+EditorEventPointObject.scene_type="event_point"
+EditorEventPointObject.property.physics_type=nil
+EditorEventPointObject.property.mesh_path=nil
+EditorEventPointObject.property.textures=nil
 --[[**************************************
 map editor functions
 these are additional functions for map_editor
@@ -222,7 +434,7 @@ end
 function map_editor.RemoveObject(obj)
 	for i=1,#map_editor.objects do
 		if map_editor.objects[i]==obj then
-			table.remove(map_editor.objects,obj)
+			table.remove(map_editor.objects,i)
 			local node=obj.scene_node
 			if node then
 				map_editor.node_object_table[obj.id]=nil
@@ -277,12 +489,15 @@ end
 --------------
 --import functions
 --------------
-function map_editor.ImportStaticMesh( path, id )
+function map_editor.ImportStaticMesh( path, id, selected, position, rotation, scale )
 	if not path then
 		-- cancel button is clicked
 		map_editor.isOnScene=true
 		return
 	end
+	position=position or map_editor.getImportPosition()
+	rotation=rotation or irr.core.vector3df:new_local(0,0,0)
+	scale=scale or irr.core.vector3df:new_local(1,1,1)
 	local obj=EditorObject.new()
 	id=id or makeId()
 	obj.id=id
@@ -299,32 +514,58 @@ function map_editor.ImportStaticMesh( path, id )
 	node:setID(id)
 	NeoEditor:getInstance():setSceneNodeTriangleSelector(node,"normal")
 	obj:setSceneNode(node)
+	obj:setPosition(position)
+	obj:setRotation(rotation)
+	obj:setScale(scale)
 	map_editor.AddObject(obj)
 	map_editor.isOnScene=true
-	map_editor.AddObjectToSceneWindow(obj,false)
+	map_editor.AddObjectToSceneWindow(obj,selected)
+	return obj
 end
 
-function map_editor.ImportAnimatedMesh( path, id )
+function map_editor.ImportAnimatedMesh( path, id,selected, position, rotation, scale )
 	if not path then
 		-- cancel button is clicked
 		map_editor.isOnScene=true
 		return
 	end
-	local obj=EditorObject.new()
+	position=position or map_editor.getImportPosition()
+	rotation=rotation or irr.core.vector3df:new_local(0,0,0)
+	scale=scale or irr.core.vector3df:new_local(1,1,1)
+	local obj=EditorAnimatedMeshObject.new()
 	id=id or makeId()
 	obj.id=id
-
+	obj.name="animated mesh"
+	obj.scene_type="mesh_animated"
+	obj.mesh_path=path
+	local mesh=NeoGraphics:getInstance():getMesh(path)
+	local node=NeoGraphics:getInstance():AddAnimatedMeshSceneNode(mesh)
+	local vector_std__string_ list_path = NeoGraphics:getInstance():getMeshTexturePath(mesh)
+	--It's a c++ list, so index starts from 0
+	for i=0,list_path:size()-1 do
+		obj.textures[#obj.textures+1]=list_path[i]
+	end
+	node:setID(id)
+	NeoEditor:getInstance():setSceneNodeTriangleSelector(node,"normal")
+	obj:setSceneNode(node)
+	obj:setPosition(position)
+	obj:setRotation(rotation)
+	obj:setScale(scale)
 	map_editor.AddObject(obj)
 	map_editor.isOnScene=true
-	map_editor.AddObjectToSceneWindow(obj,false)
+	map_editor.AddObjectToSceneWindow(obj,selected)
+	return obj
 end
 
-function map_editor.ImportOctreeMesh( path, id )
+function map_editor.ImportOctreeMesh( path, id, selected, position, rotation, scale )
 	if not path then
 		-- cancel button is clicked
 		map_editor.isOnScene=true
 		return
 	end
+	position=position or map_editor.getImportPosition()
+	rotation=rotation or irr.core.vector3df:new_local(0,0,0)
+	scale=scale or irr.core.vector3df:new_local(1,1,1)
 	local obj=EditorObject.new()
 	id=id or makeId()
 	obj.id=id
@@ -341,7 +582,11 @@ function map_editor.ImportOctreeMesh( path, id )
 	node:setID(id)
 	NeoEditor:getInstance():setSceneNodeTriangleSelector(node,"octree")
 	obj:setSceneNode(node)
+	obj:setPosition(position)
+	obj:setRotation(rotation)
+	obj:setScale(scale)
 	map_editor.AddObject(obj)
 	map_editor.isOnScene=true
-	map_editor.AddObjectToSceneWindow(obj,false)
+	map_editor.AddObjectToSceneWindow(obj,selected)
+	return obj
 end

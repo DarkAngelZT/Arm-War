@@ -29,13 +29,26 @@ function class(super)
 	setmetatable(class_type,{__newindex=
 		function(table,key,value)
 			value_table[key]=value
+		end,
+		__index=function( table,key )
+			if super then
+				local value = value_table[key] 
+				if value then
+					return value
+				else
+					value =  deepcopy(_class[super][key])
+				end
+				class_type[key]=value
+				return value
+			end
+			return
 		end
 	})
  
 	if super then
 		setmetatable(value_table,{__index=
 			function(table,key)
-				local ret=_class[super][key]
+				local ret=deepcopy(_class[super][key])
 				value_table[key]=ret
 				return ret
 			end

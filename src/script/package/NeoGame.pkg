@@ -36,6 +36,7 @@ $pfile "IReferenceCounted.pkg"
 $pfile "ISceneNode.pkg"
 $pfile "ISceneNodeAnimator.pkg"
 $pfile "IShadowVolumeSceneNode.pkg"
+$pfile "SLight.pkg"
 
 $pfile "Key.pkg"
 $pfile "matrix4.pkg"
