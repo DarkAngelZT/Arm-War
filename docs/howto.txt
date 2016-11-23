@@ -1,0 +1,8 @@
+CEGUI how to set itemlist automatic adjust its item height to custom itementry?
+Open lookNfeel file, find contentsize name area of the listitem, add code:
+
+<OperatorDim op="Add">
+<UnifiedDim scale="1.0" type="Height" />
+</OperatorDim>
+
+Done. Same for the width

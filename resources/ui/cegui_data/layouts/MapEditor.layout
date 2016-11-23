@@ -5,7 +5,8 @@
         <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
         <Property name="MaxSize" value="{{1,0},{1,0}}" />
         <Window type="GlossySerpent/Menubar" name="Menubar" >
-            <Property name="Area" value="{{0,0},{0,0},{0,150},{0,40}}" />
+            <Property name="Area" value="{{0,0},{0,0},{0,200},{0,40}}" />
+            <Property name="Text" value="Window" />
             <Property name="MaxSize" value="{{1,0},{1,0}}" />
             <Property name="PixelAligned" value="false" />
             <Window type="GlossySerpent/MenuItem" name="File" >
@@ -51,41 +52,74 @@
                 <Property name="VerticalAlignment" value="Centre" />
                 <Property name="WantsMultiClickEvents" value="false" />
                 <Window type="GlossySerpent/PopupMenu" name="PopupMenu" >
-                    <Property name="Area" value="{{0,0},{0,0},{0,129.741},{0,139.914}}" />
+                    <Property name="Area" value="{{0,0},{0,0},{0,129.741},{0,245.945}}" />
                     <Property name="Visible" value="false" />
                     <Property name="ItemSpacing" value="2" />
+                    <Property name="SortEnabled" value="true" />
                     <Property name="ClippedByParent" value="false" />
                     <Property name="AutoResizeEnabled" value="true" />
                     <Window type="GlossySerpent/MenuItem" name="static_mesh" >
-                        <Property name="Area" value="{{0,5},{0,5},{0,126},{0,30}}" />
+                        <Property name="Area" value="{{0,5},{0,221},{0,126},{0,246}}" />
                         <Property name="Text" value="Static Mesh..." />
                         <Property name="WantsMultiClickEvents" value="false" />
                     </Window>
                     <Window type="GlossySerpent/MenuItem" name="animated_mesh" >
-                        <Property name="Area" value="{{0,5},{0,32},{0,126},{0,57}}" />
+                        <Property name="Area" value="{{0,5},{0,5},{0,126},{0,30}}" />
                         <Property name="Text" value="Animated Mesh..." />
                         <Property name="WantsMultiClickEvents" value="false" />
                     </Window>
                     <Window type="GlossySerpent/MenuItem" name="oct" >
-                        <Property name="Area" value="{{0,5},{0,59},{0,126},{0,84}}" />
+                        <Property name="Area" value="{{0,5},{0,140},{0,126},{0,165}}" />
                         <Property name="Text" value="Octree Mesh..." />
                         <Property name="WantsMultiClickEvents" value="false" />
                     </Window>
                     <Window type="GlossySerpent/MenuItem" name="light" >
-                        <Property name="Area" value="{{0,5},{0,86},{0,126},{0,111}}" />
+                        <Property name="Area" value="{{0,5},{0,113},{0,126},{0,138}}" />
                         <Property name="Text" value="Light" />
                         <Property name="WantsMultiClickEvents" value="false" />
                     </Window>
                     <Window type="GlossySerpent/MenuItem" name="billboard" >
-                        <Property name="Area" value="{{0,5},{0,113},{0,126},{0,138}}" />
+                        <Property name="Area" value="{{0,5},{0,32},{0,126},{0,57}}" />
                         <Property name="Text" value="Billboard" />
+                        <Property name="WantsMultiClickEvents" value="false" />
+                    </Window>
+                    <Window type="GlossySerpent/MenuItem" name="cube" >
+                        <Property name="Area" value="{{0,5},{0,59},{0,126},{0,84}}" />
+                        <Property name="Text" value="Cube" />
+                        <Property name="WantsMultiClickEvents" value="false" />
+                    </Window>
+                    <Window type="GlossySerpent/MenuItem" name="sphere" >
+                        <Property name="Area" value="{{0,5},{0,194},{0,126},{0,219}}" />
+                        <Property name="Text" value="Sphere" />
+                        <Property name="WantsMultiClickEvents" value="false" />
+                    </Window>
+                    <Window type="GlossySerpent/MenuItem" name="event_point" >
+                        <Property name="Area" value="{{0,5},{0,86},{0,126},{0,111}}" />
+                        <Property name="Text" value="Event Point" />
+                        <Property name="WantsMultiClickEvents" value="false" />
+                    </Window>
+                    <Window type="GlossySerpent/MenuItem" name="spawn_point" >
+                        <Property name="Area" value="{{0,5},{0,167},{0,126},{0,192}}" />
+                        <Property name="Text" value="Spawn Point" />
                         <Property name="WantsMultiClickEvents" value="false" />
                     </Window>
                 </Window>
             </Window>
+            <Window type="GlossySerpent/MenuItem" name="Help" >
+                <Property name="Area" value="{{0,105.741},{0,0},{0,142.741},{0,25}}" />
+                <Property name="Text" value="Help" />
+                <Property name="VerticalAlignment" value="Centre" />
+                <Property name="WantsMultiClickEvents" value="false" />
+            </Window>
+            <Window type="GlossySerpent/MenuItem" name="Tool" >
+                <Property name="Area" value="{{0,153.111},{0,0},{0,189.111},{0,25}}" />
+                <Property name="Text" value="Tool" />
+                <Property name="VerticalAlignment" value="Centre" />
+                <Property name="WantsMultiClickEvents" value="false" />
+            </Window>
         </Window>
         <Window type="GlossySerpent/SerpentPanel" name="Toolbar" >
-            <Property name="Area" value="{{0,200},{0,0},{0,477},{0,55}}" />
+            <Property name="Area" value="{{0,260},{0,0},{0,537},{0,55}}" />
             <Property name="MaxSize" value="{{1,0},{1,0}}" />
             <Property name="AutoRenderingSurface" value="true" />
             <Window type="GlossySerpent/GlyphButton" name="open" >
@@ -181,7 +215,7 @@
             </Window>
         </Window>
         <Window type="GlossySerpent/FrameWindow" name="Property" >
-            <Property name="Area" value="{{0,0},{0,350},{0,229},{0,698}}" />
+            <Property name="Area" value="{{0,0},{0,338},{0,259},{0,708}}" />
             <Property name="Text" value="Property" />
             <Property name="Alpha" value="0.9" />
             <Property name="CloseButtonEnabled" value="false" />
@@ -194,25 +228,159 @@
                 <Property name="NonClient" value="true" />
                 <Property name="AlwaysOnTop" value="true" />
             </AutoWindow>
-            <Window type="GlossySerpent/SimplePanel" name="panel" >
-                <Property name="Area" value="{{0,0},{0,0},{1,0},{1,-29}}" />
-                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Window type="GlossySerpent/TabControl" name="TabControl" >
+                <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+                <Property name="TabHeight" value="{0,23.1328}" />
+                <Property name="TabPanePosition" value="Bottom" />
+                <AutoWindow namePath="__auto_TabPane__ScrollLeft" >
+                    <Property name="AlwaysOnTop" value="true" />
+                </AutoWindow>
+                <AutoWindow namePath="__auto_TabPane__ScrollRight" >
+                    <Property name="AlwaysOnTop" value="true" />
+                </AutoWindow>
+                <Window type="DefaultWindow" name="Tab_attribute" >
+                    <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+                    <Property name="Text" value="Attributes" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Window type="GlossySerpent/Button" name="submit" >
+                        <Property name="Area" value="{{0,0},{1,-29},{0,60},{1,0}}" />
+                        <Property name="Text" value="Submit" />
+                        <Property name="ClippedByParent" value="false" />
+                        <Property name="HorizontalAlignment" value="Right" />
+                    </Window>
+                    <Window type="GlossySerpent/SimplePanel" name="panel" >
+                        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,-29}}" />
+                        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    </Window>
+                    <Window type="GlossySerpent/Editbox" name="Editbox" >
+                        <Property name="Area" value="{{0,1},{1,-29},{1,-59},{1,0}}" />
+                        <Property name="ClippedByParent" value="false" />
+                    </Window>
+                </Window>
+                <Window type="DefaultWindow" name="Tab_animation" >
+                    <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+                    <Property name="Text" value="Animation" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="Visible" value="false" />
+                    <Window type="GlossySerpent/ItemListbox" name="ItemListbox" >
+                        <Property name="Area" value="{{0,0},{0,31},{1,0},{1,1}}" />
+                        <AutoWindow namePath="__auto_content_pane__" >
+                            <Property name="MouseInputPropagationEnabled" value="true" />
+                        </AutoWindow>
+                        <AutoWindow namePath="__auto_vscrollbar__" >
+                            <Property name="NonClient" value="true" />
+                            <Property name="AlwaysOnTop" value="true" />
+                            <Property name="VerticalScrollbar" value="true" />
+                        </AutoWindow>
+                        <AutoWindow namePath="__auto_hscrollbar__" >
+                            <Property name="NonClient" value="true" />
+                            <Property name="AlwaysOnTop" value="true" />
+                        </AutoWindow>
+                    </Window>
+                    <Window type="GlossySerpent/Button" name="add_btn" >
+                        <Property name="Area" value="{{1,-54},{0,5},{1,-4},{0,29}}" />
+                        <Property name="Text" value="Add" />
+                    </Window>
+                    <Window type="GlossySerpent/Button" name="apply_btn" >
+                        <Property name="Area" value="{{0,-126},{0,5},{0,-64},{0,29}}" />
+                        <Property name="Text" value="Apply" />
+                        <Property name="HorizontalAlignment" value="Right" />
+                    </Window>
+                    <Window type="GlossySerpent/Button" name="revert_btn" >
+                        <Property name="Area" value="{{0,-61},{0,5},{0,-1},{0,29}}" />
+                        <Property name="Text" value="Revert" />
+                        <Property name="HorizontalAlignment" value="Right" />
+                    </Window>
+                </Window>
+                <Window type="GlossySerpent/SerpentPanel" name="Tab_logicData" >
+                    <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+                    <Property name="Text" value="Logic Data" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="Visible" value="false" />
+                    <Window type="GlossySerpent/Button" name="btn_apply" >
+                        <Property name="Area" value="{{0,-10},{0,-7},{0,43},{0,16}}" />
+                        <Property name="Text" value="Apply" />
+                        <Property name="VerticalAlignment" value="Bottom" />
+                        <Property name="HorizontalAlignment" value="Right" />
+                    </Window>
+                    <Window type="GlossySerpent/Button" name="btn_revert" >
+                        <Property name="Area" value="{{0,-64},{0,-7},{0,-7},{0,16}}" />
+                        <Property name="Text" value="Revert" />
+                        <Property name="VerticalAlignment" value="Bottom" />
+                        <Property name="HorizontalAlignment" value="Right" />
+                    </Window>
+                    <Window type="GlossySerpent/MultiLineEditbox" name="code" >
+                        <Property name="Area" value="{{0,0},{0,6},{1,-14},{1,-28}}" />
+                        <Property name="Text" >
+</Property>
+                        <Property name="HorizontalAlignment" value="Centre" />
+                        <AutoWindow namePath="__auto_vscrollbar__" >
+                            <Property name="VerticalScrollbar" value="true" />
+                        </AutoWindow>
+                    </Window>
+                </Window>
             </Window>
-            <Window type="GlossySerpent/Editbox" name="Editbox" >
-                <Property name="Area" value="{{0,1},{1,-29},{1,-59},{1,0}}" />
-                <Property name="ClippedByParent" value="false" />
-            </Window>
-            <Window type="GlossySerpent/Button" name="submit" >
-                <Property name="Area" value="{{0,0},{1,-29},{0,60},{1,0}}" />
-                <Property name="Text" value="Submit" />
-                <Property name="ClippedByParent" value="false" />
-                <Property name="HorizontalAlignment" value="Right" />
+            <Window type="GlossySerpent/ListboxItem" name="AnimationListboxItem" >
+                <Property name="Area" value="{{0,0},{0,0},{1,0},{0,62}}" />
+                <Property name="MaxSize" value="{{1,1},{0,0}}" />
+                <Property name="MinSize" value="{{0,0},{0,62}}" />
+                <Property name="Visible" value="false" />
+                <Property name="Selectable" value="true" />
+                <Property name="MouseInputPropagationEnabled" value="false" />
+                <Window type="GlossySerpent/SimplePanel" name="itemPanel" >
+                    <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Window type="GlossySerpent/StaticText" name="labeltext" >
+                        <Property name="Area" value="{{0,4},{0,11},{0,38},{0,21}}" />
+                        <Property name="Text" value="Label" />
+                        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                        <Property name="FrameEnabled" value="false" />
+                        <Property name="BackgroundEnabled" value="false" />
+                        <AutoWindow namePath="__auto_vscrollbar__" >
+                            <Property name="VerticalScrollbar" value="true" />
+                        </AutoWindow>
+                    </Window>
+                    <Window type="GlossySerpent/Editbox" name="label" >
+                        <Property name="Area" value="{{0,42},{0,4},{1,-69},{0,27}}" />
+                    </Window>
+                    <Window type="GlossySerpent/Button" name="delete_btn" >
+                        <Property name="Area" value="{{1,-66},{0,4},{1,-4},{0,24}}" />
+                        <Property name="Text" value="Delete" />
+                    </Window>
+                    <Window type="GlossySerpent/StaticText" name="from" >
+                        <Property name="Area" value="{{0,3},{0,31},{0.5,-5},{0,55}}" />
+                        <Property name="Text" value="From" />
+                        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                        <Property name="FrameEnabled" value="true" />
+                        <Property name="BackgroundEnabled" value="false" />
+                        <AutoWindow namePath="__auto_vscrollbar__" >
+                            <Property name="VerticalScrollbar" value="true" />
+                        </AutoWindow>
+                        <Window type="GlossySerpent/Editbox" name="editbox" >
+                            <Property name="Area" value="{{0,43},{0,0},{1,0},{0,23}}" />
+                            <Property name="ValidationString" value="^[0-9]*$" />
+                        </Window>
+                    </Window>
+                    <Window type="GlossySerpent/StaticText" name="to" >
+                        <Property name="Area" value="{{0.5,0},{0,31},{1,-6},{0,55}}" />
+                        <Property name="Text" value="To" />
+                        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                        <Property name="FrameEnabled" value="true" />
+                        <Property name="BackgroundEnabled" value="false" />
+                        <AutoWindow namePath="__auto_vscrollbar__" >
+                            <Property name="VerticalScrollbar" value="true" />
+                        </AutoWindow>
+                        <Window type="GlossySerpent/Editbox" name="editbox" >
+                            <Property name="Area" value="{{0,30},{0,0},{1,0},{0,23}}" />
+                            <Property name="ValidationString" value="^[0-9]*$" />
+                        </Window>
+                    </Window>
+                </Window>
             </Window>
         </Window>
         <Window type="GlossySerpent/FrameWindow" name="Scene" >
             <Property name="Area" value="{{0,0},{0,84},{0,224},{0,331}}" />
             <Property name="Text" value="Scene" />
-            <Property name="Alpha" value="0.9" />
             <Property name="CloseButtonEnabled" value="false" />
             <Property name="AutoRenderingSurface" value="true" />
             <AutoWindow namePath="__auto_titlebar__" >
@@ -228,6 +396,43 @@
                 <AutoWindow namePath="__auto_vscrollbar__" >
                     <Property name="VerticalScrollbar" value="true" />
                 </AutoWindow>
+            </Window>
+        </Window>
+        <Window type="GlossySerpent/FrameWindow" name="InputWindow" >
+            <Property name="Area" value="{{0,0},{0,0},{0,400},{0,190}}" />
+            <Property name="Text" value="Input Window" />
+            <Property name="Visible" value="false" />
+            <Property name="VerticalAlignment" value="Centre" />
+            <Property name="HorizontalAlignment" value="Centre" />
+            <Property name="AutoRenderingSurface" value="true" />
+            <AutoWindow namePath="__auto_titlebar__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="false" />
+            </AutoWindow>
+            <AutoWindow namePath="__auto_closebutton__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="true" />
+            </AutoWindow>
+            <Window type="GlossySerpent/Editbox" name="input" >
+                <Property name="Area" value="{{0,0},{0,0},{0.95,0},{0,40}}" />
+                <Property name="VerticalAlignment" value="Centre" />
+                <Property name="HorizontalAlignment" value="Centre" />
+            </Window>
+            <Window type="GlossySerpent/StaticText" name="info" >
+                <Property name="Area" value="{{0,7},{0,9},{0.8,7},{0,32}}" />
+                <Property name="Text" value="information to display" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="FrameEnabled" value="false" />
+                <Property name="BackgroundEnabled" value="false" />
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <Property name="VerticalScrollbar" value="true" />
+                </AutoWindow>
+            </Window>
+            <Window type="GlossySerpent/Button" name="ok_btn" >
+                <Property name="Area" value="{{0,-7},{0,-4},{0,70},{0,28}}" />
+                <Property name="Text" value="OK" />
+                <Property name="VerticalAlignment" value="Bottom" />
+                <Property name="HorizontalAlignment" value="Right" />
             </Window>
         </Window>
     </Window>

@@ -24,6 +24,7 @@ map_editor.scene_node_icon=
 	unknown="sceneNode_unknown"
 }
 dofile(DIR_SCRIPT.."Editor/toolbar.lua")
+dofile(DIR_SCRIPT.."Editor/animationPanel.lua")
 --------------------------------------------
 -- initialize
 --------------------------------------------
@@ -41,6 +42,8 @@ function map_editor.Init()
 	map_editor.InitToolbar()
 	--property window
 	map_editor.InitPropertyWindow()
+	--animation window
+	map_editor.animation_wnd.Init()
 	--map name
 	map_editor.map_name="untitiled"
 	-- camera
@@ -76,6 +79,8 @@ function map_editor.CleanUp()
 	-- clear scene node from c++ side
 	NeoEditor:getInstance():CleanUp()
 	NeoGraphics:getInstance():UnloadTexture(map_editor.skyboxTexture)
+	-- clear all loaded textures
+	map_editor.RemoveAllTextures()
 	--clear property window
 	map_editor.ClearPropertyWindow()
 	--clear scene window
@@ -216,6 +221,9 @@ function map_editor.UpdatePropertyWindow( object )
 	end
 	wnd:autoSizeColumnHeader(1)
 	map_editor.current_editted_object_property={obj=object}
+	-- animation window
+	map_editor.animation_wnd.UpdateObject( object )
+
 end
 
 function map_editor.UpdatePropertyWindowSingleRow( object, key )
@@ -291,6 +299,9 @@ function map_editor.AddObjectToSceneWindow( obj, selected )
 	}
 	info.root.node:addItem(new_node)
 	new_node:setSelected(selected)
+	if selected then
+		map_editor.SelectObject(obj)
+	end
 	return new_node
 end
 
@@ -330,9 +341,6 @@ function map_editor.UpdateSceneWindowObject( object )
 end
 --------------------------------------------
 -- logic data window
---------------------------------------------
---------------------------------------------
--- animation window
 --------------------------------------------
 --------------------------------------------
 -- Event Handler
@@ -805,8 +813,8 @@ function map_editor.OnKeyUp( args )
 		map_editor.key_states.shift=false
 	end
 
-	if map_editor.key_states.control and 
-		event.scancode == CEGUI.Key.Delete then
+	if event.scancode == CEGUI.Key.Delete and
+		g_ui_table.editor:getActiveChild():getType() ~= "GlossySerpent/Editbox" then
 		-- remove all selected objects
 		for _,v in pairs(map_editor.selected_objects) do
 			-- do not remove root object
@@ -824,6 +832,10 @@ end
 ---------------
 function map_editor.OnLButtonDown(event)
 	map_editor.mouse_states.lbutton=true
+	local childWnd = g_ui_table.editor:getActiveChild()
+	if childWnd:getType() == "GlossySerpent/Editbox" then
+		childWnd:deactivate()
+	end
 	local editor_wrapper=NeoEditor:getInstance()
 	local node=editor_wrapper:getSelectedSceneNode()
 	if node and 
@@ -900,6 +912,6 @@ function map_editor.getImportPosition()
 	local target = camera:getTarget()
 	local lookVect = target-pos
 	lookVect:normalize()
-	lookVect=lookVect*100
+	lookVect=lookVect*50
 	return pos+lookVect
 end

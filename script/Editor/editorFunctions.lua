@@ -125,6 +125,14 @@ function EditorObject:setSceneNode( node )
 		map_editor.node_object_table[self.id]=self
 	end
 end
+function EditorObject:setTexture( path )
+	if self.scene_node then
+		-- NeoGraphics:getInstance():UnloadTexture(map_editor.skyboxTexture)
+		-- 	map_editor.skyboxTexture=NeoGraphics:getInstance():LoadTexture(text)
+		-- 	map_editor.skybox:setMaterialTexture(0,map_editor.skyboxTexture)
+		-- self.scene_node:
+	end
+end
 ------------------------------
 -- loading and saving functions
 ------------------------------
@@ -136,9 +144,13 @@ function EditorObject:Deserialize( obj_info )
 	IDGenerator:Register(self.id)
 	if obj_info.mesh_path then
 		if obj_info.scene_type == "mesh_static" then
-			map_editor.ImportStaticMesh(self.mesh_path,self.id)
+			map_editor.ImportStaticMesh(
+				self.mesh_path, self.id, false, 
+				self.position, self.rotation, self.scale)
 		elseif obj_info.scene_type == "octree" then
-			map_editor.ImportOctreeMesh(self.mesh_path,self.id)
+			map_editor.ImportOctreeMesh(
+				self.mesh_path, self.id, false,
+				self.position, self.rotation, self.scale)
 		end
 	end
 end
@@ -160,7 +172,7 @@ function EditorObject:Serialize( distObjName, fileWriter )
 		map_editor.WriteString(fileWriter, "mesh_path", file)
 		map_editor.WriteTextureArray(fileWriter, "textures", self.textures)
 		--enclosure
-		fileWriter:write("\n} -- "..distObjName)
+		fileWriter:write("\n} -- "..distObjName.."\n")
 	end
 end
 ------------------------------
@@ -204,10 +216,46 @@ EditorAnimatedMeshObject = class(EditorObject)
 EditorAnimatedMeshObject.name = "animated mesh"
 EditorAnimatedMeshObject.scene_type = "mesh_animated"
 EditorAnimatedMeshObject.animation={
-	-- { label = "animation1", from = 1, to = 10 }	 
+	-- {id = 1, label = "animation1", from = 1, to = 10 }	 
 }
 EditorAnimatedMeshObject.autoplay=true
 EditorAnimatedMeshObject.startLoop=""
+------------------------------
+-- loading and saving functions
+------------------------------
+function EditorAnimatedMeshObject:Deserialize( obj_info )
+	-- loading node from map object info table
+	for key,value in pairs(obj_info) do
+		self[key]=value
+	end
+	IDGenerator:Register(self.id)
+	if obj_info.mesh_path and obj_info.scene_type == "mesh_animated"  then
+		map_editor.ImportAnimatedMesh(
+			self.mesh_path,self.id, false,
+			self.position, self.rotation, self.scale)
+	end
+end
+
+function EditorAnimatedMeshObject:Serialize( distObjName, fileWriter )
+	if fileWriter then
+		--begin
+		fileWriter:write(distObjName.." = {\n")
+		--body
+		map_editor.WriteString(fileWriter, "name", self.name)
+		map_editor.WriteInt(fileWriter, "id", self.id)
+		map_editor.WriteString(fileWriter, "scene_type", self.scene_type)
+		map_editor.WriteString(fileWriter, "physics_type", self.physics_type)
+		map_editor.WriteVector3df(fileWriter, "position", self.position)
+		map_editor.WriteVector3df(fileWriter, "rotation", self.rotation)
+		map_editor.WriteVector3df(fileWriter, "scale", self.scale)
+		--modifie the mesh file path
+		_,file=parsePath(EditorObject.mesh_path)
+		map_editor.WriteString(fileWriter, "mesh_path", file)
+		map_editor.WriteTextureArray(fileWriter, "textures", self.textures)
+		--enclosure
+		fileWriter:write("\n} -- "..distObjName.."\n")
+	end
+end
 --[[*****************************************
  define billboard object based on basic object
 *******************************************]]
@@ -422,6 +470,17 @@ these are additional functions for map_editor
 --------------------------------
 ----- map editor functions -----
 --------------------------------
+-- texture loaded during editing
+map_editor.textures={}
+function map_editor.RemoveAllTextures()
+	for k,_ in pairs(map_editor.textures) do
+		local texture = NeoGraphics:getInstance():LoadTexture(k)
+		if texture then
+			NeoGraphics:getInstance():UnloadTexture(texture)
+		end
+		map_editor.textures[k]=nil
+	end
+end
 --objects
 map_editor.objects={}
 --object look up table for reverse look up
@@ -509,7 +568,9 @@ function map_editor.ImportStaticMesh( path, id, selected, position, rotation, sc
 	local vector_std__string_ list_path = NeoGraphics:getInstance():getMeshTexturePath(mesh)
 	--It's a c++ list, so index starts from 0
 	for i=0,list_path:size()-1 do
-		obj.textures[#obj.textures+1]=list_path[i]
+		local p = list_path[i]
+		obj.textures[#obj.textures+1]=p
+		map_editor.textures[p]=true
 	end
 	node:setID(id)
 	NeoEditor:getInstance():setSceneNodeTriangleSelector(node,"normal")
@@ -543,7 +604,9 @@ function map_editor.ImportAnimatedMesh( path, id,selected, position, rotation, s
 	local vector_std__string_ list_path = NeoGraphics:getInstance():getMeshTexturePath(mesh)
 	--It's a c++ list, so index starts from 0
 	for i=0,list_path:size()-1 do
-		obj.textures[#obj.textures+1]=list_path[i]
+		local p = list_path[i]
+		obj.textures[#obj.textures+1]=p
+		map_editor.textures[p]=true
 	end
 	node:setID(id)
 	NeoEditor:getInstance():setSceneNodeTriangleSelector(node,"normal")
@@ -577,7 +640,9 @@ function map_editor.ImportOctreeMesh( path, id, selected, position, rotation, sc
 	local vector_std__string_ list_path = NeoGraphics:getInstance():getMeshTexturePath(mesh)
 	--It's a c++ list, so index starts from 0
 	for i=0,list_path:size()-1 do
-		obj.textures[#obj.textures+1]=list_path[i]
+		local p = list_path[i]
+		obj.textures[#obj.textures+1]=p
+		map_editor.textures[p]=true
 	end
 	node:setID(id)
 	NeoEditor:getInstance():setSceneNodeTriangleSelector(node,"octree")

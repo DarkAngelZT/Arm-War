@@ -4475,6 +4475,9 @@ Brown/Orange:
                 </Dim>
                 <Dim type="Height" >
                     <FontDim type="LineSpacing" />
+			<OperatorDim op="Add">
+				<UnifiedDim scale="1.0" type="Height" />
+			</OperatorDim>
                 </Dim>
             </Area>
         </NamedArea>

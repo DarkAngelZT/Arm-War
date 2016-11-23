@@ -16,12 +16,12 @@ property_wnd:setWidth(CEGUI.PropertyHelper:stringToUDim("{1,0}"))
 property_wnd:setHeight(CEGUI.PropertyHelper:stringToUDim("{1,0}"))
 property_wnd:addColumn("Property", 0, CEGUI.PropertyHelper:stringToUDim("{0.5,0}"))
 property_wnd:addColumn("Value", 1, CEGUI.PropertyHelper:stringToUDim("{0.5,0}"))
-root:getChild("Property/panel"):addChild(property_wnd)
+root:getChild("Property/TabControl/Tab_attribute/panel"):addChild(property_wnd)
 property_wnd:setProperty("ColumnsMovable",CEGUI.PropertyHelper:boolToString(false))
 map_editor.property_wnd=property_wnd
 property_wnd:setSelectionMode(CEGUI.MultiColumnList.CellSingle)
-map_editor.property_editbox=CEGUI.toEditbox(root:getChild("Property/Editbox"))
-map_editor.property_submitbtn=root:getChild("Property/submit")
+map_editor.property_editbox=CEGUI.toEditbox(root:getChild("Property/TabControl/Tab_attribute/Editbox"))
+map_editor.property_submitbtn=root:getChild("Property/TabControl/Tab_attribute/submit")
 map_editor.tree=CEGUI.toTree(root:getChild("Scene/Tree"))
 --注册事件
 local menubar="Menubar"
@@ -40,7 +40,7 @@ root:getChild(insertOption.."/billboard"):subscribeEvent("Clicked","map_editor.M
 root:getChild(insertOption.."/light"):subscribeEvent("Clicked","map_editor.Menu_Insert_callback")
 --property window
 property_wnd:subscribeEvent("SelectionChanged","map_editor.PropertyItemSelected")
-root:getChild("Property/submit"):subscribeEvent("Clicked","map_editor.PropertyChangeSubmitted")
+root:getChild("Property/TabControl/Tab_attribute/submit"):subscribeEvent("Clicked","map_editor.PropertyChangeSubmitted")
 --tree
 map_editor.tree:subscribeEvent("SelectionChanged","map_editor.SceneTreeItemSelected")
 -- tool bar
