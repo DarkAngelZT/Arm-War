@@ -12,7 +12,7 @@ EditorObject.scale=irr.core.vector3df:new_local(1,1,1)
 EditorObject.scene_node=nil
 EditorObject.mesh_path=nil
 EditorObject.textures={}
-EditorObject.logic_data={}
+EditorObject.logic_data=""
 -- property table: properties to be available for property window
 EditorObject.property={
 	name={
@@ -136,23 +136,27 @@ end
 ------------------------------
 -- loading and saving functions
 ------------------------------
-function EditorObject:Deserialize( obj_info )
-	-- loading node from map object info table
-	for key,value in pairs(obj_info) do
-		self[key]=value
-	end
-	IDGenerator:Register(self.id)
+function EditorObject.Deserialize( obj_info )
+	local obj
 	if obj_info.mesh_path then
 		if obj_info.scene_type == "mesh_static" then
-			map_editor.ImportStaticMesh(
-				self.mesh_path, self.id, false, 
-				self.position, self.rotation, self.scale)
+			obj = map_editor.ImportStaticMesh(
+				obj_info.mesh_path, obj_info.id, false, 
+				obj_info.position, obj_info.rotation, obj_info.scale)
 		elseif obj_info.scene_type == "octree" then
-			map_editor.ImportOctreeMesh(
-				self.mesh_path, self.id, false,
-				self.position, self.rotation, self.scale)
+			obj = map_editor.ImportOctreeMesh(
+				obj_info.mesh_path, obj_info.id, false,
+				obj_info.position, obj_info.rotation, obj_info.scale)
 		end
 	end
+	if obj then
+		-- loading node from map object info table
+		for key,value in pairs(obj_info) do
+			obj[key]=value
+		end
+		IDGenerator:Register(obj.id)
+	end
+	return obj
 end
 
 function EditorObject:Serialize( distObjName, fileWriter )
@@ -169,8 +173,11 @@ function EditorObject:Serialize( distObjName, fileWriter )
 		map_editor.WriteVector3df(fileWriter, "scale", self.scale)
 		--modifie the mesh file path
 		_,file=parsePath(EditorObject.mesh_path)
+		file=DIR_MAPS..map_editor.map_name.."/"..file
 		map_editor.WriteString(fileWriter, "mesh_path", file)
 		map_editor.WriteTextureArray(fileWriter, "textures", self.textures)
+		-- logic data
+		map_editor.WriteString(fileWriter,"logic_data",self.logic_data)
 		--enclosure
 		fileWriter:write("\n} -- "..distObjName.."\n")
 	end
@@ -191,7 +198,7 @@ end
 **************************************]]
 EditorRootObject=class(EditorObject)
 EditorRootObject["ambient colour"]=irr.video.SColor:new_local(255,255,253,242)
-EditorRootObject["skydome texure"]=DIR_RESOURCES.."sfx/env/skydome/cloud_skydome.jpg"
+EditorRootObject["skydome texture"]=DIR_RESOURCES.."sfx/env/skydome/cloud_skydome.jpg"
 EditorRootObject.property={
 	["ambient colour"]={
 		set = function(obj, color)
@@ -199,9 +206,9 @@ EditorRootObject.property={
 			NeoGraphics:getInstance():SetAmbientLight(color)
 		end
 	},
-	["skydome texure"]={
+	["skydome texture"]={
 		set = function(obj, text)
-			obj["skydome texure"]=text
+			obj["skydome texture"]=text
 			NeoGraphics:getInstance():UnloadTexture(map_editor.skyboxTexture)
 			map_editor.skyboxTexture=NeoGraphics:getInstance():LoadTexture(text)
 			map_editor.skybox:setMaterialTexture(0,map_editor.skyboxTexture)
@@ -220,20 +227,53 @@ EditorAnimatedMeshObject.animation={
 }
 EditorAnimatedMeshObject.autoplay=true
 EditorAnimatedMeshObject.startLoop=""
+-- add new property
+EditorAnimatedMeshObject.property.autoplay={
+	display="autoplay animation",
+	set=function( obj, p )
+		obj.autoplay=p
+		obj.scene_node:setLoopMode(p)
+	end
+}
+EditorAnimatedMeshObject.property.startLoop={
+	display="initial animation",
+	set=function( obj, l )
+		obj.startLoop=l
+		for _,info in ipairs(obj.animation) do
+		 	if info.label == obj.startLoop then
+		 		obj.scene_node:setFrameLoop(info.from,info.to)
+		 		break
+		 	end
+		end
+	end
+}
 ------------------------------
 -- loading and saving functions
 ------------------------------
-function EditorAnimatedMeshObject:Deserialize( obj_info )
-	-- loading node from map object info table
-	for key,value in pairs(obj_info) do
-		self[key]=value
-	end
-	IDGenerator:Register(self.id)
+function EditorAnimatedMeshObject.Deserialize( obj_info )
+	local obj
 	if obj_info.mesh_path and obj_info.scene_type == "mesh_animated"  then
-		map_editor.ImportAnimatedMesh(
-			self.mesh_path,self.id, false,
-			self.position, self.rotation, self.scale)
+		obj = map_editor.ImportAnimatedMesh(
+			obj_info.mesh_path,obj_info.id, false,
+			obj_info.position, obj_info.rotation, obj_info.scale)
 	end
+	if obj then
+		-- loading node from map object info table
+		for key,value in pairs(obj_info) do
+			obj[key]=value
+		end
+		obj.scene_node:setLoopMode(obj.autoplay)
+		if obj.startLoop ~= "" then
+			for _,info in ipairs(obj.animation) do
+			 	if info.label == obj.startLoop then
+			 		obj.scene_node:setFrameLoop(info.from,info.to)
+			 		break
+			 	end
+			end
+		end
+		IDGenerator:Register(obj.id)
+	end
+	return obj
 end
 
 function EditorAnimatedMeshObject:Serialize( distObjName, fileWriter )
@@ -250,8 +290,25 @@ function EditorAnimatedMeshObject:Serialize( distObjName, fileWriter )
 		map_editor.WriteVector3df(fileWriter, "scale", self.scale)
 		--modifie the mesh file path
 		_,file=parsePath(EditorObject.mesh_path)
+		file=DIR_MAPS..map_editor.map_name.."/"..file
 		map_editor.WriteString(fileWriter, "mesh_path", file)
 		map_editor.WriteTextureArray(fileWriter, "textures", self.textures)
+		-- animation infomation
+		map_editor.WriteBool(fileWriter,"autoplay",self.autoplay)
+		map_editor.WriteString(fileWriter,"startLoop",self.startLoop)
+
+		fileWriter:write("animation = {\n")
+		if #self.animation > 0 then
+			for i=1,#self.animation do
+				local cinfo = self.animation[i]
+				fileWriter:write(string.format("{ id = %d, label = \"%s\", from = %d, to = %d },\n",
+					cinfo.id,cinfo.label,cinfo.from,cinfo.to))
+			end
+		end
+		fileWriter:write("}\n")
+
+		-- logic data
+		map_editor.WriteString(fileWriter,"logic_data",self.logic_data)
 		--enclosure
 		fileWriter:write("\n} -- "..distObjName.."\n")
 	end
@@ -262,6 +319,122 @@ end
 EditorBillboardObject = class(EditorObject)
 EditorBillboardObject.name = "billboard"
 EditorBillboardObject.scene_type = "billboard"
+EditorBillboardObject.physics_type = "none"
+EditorBillboardObject.width=10
+EditorBillboardObject.height=10
+EditorBillboardObject.color_top=irr.video.SColor:new_local(255,255,255,255)
+EditorBillboardObject.color_bottom=irr.video.SColor:new_local(255,255,255,255)
+-- delete unneed property
+EditorBillboardObject.property.mesh_path=nil
+--set functions
+function EditorBillboardObject:setWidth( w )
+	self.width = w
+	if self.scene_node then
+		local s=irr.core.dimension2df:new_local(w,self.height)
+		self.scene_node:setSize(s)
+	end
+end
+
+function EditorBillboardObject:setHeight( h )
+	self.height = h
+	if self.scene_node then
+		local s=irr.core.dimension2df:new_local(self.width,h)
+		self.scene_node:setSize(s)
+	end
+end
+
+function EditorBillboardObject:setColorTop( c )
+	self.color_top=c
+	if self.scene_node then
+		self.scene_node:setColor(self.color_top,self.color_bottom)
+	end
+end
+
+function EditorBillboardObject:setColorBottom( c )
+	self.color_bottom=c
+	if self.scene_node then
+		self.scene_node:setColor(self.color_top,self.color_bottom)
+	end
+end
+-- property functions
+EditorBillboardObject.property.width={
+	set=function( obj, w )
+		obj:setWidth(w)
+	end
+}
+EditorBillboardObject.property.height={
+	set=function( obj, h )
+		obj:setHeight(h)
+	end
+}
+EditorBillboardObject.property.color_top={
+	display="top color",
+	set=function( obj, c )
+		obj:setColorTop(c)
+	end
+}
+EditorBillboardObject.property.color_bottom={
+	display="bottom color",
+	set=function( obj, c )
+		obj:setColorBottom(c)
+	end
+}
+EditorBillboardObject.property.textures={
+	type="StringList",
+	set = function( obj, list )
+		obj.textures={}
+		obj.textures[1]=list[1]
+		local texture = NeoGraphics:getInstance():LoadTexture(obj.textures[1])
+		obj.scene_node:setMaterialTexture(0,texture)
+	end
+}
+------------------------------
+-- loading and saving functions
+------------------------------
+function EditorBillboardObject.Deserialize( obj_info )
+	local obj
+	if obj_info.mesh_path then
+		obj = map_editor.ImportBillboard(
+			obj_info.textures[1], obj_info.id, false,
+			obj_info.position, obj_info.width, obj_info.height)
+	end
+	if obj then
+		-- loading node from map object info table
+		for key,value in pairs(obj_info) do
+			obj[key]=value
+		end
+		obj.scene_node:setColor(obj.color_top,obj.color_bottom)
+		obj:setRotation(obj.rotation)
+		obj:setScale(obj.scale)
+		IDGenerator:Register(obj.id)
+	end
+	return obj
+end
+
+function EditorBillboardObject:Serialize( distObjName, fileWriter )
+	if fileWriter then
+		--begin
+		fileWriter:write(distObjName.." = {\n")
+		--body
+		map_editor.WriteString(fileWriter, "name", self.name)
+		map_editor.WriteInt(fileWriter, "id", self.id)
+		map_editor.WriteString(fileWriter, "scene_type", self.scene_type)
+		map_editor.WriteString(fileWriter, "physics_type", self.physics_type)
+		map_editor.WriteVector3df(fileWriter, "position", self.position)
+		map_editor.WriteVector3df(fileWriter, "rotation", self.rotation)
+		map_editor.WriteVector3df(fileWriter, "scale", self.scale)
+		map_editor.WriteFloat(fileWriter, "width", self.width)
+		map_editor.WriteFloat(fileWriter, "height", self.height)
+		map_editor.WriteSColor(fileWriter,"color_top",self.color_top)
+		map_editor.WriteSColor(fileWriter,"color_bottom",self.color_bottom)
+		map_editor.WriteTextureArray(fileWriter, "textures", self.textures)
+		-- logic data
+		map_editor.WriteString(fileWriter,"logic_data",self.logic_data)
+		--enclosure
+		fileWriter:write("\n} -- "..distObjName.."\n")
+	end
+end
+
 --[[*****************************************
  define cube object based on basic object
 *******************************************]]
@@ -455,7 +628,7 @@ EditorLightObject.property.light_type={
 	end
 }
 --[[*****************************************
- define spawn point based on basic object
+ define event point based on basic object
 *******************************************]]
 EditorEventPointObject=class(EditorObject)
 EditorEventPointObject.name="event point"
@@ -517,32 +690,45 @@ end
 -----------------
 --saver functions
 ----------------
-function map_editor.WriteVector3df( fileWriter, vector_name ,vector )
-	fileWriter:write(string.format("%s = irr.core.vector3df:new_local(%f,%f,%f)\n",
+function map_editor.WriteVector3df( fileWriter, vector_name ,vector, dim )
+	dim=dim or ","
+	fileWriter:write(string.format("%s = irr.core.vector3df:new_local(%f,%f,%f)"..dim.."\n",
 			vector_name, vector.X, vector.Y,vector.Z))
 end
 
-function map_editor.WriteSColor( fileWriter, scolor_name, color )
-	fileWriter:write(string.format("%s = irr.video.SColor:new_local(%d,%d,%d)\n",
+function map_editor.WriteSColor( fileWriter, scolor_name, color, dim )
+	dim=dim or ","
+	fileWriter:write(string.format("%s = irr.video.SColor:new_local(%d,%d,%d,%d)"..dim.."\n",
 			scolor_name, color:getAlpha(), color:getRed(), color:getGreen(), color:getBlue()))
 end
 
-function map_editor.WriteString( fileWriter, string_name, value )
-	fileWriter:write(string.format("%s = \"%s\"\n", string_name, value))
+function map_editor.WriteString( fileWriter, string_name, value, dim )
+	dim=dim or ","
+	fileWriter:write(string.format("%s = \"%s\""..dim.."\n", string_name, value))
 end
 
-function map_editor.WriteInt( fileWriter, string_name, value )
-	fileWriter:write(string.format("%s = %d\n", string_name, value))
+function map_editor.WriteInt( fileWriter, string_name, value, dim )
+	dim=dim or ","
+	fileWriter:write(string.format("%s = %d"..dim.."\n", string_name, value))
 end
 
-function map_editor.WriteFloat( fileWriter, string_name, value )
-	fileWriter:write(string.format("%s = %f\n", string_name, value))
+function map_editor.WriteFloat( fileWriter, string_name, value, dim )
+	dim=dim or ","
+	fileWriter:write(string.format("%s = %f"..dim.."\n", string_name, value))
 end
 
-function map_editor.WriteTextureArray( fileWriter, array_name ,texture_array )
-	fileWriter:write(array_name.." = {}\n")
+function map_editor.WriteBool( fileWriter, string_name, value, dim )
+	dim=dim or ","
+	fileWriter:write(string.format("%s = %s"..dim.."\n", string_name, tostring(value)))
+end
+
+function map_editor.WriteTextureArray( fileWriter, array_name ,texture_array, dim )
+	dim=dim or ","
+	fileWriter:write(array_name.." = {}"..dim.."\n")
 	for i=1,#texture_array do
-		fileWriter.write(string.format("%s[%d] = \"%s\"\n", array_name, i, texture_array[i]))
+		local _,path = parsePath(texture_array[i])
+		path=DIR_MAPS..map_editor.map_name.."/"..path
+		fileWriter.write(string.format("%s[%d] = \"%s\"\n", array_name, i, path))
 	end
 end
 --------------
@@ -650,6 +836,43 @@ function map_editor.ImportOctreeMesh( path, id, selected, position, rotation, sc
 	obj:setPosition(position)
 	obj:setRotation(rotation)
 	obj:setScale(scale)
+	map_editor.AddObject(obj)
+	map_editor.isOnScene=true
+	map_editor.AddObjectToSceneWindow(obj,selected)
+	return obj
+end
+
+
+function map_editor.ImportBillboard( path, id, selected, position, width, height )
+	path=path or DIR_RESOURCES.."Editor/default_billboard.png"
+	if path=="" then
+		path = DIR_RESOURCES.."Editor/default_billboard.png"
+	end
+	position=position or map_editor.getImportPosition()
+	width=width or 10
+	height=height or 10
+	local obj=EditorBillboardObject.new()
+	id=id or makeId()
+	obj.id=id
+	obj.name="billboard"
+	obj.scene_type="billboard"
+	local texture=NeoGraphics:getInstance():LoadTexture(path)
+	local size = irr.core.dimension2df:new_local(width,height)
+	local node=NeoGraphics:getInstance():AddBillboardSceneNode()
+	node:setSize(size)
+	if texture then
+		node:setMaterialTexture(0,texture)
+	end
+	node:setMaterialFlag(irr.video.EMF_LIGHTING, false)
+	node:setMaterialType(irr.video.EMT_TRANSPARENT_ALPHA_CHANNEL)
+	obj.textures[1]=path
+	map_editor.textures[path]=true
+	node:setID(id)
+	NeoEditor:getInstance():setSceneNodeTriangleSelector(node,"normal")
+	obj:setSceneNode(node)
+	obj:setPosition(position)
+	obj.width=width
+	obj.height=height
 	map_editor.AddObject(obj)
 	map_editor.isOnScene=true
 	map_editor.AddObjectToSceneWindow(obj,selected)

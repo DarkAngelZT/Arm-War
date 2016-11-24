@@ -4,6 +4,7 @@ print '启动程序...'
 DIR_DATA="resources/data/"
 DIR_RESOURCES="resources/"
 DIR_EDITOR="resources/Editor/"
+DIR_MAPS="resources/maps/"
 DIR_SCRIPT="script/"
 DIR_SCRIPT_CEGUI="script/cegui/"
 

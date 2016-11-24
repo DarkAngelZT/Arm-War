@@ -12,7 +12,7 @@ class IBillboardSceneNode : public ISceneNode
 {
 public:
 	//! Sets the size of the billboard, making it rectangular.
-	virtual void setSize(const irr::core::dimension2df& size);
+	virtual void setSize(const irr::core::dimension2d<float>& size);
 
 	//! Sets the size of the billboard with independent widths of the bottom and top edges.
 	/** \param[in] height The height of the billboard.
@@ -26,7 +26,7 @@ public:
 	Use getWidths() to retrieve the bottom and top edges independently.
 	\return Size of the billboard.
 	*/
-	virtual const irr::core::dimension2df& getSize() const ;
+	virtual const irr::core::dimension2d<float>& getSize() const ;
 
 	//! Gets the size of the the billboard and handles independent top and bottom edge widths correctly.
 	/** \param[out] height The height of the billboard.

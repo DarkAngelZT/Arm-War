@@ -27,6 +27,12 @@ function split( str,patern)
     return result
 end
 --------------------------------------------
+-- string trim functions
+--------------------------------------------
+function trim(s)
+  return s:match "^%s*(.-)%s*$"
+end
+--------------------------------------------
 -- make directory
 --------------------------------------------
 function createDirectory( dirname )

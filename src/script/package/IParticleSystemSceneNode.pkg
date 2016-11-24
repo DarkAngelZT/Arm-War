@@ -128,10 +128,10 @@ public:
 					irr::video::SColor(255, 255, 255, 255),
 			unsigned lifeTimeMin = 2000, unsigned lifeTimeMax = 4000,
 			int maxAngleDegrees = 0,
-			const irr::core::dimension2df& minStartSize =
-					irr::core::dimension2df(5.0f, 5.0f),
-			const irr::core::dimension2df& maxStartSize =
-					irr::core::dimension2df(5.0f, 5.0f));
+			const irr::core::dimension2d<float>& minStartSize =
+					irr::core::dimension2d<float>(5.0f, 5.0f),
+			const irr::core::dimension2d<float>& maxStartSize =
+					irr::core::dimension2d<float>(5.0f, 5.0f));
 
 	//! Creates a box particle emitter.
 	/** \param box: The box for the emitter.
@@ -170,10 +170,10 @@ public:
 			const irr::video::SColor& maxStartColor = irr::video::SColor(255,
 					255, 255, 255), unsigned lifeTimeMin = 2000,
 			unsigned lifeTimeMax = 4000, int maxAngleDegrees = 0,
-			const irr::core::dimension2df& minStartSize =
-					irr::core::dimension2df(5.0f, 5.0f),
-			const irr::core::dimension2df& maxStartSize =
-					irr::core::dimension2df(5.0f, 5.0f));
+			const irr::core::dimension2d<float>& minStartSize =
+					irr::core::dimension2d<float>(5.0f, 5.0f),
+			const irr::core::dimension2d<float>& maxStartSize =
+					irr::core::dimension2d<float>(5.0f, 5.0f));
 
 	//! Creates a particle emitter for emitting from a cylinder
 	/** \param center: The center of the circle at the base of the cylinder
@@ -218,10 +218,10 @@ public:
 			const irr::video::SColor& maxStartColor = irr::video::SColor(255,
 					255, 255, 255), unsigned lifeTimeMin = 2000,
 			unsigned lifeTimeMax = 4000, int maxAngleDegrees = 0,
-			const irr::core::dimension2df& minStartSize =
-					irr::core::dimension2df(5.0f, 5.0f),
-			const irr::core::dimension2df& maxStartSize =
-					irr::core::dimension2df(5.0f, 5.0f));
+			const irr::core::dimension2d<float>& minStartSize =
+					irr::core::dimension2d<float>(5.0f, 5.0f),
+			const irr::core::dimension2d<float>& maxStartSize =
+					irr::core::dimension2d<float>(5.0f, 5.0f));
 
 	//! Creates a mesh particle emitter.
 	/** \param mesh: Pointer to mesh to emit particles from
@@ -277,10 +277,10 @@ public:
 			const irr::video::SColor& maxStartColor = irr::video::SColor(255,
 					255, 255, 255), unsigned lifeTimeMin = 2000,
 			unsigned lifeTimeMax = 4000, int maxAngleDegrees = 0,
-			const irr::core::dimension2df& minStartSize =
-					irr::core::dimension2df(5.0f, 5.0f),
-			const irr::core::dimension2df& maxStartSize =
-					irr::core::dimension2df(5.0f, 5.0f));
+			const irr::core::dimension2d<float>& minStartSize =
+					irr::core::dimension2d<float>(5.0f, 5.0f),
+			const irr::core::dimension2d<float>& maxStartSize =
+					irr::core::dimension2d<float>(5.0f, 5.0f));
 
 	//! Creates a point particle emitter.
 	/** \param direction: Direction and speed of particle emission.
@@ -317,10 +317,10 @@ public:
 					irr::video::SColor(255, 255, 255, 255),
 			unsigned lifeTimeMin = 2000, unsigned lifeTimeMax = 4000,
 			int maxAngleDegrees = 0,
-			const irr::core::dimension2df& minStartSize =
-					irr::core::dimension2df(5.0f, 5.0f),
-			const irr::core::dimension2df& maxStartSize =
-					irr::core::dimension2df(5.0f, 5.0f));
+			const irr::core::dimension2d<float>& minStartSize =
+					irr::core::dimension2d<float>(5.0f, 5.0f),
+			const irr::core::dimension2d<float>& maxStartSize =
+					irr::core::dimension2d<float>(5.0f, 5.0f));
 
 	//! Creates a ring particle emitter.
 	/** \param center: Center of ring
@@ -363,10 +363,10 @@ public:
 			const irr::video::SColor& maxStartColor = irr::video::SColor(255,
 					255, 255, 255), unsigned lifeTimeMin = 2000,
 			unsigned lifeTimeMax = 4000, int maxAngleDegrees = 0,
-			const irr::core::dimension2df& minStartSize =
-					irr::core::dimension2df(5.0f, 5.0f),
-			const irr::core::dimension2df& maxStartSize =
-					irr::core::dimension2df(5.0f, 5.0f));
+			const irr::core::dimension2d<float>& minStartSize =
+					irr::core::dimension2d<float>(5.0f, 5.0f),
+			const irr::core::dimension2d<float>& maxStartSize =
+					irr::core::dimension2d<float>(5.0f, 5.0f));
 
 	//! Creates a sphere particle emitter.
 	/** \param center: Center of sphere
@@ -406,10 +406,10 @@ public:
 					irr::video::SColor(255, 255, 255, 255),
 			unsigned lifeTimeMin = 2000, unsigned lifeTimeMax = 4000,
 			int maxAngleDegrees = 0,
-			const irr::core::dimension2df& minStartSize =
-					irr::core::dimension2df(5.0f, 5.0f),
-			const irr::core::dimension2df& maxStartSize =
-					irr::core::dimension2df(5.0f, 5.0f));
+			const irr::core::dimension2d<float>& minStartSize =
+					irr::core::dimension2d<float>(5.0f, 5.0f),
+			const irr::core::dimension2d<float>& maxStartSize =
+					irr::core::dimension2d<float>(5.0f, 5.0f));
 
 	//! Creates a point attraction affector.
 	/** This affector modifies the positions of the particles and attracts
@@ -444,7 +444,7 @@ public:
 	 returned pointer, after you don't need it any more, see
 	 IReferenceCounted::drop() for more information. */
 	virtual irr::scene::IParticleAffector* createScaleParticleAffector(
-			const irr::core::dimension2df& scaleTo = irr::core::dimension2df(
+			const irr::core::dimension2d<float>& scaleTo = irr::core::dimension2d<float>(
 					1.0f, 1.0f));
 
 	//! Creates a fade out particle affector.

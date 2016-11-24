@@ -25,6 +25,8 @@ map_editor.scene_node_icon=
 }
 dofile(DIR_SCRIPT.."Editor/toolbar.lua")
 dofile(DIR_SCRIPT.."Editor/animationPanel.lua")
+dofile(DIR_SCRIPT.."Editor/logicDataPanel.lua")
+dofile(DIR_SCRIPT.."Editor/inputWindow.lua")
 --------------------------------------------
 -- initialize
 --------------------------------------------
@@ -32,7 +34,7 @@ function map_editor.Init()
 	-- c++ initialize
 	NeoEditor:getInstance():Init()
 	-- window caption
-	NeoGraphics:getInstance():setWindowCaption("Map Editor -- untitiled")
+	NeoGraphics:getInstance():setWindowCaption("Map Editor -- untitled")
 	--reset id generator
 	IDGenerator:Reset()
 	map_editor.mouse_states:reset()
@@ -44,8 +46,10 @@ function map_editor.Init()
 	map_editor.InitPropertyWindow()
 	--animation window
 	map_editor.animation_wnd.Init()
+	-- logic data panel
+	map_editor.logic_data_wnd.Init()
 	--map name
-	map_editor.map_name="untitiled"
+	map_editor.map_name="untitled"
 	-- camera
 	local graphicWrapper=NeoGraphics:getInstance()
 	map_editor.camera=graphicWrapper:AddCameraSceneNode()
@@ -160,7 +164,7 @@ map_editor.property_converter={
 			return paths
 		end
 		paths=list[1]
-		for i=1,#list do
+		for i=2,#list do
 			paths=paths..":"..list[i]
 		end
 		return paths
@@ -223,7 +227,8 @@ function map_editor.UpdatePropertyWindow( object )
 	map_editor.current_editted_object_property={obj=object}
 	-- animation window
 	map_editor.animation_wnd.UpdateObject( object )
-
+	-- logic data window
+	map_editor.logic_data_wnd.UpdateObject( object )
 end
 
 function map_editor.UpdatePropertyWindowSingleRow( object, key )
@@ -340,9 +345,6 @@ function map_editor.UpdateSceneWindowObject( object )
 	map_editor.tree:invalidate(true)
 end
 --------------------------------------------
--- logic data window
---------------------------------------------
---------------------------------------------
 -- Event Handler
 --------------------------------------------
 function map_editor.Menu_File_callback( args )
@@ -377,6 +379,14 @@ function map_editor.Menu_Insert_callback( args )
 	elseif btnName == "animated_mesh" then
 		map_editor.isOnScene=false
 		NeoEditor:getInstance():CreateFileOpenDialog("map_editor.ImportAnimatedMesh")
+	elseif btnName == "billboard" then
+		map_editor.isOnScene=false
+		map_editor.ImportBillboard()
+	elseif btnName == "cube" then
+	elseif btnName == "sphere" then
+	elseif btnName == "light" then
+	elseif btnName == "event_point" then
+	elseif btnName == "spawn_point" then
 	end
 end
 
@@ -814,7 +824,8 @@ function map_editor.OnKeyUp( args )
 	end
 
 	if event.scancode == CEGUI.Key.Delete and
-		g_ui_table.editor:getActiveChild():getType() ~= "GlossySerpent/Editbox" then
+		g_ui_table.editor:getActiveChild():getType() ~= "GlossySerpent/Editbox" and
+		g_ui_table.editor:getActiveChild():getType() ~= "GlossySerpent/MultiLineEditbox" then
 		-- remove all selected objects
 		for _,v in pairs(map_editor.selected_objects) do
 			-- do not remove root object
@@ -833,7 +844,8 @@ end
 function map_editor.OnLButtonDown(event)
 	map_editor.mouse_states.lbutton=true
 	local childWnd = g_ui_table.editor:getActiveChild()
-	if childWnd:getType() == "GlossySerpent/Editbox" then
+	if childWnd:getType() == "GlossySerpent/Editbox" and 
+		childWnd:getType() ~= "GlossySerpent/MultiLineEditbox"then
 		childWnd:deactivate()
 	end
 	local editor_wrapper=NeoEditor:getInstance()

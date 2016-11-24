@@ -38,6 +38,10 @@ root:getChild(insertOption.."/animated_mesh"):subscribeEvent("Clicked","map_edit
 root:getChild(insertOption.."/oct"):subscribeEvent("Clicked","map_editor.Menu_Insert_callback")
 root:getChild(insertOption.."/billboard"):subscribeEvent("Clicked","map_editor.Menu_Insert_callback")
 root:getChild(insertOption.."/light"):subscribeEvent("Clicked","map_editor.Menu_Insert_callback")
+root:getChild(insertOption.."/cube"):subscribeEvent("Clicked","map_editor.Menu_Insert_callback")
+root:getChild(insertOption.."/sphere"):subscribeEvent("Clicked","map_editor.Menu_Insert_callback")
+root:getChild(insertOption.."/spawn_point"):subscribeEvent("Clicked","map_editor.Menu_Insert_callback")
+root:getChild(insertOption.."/event_point"):subscribeEvent("Clicked","map_editor.Menu_Insert_callback")
 --property window
 property_wnd:subscribeEvent("SelectionChanged","map_editor.PropertyItemSelected")
 root:getChild("Property/TabControl/Tab_attribute/submit"):subscribeEvent("Clicked","map_editor.PropertyChangeSubmitted")

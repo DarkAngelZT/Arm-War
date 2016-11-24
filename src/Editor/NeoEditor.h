@@ -33,6 +33,7 @@ public:
 	bool isSelectionCursor(irr::scene::ISceneNode*node);
 	int getSelectedCursorIndex(irr::scene::ISceneNode*node);
 	void setSceneNodeTriangleSelector(irr::scene::ISceneNode*node,const std::string& type = "normal");
+	void setMeshNodeColor(irr::scene::IMeshSceneNode*node, irr::video::SColor& color);
 	void Init();
 	void CleanUp();
 private:

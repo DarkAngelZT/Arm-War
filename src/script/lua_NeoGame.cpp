@@ -1,6 +1,6 @@
 /*
 ** Lua binding: NeoGame
-** Generated automatically by tolua++-1.0.93 on Sat Nov 19 23:39:49 2016.
+** Generated automatically by tolua++-1.0.93 on Thu Nov 24 00:40:10 2016.
 */
 
 #ifndef __cplusplus
@@ -175,25 +175,24 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"irr::scene::IParticleGravityAffector");
  tolua_usertype(tolua_S,"irr::io::IAttributeExchangingObject");
  tolua_usertype(tolua_S,"irr::core::dimension2d<unsigned>");
- tolua_usertype(tolua_S,"NeoEditor");
  tolua_usertype(tolua_S,"irr::core::vector2df");
- tolua_usertype(tolua_S,"BasicExplosionEffectParams");
+ tolua_usertype(tolua_S,"NeoEditor");
  tolua_usertype(tolua_S,"irr::core::aabbox3d<float>");
+ tolua_usertype(tolua_S,"BasicExplosionEffectParams");
  tolua_usertype(tolua_S,"irr::core::vector2d<float>");
  tolua_usertype(tolua_S,"SfxManager");
  tolua_usertype(tolua_S,"NeoGraphics");
- tolua_usertype(tolua_S,"irr::core::dimension2df");
  tolua_usertype(tolua_S,"GameObject");
  tolua_usertype(tolua_S,"irr::scene::ISceneNode");
  tolua_usertype(tolua_S,"NeoEvent");
  tolua_usertype(tolua_S,"irr::scene::IParticleRotationAffector");
  tolua_usertype(tolua_S,"irr::scene::IParticleAnimatedMeshSceneNodeEmitter");
  tolua_usertype(tolua_S,"irr::scene::IParticleCylinderEmitter");
- tolua_usertype(tolua_S,"irr::core::dimension2d<int>");
+ tolua_usertype(tolua_S,"LuaHelper");
  tolua_usertype(tolua_S,"std::vector<std::string>");
  tolua_usertype(tolua_S,"irr::core::vector3d<int>");
  tolua_usertype(tolua_S,"Application");
- tolua_usertype(tolua_S,"LuaHelper");
+ tolua_usertype(tolua_S,"irr::core::dimension2d<int>");
  tolua_usertype(tolua_S,"irr::core::dimension2d<unsigned int>");
  tolua_usertype(tolua_S,"irr::scene::ISceneNodeAnimator");
  tolua_usertype(tolua_S,"irr::scene::IParticleRingEmitter");
@@ -206,7 +205,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"irr::scene::IMeshSceneNode");
  tolua_usertype(tolua_S,"irr::core::vector3d<float>");
  tolua_usertype(tolua_S,"irr::core::vector2d<int>");
- tolua_usertype(tolua_S,"irr::scene::IParticleEmitter");
+ tolua_usertype(tolua_S,"irr::scene::IParticleMeshEmitter");
  tolua_usertype(tolua_S,"irr::core::vector2d<unsigned>");
  tolua_usertype(tolua_S,"irr::SKeyMap");
  tolua_usertype(tolua_S,"irr::scene::IParticleFadeOutAffector");
@@ -228,7 +227,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"irr::scene::IAnimatedMeshSceneNode");
  tolua_usertype(tolua_S,"irr::video::SLight");
  tolua_usertype(tolua_S,"irr::scene::IAnimatedMesh");
- tolua_usertype(tolua_S,"irr::scene::IParticleMeshEmitter");
+ tolua_usertype(tolua_S,"irr::scene::IParticleEmitter");
  tolua_usertype(tolua_S,"irr::scene::IShadowVolumeSceneNode");
  tolua_usertype(tolua_S,"irr::scene::IParticleBoxEmitter");
  tolua_usertype(tolua_S,"NeoGameLogic");
@@ -5999,7 +5998,7 @@ static int tolua_NeoGame_irr_scene_IBillboardSceneNode_setSize00(lua_State* tolu
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"irr::scene::IBillboardSceneNode",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::dimension2df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -6007,7 +6006,7 @@ static int tolua_NeoGame_irr_scene_IBillboardSceneNode_setSize00(lua_State* tolu
 #endif
  {
   irr::scene::IBillboardSceneNode* self = (irr::scene::IBillboardSceneNode*)  tolua_tousertype(tolua_S,1,0);
-  const irr::core::dimension2df* size = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,2,0));
+  const irr::core::dimension2d<float>* size = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setSize'", NULL);
 #endif
@@ -6075,8 +6074,8 @@ static int tolua_NeoGame_irr_scene_IBillboardSceneNode_getSize00(lua_State* tolu
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getSize'", NULL);
 #endif
   {
-   const irr::core::dimension2df& tolua_ret = (const irr::core::dimension2df&)  self->getSize();
-    tolua_pushusertype(tolua_S,(void*)&tolua_ret,"const irr::core::dimension2df");
+   const irr::core::dimension2d<float>& tolua_ret = (const irr::core::dimension2d<float>&)  self->getSize();
+    tolua_pushusertype(tolua_S,(void*)&tolua_ret,"const irr::core::dimension2d<float>");
   }
  }
  return 1;
@@ -8938,7 +8937,7 @@ static int tolua_NeoGame_irr_scene_IParticleEmitter_setMaxStartSize00(lua_State*
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"irr::scene::IParticleEmitter",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::dimension2df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -8946,7 +8945,7 @@ static int tolua_NeoGame_irr_scene_IParticleEmitter_setMaxStartSize00(lua_State*
 #endif
  {
   irr::scene::IParticleEmitter* self = (irr::scene::IParticleEmitter*)  tolua_tousertype(tolua_S,1,0);
-  const irr::core::dimension2df* size = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,2,0));
+  const irr::core::dimension2d<float>* size = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setMaxStartSize'", NULL);
 #endif
@@ -8971,7 +8970,7 @@ static int tolua_NeoGame_irr_scene_IParticleEmitter_setMinStartSize00(lua_State*
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"irr::scene::IParticleEmitter",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::dimension2df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -8979,7 +8978,7 @@ static int tolua_NeoGame_irr_scene_IParticleEmitter_setMinStartSize00(lua_State*
 #endif
  {
   irr::scene::IParticleEmitter* self = (irr::scene::IParticleEmitter*)  tolua_tousertype(tolua_S,1,0);
-  const irr::core::dimension2df* size = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,2,0));
+  const irr::core::dimension2d<float>* size = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setMinStartSize'", NULL);
 #endif
@@ -9274,8 +9273,8 @@ static int tolua_NeoGame_irr_scene_IParticleEmitter_getMaxStartSize00(lua_State*
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getMaxStartSize'", NULL);
 #endif
   {
-   const irr::core::dimension2df& tolua_ret = (const irr::core::dimension2df&)  self->getMaxStartSize();
-    tolua_pushusertype(tolua_S,(void*)&tolua_ret,"const irr::core::dimension2df");
+   const irr::core::dimension2d<float>& tolua_ret = (const irr::core::dimension2d<float>&)  self->getMaxStartSize();
+    tolua_pushusertype(tolua_S,(void*)&tolua_ret,"const irr::core::dimension2d<float>");
   }
  }
  return 1;
@@ -9306,8 +9305,8 @@ static int tolua_NeoGame_irr_scene_IParticleEmitter_getMinStartSize00(lua_State*
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getMinStartSize'", NULL);
 #endif
   {
-   const irr::core::dimension2df& tolua_ret = (const irr::core::dimension2df&)  self->getMinStartSize();
-    tolua_pushusertype(tolua_S,(void*)&tolua_ret,"const irr::core::dimension2df");
+   const irr::core::dimension2d<float>& tolua_ret = (const irr::core::dimension2d<float>&)  self->getMinStartSize();
+    tolua_pushusertype(tolua_S,(void*)&tolua_ret,"const irr::core::dimension2d<float>");
   }
  }
  return 1;
@@ -11063,7 +11062,7 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createAnimatedMeshSc
      !tolua_isnumber(tolua_S,12,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,13,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,14,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,15,&tolua_err) || !tolua_isusertype(tolua_S,15,"const irr::core::dimension2df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,15,&tolua_err) || !tolua_isusertype(tolua_S,15,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,16,&tolua_err)
  )
   goto tolua_lerror;
@@ -11083,7 +11082,7 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createAnimatedMeshSc
   unsigned lifeTimeMin = ((unsigned)  tolua_tonumber(tolua_S,12,0));
   unsigned lifeTimeMax = ((unsigned)  tolua_tonumber(tolua_S,13,0));
   int maxAngleDegrees = ((int)  tolua_tonumber(tolua_S,14,0));
-  const irr::core::dimension2df* minStartSize = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,15,0));
+  const irr::core::dimension2d<float>* minStartSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,15,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'createAnimatedMeshSceneNodeEmitter'", NULL);
 #endif
@@ -11118,8 +11117,8 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createAnimatedMeshSc
      !tolua_isnumber(tolua_S,12,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,13,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,14,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,15,&tolua_err) || !tolua_isusertype(tolua_S,15,"const irr::core::dimension2df",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,16,&tolua_err) || !tolua_isusertype(tolua_S,16,"const irr::core::dimension2df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,15,&tolua_err) || !tolua_isusertype(tolua_S,15,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,16,&tolua_err) || !tolua_isusertype(tolua_S,16,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,17,&tolua_err)
  )
   goto tolua_lerror;
@@ -11139,8 +11138,8 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createAnimatedMeshSc
   unsigned lifeTimeMin = ((unsigned)  tolua_tonumber(tolua_S,12,0));
   unsigned lifeTimeMax = ((unsigned)  tolua_tonumber(tolua_S,13,0));
   int maxAngleDegrees = ((int)  tolua_tonumber(tolua_S,14,0));
-  const irr::core::dimension2df* minStartSize = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,15,0));
-  const irr::core::dimension2df* maxStartSize = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,16,0));
+  const irr::core::dimension2d<float>* minStartSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,15,0));
+  const irr::core::dimension2d<float>* maxStartSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,16,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'createAnimatedMeshSceneNodeEmitter'", NULL);
 #endif
@@ -11349,7 +11348,7 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createBoxEmitter05(l
      !tolua_isnumber(tolua_S,8,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,9,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,10,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,11,&tolua_err) || !tolua_isusertype(tolua_S,11,"const irr::core::dimension2df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,11,&tolua_err) || !tolua_isusertype(tolua_S,11,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,12,&tolua_err)
  )
   goto tolua_lerror;
@@ -11365,7 +11364,7 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createBoxEmitter05(l
   unsigned lifeTimeMin = ((unsigned)  tolua_tonumber(tolua_S,8,0));
   unsigned lifeTimeMax = ((unsigned)  tolua_tonumber(tolua_S,9,0));
   int maxAngleDegrees = ((int)  tolua_tonumber(tolua_S,10,0));
-  const irr::core::dimension2df* minStartSize = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,11,0));
+  const irr::core::dimension2d<float>* minStartSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,11,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'createBoxEmitter'", NULL);
 #endif
@@ -11396,8 +11395,8 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createBoxEmitter06(l
      !tolua_isnumber(tolua_S,8,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,9,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,10,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,11,&tolua_err) || !tolua_isusertype(tolua_S,11,"const irr::core::dimension2df",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,12,&tolua_err) || !tolua_isusertype(tolua_S,12,"const irr::core::dimension2df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,11,&tolua_err) || !tolua_isusertype(tolua_S,11,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,12,&tolua_err) || !tolua_isusertype(tolua_S,12,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,13,&tolua_err)
  )
   goto tolua_lerror;
@@ -11413,8 +11412,8 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createBoxEmitter06(l
   unsigned lifeTimeMin = ((unsigned)  tolua_tonumber(tolua_S,8,0));
   unsigned lifeTimeMax = ((unsigned)  tolua_tonumber(tolua_S,9,0));
   int maxAngleDegrees = ((int)  tolua_tonumber(tolua_S,10,0));
-  const irr::core::dimension2df* minStartSize = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,11,0));
-  const irr::core::dimension2df* maxStartSize = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,12,0));
+  const irr::core::dimension2d<float>* minStartSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,11,0));
+  const irr::core::dimension2d<float>* maxStartSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,12,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'createBoxEmitter'", NULL);
 #endif
@@ -11632,7 +11631,7 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createCylinderEmitte
      !tolua_isnumber(tolua_S,12,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,13,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,14,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,15,&tolua_err) || !tolua_isusertype(tolua_S,15,"const irr::core::dimension2df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,15,&tolua_err) || !tolua_isusertype(tolua_S,15,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,16,&tolua_err)
  )
   goto tolua_lerror;
@@ -11652,7 +11651,7 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createCylinderEmitte
   unsigned lifeTimeMin = ((unsigned)  tolua_tonumber(tolua_S,12,0));
   unsigned lifeTimeMax = ((unsigned)  tolua_tonumber(tolua_S,13,0));
   int maxAngleDegrees = ((int)  tolua_tonumber(tolua_S,14,0));
-  const irr::core::dimension2df* minStartSize = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,15,0));
+  const irr::core::dimension2d<float>* minStartSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,15,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'createCylinderEmitter'", NULL);
 #endif
@@ -11687,8 +11686,8 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createCylinderEmitte
      !tolua_isnumber(tolua_S,12,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,13,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,14,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,15,&tolua_err) || !tolua_isusertype(tolua_S,15,"const irr::core::dimension2df",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,16,&tolua_err) || !tolua_isusertype(tolua_S,16,"const irr::core::dimension2df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,15,&tolua_err) || !tolua_isusertype(tolua_S,15,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,16,&tolua_err) || !tolua_isusertype(tolua_S,16,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,17,&tolua_err)
  )
   goto tolua_lerror;
@@ -11708,8 +11707,8 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createCylinderEmitte
   unsigned lifeTimeMin = ((unsigned)  tolua_tonumber(tolua_S,12,0));
   unsigned lifeTimeMax = ((unsigned)  tolua_tonumber(tolua_S,13,0));
   int maxAngleDegrees = ((int)  tolua_tonumber(tolua_S,14,0));
-  const irr::core::dimension2df* minStartSize = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,15,0));
-  const irr::core::dimension2df* maxStartSize = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,16,0));
+  const irr::core::dimension2d<float>* minStartSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,15,0));
+  const irr::core::dimension2d<float>* maxStartSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,16,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'createCylinderEmitter'", NULL);
 #endif
@@ -11921,7 +11920,7 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createMeshEmitter04(
      !tolua_isnumber(tolua_S,12,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,13,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,14,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,15,&tolua_err) || !tolua_isusertype(tolua_S,15,"const irr::core::dimension2df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,15,&tolua_err) || !tolua_isusertype(tolua_S,15,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,16,&tolua_err)
  )
   goto tolua_lerror;
@@ -11941,7 +11940,7 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createMeshEmitter04(
   unsigned lifeTimeMin = ((unsigned)  tolua_tonumber(tolua_S,12,0));
   unsigned lifeTimeMax = ((unsigned)  tolua_tonumber(tolua_S,13,0));
   int maxAngleDegrees = ((int)  tolua_tonumber(tolua_S,14,0));
-  const irr::core::dimension2df* minStartSize = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,15,0));
+  const irr::core::dimension2d<float>* minStartSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,15,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'createMeshEmitter'", NULL);
 #endif
@@ -11976,8 +11975,8 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createMeshEmitter05(
      !tolua_isnumber(tolua_S,12,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,13,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,14,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,15,&tolua_err) || !tolua_isusertype(tolua_S,15,"const irr::core::dimension2df",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,16,&tolua_err) || !tolua_isusertype(tolua_S,16,"const irr::core::dimension2df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,15,&tolua_err) || !tolua_isusertype(tolua_S,15,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,16,&tolua_err) || !tolua_isusertype(tolua_S,16,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,17,&tolua_err)
  )
   goto tolua_lerror;
@@ -11997,8 +11996,8 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createMeshEmitter05(
   unsigned lifeTimeMin = ((unsigned)  tolua_tonumber(tolua_S,12,0));
   unsigned lifeTimeMax = ((unsigned)  tolua_tonumber(tolua_S,13,0));
   int maxAngleDegrees = ((int)  tolua_tonumber(tolua_S,14,0));
-  const irr::core::dimension2df* minStartSize = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,15,0));
-  const irr::core::dimension2df* maxStartSize = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,16,0));
+  const irr::core::dimension2d<float>* minStartSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,15,0));
+  const irr::core::dimension2d<float>* maxStartSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,16,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'createMeshEmitter'", NULL);
 #endif
@@ -12171,7 +12170,7 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createPointEmitter04
      !tolua_isnumber(tolua_S,7,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,8,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,9,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,10,&tolua_err) || !tolua_isusertype(tolua_S,10,"const irr::core::dimension2df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,10,&tolua_err) || !tolua_isusertype(tolua_S,10,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,11,&tolua_err)
  )
   goto tolua_lerror;
@@ -12186,7 +12185,7 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createPointEmitter04
   unsigned lifeTimeMin = ((unsigned)  tolua_tonumber(tolua_S,7,0));
   unsigned lifeTimeMax = ((unsigned)  tolua_tonumber(tolua_S,8,0));
   int maxAngleDegrees = ((int)  tolua_tonumber(tolua_S,9,0));
-  const irr::core::dimension2df* minStartSize = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,10,0));
+  const irr::core::dimension2d<float>* minStartSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,10,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'createPointEmitter'", NULL);
 #endif
@@ -12216,8 +12215,8 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createPointEmitter05
      !tolua_isnumber(tolua_S,7,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,8,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,9,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,10,&tolua_err) || !tolua_isusertype(tolua_S,10,"const irr::core::dimension2df",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,11,&tolua_err) || !tolua_isusertype(tolua_S,11,"const irr::core::dimension2df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,10,&tolua_err) || !tolua_isusertype(tolua_S,10,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,11,&tolua_err) || !tolua_isusertype(tolua_S,11,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,12,&tolua_err)
  )
   goto tolua_lerror;
@@ -12232,8 +12231,8 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createPointEmitter05
   unsigned lifeTimeMin = ((unsigned)  tolua_tonumber(tolua_S,7,0));
   unsigned lifeTimeMax = ((unsigned)  tolua_tonumber(tolua_S,8,0));
   int maxAngleDegrees = ((int)  tolua_tonumber(tolua_S,9,0));
-  const irr::core::dimension2df* minStartSize = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,10,0));
-  const irr::core::dimension2df* maxStartSize = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,11,0));
+  const irr::core::dimension2d<float>* minStartSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,10,0));
+  const irr::core::dimension2d<float>* maxStartSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,11,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'createPointEmitter'", NULL);
 #endif
@@ -12433,7 +12432,7 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createRingEmitter04(
      !tolua_isnumber(tolua_S,10,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,11,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,12,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,13,&tolua_err) || !tolua_isusertype(tolua_S,13,"const irr::core::dimension2df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,13,&tolua_err) || !tolua_isusertype(tolua_S,13,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,14,&tolua_err)
  )
   goto tolua_lerror;
@@ -12451,7 +12450,7 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createRingEmitter04(
   unsigned lifeTimeMin = ((unsigned)  tolua_tonumber(tolua_S,10,0));
   unsigned lifeTimeMax = ((unsigned)  tolua_tonumber(tolua_S,11,0));
   int maxAngleDegrees = ((int)  tolua_tonumber(tolua_S,12,0));
-  const irr::core::dimension2df* minStartSize = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,13,0));
+  const irr::core::dimension2d<float>* minStartSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,13,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'createRingEmitter'", NULL);
 #endif
@@ -12484,8 +12483,8 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createRingEmitter05(
      !tolua_isnumber(tolua_S,10,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,11,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,12,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,13,&tolua_err) || !tolua_isusertype(tolua_S,13,"const irr::core::dimension2df",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,14,&tolua_err) || !tolua_isusertype(tolua_S,14,"const irr::core::dimension2df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,13,&tolua_err) || !tolua_isusertype(tolua_S,13,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,14,&tolua_err) || !tolua_isusertype(tolua_S,14,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,15,&tolua_err)
  )
   goto tolua_lerror;
@@ -12503,8 +12502,8 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createRingEmitter05(
   unsigned lifeTimeMin = ((unsigned)  tolua_tonumber(tolua_S,10,0));
   unsigned lifeTimeMax = ((unsigned)  tolua_tonumber(tolua_S,11,0));
   int maxAngleDegrees = ((int)  tolua_tonumber(tolua_S,12,0));
-  const irr::core::dimension2df* minStartSize = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,13,0));
-  const irr::core::dimension2df* maxStartSize = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,14,0));
+  const irr::core::dimension2d<float>* minStartSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,13,0));
+  const irr::core::dimension2d<float>* maxStartSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,14,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'createRingEmitter'", NULL);
 #endif
@@ -12695,7 +12694,7 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createSphereEmitter0
      !tolua_isnumber(tolua_S,9,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,10,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,11,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,12,&tolua_err) || !tolua_isusertype(tolua_S,12,"const irr::core::dimension2df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,12,&tolua_err) || !tolua_isusertype(tolua_S,12,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,13,&tolua_err)
  )
   goto tolua_lerror;
@@ -12712,7 +12711,7 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createSphereEmitter0
   unsigned lifeTimeMin = ((unsigned)  tolua_tonumber(tolua_S,9,0));
   unsigned lifeTimeMax = ((unsigned)  tolua_tonumber(tolua_S,10,0));
   int maxAngleDegrees = ((int)  tolua_tonumber(tolua_S,11,0));
-  const irr::core::dimension2df* minStartSize = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,12,0));
+  const irr::core::dimension2d<float>* minStartSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,12,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'createSphereEmitter'", NULL);
 #endif
@@ -12744,8 +12743,8 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createSphereEmitter0
      !tolua_isnumber(tolua_S,9,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,10,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,11,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,12,&tolua_err) || !tolua_isusertype(tolua_S,12,"const irr::core::dimension2df",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,13,&tolua_err) || !tolua_isusertype(tolua_S,13,"const irr::core::dimension2df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,12,&tolua_err) || !tolua_isusertype(tolua_S,12,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,13,&tolua_err) || !tolua_isusertype(tolua_S,13,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,14,&tolua_err)
  )
   goto tolua_lerror;
@@ -12762,8 +12761,8 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createSphereEmitter0
   unsigned lifeTimeMin = ((unsigned)  tolua_tonumber(tolua_S,9,0));
   unsigned lifeTimeMax = ((unsigned)  tolua_tonumber(tolua_S,10,0));
   int maxAngleDegrees = ((int)  tolua_tonumber(tolua_S,11,0));
-  const irr::core::dimension2df* minStartSize = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,12,0));
-  const irr::core::dimension2df* maxStartSize = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,13,0));
+  const irr::core::dimension2d<float>* minStartSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,12,0));
+  const irr::core::dimension2d<float>* maxStartSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,13,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'createSphereEmitter'", NULL);
 #endif
@@ -12861,14 +12860,14 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createScaleParticleA
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"irr::scene::IParticleSystemSceneNode",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::dimension2df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
  else
  {
   irr::scene::IParticleSystemSceneNode* self = (irr::scene::IParticleSystemSceneNode*)  tolua_tousertype(tolua_S,1,0);
-  const irr::core::dimension2df* scaleTo = ((const irr::core::dimension2df*)  tolua_tousertype(tolua_S,2,0));
+  const irr::core::dimension2d<float>* scaleTo = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'createScaleParticleAffector'", NULL);
 #endif
@@ -30878,6 +30877,41 @@ static int tolua_NeoGame_NeoEditor_setSceneNodeTriangleSelector00(lua_State* tol
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: setMeshNodeColor of class  NeoEditor */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoEditor_setMeshNodeColor00
+static int tolua_NeoGame_NeoEditor_setMeshNodeColor00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoEditor",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"irr::scene::IMeshSceneNode",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"irr::video::SColor",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoEditor* self = (NeoEditor*)  tolua_tousertype(tolua_S,1,0);
+  irr::scene::IMeshSceneNode* node = ((irr::scene::IMeshSceneNode*)  tolua_tousertype(tolua_S,2,0));
+  irr::video::SColor* color = ((irr::video::SColor*)  tolua_tousertype(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setMeshNodeColor'", NULL);
+#endif
+  {
+   self->setMeshNodeColor(node,*color);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setMeshNodeColor'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: Init of class  NeoEditor */
 #ifndef TOLUA_DISABLE_tolua_NeoGame_NeoEditor_Init00
 static int tolua_NeoGame_NeoEditor_Init00(lua_State* tolua_S)
@@ -32749,6 +32783,7 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"isSelectionCursor",tolua_NeoGame_NeoEditor_isSelectionCursor00);
    tolua_function(tolua_S,"getSelectedCursorIndex",tolua_NeoGame_NeoEditor_getSelectedCursorIndex00);
    tolua_function(tolua_S,"setSceneNodeTriangleSelector",tolua_NeoGame_NeoEditor_setSceneNodeTriangleSelector00);
+   tolua_function(tolua_S,"setMeshNodeColor",tolua_NeoGame_NeoEditor_setMeshNodeColor00);
    tolua_function(tolua_S,"Init",tolua_NeoGame_NeoEditor_Init00);
    tolua_function(tolua_S,"CleanUp",tolua_NeoGame_NeoEditor_CleanUp00);
   tolua_endmodule(tolua_S);

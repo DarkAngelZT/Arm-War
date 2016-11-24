@@ -233,6 +233,24 @@ void NeoEditor::setSceneNodeTriangleSelector(irr::scene::ISceneNode* node,
 	}
 }
 
+void NeoEditor::setMeshNodeColor(irr::scene::IMeshSceneNode* node, irr::video::SColor& color)
+{
+	for(unsigned i=0;i<node->getMesh()->getMeshBufferCount();i++)
+	{
+		int count=node->getMesh()->getMeshBuffer(i)->getVertexCount();
+		scene::IMeshBuffer*buffer=node->getMesh()->getMeshBuffer(i);
+		video::E_VERTEX_TYPE type=buffer->getVertexType();
+		if(type==video::EVT_STANDARD)
+		{
+			video::S3DVertex*varray = static_cast<video::S3DVertex*>(buffer->getVertices());
+			for(int j=0;j<count;j++)
+			{
+				varray[j].Color=color;
+			}
+		}
+	}
+}
+
 void NeoEditor::CreateSelectionCursor()
 {
 	float length = 10.0f;

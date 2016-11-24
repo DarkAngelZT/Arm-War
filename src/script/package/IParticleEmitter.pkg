@@ -39,10 +39,10 @@ public:
 	virtual void setMaxStartColor( const irr::video::SColor& color );
 
 	//! Set the maximum starting size for particles
-	virtual void setMaxStartSize( const irr::core::dimension2df& size );
+	virtual void setMaxStartSize( const irr::core::dimension2d<float>& size );
 
 	//! Set the minimum starting size for particles
-	virtual void setMinStartSize( const irr::core::dimension2df& size );
+	virtual void setMinStartSize( const irr::core::dimension2d<float>& size );
 
 	//! Set the minimum particle life-time in milliseconds
 	virtual void setMinLifeTime( unsigned lifeTimeMin );
@@ -69,10 +69,10 @@ public:
 	virtual const irr::video::SColor& getMaxStartColor() const;
 
 	//! Get the maximum starting size for particles
-	virtual const irr::core::dimension2df& getMaxStartSize() const;
+	virtual const irr::core::dimension2d<float>& getMaxStartSize() const;
 
 	//! Get the minimum starting size for particles
-	virtual const irr::core::dimension2df& getMinStartSize() const;
+	virtual const irr::core::dimension2d<float>& getMinStartSize() const;
 
 	//! Get the minimum particle life-time in milliseconds
 	virtual unsigned getMinLifeTime() const;
