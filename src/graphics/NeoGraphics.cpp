@@ -312,6 +312,22 @@ std::string NeoGraphics::getAppClipboardString()
 			CEGUI::System::getSingleton().getClipboard()->getText().c_str());
 }
 
+irr::scene::IMeshSceneNode* NeoGraphics::AddCubeSceneNode(float size,
+		irr::scene::ISceneNode* parent, int id,
+		const irr::core::vector3df& position,
+		const irr::core::vector3df& rotation, const irr::core::vector3df& scale)
+{
+	return smgr->addCubeSceneNode(size,parent,id,position,rotation,scale);
+}
+
+irr::scene::IMeshSceneNode* NeoGraphics::AddSphereSceneNode(float radius,
+		int polyCount, irr::scene::ISceneNode* parent, int id,
+		const core::vector3df& position, const core::vector3df& rotation,
+		const core::vector3df& scale)
+{
+	return smgr->addSphereSceneNode(radius,polyCount,parent,id,position,rotation,scale);
+}
+
 void NeoGraphics::InitialiseDefaultResourceGroups()
 {
 	//以下代码搬运自cegui Sample

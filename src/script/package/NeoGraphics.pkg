@@ -47,6 +47,17 @@ public:
 			int keyMapSize = 0, bool noVerticalMovement = false, int jumpSpeed =
 					0.f, bool invertMouse = false, bool makeActive = true);
 
+	irr::scene::IMeshSceneNode* AddCubeSceneNode(float size=10.0f, irr::scene::ISceneNode* parent=0, int id=-1,
+			const irr::core::vector3d<float>& position = irr::core::vector3d<float>(0,0,0),
+			const irr::core::vector3d<float>& rotation = irr::core::vector3d<float>(0,0,0),
+			const irr::core::vector3d<float>& scale = irr::core::vector3d<float>(1.0f, 1.0f, 1.0f));
+
+	irr::scene::IMeshSceneNode* AddSphereSceneNode(float radius = 5.0f,
+			int polyCount = 16, irr::scene::ISceneNode* parent = 0, int id = -1,
+			const irr::core::vector3d<float>& position = irr::core::vector3d<float>(0, 0, 0),
+			const irr::core::vector3d<float>& rotation = irr::core::vector3d<float>(0, 0, 0),
+			const irr::core::vector3d<float>& scale = irr::core::vector3d<float>(1.0f, 1.0f, 1.0f));
+
 	irr::scene::ILightSceneNode * AddLightSceneNode(
 			irr::scene::ISceneNode* parent = 0,
 			const irr::core::vector3d<float>& position = irr::core::vector3d<float>(0, 0,

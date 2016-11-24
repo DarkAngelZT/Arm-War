@@ -23,6 +23,8 @@ map_editor.scene_node_icon=
 	camera="sceneNode_camera",
 	unknown="sceneNode_unknown"
 }
+-- file list that needs to be copied to des folder
+map_editor.copy_list={}
 dofile(DIR_SCRIPT.."Editor/toolbar.lua")
 dofile(DIR_SCRIPT.."Editor/animationPanel.lua")
 dofile(DIR_SCRIPT.."Editor/logicDataPanel.lua")
@@ -48,6 +50,8 @@ function map_editor.Init()
 	map_editor.animation_wnd.Init()
 	-- logic data panel
 	map_editor.logic_data_wnd.Init()
+	-- clear copy list (for save)
+	map_editor.copy_list={}
 	--map name
 	map_editor.map_name="untitled"
 	-- camera
@@ -383,8 +387,14 @@ function map_editor.Menu_Insert_callback( args )
 		map_editor.isOnScene=false
 		map_editor.ImportBillboard()
 	elseif btnName == "cube" then
+		map_editor.isOnScene=false
+		map_editor.AddCube()
 	elseif btnName == "sphere" then
+		map_editor.isOnScene=false
+		map_editor.AddSphere()
 	elseif btnName == "light" then
+		map_editor.isOnScene=false
+		map_editor.AddLightObject()
 	elseif btnName == "event_point" then
 	elseif btnName == "spawn_point" then
 	end

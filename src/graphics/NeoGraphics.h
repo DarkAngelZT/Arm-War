@@ -69,6 +69,20 @@ public:
 			int keyMapSize = 0, bool noVerticalMovement = false, int jumpSpeed =
 					0.f, bool invertMouse = false, bool makeActive = true);
 
+	irr::scene::IMeshSceneNode* AddCubeSceneNode(float size = 10.0f,
+			irr::scene::ISceneNode* parent = 0, int id = -1,
+			const irr::core::vector3df& position = irr::core::vector3df(0, 0,
+					0), const irr::core::vector3df& rotation =
+					irr::core::vector3df(0, 0, 0),
+			const irr::core::vector3df& scale = irr::core::vector3df(1.0f, 1.0f,
+					1.0f));
+
+	irr::scene::IMeshSceneNode* AddSphereSceneNode(float radius = 5.0f,
+			int polyCount = 16, irr::scene::ISceneNode* parent = 0, int id = -1,
+			const core::vector3df& position = core::vector3df(0, 0, 0),
+			const core::vector3df& rotation = core::vector3df(0, 0, 0),
+			const core::vector3df& scale = core::vector3df(1.0f, 1.0f, 1.0f));
+
 	irr::scene::ILightSceneNode * AddLightSceneNode(
 			irr::scene::ISceneNode* parent = 0,
 			const core::vector3df& position = core::vector3df(0, 0, 0),
@@ -94,9 +108,10 @@ public:
 			bool alsoAddIfMeshPointerZero = false);
 
 	irr::scene::ISceneNode* AddSkyDomeSceneNode(video::ITexture* texture,
-				unsigned int horiRes=16, unsigned int vertRes=8,
-				float texturePercentage=0.9, float spherePercentage=2.0,float radius = 1000.f,
-				irr::scene::ISceneNode* parent=0, int id=-1);
+			unsigned int horiRes = 16, unsigned int vertRes = 8,
+			float texturePercentage = 0.9, float spherePercentage = 2.0,
+			float radius = 1000.f, irr::scene::ISceneNode* parent = 0, int id =
+					-1);
 
 	irr::scene::IParticleSystemSceneNode * AddParticleSystemSceneNode(
 			bool withDefaultEmitter = true, irr::scene::ISceneNode* parent = 0,
