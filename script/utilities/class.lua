@@ -38,6 +38,7 @@ function class(super)
 				else
 					value =  deepcopy(_class[super][key])
 				end
+				print(key,value)
 				class_type[key]=value
 				return value
 			end

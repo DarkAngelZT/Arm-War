@@ -2,6 +2,7 @@ map_editor={}
 
 map_editor.isOnScene=true
 map_editor.edit_mode=NeoEditor.EDITOR_MOVE
+map_editor.root_directory=NeoEditor:getInstance():getWorkingDirectory()
 map_editor.key_states=
 {
 	control=false,
@@ -17,6 +18,7 @@ map_editor.scene_node_icon=
 	light="sceneNode_light",
 	octree="sceneNode_octree",
 	event_point="event_point",
+	spawn_point="event_point",
 	cube="sceneNode_cube",
 	sphere="sceneNode_sphere",
 	particle_sys="sceneNode_particleSystem",
@@ -25,6 +27,7 @@ map_editor.scene_node_icon=
 }
 -- file list that needs to be copied to des folder
 map_editor.copy_list={}
+map_editor.saved=false
 dofile(DIR_SCRIPT.."Editor/toolbar.lua")
 dofile(DIR_SCRIPT.."Editor/animationPanel.lua")
 dofile(DIR_SCRIPT.."Editor/logicDataPanel.lua")
@@ -32,9 +35,12 @@ dofile(DIR_SCRIPT.."Editor/inputWindow.lua")
 --------------------------------------------
 -- initialize
 --------------------------------------------
-function map_editor.Init()
+function map_editor.Init(resetEventHandler)
+	if resetEventHandler == nil then
+		resetEventHandler = true
+	end
 	-- c++ initialize
-	NeoEditor:getInstance():Init()
+	NeoEditor:getInstance():Init(resetEventHandler)
 	-- window caption
 	NeoGraphics:getInstance():setWindowCaption("Map Editor -- untitled")
 	--reset id generator
@@ -52,6 +58,8 @@ function map_editor.Init()
 	map_editor.logic_data_wnd.Init()
 	-- clear copy list (for save)
 	map_editor.copy_list={}
+	-- saved states
+	map_editor.saved=false
 	--map name
 	map_editor.map_name="untitled"
 	-- camera
@@ -77,7 +85,10 @@ end
 --------------------------------------------
 -- clean the editor objects
 --------------------------------------------
-function map_editor.CleanUp()
+function map_editor.CleanUp(resetEventHandler)
+	if resetEventHandler == nil then
+		resetEventHandler = true
+	end
 	--clear object information
 	for k,_ in pairs(map_editor.objects) do
 		map_editor.objects[k]=nil
@@ -85,7 +96,7 @@ function map_editor.CleanUp()
 	map_editor.ClearObjectLookUpTable()
 	map_editor:UnselectAllObjects()
 	-- clear scene node from c++ side
-	NeoEditor:getInstance():CleanUp()
+	NeoEditor:getInstance():CleanUp(resetEventHandler)
 	NeoGraphics:getInstance():UnloadTexture(map_editor.skyboxTexture)
 	-- clear all loaded textures
 	map_editor.RemoveAllTextures()
@@ -356,10 +367,18 @@ function map_editor.Menu_File_callback( args )
 	local btnName=CEGUI.toWindowEventArgs(args).window:getName()
 	if btnName == "New" then
 		--create new scene
-		map_editor.CleanUp()
-		map_editor.Init()
+		map_editor.CleanUp(false)
+		map_editor.Init(false)
 	elseif btnName == "Open" then
 		--open file dialog to load map
+			NeoEditor:getInstance():CreateFileOpenDialog("map_editor.LoadCallback")
+	elseif btnName == "Save" then
+		if not map_editor.saved then
+			map_editor.OpenInputWindow("Please input the map name:",
+				map_editor.SaveCallback,map_editor.map_name)
+		else
+			map_editor:save()
+		end
 	elseif btnName == "Quit" then
 		map_editor.Quit()
 	end
@@ -388,15 +407,19 @@ function map_editor.Menu_Insert_callback( args )
 		map_editor.ImportBillboard()
 	elseif btnName == "cube" then
 		map_editor.isOnScene=false
-		map_editor.AddCube()
+		map_editor.OpenInputWindow("Please input the size of cube",map_editor.AddCubeCallback,"10")
 	elseif btnName == "sphere" then
 		map_editor.isOnScene=false
-		map_editor.AddSphere()
+		map_editor.OpenInputWindow("Please input the radius of sphere",map_editor.AddSphereCallback,"5")
 	elseif btnName == "light" then
 		map_editor.isOnScene=false
 		map_editor.AddLightObject()
 	elseif btnName == "event_point" then
+		map_editor.isOnScene=false
+		map_editor.AddEventPoint()
 	elseif btnName == "spawn_point" then
+		map_editor.isOnScene=false
+		map_editor.AddSpawnPoint()
 	end
 end
 

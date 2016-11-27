@@ -40,14 +40,17 @@ void NeoEditor::ShowSelectionCursor(bool visible,
 	m_selection_cursor->setVisible(visible);
 }
 
-void NeoEditor::Init()
+void NeoEditor::Init(bool resetEventhandler)
 {
-	static_cast<NeoEventHandler*>(NeoGraphics::getInstance()->getDevice()->getEventReceiver())->AddAdditionalEventHandler(
-			this);
+	if (resetEventhandler)
+	{
+		static_cast<NeoEventHandler*>(NeoGraphics::getInstance()->getDevice()->getEventReceiver())->AddAdditionalEventHandler(
+				this);
+	}
 	CreateSelectionCursor();
 }
 
-void NeoEditor::CleanUp()
+void NeoEditor::CleanUp(bool resetEventhandler)
 {
 	m_selection_cursor->remove();
 	for (int i = 0; i < 3; i++)
@@ -56,8 +59,11 @@ void NeoEditor::CleanUp()
 				m_arrow_mesh[i]);
 	}
 	NeoGraphics::getInstance()->CleanUp();
-	static_cast<NeoEventHandler*>(NeoGraphics::getInstance()->getDevice()->getEventReceiver())->RemoveAddtionalEventHandler(
-			this);
+	if (resetEventhandler)
+	{
+		static_cast<NeoEventHandler*>(NeoGraphics::getInstance()->getDevice()->getEventReceiver())->RemoveAddtionalEventHandler(
+				this);
+	}
 }
 
 NeoEditor::~NeoEditor()
@@ -233,22 +239,47 @@ void NeoEditor::setSceneNodeTriangleSelector(irr::scene::ISceneNode* node,
 	}
 }
 
-void NeoEditor::setMeshNodeColor(irr::scene::IMeshSceneNode* node, irr::video::SColor& color)
+void NeoEditor::setMeshNodeColor(irr::scene::IMeshSceneNode* node,
+		irr::video::SColor& color)
 {
-	for(unsigned i=0;i<node->getMesh()->getMeshBufferCount();i++)
+	for (unsigned i = 0; i < node->getMesh()->getMeshBufferCount(); i++)
 	{
-		int count=node->getMesh()->getMeshBuffer(i)->getVertexCount();
-		scene::IMeshBuffer*buffer=node->getMesh()->getMeshBuffer(i);
-		video::E_VERTEX_TYPE type=buffer->getVertexType();
-		if(type==video::EVT_STANDARD)
+		int count = node->getMesh()->getMeshBuffer(i)->getVertexCount();
+		scene::IMeshBuffer*buffer = node->getMesh()->getMeshBuffer(i);
+		video::E_VERTEX_TYPE type = buffer->getVertexType();
+		if (type == video::EVT_STANDARD)
 		{
-			video::S3DVertex*varray = static_cast<video::S3DVertex*>(buffer->getVertices());
-			for(int j=0;j<count;j++)
+			video::S3DVertex*varray =
+					static_cast<video::S3DVertex*>(buffer->getVertices());
+			for (int j = 0; j < count; j++)
 			{
-				varray[j].Color=color;
+				varray[j].Color = color;
 			}
 		}
 	}
+	node->getMaterial(0).AmbientColor = color;
+}
+
+std::string NeoEditor::getWorkingDirectory()
+{
+	const io::path& p =
+			NeoGraphics::getInstance()->getDevice()->getFileSystem()->getWorkingDirectory();
+	return std::string(p.c_str());
+}
+
+std::string NeoEditor::getRelativePath(const std::string& p,
+		const std::string& dir)
+{
+	io::path result =
+			NeoGraphics::getInstance()->getDevice()->getFileSystem()->getRelativeFilename(
+					p.c_str(), dir.c_str());
+	return std::string(result.c_str());
+}
+
+void NeoEditor::ChangeWorkingDirectory(const std::string& dest)
+{
+	NeoGraphics::getInstance()->getDevice()->getFileSystem()->changeWorkingDirectoryTo(
+			dest.c_str());
 }
 
 void NeoEditor::CreateSelectionCursor()

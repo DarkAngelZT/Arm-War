@@ -34,8 +34,11 @@ public:
 	int getSelectedCursorIndex(irr::scene::ISceneNode*node);
 	void setSceneNodeTriangleSelector(irr::scene::ISceneNode*node,const std::string& type = "normal");
 	void setMeshNodeColor(irr::scene::IMeshSceneNode*node, irr::video::SColor& color);
-	void Init();
-	void CleanUp();
+	std::string getWorkingDirectory();
+	std::string getRelativePath(const std::string& p, const std::string& dir);
+	void ChangeWorkingDirectory(const std::string& dest);
+	void Init(bool resetEventhandler = true);
+	void CleanUp(bool resetEventhandler = true);
 private:
 	NeoEditor();
 	virtual ~NeoEditor();

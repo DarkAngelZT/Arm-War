@@ -43,11 +43,16 @@ end
 function map_editor.ToolbarCallback( args )
 	local btnName=CEGUI.toWindowEventArgs(args).window:getName()
 	if btnName == "open" then
-		--body
+		NeoEditor:getInstance():CreateFileOpenDialog("map_editor.LoadCallback")
 	elseif btnName == "duplicate" then
 		--body
 	elseif btnName == "save" then
-		--body
+		if not map_editor.saved then
+			map_editor.OpenInputWindow("Please input the map name:",
+				map_editor.SaveCallback,map_editor.map_name)
+		else
+			map_editor:save()
+		end
 	elseif btnName == "move" then
 		map_editor.edit_mode=NeoEditor.EDITOR_MOVE
 		map_editor.setCurrentTool(map_editor.edit_mode)

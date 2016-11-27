@@ -1,6 +1,6 @@
 /*
 ** Lua binding: NeoGame
-** Generated automatically by tolua++-1.0.93 on Thu Nov 24 12:40:08 2016.
+** Generated automatically by tolua++-1.0.93 on Sun Nov 27 01:25:16 2016.
 */
 
 #ifndef __cplusplus
@@ -31218,9 +31218,9 @@ static int tolua_NeoGame_NeoEditor_setMeshNodeColor00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: Init of class  NeoEditor */
-#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoEditor_Init00
-static int tolua_NeoGame_NeoEditor_Init00(lua_State* tolua_S)
+/* method: getWorkingDirectory of class  NeoEditor */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoEditor_getWorkingDirectory00
+static int tolua_NeoGame_NeoEditor_getWorkingDirectory00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -31234,10 +31234,116 @@ static int tolua_NeoGame_NeoEditor_Init00(lua_State* tolua_S)
  {
   NeoEditor* self = (NeoEditor*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getWorkingDirectory'", NULL);
+#endif
+  {
+   std::string tolua_ret = (std::string)  self->getWorkingDirectory();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getWorkingDirectory'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getRelativePath of class  NeoEditor */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoEditor_getRelativePath00
+static int tolua_NeoGame_NeoEditor_getRelativePath00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoEditor",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoEditor* self = (NeoEditor*)  tolua_tousertype(tolua_S,1,0);
+  const std::string p = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string dir = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getRelativePath'", NULL);
+#endif
+  {
+   std::string tolua_ret = (std::string)  self->getRelativePath(p,dir);
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+   tolua_pushcppstring(tolua_S,(const char*)p);
+   tolua_pushcppstring(tolua_S,(const char*)dir);
+  }
+ }
+ return 3;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getRelativePath'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: ChangeWorkingDirectory of class  NeoEditor */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoEditor_ChangeWorkingDirectory00
+static int tolua_NeoGame_NeoEditor_ChangeWorkingDirectory00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoEditor",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoEditor* self = (NeoEditor*)  tolua_tousertype(tolua_S,1,0);
+  const std::string dest = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'ChangeWorkingDirectory'", NULL);
+#endif
+  {
+   self->ChangeWorkingDirectory(dest);
+   tolua_pushcppstring(tolua_S,(const char*)dest);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'ChangeWorkingDirectory'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: Init of class  NeoEditor */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoEditor_Init00
+static int tolua_NeoGame_NeoEditor_Init00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoEditor",0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,2,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoEditor* self = (NeoEditor*)  tolua_tousertype(tolua_S,1,0);
+  bool resetEventhandler = ((bool)  tolua_toboolean(tolua_S,2,true));
+#ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'Init'", NULL);
 #endif
   {
-   self->Init();
+   self->Init(resetEventhandler);
   }
  }
  return 0;
@@ -31257,18 +31363,20 @@ static int tolua_NeoGame_NeoEditor_CleanUp00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"NeoEditor",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
+     !tolua_isboolean(tolua_S,2,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   NeoEditor* self = (NeoEditor*)  tolua_tousertype(tolua_S,1,0);
+  bool resetEventhandler = ((bool)  tolua_toboolean(tolua_S,2,true));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CleanUp'", NULL);
 #endif
   {
-   self->CleanUp();
+   self->CleanUp(resetEventhandler);
   }
  }
  return 0;
@@ -33098,6 +33206,9 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getSelectedCursorIndex",tolua_NeoGame_NeoEditor_getSelectedCursorIndex00);
    tolua_function(tolua_S,"setSceneNodeTriangleSelector",tolua_NeoGame_NeoEditor_setSceneNodeTriangleSelector00);
    tolua_function(tolua_S,"setMeshNodeColor",tolua_NeoGame_NeoEditor_setMeshNodeColor00);
+   tolua_function(tolua_S,"getWorkingDirectory",tolua_NeoGame_NeoEditor_getWorkingDirectory00);
+   tolua_function(tolua_S,"getRelativePath",tolua_NeoGame_NeoEditor_getRelativePath00);
+   tolua_function(tolua_S,"ChangeWorkingDirectory",tolua_NeoGame_NeoEditor_ChangeWorkingDirectory00);
    tolua_function(tolua_S,"Init",tolua_NeoGame_NeoEditor_Init00);
    tolua_function(tolua_S,"CleanUp",tolua_NeoGame_NeoEditor_CleanUp00);
   tolua_endmodule(tolua_S);

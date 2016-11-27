@@ -11,7 +11,7 @@ end
 function Application_Save_Settings()
 	print("Save system settings...")
 	cfgfile=io.open(DIR_DATA.."syscfg.lua","w")
-	if cfgfile~=nil then
+	if cfgfile then
 		--header
 		cfgfile:write("-- Auto saved system settings\n\n")
 		cfgfile:write(string.format("%s%s\n\n","-- File created on: ",os.date()))
