@@ -30,6 +30,7 @@ local fileOption=menubar.."/File/PopupMenu"
 root:getChild(fileOption.."/New"):subscribeEvent("Clicked","map_editor.Menu_File_callback")
 root:getChild(fileOption.."/Open"):subscribeEvent("Clicked","map_editor.Menu_File_callback")
 root:getChild(fileOption.."/Save"):subscribeEvent("Clicked","map_editor.Menu_File_callback")
+root:getChild(fileOption.."/SaveAs"):subscribeEvent("Clicked","map_editor.Menu_File_callback")
 root:getChild(fileOption.."/Quit"):subscribeEvent("Clicked","map_editor.Menu_File_callback")
 --insert menu
 local insertOption=menubar.."/Insert/PopupMenu"

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: NeoGame
-** Generated automatically by tolua++-1.0.93 on Sun Nov 27 01:25:16 2016.
+** Generated automatically by tolua++-1.0.93 on Sun Nov 27 17:29:02 2016.
 */
 
 #ifndef __cplusplus
@@ -31322,6 +31322,41 @@ static int tolua_NeoGame_NeoEditor_ChangeWorkingDirectory00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: IsFileExists of class  NeoEditor */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoEditor_IsFileExists00
+static int tolua_NeoGame_NeoEditor_IsFileExists00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoEditor",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoEditor* self = (NeoEditor*)  tolua_tousertype(tolua_S,1,0);
+  const std::string dest = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'IsFileExists'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->IsFileExists(dest);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+   tolua_pushcppstring(tolua_S,(const char*)dest);
+  }
+ }
+ return 2;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'IsFileExists'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: Init of class  NeoEditor */
 #ifndef TOLUA_DISABLE_tolua_NeoGame_NeoEditor_Init00
 static int tolua_NeoGame_NeoEditor_Init00(lua_State* tolua_S)
@@ -33209,6 +33244,7 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getWorkingDirectory",tolua_NeoGame_NeoEditor_getWorkingDirectory00);
    tolua_function(tolua_S,"getRelativePath",tolua_NeoGame_NeoEditor_getRelativePath00);
    tolua_function(tolua_S,"ChangeWorkingDirectory",tolua_NeoGame_NeoEditor_ChangeWorkingDirectory00);
+   tolua_function(tolua_S,"IsFileExists",tolua_NeoGame_NeoEditor_IsFileExists00);
    tolua_function(tolua_S,"Init",tolua_NeoGame_NeoEditor_Init00);
    tolua_function(tolua_S,"CleanUp",tolua_NeoGame_NeoEditor_CleanUp00);
   tolua_endmodule(tolua_S);

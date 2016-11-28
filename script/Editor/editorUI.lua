@@ -208,6 +208,7 @@ end
 
 function map_editor.UpdatePropertyWindow( object )
 	local wnd=map_editor.property_wnd
+	wnd:setSortDirection( CEGUI.ListHeaderSegment.None)
 	map_editor.ClearPropertyWindow()
 	if object == map_editor.root_object then
 		--add a "name" row to root object
@@ -371,14 +372,20 @@ function map_editor.Menu_File_callback( args )
 		map_editor.Init(false)
 	elseif btnName == "Open" then
 		--open file dialog to load map
-			NeoEditor:getInstance():CreateFileOpenDialog("map_editor.LoadCallback")
+		map_editor.isOnScene=false
+		NeoEditor:getInstance():CreateFileOpenDialog("map_editor.LoadCallback")
 	elseif btnName == "Save" then
 		if not map_editor.saved then
+			map_editor.isOnScene=false
 			map_editor.OpenInputWindow("Please input the map name:",
 				map_editor.SaveCallback,map_editor.map_name)
 		else
 			map_editor:save()
 		end
+	elseif btnName == "SaveAs" then
+		map_editor.isOnScene=false
+			map_editor.OpenInputWindow("Please input the map name:",
+				map_editor.SaveCallback,map_editor.map_name)
 	elseif btnName == "Quit" then
 		map_editor.Quit()
 	end
@@ -484,6 +491,16 @@ function map_editor.SceneTreeItemSelected( args )
 		return
 	end
 	map_editor.SelectObject(obj,not map_editor.key_states.control)
+end
+function map_editor.CopyCallback()
+	if #map_editor.selected_objects == 0 then
+		return
+	end
+	local objects = map_editor.CopyObjects(map_editor.selected_objects)
+	map_editor.CancelAllSelections()
+	for i=1,#objects do
+		map_editor.SelectObject(objects[i],false)
+	end	
 end
 --------------------------------------------
 -- object handler
@@ -868,6 +885,13 @@ function map_editor.OnKeyUp( args )
 			end
 		end
 		map_editor.CancelAllSelections()
+	end
+
+	if event.scancode == CEGUI.Key.V and
+		g_ui_table.editor:getActiveChild():getType() ~= "GlossySerpent/Editbox" and
+		g_ui_table.editor:getActiveChild():getType() ~= "GlossySerpent/MultiLineEditbox" then
+		-- remove all selected objects
+		map_editor.CopyCallback()
 	end
 end
 

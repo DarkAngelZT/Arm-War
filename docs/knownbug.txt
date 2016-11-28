@@ -1,0 +1,3 @@
+cegui:
+multiconlumn list will display original item order after been reseted even in sorted mode. so if you want chenge the item, it would be result in modification in another row. 
+[fix] reset sort direction to none each time before reloading the list

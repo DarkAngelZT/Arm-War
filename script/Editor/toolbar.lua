@@ -7,6 +7,8 @@ map_editor.toolbar=
 		CEGUI.toPushButton(g_ui_table.editor:getChild("Toolbar/save")),
 	open=
 		CEGUI.toPushButton(g_ui_table.editor:getChild("Toolbar/open")),
+	focus=
+		CEGUI.toPushButton(g_ui_table.editor:getChild("Toolbar/focus")),
 	move=
 		CEGUI.toPushButton(g_ui_table.editor:getChild("Toolbar/move")),
 	rotate=
@@ -43,15 +45,24 @@ end
 function map_editor.ToolbarCallback( args )
 	local btnName=CEGUI.toWindowEventArgs(args).window:getName()
 	if btnName == "open" then
+		map_editor.isOnScene=false
 		NeoEditor:getInstance():CreateFileOpenDialog("map_editor.LoadCallback")
 	elseif btnName == "duplicate" then
-		--body
+		map_editor.CopyCallback()
 	elseif btnName == "save" then
 		if not map_editor.saved then
+			map_editor.isOnScene=false
 			map_editor.OpenInputWindow("Please input the map name:",
 				map_editor.SaveCallback,map_editor.map_name)
 		else
 			map_editor:save()
+		end
+	elseif btnName == "focus" then
+		if #map_editor.selected_objects > 0 then
+			if map_editor.selected_objects[1].scene_node then
+				map_editor.camera:setTarget(
+					map_editor.selected_objects[1].scene_node:getPosition())
+			end
 		end
 	elseif btnName == "move" then
 		map_editor.edit_mode=NeoEditor.EDITOR_MOVE

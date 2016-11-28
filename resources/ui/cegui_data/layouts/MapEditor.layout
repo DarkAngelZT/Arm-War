@@ -15,31 +15,36 @@
                 <Property name="VerticalAlignment" value="Centre" />
                 <Property name="WantsMultiClickEvents" value="false" />
                 <Window type="GlossySerpent/PopupMenu" name="PopupMenu" >
-                    <Property name="Area" value="{{0,0},{0,0},{0,76.7408},{0,113.406}}" />
+                    <Property name="Area" value="{{0,0},{0,0},{0,85.7408},{0,139.914}}" />
                     <Property name="Visible" value="false" />
                     <Property name="ItemSpacing" value="2" />
                     <Property name="ClippedByParent" value="false" />
                     <Property name="AutoResizeEnabled" value="true" />
                     <Window type="GlossySerpent/MenuItem" name="New" >
-                        <Property name="Area" value="{{0,5},{0,5},{0,73},{0,30}}" />
+                        <Property name="Area" value="{{0,5},{0,5},{0,82},{0,30}}" />
                         <Property name="Text" value="New Map" />
                         <Property name="TooltipText" value="Create New Map" />
                         <Property name="WantsMultiClickEvents" value="false" />
                     </Window>
                     <Window type="GlossySerpent/MenuItem" name="Open" >
-                        <Property name="Area" value="{{0,5},{0,32},{0,73},{0,57}}" />
+                        <Property name="Area" value="{{0,5},{0,32},{0,82},{0,57}}" />
                         <Property name="Text" value="Open..." />
                         <Property name="TooltipText" value="Open Existed Map" />
                         <Property name="WantsMultiClickEvents" value="false" />
                     </Window>
                     <Window type="GlossySerpent/MenuItem" name="Save" >
-                        <Property name="Area" value="{{0,5},{0,59},{0,73},{0,84}}" />
+                        <Property name="Area" value="{{0,5},{0,59},{0,82},{0,84}}" />
                         <Property name="Text" value="Save..." />
                         <Property name="TooltipText" value="Save current map" />
                         <Property name="WantsMultiClickEvents" value="false" />
                     </Window>
+                    <Window type="GlossySerpent/MenuItem" name="SaveAs" >
+                        <Property name="Area" value="{{0,5},{0,86},{0,82},{0,111}}" />
+                        <Property name="Text" value="Save as ..." />
+                        <Property name="WantsMultiClickEvents" value="false" />
+                    </Window>
                     <Window type="GlossySerpent/MenuItem" name="Quit" >
-                        <Property name="Area" value="{{0,5},{0,86},{0,73},{0,111}}" />
+                        <Property name="Area" value="{{0,5},{0,113},{0,82},{0,138}}" />
                         <Property name="Text" value="Quit" />
                         <Property name="TooltipText" value="Exit to main menu" />
                         <Property name="WantsMultiClickEvents" value="false" />
@@ -119,7 +124,7 @@
             </Window>
         </Window>
         <Window type="GlossySerpent/SerpentPanel" name="Toolbar" >
-            <Property name="Area" value="{{0,260},{0,0},{0,537},{0,55}}" />
+            <Property name="Area" value="{{0,260},{0,0},{0,550},{0,55}}" />
             <Property name="MaxSize" value="{{1,0},{1,0}}" />
             <Property name="AutoRenderingSurface" value="true" />
             <Window type="GlossySerpent/GlyphButton" name="open" >
@@ -138,7 +143,7 @@
                 </Window>
             </Window>
             <Window type="GlossySerpent/GlyphButton" name="move" >
-                <Property name="Area" value="{{0,142},{0,-1},{0,177},{0,34}}" />
+                <Property name="Area" value="{{0,162},{0,0},{0,197},{0,35}}" />
                 <Property name="TooltipText" value="move" />
                 <Property name="VerticalAlignment" value="Centre" />
                 <Window type="GlossySerpent/StaticImage" name="icon_move" >
@@ -153,7 +158,7 @@
                 </Window>
             </Window>
             <Window type="GlossySerpent/GlyphButton" name="rotate" >
-                <Property name="Area" value="{{0,182},{0,-1},{0,217},{0,34}}" />
+                <Property name="Area" value="{{0,197},{0,0},{0,232},{0,35}}" />
                 <Property name="TooltipText" value="Rotate" />
                 <Property name="VerticalAlignment" value="Centre" />
                 <Window type="GlossySerpent/StaticImage" name="icon_rotate" >
@@ -168,7 +173,7 @@
                 </Window>
             </Window>
             <Window type="GlossySerpent/GlyphButton" name="scale" >
-                <Property name="Area" value="{{0,222},{0,-1},{0,257},{0,34}}" />
+                <Property name="Area" value="{{0,232},{0,0},{0,267},{0,35}}" />
                 <Property name="TooltipText" value="scale" />
                 <Property name="VerticalAlignment" value="Centre" />
                 <Window type="GlossySerpent/StaticImage" name="icon_scale" >
@@ -183,7 +188,7 @@
                 </Window>
             </Window>
             <Window type="GlossySerpent/GlyphButton" name="save" >
-                <Property name="Area" value="{{0,62},{0,0},{0,97},{0,35}}" />
+                <Property name="Area" value="{{0,57},{0,0},{0,92},{0,35}}" />
                 <Property name="TooltipText" value="Save map" />
                 <Property name="VerticalAlignment" value="Centre" />
                 <Window type="GlossySerpent/StaticImage" name="icon_save" >
@@ -198,7 +203,7 @@
                 </Window>
             </Window>
             <Window type="GlossySerpent/GlyphButton" name="duplicate" >
-                <Property name="Area" value="{{0,102},{0,0},{0,137},{0,35}}" />
+                <Property name="Area" value="{{0,92},{0,0},{0,127},{0,35}}" />
                 <Property name="TooltipText" value="duplicate objects" />
                 <Property name="VerticalAlignment" value="Centre" />
                 <Window type="GlossySerpent/StaticImage" name="icon_copy" >
@@ -206,6 +211,21 @@
                     <Property name="Image" value="editor/copy" />
                     <Property name="MaxSize" value="{{1,0},{1,0}}" />
                     <Property name="TooltipText" value="scale" />
+                    <Property name="FrameEnabled" value="false" />
+                    <Property name="BackgroundEnabled" value="false" />
+                    <Property name="VerticalAlignment" value="Centre" />
+                    <Property name="HorizontalAlignment" value="Centre" />
+                    <Property name="MousePassThroughEnabled" value="true" />
+                </Window>
+            </Window>
+            <Window type="GlossySerpent/GlyphButton" name="focus" >
+                <Property name="Area" value="{{0,127},{0,0},{0,162},{0,35}}" />
+                <Property name="TooltipText" value="focus on current selection" />
+                <Property name="VerticalAlignment" value="Centre" />
+                <Window type="GlossySerpent/StaticImage" name="icon_focus" >
+                    <Property name="Area" value="{{0,0},{0,0},{0,16},{0,16}}" />
+                    <Property name="Image" value="editor/focus" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
                     <Property name="FrameEnabled" value="false" />
                     <Property name="BackgroundEnabled" value="false" />
                     <Property name="VerticalAlignment" value="Centre" />

@@ -148,11 +148,11 @@ function EditorObject:Deserialize( obj_info )
 		if obj_info.scene_type == "mesh_static" then
 			obj = map_editor.ImportStaticMesh(
 				obj_info.mesh_path, obj_info.id, false, 
-				obj_info.position, obj_info.rotation, obj_info.scale,self)
+				obj_info.position, obj_info.rotation, obj_info.scale,self,obj_info.name)
 		elseif obj_info.scene_type == "octree" then
 			obj = map_editor.ImportOctreeMesh(
 				obj_info.mesh_path, obj_info.id, false,
-				obj_info.position, obj_info.rotation, obj_info.scale,self)
+				obj_info.position, obj_info.rotation, obj_info.scale,self,obj_info.name)
 		end
 	end
 	if obj then
@@ -190,10 +190,19 @@ end
 ------------------------------
 function EditorObject:Clone()
 	local obj = deepcopy(self)
+	--assign new id
+	obj.id=makeId()
 	if obj.scene_node then
-		obj.scene_node=obj.scene_node:clone()
+		obj:setSceneNode(obj.scene_node:clone())
+		if obj.scene_type == "octree" then
+			NeoEditor:getInstance():setSceneNodeTriangleSelector(obj.scene_node,"octree")
+		else
+			NeoEditor:getInstance():setSceneNodeTriangleSelector(obj.scene_node,"normal")
+		end
+		obj.scene_node:setID(obj.id)
 	end
 	map_editor.AddObject(obj)
+	map_editor.AddObjectToSceneWindow(obj,false)
 	return obj
 end
 --[[************************************
@@ -207,6 +216,7 @@ EditorRootObject.property={
 		set = function(obj, color)
 			obj["ambient colour"]=color
 			NeoGraphics:getInstance():SetAmbientLight(color)
+			print("color set")
 		end
 	},
 	["skydome texture"]={
@@ -261,7 +271,7 @@ function EditorAnimatedMeshObject:Deserialize( obj_info )
 	if obj_info.mesh_path and obj_info.scene_type == "mesh_animated"  then
 		obj = map_editor.ImportAnimatedMesh(
 			obj_info.mesh_path,obj_info.id, false,
-			obj_info.position, obj_info.rotation, obj_info.scale,self)
+			obj_info.position, obj_info.rotation, obj_info.scale,self,obj_info.name)
 	end
 	if obj then
 		-- loading node from map object info table
@@ -308,7 +318,7 @@ function EditorAnimatedMeshObject:Serialize( distObjName, fileWriter )
 					cinfo.id,cinfo.label,cinfo.from,cinfo.to))
 			end
 		end
-		fileWriter:write("}\n")
+		fileWriter:write("},\n")
 
 		-- logic data
 		map_editor.WriteString(fileWriter,"logic_data",self.logic_data)
@@ -394,13 +404,10 @@ EditorBillboardObject.property.textures={
 ------------------------------
 -- loading and saving functions
 ------------------------------
-function EditorBillboardObject.Deserialize( obj_info )
-	local obj
-	if obj_info.mesh_path then
-		obj = map_editor.ImportBillboard(
-			obj_info.textures[1], obj_info.id, false,
-			obj_info.position, obj_info.width, obj_info.height)
-	end
+function EditorBillboardObject:Deserialize( obj_info )
+	local obj = map_editor.ImportBillboard(
+		obj_info.textures[1], obj_info.id, false,
+		obj_info.position, obj_info.width, obj_info.height,self,obj_info.name)
 	if obj then
 		-- loading node from map object info table
 		for key,value in pairs(obj_info) do
@@ -466,13 +473,10 @@ EditorCubeObject.property.textures={
 ------------------------------
 -- loading and saving functions
 ------------------------------
-function EditorCubeObject.Deserialize( obj_info )
-	local obj
-	if obj_info.mesh_path then
-		obj = map_editor.AddCube(
-			obj_info.textures[1], obj_info.id, false,obj_info.size,
-			obj_info.position, obj_info.rotation, obj_info.scale)
-	end
+function EditorCubeObject:Deserialize( obj_info )
+	local obj = map_editor.AddCube(
+		obj_info.textures[1], obj_info.id, false,obj_info.size,
+		obj_info.position, obj_info.rotation, obj_info.scale,self,obj_info.name)
 	if obj then
 		-- loading node from map object info table
 		for key,value in pairs(obj_info) do
@@ -532,13 +536,10 @@ EditorSphereObject.property.textures={
 ------------------------------
 -- loading and saving functions
 ------------------------------
-function EditorSphereObject.Deserialize( obj_info )
-	local obj
-	if obj_info.mesh_path then
-		obj = map_editor.AddSphere(
-			obj_info.textures[1], obj_info.id, false,obj_info.radius,
-			obj_info.position, obj_info.rotation, obj_info.scale)
-	end
+function EditorSphereObject:Deserialize( obj_info )
+	local obj = map_editor.AddSphere(
+		obj_info.textures[1], obj_info.id, false,obj_info.radius,
+		obj_info.position, obj_info.rotation, obj_info.scale,self,obj_info.name)
 	if obj then
 		-- loading node from map object info table
 		for key,value in pairs(obj_info) do
@@ -575,9 +576,9 @@ end
 EditorLightObject = class(EditorObject)
 EditorLightObject.name = "light"
 EditorLightObject.scene_type = "light"
-EditorLightObject.ambient_color = irr.video.SColor:new_local()
-EditorLightObject.diffuse_color = irr.video.SColor:new_local(1,1,1,1)
-EditorLightObject.specular_color = irr.video.SColor:new_local(1,1,1,1)
+EditorLightObject.ambient_color = irr.video.SColor:new_local(0,0,0,0)
+EditorLightObject.diffuse_color = irr.video.SColor:new_local(255,255,255,255)
+EditorLightObject.specular_color = irr.video.SColor:new_local(255,255,255,255)
 EditorLightObject.attenuation = irr.core.vector3df:new_local(0,0.01,0)
 EditorLightObject.falloff=2
 EditorLightObject.outerCone = 45
@@ -702,7 +703,12 @@ EditorLightObject.property.specular_color={
 		obj:setSpecularColor(color)
 	end
 }
-
+EditorLightObject.property.attenuation={
+	display="Attenuation",
+	set=function( obj, att )
+		obj:setAtenuation(att)
+	end
+}
 EditorLightObject.property.falloff={
 	set=function( obj, f )
 		obj:setFalloff(f)
@@ -738,14 +744,32 @@ EditorLightObject.property.light_type={
 	end
 }
 ------------------------------
+-- function for copy object
+------------------------------
+function EditorLightObject:Clone()
+	local obj = deepcopy(self)
+	--assign new id
+	obj.id=makeId()
+	if obj.scene_node then
+		obj:setSceneNode(obj.scene_node:clone())
+		obj.scene_node:setID(obj.id)
+	end
+	if obj.icon then
+		obj.icon=obj.icon:clone()
+		obj.icon.setID(obj.id)
+		NeoEditor:getInstance():setSceneNodeTriangleSelector(obj.icon,"normal")
+	end
+	map_editor.AddObject(obj)
+	map_editor.AddObjectToSceneWindow(obj,false)
+	return obj
+end
+------------------------------
 -- loading and saving functions
 ------------------------------
-function EditorLightObject.Deserialize( obj_info )
-	local obj
-	if obj_info.mesh_path then
-		obj = map_editor.AddLightObject(
-			obj_info.id,false,obj_info.position, obj_info.rotation, obj_info.scale)
-	end
+function EditorLightObject:Deserialize( obj_info )
+	local obj = map_editor.AddLightObject(
+		obj_info.id,false,obj_info.position, obj_info.rotation, 
+		obj_info.scale,self,obj_info.name)
 	if obj then
 		-- loading node from map object info table
 		for key,value in pairs(obj_info) do
@@ -756,7 +780,7 @@ function EditorLightObject.Deserialize( obj_info )
 		obj:setDiffuseColor(obj.diffuse_color)
 		obj:setSpecularColor(obj.specular_color)
 		obj:setFalloff(obj.falloff)
-		obj:setDirection(obj.direction)
+		obj:setAtenuation(obj.attenuation)
 		obj:setCastShadow(obj.cast_shadow)
 		obj:setInnerCone(obj.innerCone)
 		obj:setOuterCone(obj.outerCone)
@@ -805,12 +829,10 @@ EditorEventPointObject.property.textures=nil
 ------------------------------
 -- loading and saving functions
 ------------------------------
-function EditorEventPointObject.Deserialize( obj_info )
-	local obj
-	if obj_info.mesh_path then
-		obj = map_editor.AddEventPoint(
-			obj_info.id, false, obj_info.position, obj_info.rotation, obj_info.scale)
-	end
+function EditorEventPointObject:Deserialize( obj_info )
+	local obj = map_editor.AddEventPoint(
+		obj_info.id, false, obj_info.position, obj_info.rotation, 
+		obj_info.scale,self,obj_info.name)
 	if obj then
 		-- loading node from map object info table
 		for key,value in pairs(obj_info) do
@@ -875,12 +897,11 @@ EditorSpawnPoint.property.team={
 ------------------------------
 -- loading and saving functions
 ------------------------------
-function EditorSpawnPoint.Deserialize( obj_info )
-	local obj
-	if obj_info.mesh_path then
-		obj = map_editor.AddSpawnPoint(
-			obj_info.team, obj_info.id, false, obj_info.position, obj_info.rotation, obj_info.scale)
-	end
+function EditorSpawnPoint:Deserialize( obj_info )
+	local obj = map_editor.AddSpawnPoint(
+		obj_info.team, obj_info.id, false, 
+		obj_info.position, obj_info.rotation, 
+		obj_info.scale,self,obj_info.name)
 	if obj then
 		-- loading node from map object info table
 		for key,value in pairs(obj_info) do
@@ -961,6 +982,18 @@ function map_editor.ClearObjectLookUpTable( ... )
 	end
 end
 -----------------
+--copy functions
+----------------
+function map_editor.CopyObjects(objects)
+	local ret = {}
+	for i=1,#objects do
+		if objects[i] ~= map_editor.root_object then
+			ret[#ret+1]=objects[i]:Clone()
+		end
+	end
+	return ret
+end
+-----------------
 --saver functions
 ----------------
 function map_editor.WriteVector3df( fileWriter, vector_name ,vector, dim )
@@ -989,6 +1022,14 @@ function map_editor.WritePath( fileWriter, string_name, path, dim )
 	if new_path ~= real_path then
 		-- add to copy list
 		map_editor.copy_list[real_path]=true
+		local lpath = file:lower()
+		if lpath:match("[.]obj$") then
+			-- if file is obj, then copy mtl file
+			local mtl=real_path:match(".*[.]").."mtl"
+			if NeoEditor:getInstance():IsFileExists(mtl) then
+				map_editor.copy_list[mtl]=true
+			end
+		end
 	end
 	fileWriter:write(string.format("%s = \"%s\""..dim.."\n", string_name, new_path))
 end
@@ -1026,7 +1067,7 @@ end
 --------------
 --import functions
 --------------
-function map_editor.ImportStaticMesh( path, id, selected, position, rotation, scale ,destObj )
+function map_editor.ImportStaticMesh( path, id, selected, position, rotation, scale ,destObj, name )
 	if not path then
 		-- cancel button is clicked
 		map_editor.isOnScene=true
@@ -1038,7 +1079,7 @@ function map_editor.ImportStaticMesh( path, id, selected, position, rotation, sc
 	local obj= destObj or EditorObject.new()
 	id=id or makeId()
 	obj.id=id
-	obj.name="mesh"
+	obj.name=name or "mesh"
 	obj.scene_type="mesh_static"
 	obj.mesh_path=path
 	local mesh=NeoGraphics:getInstance():getMesh(path)
@@ -1064,7 +1105,7 @@ function map_editor.ImportStaticMesh( path, id, selected, position, rotation, sc
 	return obj
 end
 
-function map_editor.ImportAnimatedMesh( path, id,selected, position, rotation, scale,destObj )
+function map_editor.ImportAnimatedMesh( path, id,selected, position, rotation, scale,destObj, name )
 	if not path then
 		-- cancel button is clicked
 		map_editor.isOnScene=true
@@ -1076,7 +1117,7 @@ function map_editor.ImportAnimatedMesh( path, id,selected, position, rotation, s
 	local obj=destObj or EditorAnimatedMeshObject.new()
 	id=id or makeId()
 	obj.id=id
-	obj.name="animated mesh"
+	obj.name=name or "animated mesh"
 	obj.scene_type="mesh_animated"
 	obj.mesh_path=path
 	local mesh=NeoGraphics:getInstance():getMesh(path)
@@ -1102,7 +1143,7 @@ function map_editor.ImportAnimatedMesh( path, id,selected, position, rotation, s
 	return obj
 end
 
-function map_editor.ImportOctreeMesh( path, id, selected, position, rotation, scale, destObj )
+function map_editor.ImportOctreeMesh( path, id, selected, position, rotation, scale, destObj, name )
 	if not path then
 		-- cancel button is clicked
 		map_editor.isOnScene=true
@@ -1114,7 +1155,7 @@ function map_editor.ImportOctreeMesh( path, id, selected, position, rotation, sc
 	local obj=destObj or EditorObject.new()
 	id=id or makeId()
 	obj.id=id
-	obj.name="octree"
+	obj.name=name or "octree"
 	obj.scene_type="octree"
 	obj.mesh_path=path
 	local mesh=NeoGraphics:getInstance():getMesh(path)
@@ -1141,7 +1182,7 @@ function map_editor.ImportOctreeMesh( path, id, selected, position, rotation, sc
 end
 
 
-function map_editor.ImportBillboard( path, id, selected, position, width, height, destObj )
+function map_editor.ImportBillboard( path, id, selected, position, width, height, destObj, name )
 	path=path or DIR_RESOURCES.."Editor/default_billboard.png"
 	if path=="" then
 		path = DIR_RESOURCES.."Editor/default_billboard.png"
@@ -1152,7 +1193,7 @@ function map_editor.ImportBillboard( path, id, selected, position, width, height
 	local obj=destObj or EditorBillboardObject.new()
 	id=id or makeId()
 	obj.id=id
-	obj.name="billboard"
+	obj.name=name or "billboard"
 	obj.scene_type="billboard"
 	local texture=NeoGraphics:getInstance():LoadTexture(path)
 	local size = irr.core.dimension2df:new_local(width,height)
@@ -1179,7 +1220,7 @@ function map_editor.ImportBillboard( path, id, selected, position, width, height
 	return obj
 end
 
-function map_editor.AddCube( texture_path, id, selected, size, position, rotation, scale, destObj )
+function map_editor.AddCube( texture_path, id, selected, size, position, rotation, scale, destObj, name )
 	texture_path=texture_path or DIR_RESOURCES.."Editor/default_cobe_texture.png"
 	if texture_path=="" then
 		texture_path = DIR_RESOURCES.."Editor/default_cobe_texture.png"
@@ -1191,7 +1232,7 @@ function map_editor.AddCube( texture_path, id, selected, size, position, rotatio
 	local obj=destObj or EditorCubeObject.new()
 	id=id or makeId()
 	obj.id=id
-	obj.name="cube"
+	obj.name=name or "cube"
 	obj.scene_type="cube"
 	obj.size=size
 	local texture=NeoGraphics:getInstance():LoadTexture(texture_path)
@@ -1222,7 +1263,7 @@ function map_editor.AddCubeCallback(text)
 	end
 end
 
-function map_editor.AddSphere( texture_path, id, selected, radius, position, rotation, scale, destObj )
+function map_editor.AddSphere( texture_path, id, selected, radius, position, rotation, scale, destObj, name )
 	texture_path=texture_path or DIR_RESOURCES.."Editor/CrackedGround_1-6.jpg"
 	if texture_path=="" then
 		texture_path = DIR_RESOURCES.."Editor/CrackedGround_1-6.jpg"
@@ -1234,7 +1275,7 @@ function map_editor.AddSphere( texture_path, id, selected, radius, position, rot
 	local obj=destObj or EditorSphereObject.new()
 	id=id or makeId()
 	obj.id=id
-	obj.name="sphere"
+	obj.name=name or "sphere"
 	obj.scene_type="sphere"
 	obj.radius=radius
 	local texture=NeoGraphics:getInstance():LoadTexture(texture_path)
@@ -1265,7 +1306,7 @@ function map_editor.AddSphereCallback(text)
 	end
 end
 
-function map_editor.AddLightObject( id, selected, position, rotation, scale, destObj )
+function map_editor.AddLightObject( id, selected, position, rotation, scale, destObj, name )
 	local texture_path=DIR_RESOURCES.."Editor/default_light.png"
 	position=position or map_editor.getImportPosition()
 	rotation=rotation or irr.core.vector3df:new_local(0,0,0)
@@ -1273,7 +1314,7 @@ function map_editor.AddLightObject( id, selected, position, rotation, scale, des
 	local obj=destObj or EditorLightObject.new()
 	id=id or makeId()
 	obj.id=id
-	obj.name="light"
+	obj.name=name or "light"
 	obj.scene_type="light"
 	-- add icon billboard
 	local texture=NeoGraphics:getInstance():LoadTexture(texture_path)
@@ -1300,7 +1341,7 @@ function map_editor.AddLightObject( id, selected, position, rotation, scale, des
 	return obj
 end
 
-function map_editor.AddEventPoint( id, selected, position, rotation, scale, destObj )
+function map_editor.AddEventPoint( id, selected, position, rotation, scale, destObj, name )
 	local texture_path=DIR_RESOURCES.."Editor/event_point.png"
 	position=position or map_editor.getImportPosition()
 	rotation=rotation or irr.core.vector3df:new_local(0,0,0)
@@ -1308,7 +1349,7 @@ function map_editor.AddEventPoint( id, selected, position, rotation, scale, dest
 	local obj=destObj or EditorEventPointObject.new()
 	id=id or makeId()
 	obj.id=id
-	obj.name="event point"
+	obj.name=name or "event point"
 	obj.scene_type="event_point"
 	-- add icon billboard
 	local texture=NeoGraphics:getInstance():LoadTexture(texture_path)
@@ -1338,7 +1379,7 @@ function map_editor.AddEventPoint( id, selected, position, rotation, scale, dest
 	return obj
 end
 
-function map_editor.AddSpawnPoint( team, id,selected, position, rotation, scale, destObj )
+function map_editor.AddSpawnPoint( team, id,selected, position, rotation, scale, destObj, name )
 	team=team or 1
 	if team <= 0 then
 		team=1
@@ -1354,7 +1395,7 @@ function map_editor.AddSpawnPoint( team, id,selected, position, rotation, scale,
 	local obj=destObj or EditorSpawnPoint.new()
 	id=id or makeId()
 	obj.id=id
-	obj.name="spawn point"
+	obj.name=name or "spawn point"
 	obj.scene_type="spawn_point"
 	obj.team=team
 	-- add mesh as icon
@@ -1423,6 +1464,7 @@ function map_editor.SaveCallback(text)
 	end
 	map_editor:save(text)
 	NeoGraphics:getInstance():setWindowCaption("Map Editor -- "..map_editor.map_name)
+	map_editor.isOnScene=true
 end
 -- load map
 map_editor.objectLoader={
@@ -1430,17 +1472,38 @@ map_editor.objectLoader={
 		local obj = EditorObject.new()
 		obj:Deserialize(info)
 	end,
-	mesh_animated=EditorAnimatedMeshObject.Deserialize,
-	billboard=EditorBillboardObject.Deserialize,
-	light=EditorLightObject.Deserialize,
+	mesh_animated=function( info )
+		local obj = EditorAnimatedMeshObject.new()
+		obj:Deserialize(info)
+	end,
+	billboard=function( info )
+		local obj = EditorBillboardObject.new()
+		obj:Deserialize(info)
+	end,
+	light=function( info )
+		local obj = EditorLightObject.new()
+		obj:Deserialize(info)
+	end,
 	octree=function( info )
 		local obj = EditorObject.new()
 		obj:Deserialize(info)
 	end,
-	event_point=EditorEventPointObject.Deserialize,
-	spawn_point=EditorSpawnPoint.Deserialize,
-	cube=EditorCubeObject.Deserialize,
-	sphere=EditorSphereObject.Deserialize,
+	event_point=function( info )
+		local obj = EditorEventPointObject.new()
+		obj:Deserialize(info)
+	end,
+	spawn_point=function( info )
+		local obj = EditorSpawnPoint.new()
+		obj:Deserialize(info)
+	end,
+	cube=function( info )
+		local obj = EditorCubeObject.new()
+		obj:Deserialize(info)
+	end,
+	sphere=function( info )
+		local obj = EditorSphereObject.new()
+		obj:Deserialize(info)
+	end,
 	--particle_sys=, -- not available yet
 	-- camera=, -- not available yet
 }
@@ -1471,4 +1534,7 @@ function map_editor.LoadCallback( text )
 	end
 	map_editor:load(text)
 	NeoGraphics:getInstance():setWindowCaption("Map Editor -- "..map_editor.map_name)
+	map_editor.saved=true
+	map_editor.isOnScene=true
+	map_editor.UpdatePropertyWindow(map_editor.root_object)
 end

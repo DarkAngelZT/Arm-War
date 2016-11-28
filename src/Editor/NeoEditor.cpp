@@ -242,21 +242,23 @@ void NeoEditor::setSceneNodeTriangleSelector(irr::scene::ISceneNode* node,
 void NeoEditor::setMeshNodeColor(irr::scene::IMeshSceneNode* node,
 		irr::video::SColor& color)
 {
-	for (unsigned i = 0; i < node->getMesh()->getMeshBufferCount(); i++)
-	{
-		int count = node->getMesh()->getMeshBuffer(i)->getVertexCount();
-		scene::IMeshBuffer*buffer = node->getMesh()->getMeshBuffer(i);
-		video::E_VERTEX_TYPE type = buffer->getVertexType();
-		if (type == video::EVT_STANDARD)
-		{
-			video::S3DVertex*varray =
-					static_cast<video::S3DVertex*>(buffer->getVertices());
-			for (int j = 0; j < count; j++)
-			{
-				varray[j].Color = color;
-			}
-		}
-	}
+	//the code below will set all the node with this mesh to same color
+	//which is not what we want, so they are removed
+//	for (unsigned i = 0; i < node->getMesh()->getMeshBufferCount(); i++)
+//	{
+//		int count = node->getMesh()->getMeshBuffer(i)->getVertexCount();
+//		scene::IMeshBuffer*buffer = node->getMesh()->getMeshBuffer(i);
+//		video::E_VERTEX_TYPE type = buffer->getVertexType();
+//		if (type == video::EVT_STANDARD)
+//		{
+//			video::S3DVertex*varray =
+//					static_cast<video::S3DVertex*>(buffer->getVertices());
+//			for (int j = 0; j < count; j++)
+//			{
+//				varray[j].Color = color;
+//			}
+//		}
+//	}
 	node->getMaterial(0).AmbientColor = color;
 }
 
@@ -280,6 +282,12 @@ void NeoEditor::ChangeWorkingDirectory(const std::string& dest)
 {
 	NeoGraphics::getInstance()->getDevice()->getFileSystem()->changeWorkingDirectoryTo(
 			dest.c_str());
+}
+
+bool NeoEditor::IsFileExists(const std::string& dest)
+{
+	io::path file=dest.c_str();
+	return NeoGraphics::getInstance()->getDevice()->getFileSystem()->existFile(file);
 }
 
 void NeoEditor::CreateSelectionCursor()

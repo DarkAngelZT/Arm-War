@@ -37,6 +37,7 @@ public:
 	std::string getWorkingDirectory();
 	std::string getRelativePath(const std::string& p, const std::string& dir);
 	void ChangeWorkingDirectory(const std::string& dest);
+	bool IsFileExists(const std::string& dest);
 	void Init(bool resetEventhandler = true);
 	void CleanUp(bool resetEventhandler = true);
 private:
