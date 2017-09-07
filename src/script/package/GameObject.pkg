@@ -1,28 +1,40 @@
-
 class GameObject
 {
 public:
 
+	Component* getComponent(std::string&key);
+	void AddComponent(std::string&key, Component*comp);
+	void RemoveComponent(std::string&key);
+	irr::scene::ISceneNode* GetSceneNode();
+	void BindSceneNode(irr::scene::ISceneNode*node);
+
 	void SetParent(GameObject*);
-	GameObject*GetParent()const;
+	GameObject*GetParent() const;
 	void AddChild(GameObject*);
 	void RemoveChild(GameObject*child);
 	//remove all child (just unregister them, won't delete)
 	void RemoveChildren();
-	
+
 	//std::set<GameObject*>& GetChidren();
-	
+
 	void DestoryChild(GameObject*child);
 	void DestroyChidren();
 	//transform functions
 	void SetPostion(irr::core::vector3d<float>& pos);
 	void SetRotation(irr::core::vector3d<float>& rot);
-	irr::core::vector3d<float> GetPostion()const;
-	irr::core::vector3d<float> GetRotation()const;
+	irr::core::vector3d<float> GetPostion() const;
+	irr::core::vector3d<float> GetRotation() const;
 	int getId() const;
 	void setId(int id);
 	bool isActive() const;
 	void setActive(bool active);
+	//physics
+	const RigidBody* getRigidBody() const;
+	RigidBody* AddRigidBody(int collisionShape, float mass);
+	RigidBody* AddRigidBody(int collisionShape, float mass,
+			const irr::core::vector3df& position,
+			const irr::core::vector3df& rotation);
+
 	std::string getLuaIndentifier() const;
 	void setLuaIndentifier(const std::string& luaIndentifier);
 };

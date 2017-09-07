@@ -1,0 +1,21 @@
+class HingeJoint
+{
+public:
+	const RigidBody* getRbodyA() const;
+
+	const RigidBody* getRbodyB() const;
+
+	void setAngularOnly(bool angularOnly);
+	void enableAngularMotor(bool enableMotor,float targetVelocity,float maxMotorImpulse);
+	void enableMotor(bool enableMotor);
+	void setMaxMotorImpulse(float maxMotorImpulse);
+	void setMotorTarget(float targetAngle, float dt);
+	void setLimit(float low,float high,float _softness = 0.9f, float _biasFactor = 0.3f, float _relaxationFactor = 1.0f);
+	void setAxis(const irr::core::vector3df& axisInA);
+	bool hasLimit();
+	float getHingeAngle();
+	bool getAngularOnly();
+	bool getEnableAngularMotor();
+	float getMotorTargetVelosity();
+	float getMaxMotorImpulse();
+};

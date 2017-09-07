@@ -15,6 +15,9 @@
 #include <functional>
 #include "NeoMotionState.h"
 #include "ExplosionPhysics.h"
+#include "bulletWrapper/RigidBody.h"
+#include "bulletWrapper/HingeJoint.h"
+#include "bulletWrapper/Ragdoll.h"
 /*
  *物理系统封装类
  */
@@ -22,6 +25,11 @@ class NeoMotionState;
 class GameObject;
 class ExplosionPhysics;
 class NeoData;
+class RigidBody;
+class HingeJoint;
+class Ragdoll;
+
+using namespace std;
 
 class NeoPhysics
 {
@@ -59,20 +67,28 @@ public:
 			irr::core::vector3df localRotation = irr::core::vector3df(0, 0, 0));
 	void RemoveCollisionShape(int index);
 	//------rigid body-------
-	int CreateRigidBody(int collisionShapeIndex, irr::scene::ISceneNode*node,
-			float mass,
-			irr::core::vector3df pos = irr::core::vector3df(0, 0, 0),
+	RigidBody* CreateRigidBody(int collisionShapeIndex,
+			irr::scene::ISceneNode*node, float mass, irr::core::vector3df pos =
+					irr::core::vector3df(0, 0, 0),
+			irr::core::vector3df rotation = irr::core::vector3df(0, 0, 0));
+	std::shared_ptr<btRigidBody> CreateRigidBody_cpp_api(int collisionShapeIndex,
+			irr::scene::ISceneNode*node, float mass, irr::core::vector3df pos =
+					irr::core::vector3df(0, 0, 0),
 			irr::core::vector3df rotation = irr::core::vector3df(0, 0, 0));
 	void RemoveRigidBody(int index);
 	//------joint-------
-	int CreateHingeJoint(int rigidbody1, int rigidbody2,
+	HingeJoint* CreateHingeJoint(RigidBody* rigidbody1, RigidBody* rigidbody2,
 			irr::core::vector3df pivot1, irr::core::vector3df pivot2,
 			irr::core::vector3df axisIn1, irr::core::vector3df axisIn2);
-	void HingeSetLimit(int hingeindex, float low, float high, float softness =
-			0.9f, float _biasFactor = 0.3f, float relaxationFactor = 1.0f);
-	void HingeEnableMotor(int hingeindex, bool enableMotor);
-	void HingeEnablevoidAngularMotor(int hingeindex, bool enableMotor,
-			float targetVelocity, float maxMotorImpulse);
+	HingeJoint* CreateHingeJoint(RigidBody*body, irr::core::vector3df pivot,
+			irr::core::vector3df axis);
+	std::shared_ptr<btTypedConstraint> CreateHingeJoint_cpp_api(shared_ptr<btRigidBody> rigidbody1, shared_ptr<btRigidBody> rigidbody2,
+			irr::core::vector3df pivot1, irr::core::vector3df pivot2,
+			irr::core::vector3df axisIn1, irr::core::vector3df axisIn2);
+	std::shared_ptr<btTypedConstraint> CreateHingeJoint_cpp_api(
+			shared_ptr<btRigidBody> body, irr::core::vector3df pivot,
+			irr::core::vector3df axis);
+	void RemoveJoint(int index);
 	//------ghost object-------
 	int CreateGhostObject(int collisionSahpIndex,
 			std::function<void(int, btAlignedObjectArray<btCollisionObject*>&)> callback,
@@ -112,11 +128,35 @@ public:
 	std::shared_ptr<btCollisionShape> getCollisionShape(int index);
 	std::shared_ptr<btRigidBody> getRigidBody(int index);
 	std::shared_ptr<btTypedConstraint> getConstraint(int index);
+	static btQuaternion irrToBulletQuaternion(irr::core::quaternion&q)
+	{
+		return btQuaternion(q.X, q.Y, q.Z, q.W);
+	}
+	static btQuaternion irrToBulletQuaternion(const irr::core::quaternion&q)
+	{
+		return btQuaternion(q.X, q.Y, q.Z, q.W);
+	}
+	static irr::core::quaternion bulletToIrrQuaternion(btQuaternion&q)
+	{
+		return irr::core::quaternion(q.x(), q.y(), q.z(), q.w());
+	}
+	static irr::core::quaternion bulletToIrrQuaternion(const btQuaternion&q)
+	{
+		return irr::core::quaternion(q.x(), q.y(), q.z(), q.w());
+	}
 	static btVector3 irrToBulletVector(irr::core::vector3df&vec)
 	{
 		return btVector3(vec.X, vec.Y, vec.Z);
 	}
 	static irr::core::vector3df bulletToIrrVector(btVector3&vec)
+	{
+		return irr::core::vector3df(vec.x(), vec.y(), vec.z());
+	}
+	static btVector3 irrToBulletVector(const irr::core::vector3df&vec)
+	{
+		return btVector3(vec.X, vec.Y, vec.Z);
+	}
+	static irr::core::vector3df bulletToIrrVector(const btVector3&vec)
 	{
 		return irr::core::vector3df(vec.x(), vec.y(), vec.z());
 	}

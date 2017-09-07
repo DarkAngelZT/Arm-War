@@ -26,7 +26,7 @@ public:
 	void DestroyGameObject(int goId,bool removeChild=false);
 	Explosion* CreateExplosion(std::string explosion_type,NeoData&visual_data,NeoData&physics_data);
 	//--c++ interface--//
-	std::shared_ptr<Explosion> CreateExplosion(std::string& explosion_type,NeoData&visual_data,NeoData&physics_data);
+	std::shared_ptr<Explosion> CreateExplosion_cpp(std::string& explosion_type,NeoData&visual_data,NeoData&physics_data);
 private:
 	NeoScene();
 	virtual ~NeoScene();

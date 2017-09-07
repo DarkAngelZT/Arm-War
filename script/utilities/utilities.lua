@@ -88,3 +88,10 @@ end
 function deleteId( id )
     IDGenerator:Unregister(id)
 end
+
+--------------------------------------------
+-- eval function
+--------------------------------------------
+function eval( s )
+    return assert(loadstring(s))()
+end

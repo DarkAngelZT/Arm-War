@@ -245,24 +245,29 @@ void NeoPhysics::CleanUp()
 	m_available_Constraints.clear();
 }
 
-int NeoPhysics::CreateSphereShape(float radius, const irr::core::vector3df& scale)
+int NeoPhysics::CreateSphereShape(float radius,
+		const irr::core::vector3df& scale)
 {
-	std::shared_ptr<btCollisionShape> ptr(new btSphereShape(radius*scale.X));
+	std::shared_ptr<btCollisionShape> ptr(new btSphereShape(radius * scale.X));
 	return assignShapeIndex(ptr);
 }
 
-int NeoPhysics::CreateBoxShape(irr::core::vector3df& size, const irr::core::vector3df& scale)
+int NeoPhysics::CreateBoxShape(irr::core::vector3df& size,
+		const irr::core::vector3df& scale)
 {
-	irr::core::vector3df size_real=size*scale;
-	btVector3 halfext(size_real.X * 0.5f, size_real.Y * 0.5f, size_real.Z * 0.5f);
+	irr::core::vector3df size_real = size * scale;
+	btVector3 halfext(size_real.X * 0.5f, size_real.Y * 0.5f,
+			size_real.Z * 0.5f);
 	std::shared_ptr<btCollisionShape> ptr(new btBoxShape(halfext));
 	return assignShapeIndex(ptr);
 }
 
-int NeoPhysics::CreateCylinderShape(irr::core::vector3df& extents, char align, const irr::core::vector3df& scale)
+int NeoPhysics::CreateCylinderShape(irr::core::vector3df& extents, char align,
+		const irr::core::vector3df& scale)
 {
-	irr::core::vector3df extents_real=extents*scale;
-	btVector3 halfext(extents_real.X * 0.5f, extents_real.Y * 0.5f, extents_real.Z * 0.5f);
+	irr::core::vector3df extents_real = extents * scale;
+	btVector3 halfext(extents_real.X * 0.5f, extents_real.Y * 0.5f,
+			extents_real.Z * 0.5f);
 	std::shared_ptr<btCollisionShape> ptr;
 	switch (align)
 	{
@@ -285,7 +290,8 @@ int NeoPhysics::CreateCylinderShape(irr::core::vector3df& extents, char align, c
 	return assignShapeIndex(ptr);
 }
 
-int NeoPhysics::CreateCapsuleShape(float radius, float height, char align, const irr::core::vector3df& scale)
+int NeoPhysics::CreateCapsuleShape(float radius, float height, char align,
+		const irr::core::vector3df& scale)
 {
 	std::shared_ptr<btCollisionShape> ptr;
 	switch (align)
@@ -293,27 +299,28 @@ int NeoPhysics::CreateCapsuleShape(float radius, float height, char align, const
 	case 'X':
 	case 'x':
 		ptr = std::shared_ptr<btCollisionShape>(
-				new btCapsuleShapeX(radius*scale.Y, height*scale.X));
+				new btCapsuleShapeX(radius * scale.Y, height * scale.X));
 		break;
 	case 'Y':
 	case 'y':
 		ptr = std::shared_ptr<btCollisionShape>(
-				new btCapsuleShape(radius*scale.X, height*scale.Y));
+				new btCapsuleShape(radius * scale.X, height * scale.Y));
 		break;
 	case 'Z':
 	case 'z':
 		ptr = std::shared_ptr<btCollisionShape>(
-				new btCapsuleShapeZ(radius*scale.Y, height*scale.Z));
+				new btCapsuleShapeZ(radius * scale.Y, height * scale.Z));
 		break;
 	default:
 		ptr = std::shared_ptr<btCollisionShape>(
-				new btCapsuleShape(radius*scale.X, height*scale.Y));
+				new btCapsuleShape(radius * scale.X, height * scale.Y));
 		break;
 	}
 	return assignShapeIndex(ptr);
 }
 
-int NeoPhysics::CreateConeShape(float radius, float height, char align, const irr::core::vector3df& scale)
+int NeoPhysics::CreateConeShape(float radius, float height, char align,
+		const irr::core::vector3df& scale)
 {
 	std::shared_ptr<btCollisionShape> ptr;
 	switch (align)
@@ -321,21 +328,21 @@ int NeoPhysics::CreateConeShape(float radius, float height, char align, const ir
 	case 'X':
 	case 'x':
 		ptr = std::shared_ptr<btCollisionShape>(
-				new btConeShapeX(radius*scale.Y, height*scale.X));
+				new btConeShapeX(radius * scale.Y, height * scale.X));
 		break;
 	case 'Y':
 	case 'y':
 		ptr = std::shared_ptr<btCollisionShape>(
-				new btConeShape(radius*scale.X, height*scale.Y));
+				new btConeShape(radius * scale.X, height * scale.Y));
 		break;
 	case 'Z':
 	case 'z':
 		ptr = std::shared_ptr<btCollisionShape>(
-				new btConeShapeZ(radius*scale.Y, height*scale.Z));
+				new btConeShapeZ(radius * scale.Y, height * scale.Z));
 		break;
 	default:
 		ptr = std::shared_ptr<btCollisionShape>(
-				new btConeShape(radius*scale.X, height*scale.Y));
+				new btConeShape(radius * scale.X, height * scale.Y));
 		break;
 	}
 	return assignShapeIndex(ptr);
@@ -667,16 +674,29 @@ void NeoPhysics::CompoundShapeAddChild(int shapeIndex, int childIndex,
 			trans, pChild.get());
 }
 
-int NeoPhysics::CreateRigidBody(int collisionShapeIndex,
+RigidBody* NeoPhysics::CreateRigidBody(int collisionShapeIndex,
 		irr::scene::ISceneNode*node, float mass,
 		irr::core::vector3df pos /*= 	irr::core::vector3df(0, 0, 0)*/,
 		irr::core::vector3df rotation /*=
 		 irr::core::vector3df(0, 0, 0)*/)
 {
+	shared_ptr<btRigidBody> ptr = CreateRigidBody_cpp_api(collisionShapeIndex,
+			node, mass, pos, rotation);
+	int index = assignRigidBodyIndex(ptr);
+	RigidBody*rgdbody = new RigidBody(ptr);
+	rgdbody->setInternalIndex(index);
+	return rgdbody;
+}
+
+shared_ptr<btRigidBody> NeoPhysics::CreateRigidBody_cpp_api(
+		int collisionShapeIndex, irr::scene::ISceneNode* node, float mass,
+		irr::core::vector3df pos, irr::core::vector3df rotation)
+{
 	std::shared_ptr<btCollisionShape> pColl = getCollisionShape(
 			collisionShapeIndex);
 	btVector3 localInertia(0, 0, 0);
-	pColl->calculateLocalInertia(mass, localInertia);
+	if (mass > 0.0f)
+		pColl->calculateLocalInertia(mass, localInertia);
 
 	NeoMotionState* ms = new NeoMotionState();
 	ms->setNode(node);
@@ -693,22 +713,65 @@ int NeoPhysics::CreateRigidBody(int collisionShapeIndex,
 	rbody->setWorldTransform(btTrans);
 
 	std::shared_ptr<btRigidBody> ptr(rbody);
-	return assignRigidBodyIndex(ptr);
+	return ptr;
 }
 
-int NeoPhysics::CreateHingeJoint(int rigidbody1, int rigidbody2,
+HingeJoint* NeoPhysics::CreateHingeJoint(RigidBody* rigidbody1,
+		RigidBody* rigidbody2, irr::core::vector3df pivot1,
+		irr::core::vector3df pivot2, irr::core::vector3df axisIn1,
+		irr::core::vector3df axisIn2)
+{
+	btRigidBody*bodyA = rigidbody1->getBtRigidBody().get();
+	btRigidBody*bodyB = rigidbody2->getBtRigidBody().get();
+	if (!bodyA || !bodyB)
+		return NULL;
+	std::shared_ptr<btTypedConstraint> ptr = CreateHingeJoint_cpp_api(
+			rigidbody1->getBtRigidBody(), rigidbody2->getBtRigidBody(), pivot1,
+			pivot2, axisIn1, axisIn2);
+	int index = assignConstraintIndex(ptr);
+	HingeJoint*joint = new HingeJoint(
+			dynamic_pointer_cast<btHingeConstraint>(ptr), rigidbody1,
+			rigidbody2);
+	joint->setInternalIndex(index);
+	return joint;
+}
+
+HingeJoint* NeoPhysics::CreateHingeJoint(RigidBody* body,
+		irr::core::vector3df pivot, irr::core::vector3df axis)
+{
+	if (body == NULL)
+		return NULL;
+	std::shared_ptr<btTypedConstraint> ptr = CreateHingeJoint_cpp_api(
+			body->getBtRigidBody(), pivot, axis);
+	int index = assignConstraintIndex(ptr);
+	HingeJoint*joint = new HingeJoint(
+			dynamic_pointer_cast<btHingeConstraint>(ptr), body,
+			NULL);
+	joint->setInternalIndex(index);
+	return joint;
+}
+
+shared_ptr<btTypedConstraint> NeoPhysics::CreateHingeJoint_cpp_api(
+		shared_ptr<btRigidBody> rigidbody1, shared_ptr<btRigidBody> rigidbody2,
 		irr::core::vector3df pivot1, irr::core::vector3df pivot2,
 		irr::core::vector3df axisIn1, irr::core::vector3df axisIn2)
 {
-	btRigidBody*bodyA = getRigidBody(rigidbody1).get();
-	btRigidBody*bodyB = getRigidBody(rigidbody2).get();
-	if (!bodyA || !bodyB)
-		return -1;
-	btHingeConstraint* hinge = new btHingeConstraint(*bodyA, *bodyB,
-			irrToBulletVector(pivot1), irrToBulletVector(pivot2),
-			irrToBulletVector(axisIn1), irrToBulletVector(axisIn2));
+	btHingeConstraint* hinge = new btHingeConstraint(*rigidbody1.get(),
+			*rigidbody2.get(), irrToBulletVector(pivot1),
+			irrToBulletVector(pivot2), irrToBulletVector(axisIn1),
+			irrToBulletVector(axisIn2));
 	std::shared_ptr<btTypedConstraint> ptr(hinge);
-	return assignConstraintIndex(ptr);
+	return ptr;
+}
+
+shared_ptr<btTypedConstraint> NeoPhysics::CreateHingeJoint_cpp_api(
+		shared_ptr<btRigidBody> body, irr::core::vector3df pivot,
+		irr::core::vector3df axis)
+{
+	btHingeConstraint* hinge = new btHingeConstraint(*body.get(),
+			irrToBulletVector(pivot), irrToBulletVector(axis));
+	std::shared_ptr<btTypedConstraint> ptr(hinge);
+	return ptr;
 }
 
 int NeoPhysics::assignConstraintIndex(std::shared_ptr<btTypedConstraint>& ptr)
@@ -727,30 +790,11 @@ int NeoPhysics::assignConstraintIndex(std::shared_ptr<btTypedConstraint>& ptr)
 	}
 }
 
-void NeoPhysics::HingeSetLimit(int hingeindex, float low, float high,
-		float softness, float _biasFactor, float relaxationFactor)
+void NeoPhysics::RemoveJoint(int index)
 {
-	btHingeConstraint* hinge = static_cast<btHingeConstraint*>(getConstraint(
-			hingeindex).get());
-	if (hinge)
-		hinge->setLimit(low, high, softness, _biasFactor, relaxationFactor);
-}
-
-void NeoPhysics::HingeEnableMotor(int hingeindex, bool enableMotor)
-{
-	btHingeConstraint* hinge = static_cast<btHingeConstraint*>(getConstraint(
-			hingeindex).get());
-	if (hinge)
-		hinge->enableMotor(enableMotor);
-}
-
-void NeoPhysics::HingeEnablevoidAngularMotor(int hingeindex, bool enableMotor,
-		float targetVelocity, float maxMotorImpulse)
-{
-	btHingeConstraint* hinge = static_cast<btHingeConstraint*>(getConstraint(
-			hingeindex).get());
-	if (hinge)
-		hinge->enableAngularMotor(enableMotor, targetVelocity, maxMotorImpulse);
+	m_dynamicsWorld->removeConstraint(m_constrains[index].get());
+	m_available_Constraints.push_back(index);
+	m_constrains[index] = NULL;
 }
 
 void NeoPhysics::PreProcessingCall()

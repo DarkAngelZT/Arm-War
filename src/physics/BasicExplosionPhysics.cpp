@@ -61,7 +61,7 @@ void BasicExplosionPhysics::BasicExplosionCallback(int triggerIndex,
 				NeoGameLogic::GetInstance()->TriggerEvent(params.nEventID,
 						luaValues);
 				//apply physics force
-				shared_ptr<btRigidBody> rbody = go->getRigidBody();
+				shared_ptr<btRigidBody> rbody = go->getRigidBody()->getBtRigidBody();
 				if (rbody)
 				{
 					btVector3 impulse = impulseDir.normalized();

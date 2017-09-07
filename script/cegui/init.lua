@@ -24,10 +24,12 @@ guiSystem:getDefaultGUIContext():setDefaultTooltipType("GlossySerpent/Tooltip")
 dofile(DIR_SCRIPT.."utilities/class.lua")
 --初始化全局函数
 dofile(DIR_SCRIPT.."utilities/global_functions.lua")
+dofile(DIR_SCRIPT.."game/core.lua")
 --初始化所有ui
 dofile(DIR_SCRIPT_CEGUI.."Menu_Main.lua")
 dofile(DIR_SCRIPT_CEGUI.."Menu_Option.lua")
 dofile(DIR_SCRIPT_CEGUI.."MapEditor.lua")
+-- dofile(DIR_SCRIPT_CEGUI.."TankEditor.lua")
 
 -- set the layout as the root
 guiSystem:getDefaultGUIContext():setRootWindow(g_ui_table.main)

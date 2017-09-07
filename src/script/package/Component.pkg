@@ -1,0 +1,8 @@
+class Component
+{
+public:
+	virtual bool isEnabled() const;
+
+	virtual void setEnabled(bool enabled);
+};
+

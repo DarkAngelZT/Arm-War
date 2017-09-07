@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="TankFactoryRoot" >
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Window type="GlossySerpent/Menubar" name="Menubar" >
+            <Property name="Area" value="{{0,0},{0,0},{0,104},{0,36}}" />
+            <Property name="Text" value="New" />
+            <Window type="GlossySerpent/MenuItem" name="File" >
+                <Property name="Area" value="{{0,10},{0,0},{0,40},{0,25}}" />
+                <Property name="Text" value="File" />
+                <Property name="VerticalAlignment" value="Centre" />
+                <Property name="WantsMultiClickEvents" value="false" />
+                <Window type="GlossySerpent/PopupMenu" name="PopupMenu" >
+                    <Property name="Area" value="{{0,0},{0,0},{0,82.7408},{0,139.914}}" />
+                    <Property name="Visible" value="false" />
+                    <Property name="ItemSpacing" value="2" />
+                    <Property name="ClippedByParent" value="false" />
+                    <Property name="AutoResizeEnabled" value="true" />
+                    <Window type="GlossySerpent/MenuItem" name="New" >
+                        <Property name="Area" value="{{0,5},{0,5},{0,79},{0,30}}" />
+                        <Property name="Text" value="New" />
+                        <Property name="WantsMultiClickEvents" value="false" />
+                    </Window>
+                    <Window type="GlossySerpent/MenuItem" name="Load" >
+                        <Property name="Area" value="{{0,5},{0,32},{0,79},{0,57}}" />
+                        <Property name="Text" value="Load..." />
+                        <Property name="WantsMultiClickEvents" value="false" />
+                    </Window>
+                    <Window type="GlossySerpent/MenuItem" name="Save" >
+                        <Property name="Area" value="{{0,5},{0,59},{0,79},{0,84}}" />
+                        <Property name="Text" value="Save" />
+                        <Property name="WantsMultiClickEvents" value="false" />
+                    </Window>
+                    <Window type="GlossySerpent/MenuItem" name="SaveAs" >
+                        <Property name="Area" value="{{0,5},{0,86},{0,79},{0,111}}" />
+                        <Property name="Text" value="Save As..." />
+                        <Property name="WantsMultiClickEvents" value="false" />
+                    </Window>
+                    <Window type="GlossySerpent/MenuItem" name="Exit" >
+                        <Property name="Area" value="{{0,5},{0,113},{0,79},{0,138}}" />
+                        <Property name="Text" value="Exit" />
+                        <Property name="WantsMultiClickEvents" value="false" />
+                    </Window>
+                </Window>
+            </Window>
+            <Window type="GlossySerpent/MenuItem" name="Insert" >
+                <Property name="Area" value="{{0,50.3704},{0,0},{0,95.3704},{0,25}}" />
+                <Property name="Text" value="Insert" />
+                <Property name="VerticalAlignment" value="Centre" />
+                <Property name="WantsMultiClickEvents" value="false" />
+                <Window type="GlossySerpent/PopupMenu" name="PopupMenu" >
+                    <Property name="Area" value="{{0,0},{0,0},{0,123.741},{0,60.3906}}" />
+                    <Property name="Text" value="Physics Object..." />
+                    <Property name="Visible" value="false" />
+                    <Property name="ItemSpacing" value="2" />
+                    <Property name="ClippedByParent" value="false" />
+                    <Property name="AutoResizeEnabled" value="true" />
+                    <Window type="GlossySerpent/MenuItem" name="Visual" >
+                        <Property name="Area" value="{{0,5},{0,5},{0,120},{0,30}}" />
+                        <Property name="Text" value="Visual Object..." />
+                        <Property name="WantsMultiClickEvents" value="false" />
+                    </Window>
+                    <Window type="GlossySerpent/MenuItem" name="Physics" >
+                        <Property name="Area" value="{{0,5},{0,32},{0,120},{0,57}}" />
+                        <Property name="Text" value="Physics Object..." />
+                        <Property name="WantsMultiClickEvents" value="false" />
+                    </Window>
+                </Window>
+            </Window>
+        </Window>
+        <Window type="GlossySerpent/FrameWindow" name="Property" >
+            <Property name="Area" value="{{0,0},{0,355},{0,218},{0,582}}" />
+            <Property name="Text" value="Properties" />
+            <Property name="CloseButtonEnabled" value="false" />
+            <Property name="AutoRenderingSurface" value="true" />
+            <AutoWindow namePath="__auto_titlebar__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="false" />
+            </AutoWindow>
+            <AutoWindow namePath="__auto_closebutton__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="true" />
+            </AutoWindow>
+            <Window type="GlossySerpent/Editbox" name="edb_name" >
+                <Property name="Area" value="{{0,80},{0,6},{0,190},{0,31}}" />
+            </Window>
+            <Window type="GlossySerpent/Editbox" name="edb_position" >
+                <Property name="Area" value="{{0,79},{0,80},{0,189},{0,105}}" />
+            </Window>
+            <Window type="GlossySerpent/StaticText" name="st_name" >
+                <Property name="Area" value="{{0,7},{0,5},{0,71},{0,30}}" />
+                <Property name="Text" value="Name" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="FrameEnabled" value="false" />
+                <Property name="BackgroundEnabled" value="false" />
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <Property name="VerticalScrollbar" value="true" />
+                </AutoWindow>
+            </Window>
+            <Window type="GlossySerpent/StaticText" name="st_position" >
+                <Property name="Area" value="{{0,6},{0,80},{0,70},{0,105}}" />
+                <Property name="Text" value="Position" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="FrameEnabled" value="false" />
+                <Property name="BackgroundEnabled" value="false" />
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <Property name="VerticalScrollbar" value="true" />
+                </AutoWindow>
+            </Window>
+            <Window type="GlossySerpent/StaticText" name="st_type" >
+                <Property name="Area" value="{{0,7},{0,41},{0,71},{0,66}}" />
+                <Property name="Text" value="Type" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="FrameEnabled" value="false" />
+                <Property name="BackgroundEnabled" value="false" />
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <Property name="VerticalScrollbar" value="true" />
+                </AutoWindow>
+            </Window>
+            <Window type="GlossySerpent/Combobox" name="cb_type" >
+                <Property name="Area" value="{{0,81},{0,41},{0,189},{0,137}}" />
+                <AutoWindow namePath="__auto_droplist__" >
+                    <AutoWindow namePath="__auto_vscrollbar__" >
+                        <Property name="VerticalScrollbar" value="true" />
+                    </AutoWindow>
+                </AutoWindow>
+            </Window>
+            <Window type="GlossySerpent/StaticText" name="st_mass" >
+                <Property name="Area" value="{{0,7},{0,125},{0,71},{0,150}}" />
+                <Property name="Text" value="Mass" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="FrameEnabled" value="false" />
+                <Property name="BackgroundEnabled" value="false" />
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <Property name="VerticalScrollbar" value="true" />
+                </AutoWindow>
+            </Window>
+            <Window type="GlossySerpent/Editbox" name="edb_mass" >
+                <Property name="Area" value="{{0,80},{0,125},{0,190},{0,150}}" />
+            </Window>
+        </Window>
+        <Window type="GlossySerpent/FrameWindow" name="Component" >
+            <Property name="Area" value="{{0,0},{0,50},{0,204},{0,316}}" />
+            <Property name="Text" value="Component" />
+            <Property name="CloseButtonEnabled" value="false" />
+            <Property name="AutoRenderingSurface" value="true" />
+            <AutoWindow namePath="__auto_titlebar__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="false" />
+            </AutoWindow>
+            <AutoWindow namePath="__auto_closebutton__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="true" />
+            </AutoWindow>
+            <Window type="GlossySerpent/Tree" name="Tree" >
+                <Property name="Area" value="{{0,0},{0,0},{0,186},{0,226}}" />
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <Property name="VerticalScrollbar" value="true" />
+                </AutoWindow>
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>

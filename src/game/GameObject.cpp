@@ -7,7 +7,8 @@
 #include "NeoScene.h"
 #include "GameObject.h"
 
-GameObject::GameObject()
+GameObject::GameObject() :
+		m_rigidBody(NULL), collisionShapeIndex(-1)
 {
 	// TODO 自动生成的构造函数存根
 	id = -1;
@@ -15,7 +16,6 @@ GameObject::GameObject()
 	m_sceneNode = NULL;
 	active = true;
 	visible = true;
-	enablePyhsics = true;
 	lua_indentifier = "";
 }
 
@@ -30,6 +30,10 @@ GameObject::~GameObject()
 	}
 	components.clear();
 	list_chidren.clear();
+	if (NULL != m_rigidBody)
+	{
+		delete m_rigidBody;
+	}
 }
 
 int GameObject::getId() const
@@ -37,25 +41,32 @@ int GameObject::getId() const
 	return id;
 }
 
-template<typename T>
-shared_ptr<T> GameObject::GetComponent(std::string& key)
+shared_ptr<Component> GameObject::getComponent(const std::string&key)
 {
-	std::map<std::string, std::shared_ptr<NeoData>>::iterator iter =
+	std::map<std::string, std::shared_ptr<Component>>::iterator iter =
 			components.find(key);
 	if (iter != components.end())
 	{
-		shared_ptr<T> ptr = static_cast<NeoTypedData<T>>(*iter->second)->getData();
+		shared_ptr<Component> ptr = iter->second;
 		return ptr;
 	}
-	return shared_ptr<T>(NULL);
+	return shared_ptr<Component>(NULL);
 }
 
-template<typename T>
-shared_ptr<T> GameObject::AddComponent(std::string&key)
+Component* GameObject::getComponent(std::string& key)
 {
-	shared_ptr<T> ptr(new T());
-	components[key] = NeoTypedData<T>(ptr);
-	return ptr;
+	shared_ptr<Component> component_ptr = getComponent(
+			const_cast<const std::string&>(key));
+	if (!component_ptr)
+		return NULL;
+	else
+		return component_ptr.get();
+}
+
+void GameObject::AddComponent(std::string&key, Component* c)
+{
+	shared_ptr<Component> ptr(c);
+	components[key] = ptr;
 }
 
 void GameObject::RemoveComponent(std::string& key)
@@ -85,6 +96,10 @@ void GameObject::SetPostion(vector3df& pos)
 	{
 		m_sceneNode->setPosition(pos);
 	}
+	if (m_rigidBody)
+	{
+		m_rigidBody->setPosition(pos);
+	}
 }
 
 void GameObject::SetRotation(vector3df& rot)
@@ -92,6 +107,11 @@ void GameObject::SetRotation(vector3df& rot)
 	if (m_sceneNode != NULL)
 	{
 		m_sceneNode->setRotation(rot);
+	}
+
+	if (m_rigidBody)
+	{
+		m_rigidBody->setRotation(rot);
 	}
 }
 
@@ -212,24 +232,28 @@ void GameObject::setVisible(bool visible)
 	this->visible = visible;
 }
 
-bool GameObject::isEnablePyhsics() const
-{
-	return enablePyhsics;
-}
-
-void GameObject::setEnablePyhsics(bool enablePyhsics)
-{
-	this->enablePyhsics = enablePyhsics;
-}
-
-const std::shared_ptr<btRigidBody> GameObject::getRigidBody() const
+const RigidBody* GameObject::getRigidBody() const
 {
 	return m_rigidBody;
 }
 
-void GameObject::setRigidBody(const std::shared_ptr<btRigidBody> rigidBody)
+RigidBody* GameObject::AddRigidBody(int collisionShape, float mass)
 {
-	m_rigidBody = rigidBody;
+	if (collisionShape == -1 || m_sceneNode)
+		return NULL;
+	matrix4 mat = m_sceneNode->getAbsoluteTransformation();
+	vector3df pos = mat.getTranslation();
+	vector3df rot = mat.getRotationDegrees();
+	return AddRigidBody(collisionShape, mass, pos, rot);
+}
+
+RigidBody* GameObject::AddRigidBody(int collisionShape, float mass,
+		const vector3df& position, const vector3df& rotation)
+{
+	collisionShapeIndex = collisionShape;
+	m_rigidBody = NeoPhysics::getInstance()->CreateRigidBody(
+			collisionShapeIndex, m_sceneNode, mass, position, rotation);
+	return m_rigidBody;
 }
 
 void GameObject::OnCollisionEnter(GameObject* another)
@@ -294,3 +318,4 @@ void GameObject::setOnCollisionExitLuaCallback(std::string& func)
 {
 	m_lua_OnCollisionExit_callback = func;
 }
+

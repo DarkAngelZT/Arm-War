@@ -20,6 +20,8 @@ function main_menu.btn_callback( args )
 		g_ui_table.switchto("editor")
 		--编辑器界面初始化
 		map_editor.Init()
+	-- elseif btnName == "Factory" then
+	-- 	g_ui_table.switchto("factory");
 	elseif btnName == "Settings" then
 		backupSettings = deepcopy(ApplicationSettings)
 		g_ui_table.switchto("options")
@@ -37,5 +39,6 @@ g_ui_table["main"]=root
 -- subscribe required events
 root:getChild("mainwindow/MapEditor"):subscribeEvent("Clicked","main_menu.btn_callback")
 root:getChild("mainwindow/Settings"):subscribeEvent("Clicked","main_menu.btn_callback")
+-- root:getChild("mainwindow/Factory"):subscribeEvent("Clicked","main_menu.btn_callback")
 root:getChild("mainwindow/Exit"):subscribeEvent("Clicked","Application_Quit")
 root:subscribeEvent("KeyUp","main_menu.keyInput")

@@ -1,0 +1,144 @@
+namespace irr
+{
+namespace core
+{
+
+//! Quaternion class for representing rotations.
+/** It provides cheap combinations and avoids gimbal locks.
+Also useful for interpolations. */
+class quaternion
+{
+	public:
+
+		//! Default Constructor
+		quaternion();
+
+		//! Constructor
+		quaternion(float x, float y, float z, float w);
+
+		//! Constructor which converts euler angles (radians) to a quaternion
+		quaternion(float x, float y, float z);
+
+		//! Constructor which converts euler angles (radians) to a quaternion
+		quaternion(const irr::core::vector3d<float>& vec);
+
+
+		//! Equalilty operator
+		bool operator==(const quaternion& other) const;
+
+		//! Add operator
+		quaternion operator+(const quaternion& other) const;
+
+		//! Multiplication operator
+		quaternion operator*(const quaternion& other) const;
+
+		//! Multiplication operator with scalar
+		quaternion operator*(float s) const;
+
+		//! Multiplication operator
+		irr::core::vector3d<float> operator*(const vector3d<float>& v) const;
+
+
+		//! Calculates the dot product
+		float dotProduct(const quaternion& other) const;
+
+		//! Sets new quaternion
+		quaternion& set(float x, float y, float z, float w);
+
+		//! Sets new quaternion based on euler angles (radians)
+		quaternion& set(float x, float y, float z);
+
+		//! Sets new quaternion based on euler angles (radians)
+		quaternion& set(const irr::core::vector3d<float>& vec);
+
+		//! Sets new quaternion from other quaternion
+		quaternion& set(const irr::core::quaternion& quat);
+
+		//! returns if this quaternion equals the other one, taking floating point rounding errors into account
+		bool equals(const quaternion& other,
+				const float tolerance = ROUNDING_ERROR_f32 ) const;
+
+		//! Normalizes the quaternion
+		quaternion& normalize();
+
+		//! Creates a matrix from this quaternion
+		void getMatrix( irr::core::matrix4 &dest, const irr::core::vector3d<float> &translation=irr::core::vector3d<float>() ) const;
+
+		/*!
+			Creates a matrix from this quaternion
+			Rotate about a center point
+			shortcut for
+			core::quaternion q;
+			q.rotationFromTo ( vin[i].Normal, forward );
+			q.getMatrixCenter ( lookat, center, newPos );
+
+			core::matrix4 m2;
+			m2.setInverseTranslation ( center );
+			lookat *= m2;
+
+			core::matrix4 m3;
+			m2.setTranslation ( newPos );
+			lookat *= m3;
+
+		*/
+		void getMatrixCenter( irr::core::matrix4 &dest, const irr::core::vector3d<float> &center, const irr::core::vector3d<float> &translation ) const;
+
+		//! Creates a matrix from this quaternion
+		void getMatrix_transposed( irr::core::matrix4 &dest ) const;
+
+		//! Inverts this quaternion
+		quaternion& makeInverse();
+
+		//! Set this quaternion to the linear interpolation between two quaternions
+		/** \param q1 First quaternion to be interpolated.
+		\param q2 Second quaternion to be interpolated.
+		\param time Progress of interpolation. For time=0 the result is
+		q1, for time=1 the result is q2. Otherwise interpolation
+		between q1 and q2.
+		*/
+		quaternion& lerp(quaternion q1, quaternion q2, float time);
+
+		//! Set this quaternion to the result of the spherical interpolation between two quaternions
+		/** \param q1 First quaternion to be interpolated.
+		\param q2 Second quaternion to be interpolated.
+		\param time Progress of interpolation. For time=0 the result is
+		q1, for time=1 the result is q2. Otherwise interpolation
+		between q1 and q2.
+		\param threshold To avoid inaccuracies at the end (time=1) the
+		interpolation switches to linear interpolation at some point.
+		This value defines how much of the remaining interpolation will
+		be calculated with lerp. Everything from 1-threshold up will be
+		linear interpolation.
+		*/
+		quaternion& slerp(quaternion q1, quaternion q2,
+				float time, float threshold=.05f);
+
+		//! Create quaternion from rotation angle and rotation axis.
+		/** Axis must be unit length.
+		The quaternion representing the rotation is
+		q = cos(A/2)+sin(A/2)*(x*i+y*j+z*k).
+		\param angle Rotation Angle in radians.
+		\param axis Rotation axis. */
+		quaternion& fromAngleAxis (float angle, const irr::core::vector3d<float>& axis);
+
+		//! Fills an angle (radians) around an axis (unit vector)
+		void toAngleAxis (float &angle, irr::core::vector3d<float>& axis) const;
+
+		//! Output this quaternion to an euler angle (radians)
+		void toEuler(irr::core::vector3d<float>& euler) const;
+
+		//! Set quaternion to identity
+		quaternion& makeIdentity();
+
+		//! Set quaternion to represent a rotation from one vector to another.
+		quaternion& rotationFromTo(const irr::core::vector3d<float>& from, const irr::core::vector3d<float>& to);
+
+		//! Quaternion elements.
+		float X; // vectorial (imaginary) part
+		float Y;
+		float Z;
+		float W; // real part
+};
+
+} // end namespace core
+} // end namespace irr
