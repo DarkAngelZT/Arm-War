@@ -49,7 +49,7 @@ namespace scene
 			: RelativeTranslation(position), RelativeRotation(rotation), RelativeScale(scale),
 				Parent(0), SceneManager(mgr), TriangleSelector(0), ID(id),
 				AutomaticCullingState(EAC_BOX), DebugDataVisible(EDS_OFF),
-				IsVisible(true), IsDebugObject(false)
+				IsVisible(true), IsDebugObject(false), userData(NULL)
 		{
 			if (parent)
 				parent->addChild(this);
@@ -747,6 +747,16 @@ namespace scene
 		/** \return The node's scene manager. */
 		virtual ISceneManager* getSceneManager(void) const { return SceneManager; }
 
+		virtual void setUserData(void* ptr)
+		{
+			userData = ptr;
+		}
+
+		virtual void* getUserData()
+		{
+			return userData;
+		}
+
 	protected:
 
 		//! A clone function for the ISceneNode members.
@@ -848,6 +858,8 @@ namespace scene
 
 		//! Is debug object?
 		bool IsDebugObject;
+
+		void* userData;
 	};
 
 
