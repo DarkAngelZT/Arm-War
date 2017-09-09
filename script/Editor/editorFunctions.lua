@@ -5,12 +5,14 @@ EditorObject=class()
 EditorObject.name="mesh"
 EditorObject.id=-1
 EditorObject.scene_type="mesh_static"
-EditorObject.physics_type="static"
 EditorObject.position=irr.core.vector3df:new_local()
 EditorObject.rotation=irr.core.vector3df:new_local()
 EditorObject.scale=irr.core.vector3df:new_local(1,1,1)
 EditorObject.scene_node=nil
 EditorObject.mesh_path=nil
+EditorObject.physics_data={
+	physics_type="none"
+}
 EditorObject.textures={}
 EditorObject.logic_data=""
 -- property table: properties to be available for property window
@@ -31,12 +33,6 @@ EditorObject.property={
 		readOnly=true,
 		set = function( obj, text )
 			obj.scene_type=text
-		end
-	},
-	physics_type={
-		display="Physics Type",
-		set = function( obj, text )
-			obj.physics_type=text
 		end
 	},
 	position={
@@ -165,6 +161,18 @@ function EditorObject:Deserialize( obj_info )
 	return obj
 end
 
+function EditorObject:SerializePhysicsData( fileWriter )
+	--begin
+	fileWriter:write("physics_data = {\n")
+	--body
+	for k,v in pairs(self.physics_data) do
+		local datatype = tolua.type(v):gsub("const ","")
+		map_editor.dataWriter[datatype](fileWriter,k,v)
+	end
+	--enclosure
+	fileWriter:write("}, -- physics_data\n")
+end
+
 function EditorObject:Serialize( distObjName, fileWriter )
 	if fileWriter then
 		--begin
@@ -173,12 +181,13 @@ function EditorObject:Serialize( distObjName, fileWriter )
 		map_editor.WriteString(fileWriter, "name", self.name)
 		map_editor.WriteInt(fileWriter, "id", self.id)
 		map_editor.WriteString(fileWriter, "scene_type", self.scene_type)
-		map_editor.WriteString(fileWriter, "physics_type", self.physics_type)
 		map_editor.WriteVector3df(fileWriter, "position", self.position)
 		map_editor.WriteVector3df(fileWriter, "rotation", self.rotation)
 		map_editor.WriteVector3df(fileWriter, "scale", self.scale)
 		map_editor.WritePath(fileWriter, "mesh_path", self.mesh_path)
 		map_editor.WriteTextureArray(fileWriter, "textures", self.textures)
+		--physics data
+		self:SerializePhysicsData(fileWriter)
 		-- logic data
 		map_editor.WriteString(fileWriter,"logic_data",self.logic_data)
 		--enclosure
@@ -300,7 +309,6 @@ function EditorAnimatedMeshObject:Serialize( distObjName, fileWriter )
 		map_editor.WriteString(fileWriter, "name", self.name)
 		map_editor.WriteInt(fileWriter, "id", self.id)
 		map_editor.WriteString(fileWriter, "scene_type", self.scene_type)
-		map_editor.WriteString(fileWriter, "physics_type", self.physics_type)
 		map_editor.WriteVector3df(fileWriter, "position", self.position)
 		map_editor.WriteVector3df(fileWriter, "rotation", self.rotation)
 		map_editor.WriteVector3df(fileWriter, "scale", self.scale)
@@ -319,7 +327,8 @@ function EditorAnimatedMeshObject:Serialize( distObjName, fileWriter )
 			end
 		end
 		fileWriter:write("},\n")
-
+		--physics data
+		self:SerializePhysicsData(fileWriter)
 		-- logic data
 		map_editor.WriteString(fileWriter,"logic_data",self.logic_data)
 		--enclosure
@@ -332,7 +341,6 @@ end
 EditorBillboardObject = class(EditorObject)
 EditorBillboardObject.name = "billboard"
 EditorBillboardObject.scene_type = "billboard"
-EditorBillboardObject.physics_type = "none"
 EditorBillboardObject.width=10
 EditorBillboardObject.height=10
 EditorBillboardObject.color_top=irr.video.SColor:new_local(255,255,255,255)
@@ -429,7 +437,6 @@ function EditorBillboardObject:Serialize( distObjName, fileWriter )
 		map_editor.WriteString(fileWriter, "name", self.name)
 		map_editor.WriteInt(fileWriter, "id", self.id)
 		map_editor.WriteString(fileWriter, "scene_type", self.scene_type)
-		map_editor.WriteString(fileWriter, "physics_type", self.physics_type)
 		map_editor.WriteVector3df(fileWriter, "position", self.position)
 		map_editor.WriteVector3df(fileWriter, "rotation", self.rotation)
 		map_editor.WriteVector3df(fileWriter, "scale", self.scale)
@@ -438,6 +445,8 @@ function EditorBillboardObject:Serialize( distObjName, fileWriter )
 		map_editor.WriteSColor(fileWriter,"color_top",self.color_top)
 		map_editor.WriteSColor(fileWriter,"color_bottom",self.color_bottom)
 		map_editor.WriteTextureArray(fileWriter, "textures", self.textures)
+		--physics data
+		self:SerializePhysicsData(fileWriter)
 		-- logic data
 		map_editor.WriteString(fileWriter,"logic_data",self.logic_data)
 		--enclosure
@@ -495,12 +504,13 @@ function EditorCubeObject:Serialize( distObjName, fileWriter )
 		map_editor.WriteString(fileWriter, "name", self.name)
 		map_editor.WriteInt(fileWriter, "id", self.id)
 		map_editor.WriteString(fileWriter, "scene_type", self.scene_type)
-		map_editor.WriteString(fileWriter, "physics_type", self.physics_type)
 		map_editor.WriteVector3df(fileWriter, "position", self.position)
 		map_editor.WriteVector3df(fileWriter, "rotation", self.rotation)
 		map_editor.WriteVector3df(fileWriter, "scale", self.scale)
 		map_editor.WriteFloat(fileWriter, "size", self.size)
 		map_editor.WriteTextureArray(fileWriter, "textures", self.textures)
+		--physics data
+		self:SerializePhysicsData(fileWriter)
 		-- logic data
 		map_editor.WriteString(fileWriter,"logic_data",self.logic_data)
 		--enclosure
@@ -558,12 +568,13 @@ function EditorSphereObject:Serialize( distObjName, fileWriter )
 		map_editor.WriteString(fileWriter, "name", self.name)
 		map_editor.WriteInt(fileWriter, "id", self.id)
 		map_editor.WriteString(fileWriter, "scene_type", self.scene_type)
-		map_editor.WriteString(fileWriter, "physics_type", self.physics_type)
 		map_editor.WriteVector3df(fileWriter, "position", self.position)
 		map_editor.WriteVector3df(fileWriter, "rotation", self.rotation)
 		map_editor.WriteVector3df(fileWriter, "scale", self.scale)
 		map_editor.WriteFloat(fileWriter, "radius", self.radius)
 		map_editor.WriteTextureArray(fileWriter, "textures", self.textures)
+		--physics data
+		self:SerializePhysicsData(fileWriter)
 		-- logic data
 		map_editor.WriteString(fileWriter,"logic_data",self.logic_data)
 		--enclosure
@@ -592,6 +603,7 @@ EditorLightObject.type_list={
 	directional=irr.video.ELT_DIRECTIONAL
 }
 EditorLightObject.icon=nil
+EditorLightObject.physics_data=nil
 -- set functions
 function EditorLightObject:setPosition(position)
 	-- body
@@ -823,7 +835,7 @@ end
 EditorEventPointObject=class(EditorObject)
 EditorEventPointObject.name="event point"
 EditorEventPointObject.scene_type="event_point"
-EditorEventPointObject.property.physics_type=nil
+EditorEventPointObject.property.physics_data=nil
 EditorEventPointObject.property.mesh_path=nil
 EditorEventPointObject.property.textures=nil
 ------------------------------
@@ -1064,6 +1076,14 @@ function map_editor.WriteTextureArray( fileWriter, array_name ,texture_array, di
 	end
 	fileWriter:write("}"..dim.." -- "..array_name.."\n")
 end
+--方便集成调用的函数表
+map_editor.dataWriter={
+	["irr::core::vector3d<float>"] = map_editor.WriteVector3df,
+	["irr::video::SColor"] = map_editor.WriteSColor,
+	string = map_editor.WriteString,
+	number = map_editor.WriteFloat,
+	boolean = map_editor.WriteBool
+}
 --------------
 --import functions
 --------------

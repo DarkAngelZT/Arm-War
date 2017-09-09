@@ -125,7 +125,8 @@ public:
 		m_internalIndex = internalIndex;
 	}
 
-
+	void setUserData(void*ptr);
+	void* getUserData();
 
 private:
 	std::shared_ptr<btRigidBody> rigidbody;

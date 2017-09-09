@@ -216,10 +216,10 @@ irr::scene::ISceneNode* GameObject::GetSceneNode()
 	return m_sceneNode;
 }
 
-void GameObject::BindSceneNode(irr::scene::ISceneNode*node)
+void GameObject::setSceneNode(irr::scene::ISceneNode*node)
 {
 	m_sceneNode = node;
-	NeoGraphics::getInstance()->BindSceneNodeToGameObject(node, this);
+	node->setUserData(this);
 }
 
 bool GameObject::isVisible() const
@@ -253,6 +253,7 @@ RigidBody* GameObject::AddRigidBody(int collisionShape, float mass,
 	collisionShapeIndex = collisionShape;
 	m_rigidBody = NeoPhysics::getInstance()->CreateRigidBody(
 			collisionShapeIndex, m_sceneNode, mass, position, rotation);
+	m_rigidBody->setUserData(this);
 	return m_rigidBody;
 }
 
@@ -261,8 +262,8 @@ void GameObject::OnCollisionEnter(GameObject* another)
 	if (m_lua_OnCollisionEnter_callback.empty())
 		return;
 	std::vector<std::string> data;
-	data.push_back(getLuaIndentifier());
-	data.push_back(another->getLuaIndentifier());
+	data.push_back(getLuaIdentifier());
+	data.push_back(another->getLuaIdentifier());
 	NeoScript::getInstance()->ExecuteScriptedFunction(
 			m_lua_OnCollisionEnter_callback, data);
 }
@@ -272,8 +273,8 @@ void GameObject::OnCollision(GameObject* another)
 	if (m_lua_OnCollision_callback.empty())
 		return;
 	std::vector<std::string> data;
-	data.push_back(getLuaIndentifier());
-	data.push_back(another->getLuaIndentifier());
+	data.push_back(getLuaIdentifier());
+	data.push_back(another->getLuaIdentifier());
 	NeoScript::getInstance()->ExecuteScriptedFunction(
 			m_lua_OnCollision_callback, data);
 }
@@ -283,8 +284,8 @@ void GameObject::OnCollisionExit(GameObject* another)
 	if (m_lua_OnCollisionExit_callback.empty())
 		return;
 	std::vector<std::string> data;
-	data.push_back(getLuaIndentifier());
-	data.push_back(another->getLuaIndentifier());
+	data.push_back(getLuaIdentifier());
+	data.push_back(another->getLuaIdentifier());
 	NeoScript::getInstance()->ExecuteScriptedFunction(
 			m_lua_OnCollisionExit_callback, data);
 }
@@ -294,12 +295,12 @@ void GameObject::OnContactCallback(btPersistentManifold* pm,
 {
 }
 
-std::string GameObject::getLuaIndentifier() const
+std::string GameObject::getLuaIdentifier() const
 {
 	return lua_indentifier;
 }
 
-void GameObject::setLuaIndentifier(const std::string& luaIndentifier)
+void GameObject::setLuaIdentifier(const std::string& luaIndentifier)
 {
 	lua_indentifier = luaIndentifier;
 }

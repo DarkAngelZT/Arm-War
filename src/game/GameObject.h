@@ -30,7 +30,7 @@ public:
 	void AddComponent(std::string&key,Component*comp);
 	void RemoveComponent(std::string&key);
 	irr::scene::ISceneNode* GetSceneNode();
-	void BindSceneNode(irr::scene::ISceneNode*node);
+	void setSceneNode(irr::scene::ISceneNode*node);
 
 	void SetParent(GameObject*);
 	GameObject*GetParent() const;
@@ -61,8 +61,8 @@ public:
 	RigidBody* AddRigidBody(int collisionShape, float mass);
 	RigidBody* AddRigidBody(int collisionShape, float mass,
 			const vector3df& position, const vector3df& rotation);
-	std::string getLuaIndentifier() const;
-	void setLuaIndentifier(const std::string& luaIndentifier);
+	std::string getLuaIdentifier() const;
+	void setLuaIdentifier(const std::string& luaIndentifier);
 
 	//-----lua helper functions------------
 	void setOnCollisionEnterLuaCallback(std::string&func);

@@ -182,20 +182,9 @@ CEGUI::IrrlichtRenderer* NeoGraphics::getUIRenderer() const
 
 GameObject* NeoGraphics::GetAttachedGameObject(irr::scene::ISceneNode*node)
 {
-	std::unordered_map<irr::scene::ISceneNode*, GameObject*>::iterator iter =
-			list_go_bindings.find(node);
-	if (iter != list_go_bindings.end())
-	{
-		return iter->second;
-	}
-	return NULL;
+	return (GameObject*)node->getUserData();
 }
 
-void NeoGraphics::BindSceneNodeToGameObject(irr::scene::ISceneNode*node,
-		GameObject* go)
-{
-	list_go_bindings[node] = go;
-}
 
 std::string NeoGraphics::GetAvailableResolution()
 {
@@ -235,7 +224,6 @@ irr::scene::IMeshSceneNode* NeoGraphics::AddOctreeSceneNode(scene::IMesh* mesh,
 void NeoGraphics::RemoveSceneNode(irr::scene::ISceneNode* node)
 {
 	node->remove();
-	list_go_bindings.erase(node);
 }
 
 void NeoGraphics::CleanUp()

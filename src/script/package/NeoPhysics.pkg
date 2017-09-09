@@ -1,0 +1,58 @@
+class NeoPhysics
+{
+public:
+	static NeoPhysics*getInstance();
+
+	void CleanUp();
+	//=======creation wrapper=====
+	//-------collision shapes-----
+	int CreateSphereShape(float radius, const irr::core::vector3df& scale =
+			irr::core::vector3df(1, 1, 1));
+	int CreateBoxShape(irr::core::vector3df&size,
+			const irr::core::vector3df& scale = irr::core::vector3df(1, 1, 1));
+	int CreateCylinderShape(irr::core::vector3df&extents, char align = 'Y',
+			const irr::core::vector3df& scale = irr::core::vector3df(1, 1, 1));
+	int CreateCapsuleShape(float radius, float height, char align = 'Y',
+			const irr::core::vector3df& scale = irr::core::vector3df(1, 1, 1));
+	int CreateConeShape(float radius, float height, char align = 'Y',
+			const irr::core::vector3df& scale = irr::core::vector3df(1, 1, 1));
+//	int CreateMultiSphereShape(irr::core::vector3df positions[],
+//			float radiuses[], int numSpheres);
+	int CreateConvexHullShape(irr::scene::IMesh*mesh,
+			irr::core::vector3df scale = irr::core::vector3df(1, 1, 1));
+	int CreateConvexTriangleMeshShape(irr::scene::IMesh*mesh,
+			irr::core::vector3df scale = irr::core::vector3df(1, 1, 1));
+	int CreateBvhTriangleShape(irr::scene::IMesh*mesh,
+			irr::core::vector3df scale = irr::core::vector3df(1, 1, 1));
+	//int CreateHeightfieldTerrainShape(int meshIndex);
+	//int CreateStaticPlaneShape();
+	//int CreateCompoundShape();
+	void CompoundShapeAddChild(int shapeIndex, int childIndex,
+			irr::core::vector3df localPos = irr::core::vector3df(0, 0, 0),
+			irr::core::vector3df localRotation = irr::core::vector3df(0, 0, 0));
+	void RemoveCollisionShape(int index);
+	//------rigid body-------
+	RigidBody* CreateRigidBody(int collisionShapeIndex,
+			irr::scene::ISceneNode*node, float mass, irr::core::vector3df pos =
+					irr::core::vector3df(0, 0, 0),
+			irr::core::vector3df rotation = irr::core::vector3df(0, 0, 0));
+	void RemoveRigidBody(int index);
+	//------joint-------
+	HingeJoint* CreateHingeJoint(RigidBody* rigidbody1, RigidBody* rigidbody2,
+			irr::core::vector3df pivot1, irr::core::vector3df pivot2,
+			irr::core::vector3df axisIn1, irr::core::vector3df axisIn2);
+	HingeJoint* CreateHingeJoint(RigidBody*body, irr::core::vector3df pivot,
+			irr::core::vector3df axis);
+	void RemoveJoint(int index);
+	//---------------useful functions---------
+//	void RegisterPreProcessingCall();
+//	void RemovePreProcessingCall();
+//
+//	void RegisterPostProcessingCall();
+//	void RemovePostProcessingCall();
+	//=========================
+	int getTimescale() const;
+	void setTimescale(float timescale);
+	float getWorldScale() const;
+	void setWorldScale(float worldScale);
+};

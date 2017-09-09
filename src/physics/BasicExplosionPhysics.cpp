@@ -54,7 +54,7 @@ void BasicExplosionPhysics::BasicExplosionCallback(int triggerIndex,
 				float range = impulseDir.norm();
 				//apply event function here
 				std::vector<std::string> luaValues;
-				luaValues.push_back(go->getLuaIndentifier());
+				luaValues.push_back(go->getLuaIdentifier());
 				luaValues.push_back(std::to_string(range));
 				luaValues.insert(luaValues.begin() + 2,
 						params.aScriptValus.begin(), params.aScriptValus.end());

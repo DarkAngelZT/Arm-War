@@ -135,7 +135,6 @@ public:
 	//get a game object by attached scene node index(用scene node反向查找保存它的game object)
 	GameObject*GetAttachedGameObject(irr::scene::ISceneNode*node);
 	//bind a scene node index to game object
-	void BindSceneNodeToGameObject(irr::scene::ISceneNode*node, GameObject*go);
 	void RemoveSceneNode(irr::scene::ISceneNode*node);
 	void ClearAllNodes();
 	void CleanUp();
@@ -165,7 +164,6 @@ private:
 	//---CEGUI--//
 	CEGUI::IrrlichtRenderer* uiRenderer;
 	irr::u32 d_lastTime;
-	std::unordered_map<irr::scene::ISceneNode*, GameObject*> list_go_bindings;
 };
 
 #endif /* SRC_GRAPHICS_NEOGRAPHICS_H_ */

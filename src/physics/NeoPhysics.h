@@ -103,11 +103,11 @@ public:
 	//---------------useful functions---------
 	void GetObjectsInArea(float radius, irr::core::vector3df pos,
 			std::function<void(int, btAlignedObjectArray<btCollisionObject*>&)> callback);
-	void RegisterPreProcessingCall();
-	void RemovePreProcessingCall();
-
-	void RegisterPostProcessingCall();
-	void RemovePostProcessingCall();
+//	void RegisterPreProcessingCall();
+//	void RemovePreProcessingCall();
+//
+//	void RegisterPostProcessingCall();
+//	void RemovePostProcessingCall();
 	//=========================
 	const btBroadphaseInterface* getBroadphase();
 	void setBroadphase(btBroadphaseInterface* broadphase);

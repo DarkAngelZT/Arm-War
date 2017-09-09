@@ -285,3 +285,13 @@ void RigidBody::setRotation(irr::core::vector3df rotation)
 	btQuaternion r = NeoPhysics::irrToBulletQuaternion(rot);
 	rigidbody->getWorldTransform().setRotation(r);
 }
+
+void RigidBody::setUserData(void* ptr)
+{
+	rigidbody->setUserPointer(ptr);
+}
+
+void* RigidBody::getUserData()
+{
+	return rigidbody->getUserPointer();
+}

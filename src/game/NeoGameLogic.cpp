@@ -94,9 +94,18 @@ void NeoGameLogic::RemoveAllLongTermTriggers()
 	list_longterm_triggers.clear();
 }
 
+void NeoGameLogic::AddLuaUpdateFunction(std::string funcName)
+{
+	lua_update_functions.insert(funcName);
+}
+
+void NeoGameLogic::removeLuaUpdateFunction(std::string funcName)
+{
+	lua_update_functions.erase(funcName);
+}
+
 NeoGameLogic::~NeoGameLogic()
 {
-	// TODO 自动生成的析构函数存根
 	NeoEventHandler* eventHandler =
 			static_cast<NeoEventHandler*>(NeoGraphics::getInstance()->getDevice()->getEventReceiver());
 	delete eventHandler;
@@ -144,5 +153,16 @@ void NeoGameLogic::Update()
 			obsoletTrigger->drop();
 		}
 	}
-	//----------------------------------------//
+	//-------------lua update---------------------//
+	if (!lua_update_functions.empty())
+	{
+		static std::vector<std::string> params;
+		std::set<std::string>::iterator iter_func;
+		for (iter_func = lua_update_functions.begin();
+				iter_func != lua_update_functions.end(); iter_func++)
+		{
+			NeoScript::getInstance()->ExecuteScriptedFunction((*iter_func),
+					params);
+		}
+	}
 }

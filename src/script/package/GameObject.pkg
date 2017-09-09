@@ -6,7 +6,7 @@ public:
 	void AddComponent(std::string&key, Component*comp);
 	void RemoveComponent(std::string&key);
 	irr::scene::ISceneNode* GetSceneNode();
-	void BindSceneNode(irr::scene::ISceneNode*node);
+	void setSceneNode(irr::scene::ISceneNode*node);
 
 	void SetParent(GameObject*);
 	GameObject*GetParent() const;
@@ -35,7 +35,7 @@ public:
 			const irr::core::vector3df& position,
 			const irr::core::vector3df& rotation);
 
-	std::string getLuaIndentifier() const;
-	void setLuaIndentifier(const std::string& luaIndentifier);
+	std::string getLuaIdentifier() const;
+	void setLuaIdentifier(const std::string& luaIndentifier);
 };
 

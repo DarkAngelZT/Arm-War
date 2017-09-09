@@ -1,6 +1,6 @@
 /*
 ** Lua binding: NeoGame
-** Generated automatically by tolua++-1.0.93 on Tue Sep  5 18:11:03 2017.
+** Generated automatically by tolua++-1.0.93 on Thu Sep  7 01:05:19 2017.
 */
 
 #ifndef __cplusplus
@@ -236,14 +236,15 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"irr::scene::IParticleSystemSceneNode");
  tolua_usertype(tolua_S,"irr::scene::IMeshSceneNode");
  tolua_usertype(tolua_S,"Explosion");
- tolua_usertype(tolua_S,"irr::core::vector2d<unsigned>");
  tolua_usertype(tolua_S,"BasicExplosionEffectParams");
- tolua_usertype(tolua_S,"irr::scene::IParticleFadeOutAffector");
+ tolua_usertype(tolua_S,"irr::core::vector2d<unsigned>");
  tolua_usertype(tolua_S,"irr::scene::IParticleGravityAffector");
+ tolua_usertype(tolua_S,"irr::scene::IParticleFadeOutAffector");
+ tolua_usertype(tolua_S,"irr::io::IAttributeExchangingObject");
  tolua_usertype(tolua_S,"irr::core::aabbox3d<int>");
  tolua_usertype(tolua_S,"irr::core::dimension2d<float>");
- tolua_usertype(tolua_S,"irr::io::IAttributeExchangingObject");
  tolua_usertype(tolua_S,"irr::core::dimension2d<unsigned>");
+ tolua_usertype(tolua_S,"NeoPhysics");
  tolua_usertype(tolua_S,"irr::scene::IMesh");
  tolua_usertype(tolua_S,"std::vector<float>");
  tolua_usertype(tolua_S,"NeoGraphics");
@@ -30628,6 +30629,72 @@ static int tolua_NeoGame_NeoGameLogic_ResetAllTriggers00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: AddLuaUpdateFunction of class  NeoGameLogic */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGameLogic_AddLuaUpdateFunction00
+static int tolua_NeoGame_NeoGameLogic_AddLuaUpdateFunction00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGameLogic",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGameLogic* self = (NeoGameLogic*)  tolua_tousertype(tolua_S,1,0);
+  std::string funcName = ((std::string)  tolua_tocppstring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'AddLuaUpdateFunction'", NULL);
+#endif
+  {
+   self->AddLuaUpdateFunction(funcName);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'AddLuaUpdateFunction'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: removeLuaUpdateFunction of class  NeoGameLogic */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGameLogic_removeLuaUpdateFunction00
+static int tolua_NeoGame_NeoGameLogic_removeLuaUpdateFunction00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGameLogic",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGameLogic* self = (NeoGameLogic*)  tolua_tousertype(tolua_S,1,0);
+  std::string funcName = ((std::string)  tolua_tocppstring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'removeLuaUpdateFunction'", NULL);
+#endif
+  {
+   self->removeLuaUpdateFunction(funcName);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'removeLuaUpdateFunction'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: getData of class  NeoEvent */
 #ifndef TOLUA_DISABLE_tolua_NeoGame_NeoEvent_getData00
 static int tolua_NeoGame_NeoEvent_getData00(lua_State* tolua_S)
@@ -30831,9 +30898,9 @@ static int tolua_NeoGame_GameObject_GetSceneNode00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: BindSceneNode of class  GameObject */
-#ifndef TOLUA_DISABLE_tolua_NeoGame_GameObject_BindSceneNode00
-static int tolua_NeoGame_GameObject_BindSceneNode00(lua_State* tolua_S)
+/* method: setSceneNode of class  GameObject */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_GameObject_setSceneNode00
+static int tolua_NeoGame_GameObject_setSceneNode00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -30849,16 +30916,16 @@ static int tolua_NeoGame_GameObject_BindSceneNode00(lua_State* tolua_S)
   GameObject* self = (GameObject*)  tolua_tousertype(tolua_S,1,0);
   irr::scene::ISceneNode* node = ((irr::scene::ISceneNode*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'BindSceneNode'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setSceneNode'", NULL);
 #endif
   {
-   self->BindSceneNode(node);
+   self->setSceneNode(node);
   }
  }
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'BindSceneNode'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'setSceneNode'.",&tolua_err);
  return 0;
 #endif
 }
@@ -31473,9 +31540,9 @@ tolua_lerror:
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getLuaIndentifier of class  GameObject */
-#ifndef TOLUA_DISABLE_tolua_NeoGame_GameObject_getLuaIndentifier00
-static int tolua_NeoGame_GameObject_getLuaIndentifier00(lua_State* tolua_S)
+/* method: getLuaIdentifier of class  GameObject */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_GameObject_getLuaIdentifier00
+static int tolua_NeoGame_GameObject_getLuaIdentifier00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -31489,25 +31556,25 @@ static int tolua_NeoGame_GameObject_getLuaIndentifier00(lua_State* tolua_S)
  {
   const GameObject* self = (const GameObject*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getLuaIndentifier'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getLuaIdentifier'", NULL);
 #endif
   {
-   std::string tolua_ret = (std::string)  self->getLuaIndentifier();
+   std::string tolua_ret = (std::string)  self->getLuaIdentifier();
    tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
   }
  }
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getLuaIndentifier'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'getLuaIdentifier'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: setLuaIndentifier of class  GameObject */
-#ifndef TOLUA_DISABLE_tolua_NeoGame_GameObject_setLuaIndentifier00
-static int tolua_NeoGame_GameObject_setLuaIndentifier00(lua_State* tolua_S)
+/* method: setLuaIdentifier of class  GameObject */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_GameObject_setLuaIdentifier00
+static int tolua_NeoGame_GameObject_setLuaIdentifier00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -31523,17 +31590,17 @@ static int tolua_NeoGame_GameObject_setLuaIndentifier00(lua_State* tolua_S)
   GameObject* self = (GameObject*)  tolua_tousertype(tolua_S,1,0);
   const std::string luaIndentifier = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setLuaIndentifier'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setLuaIdentifier'", NULL);
 #endif
   {
-   self->setLuaIndentifier(luaIndentifier);
+   self->setLuaIdentifier(luaIndentifier);
    tolua_pushcppstring(tolua_S,(const char*)luaIndentifier);
   }
  }
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setLuaIndentifier'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'setLuaIdentifier'.",&tolua_err);
  return 0;
 #endif
 }
@@ -33629,41 +33696,6 @@ static int tolua_NeoGame_NeoGraphics_GetAttachedGameObject00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: BindSceneNodeToGameObject of class  NeoGraphics */
-#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_BindSceneNodeToGameObject00
-static int tolua_NeoGame_NeoGraphics_BindSceneNodeToGameObject00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"irr::scene::ISceneNode",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,3,"GameObject",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
-  irr::scene::ISceneNode* node = ((irr::scene::ISceneNode*)  tolua_tousertype(tolua_S,2,0));
-  GameObject* go = ((GameObject*)  tolua_tousertype(tolua_S,3,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'BindSceneNodeToGameObject'", NULL);
-#endif
-  {
-   self->BindSceneNodeToGameObject(node,go);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'BindSceneNodeToGameObject'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: RemoveSceneNode of class  NeoGraphics */
 #ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_RemoveSceneNode00
 static int tolua_NeoGame_NeoGraphics_RemoveSceneNode00(lua_State* tolua_S)
@@ -33723,6 +33755,1122 @@ static int tolua_NeoGame_NeoGraphics_ClearAllNodes00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'ClearAllNodes'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getInstance of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_getInstance00
+static int tolua_NeoGame_NeoPhysics_getInstance00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   NeoPhysics* tolua_ret = (NeoPhysics*)  NeoPhysics::getInstance();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"NeoPhysics");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getInstance'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CleanUp of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CleanUp00
+static int tolua_NeoGame_NeoPhysics_CleanUp00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CleanUp'", NULL);
+#endif
+  {
+   self->CleanUp();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'CleanUp'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateSphereShape of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CreateSphereShape00
+static int tolua_NeoGame_NeoPhysics_CreateSphereShape00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  float radius = ((float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateSphereShape'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->CreateSphereShape(radius);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'CreateSphereShape'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateSphereShape of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CreateSphereShape01
+static int tolua_NeoGame_NeoPhysics_CreateSphereShape01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const irr::core::vector3df",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  float radius = ((float)  tolua_tonumber(tolua_S,2,0));
+  const irr::core::vector3df* scale = ((const irr::core::vector3df*)  tolua_tousertype(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateSphereShape'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->CreateSphereShape(radius,*scale);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_NeoGame_NeoPhysics_CreateSphereShape00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateBoxShape of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CreateBoxShape00
+static int tolua_NeoGame_NeoPhysics_CreateBoxShape00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  irr::core::vector3df* size = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateBoxShape'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->CreateBoxShape(*size);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'CreateBoxShape'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateBoxShape of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CreateBoxShape01
+static int tolua_NeoGame_NeoPhysics_CreateBoxShape01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const irr::core::vector3df",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  irr::core::vector3df* size = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
+  const irr::core::vector3df* scale = ((const irr::core::vector3df*)  tolua_tousertype(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateBoxShape'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->CreateBoxShape(*size,*scale);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_NeoGame_NeoPhysics_CreateBoxShape00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateCylinderShape of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CreateCylinderShape00
+static int tolua_NeoGame_NeoPhysics_CreateCylinderShape00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
+     !tolua_isnumber(tolua_S,3,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  irr::core::vector3df* extents = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
+  char align = ((char)  tolua_tonumber(tolua_S,3,'Y'));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateCylinderShape'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->CreateCylinderShape(*extents,align);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'CreateCylinderShape'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateCylinderShape of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CreateCylinderShape01
+static int tolua_NeoGame_NeoPhysics_CreateCylinderShape01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"const irr::core::vector3df",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  irr::core::vector3df* extents = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
+  char align = ((char)  tolua_tonumber(tolua_S,3,0));
+  const irr::core::vector3df* scale = ((const irr::core::vector3df*)  tolua_tousertype(tolua_S,4,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateCylinderShape'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->CreateCylinderShape(*extents,align,*scale);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_NeoGame_NeoPhysics_CreateCylinderShape00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateCapsuleShape of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CreateCapsuleShape00
+static int tolua_NeoGame_NeoPhysics_CreateCapsuleShape00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  float radius = ((float)  tolua_tonumber(tolua_S,2,0));
+  float height = ((float)  tolua_tonumber(tolua_S,3,0));
+  char align = ((char)  tolua_tonumber(tolua_S,4,'Y'));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateCapsuleShape'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->CreateCapsuleShape(radius,height,align);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'CreateCapsuleShape'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateCapsuleShape of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CreateCapsuleShape01
+static int tolua_NeoGame_NeoPhysics_CreateCapsuleShape01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,5,&tolua_err) || !tolua_isusertype(tolua_S,5,"const irr::core::vector3df",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  float radius = ((float)  tolua_tonumber(tolua_S,2,0));
+  float height = ((float)  tolua_tonumber(tolua_S,3,0));
+  char align = ((char)  tolua_tonumber(tolua_S,4,0));
+  const irr::core::vector3df* scale = ((const irr::core::vector3df*)  tolua_tousertype(tolua_S,5,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateCapsuleShape'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->CreateCapsuleShape(radius,height,align,*scale);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_NeoGame_NeoPhysics_CreateCapsuleShape00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateConeShape of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CreateConeShape00
+static int tolua_NeoGame_NeoPhysics_CreateConeShape00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  float radius = ((float)  tolua_tonumber(tolua_S,2,0));
+  float height = ((float)  tolua_tonumber(tolua_S,3,0));
+  char align = ((char)  tolua_tonumber(tolua_S,4,'Y'));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateConeShape'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->CreateConeShape(radius,height,align);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'CreateConeShape'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateConeShape of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CreateConeShape01
+static int tolua_NeoGame_NeoPhysics_CreateConeShape01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,5,&tolua_err) || !tolua_isusertype(tolua_S,5,"const irr::core::vector3df",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  float radius = ((float)  tolua_tonumber(tolua_S,2,0));
+  float height = ((float)  tolua_tonumber(tolua_S,3,0));
+  char align = ((char)  tolua_tonumber(tolua_S,4,0));
+  const irr::core::vector3df* scale = ((const irr::core::vector3df*)  tolua_tousertype(tolua_S,5,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateConeShape'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->CreateConeShape(radius,height,align,*scale);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_NeoGame_NeoPhysics_CreateConeShape00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateConvexHullShape of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CreateConvexHullShape00
+static int tolua_NeoGame_NeoPhysics_CreateConvexHullShape00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"irr::scene::IMesh",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  irr::scene::IMesh* mesh = ((irr::scene::IMesh*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateConvexHullShape'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->CreateConvexHullShape(mesh);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'CreateConvexHullShape'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateConvexHullShape of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CreateConvexHullShape01
+static int tolua_NeoGame_NeoPhysics_CreateConvexHullShape01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"irr::scene::IMesh",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"irr::core::vector3df",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  irr::scene::IMesh* mesh = ((irr::scene::IMesh*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3df scale = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateConvexHullShape'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->CreateConvexHullShape(mesh,scale);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_NeoGame_NeoPhysics_CreateConvexHullShape00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateConvexTriangleMeshShape of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CreateConvexTriangleMeshShape00
+static int tolua_NeoGame_NeoPhysics_CreateConvexTriangleMeshShape00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"irr::scene::IMesh",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  irr::scene::IMesh* mesh = ((irr::scene::IMesh*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateConvexTriangleMeshShape'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->CreateConvexTriangleMeshShape(mesh);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'CreateConvexTriangleMeshShape'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateConvexTriangleMeshShape of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CreateConvexTriangleMeshShape01
+static int tolua_NeoGame_NeoPhysics_CreateConvexTriangleMeshShape01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"irr::scene::IMesh",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"irr::core::vector3df",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  irr::scene::IMesh* mesh = ((irr::scene::IMesh*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3df scale = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateConvexTriangleMeshShape'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->CreateConvexTriangleMeshShape(mesh,scale);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_NeoGame_NeoPhysics_CreateConvexTriangleMeshShape00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateBvhTriangleShape of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CreateBvhTriangleShape00
+static int tolua_NeoGame_NeoPhysics_CreateBvhTriangleShape00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"irr::scene::IMesh",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  irr::scene::IMesh* mesh = ((irr::scene::IMesh*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateBvhTriangleShape'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->CreateBvhTriangleShape(mesh);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'CreateBvhTriangleShape'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateBvhTriangleShape of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CreateBvhTriangleShape01
+static int tolua_NeoGame_NeoPhysics_CreateBvhTriangleShape01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"irr::scene::IMesh",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"irr::core::vector3df",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  irr::scene::IMesh* mesh = ((irr::scene::IMesh*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3df scale = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateBvhTriangleShape'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->CreateBvhTriangleShape(mesh,scale);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_NeoGame_NeoPhysics_CreateBvhTriangleShape00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CompoundShapeAddChild of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CompoundShapeAddChild00
+static int tolua_NeoGame_NeoPhysics_CompoundShapeAddChild00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  int shapeIndex = ((int)  tolua_tonumber(tolua_S,2,0));
+  int childIndex = ((int)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CompoundShapeAddChild'", NULL);
+#endif
+  {
+   self->CompoundShapeAddChild(shapeIndex,childIndex);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'CompoundShapeAddChild'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CompoundShapeAddChild of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CompoundShapeAddChild01
+static int tolua_NeoGame_NeoPhysics_CompoundShapeAddChild01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"irr::core::vector3df",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  int shapeIndex = ((int)  tolua_tonumber(tolua_S,2,0));
+  int childIndex = ((int)  tolua_tonumber(tolua_S,3,0));
+  irr::core::vector3df localPos = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,4,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CompoundShapeAddChild'", NULL);
+#endif
+  {
+   self->CompoundShapeAddChild(shapeIndex,childIndex,localPos);
+  }
+ }
+ return 0;
+tolua_lerror:
+ return tolua_NeoGame_NeoPhysics_CompoundShapeAddChild00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CompoundShapeAddChild of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CompoundShapeAddChild02
+static int tolua_NeoGame_NeoPhysics_CompoundShapeAddChild02(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,5,&tolua_err) || !tolua_isusertype(tolua_S,5,"irr::core::vector3df",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  int shapeIndex = ((int)  tolua_tonumber(tolua_S,2,0));
+  int childIndex = ((int)  tolua_tonumber(tolua_S,3,0));
+  irr::core::vector3df localPos = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,4,0));
+  irr::core::vector3df localRotation = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,5,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CompoundShapeAddChild'", NULL);
+#endif
+  {
+   self->CompoundShapeAddChild(shapeIndex,childIndex,localPos,localRotation);
+  }
+ }
+ return 0;
+tolua_lerror:
+ return tolua_NeoGame_NeoPhysics_CompoundShapeAddChild01(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: RemoveCollisionShape of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_RemoveCollisionShape00
+static int tolua_NeoGame_NeoPhysics_RemoveCollisionShape00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  int index = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'RemoveCollisionShape'", NULL);
+#endif
+  {
+   self->RemoveCollisionShape(index);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'RemoveCollisionShape'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateRigidBody of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CreateRigidBody00
+static int tolua_NeoGame_NeoPhysics_CreateRigidBody00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,3,"irr::scene::ISceneNode",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  int collisionShapeIndex = ((int)  tolua_tonumber(tolua_S,2,0));
+  irr::scene::ISceneNode* node = ((irr::scene::ISceneNode*)  tolua_tousertype(tolua_S,3,0));
+  float mass = ((float)  tolua_tonumber(tolua_S,4,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateRigidBody'", NULL);
+#endif
+  {
+   RigidBody* tolua_ret = (RigidBody*)  self->CreateRigidBody(collisionShapeIndex,node,mass);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"RigidBody");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'CreateRigidBody'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateRigidBody of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CreateRigidBody01
+static int tolua_NeoGame_NeoPhysics_CreateRigidBody01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,3,"irr::scene::ISceneNode",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,5,&tolua_err) || !tolua_isusertype(tolua_S,5,"irr::core::vector3df",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  int collisionShapeIndex = ((int)  tolua_tonumber(tolua_S,2,0));
+  irr::scene::ISceneNode* node = ((irr::scene::ISceneNode*)  tolua_tousertype(tolua_S,3,0));
+  float mass = ((float)  tolua_tonumber(tolua_S,4,0));
+  irr::core::vector3df pos = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,5,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateRigidBody'", NULL);
+#endif
+  {
+   RigidBody* tolua_ret = (RigidBody*)  self->CreateRigidBody(collisionShapeIndex,node,mass,pos);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"RigidBody");
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_NeoGame_NeoPhysics_CreateRigidBody00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateRigidBody of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CreateRigidBody02
+static int tolua_NeoGame_NeoPhysics_CreateRigidBody02(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,3,"irr::scene::ISceneNode",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,5,&tolua_err) || !tolua_isusertype(tolua_S,5,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,6,&tolua_err) || !tolua_isusertype(tolua_S,6,"irr::core::vector3df",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,7,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  int collisionShapeIndex = ((int)  tolua_tonumber(tolua_S,2,0));
+  irr::scene::ISceneNode* node = ((irr::scene::ISceneNode*)  tolua_tousertype(tolua_S,3,0));
+  float mass = ((float)  tolua_tonumber(tolua_S,4,0));
+  irr::core::vector3df pos = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,5,0));
+  irr::core::vector3df rotation = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,6,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateRigidBody'", NULL);
+#endif
+  {
+   RigidBody* tolua_ret = (RigidBody*)  self->CreateRigidBody(collisionShapeIndex,node,mass,pos,rotation);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"RigidBody");
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_NeoGame_NeoPhysics_CreateRigidBody01(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: RemoveRigidBody of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_RemoveRigidBody00
+static int tolua_NeoGame_NeoPhysics_RemoveRigidBody00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  int index = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'RemoveRigidBody'", NULL);
+#endif
+  {
+   self->RemoveRigidBody(index);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'RemoveRigidBody'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateHingeJoint of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CreateHingeJoint00
+static int tolua_NeoGame_NeoPhysics_CreateHingeJoint00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"RigidBody",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,3,"RigidBody",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,5,&tolua_err) || !tolua_isusertype(tolua_S,5,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,6,&tolua_err) || !tolua_isusertype(tolua_S,6,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,7,&tolua_err) || !tolua_isusertype(tolua_S,7,"irr::core::vector3df",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,8,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  RigidBody* rigidbody1 = ((RigidBody*)  tolua_tousertype(tolua_S,2,0));
+  RigidBody* rigidbody2 = ((RigidBody*)  tolua_tousertype(tolua_S,3,0));
+  irr::core::vector3df pivot1 = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,4,0));
+  irr::core::vector3df pivot2 = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,5,0));
+  irr::core::vector3df axisIn1 = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,6,0));
+  irr::core::vector3df axisIn2 = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,7,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateHingeJoint'", NULL);
+#endif
+  {
+   HingeJoint* tolua_ret = (HingeJoint*)  self->CreateHingeJoint(rigidbody1,rigidbody2,pivot1,pivot2,axisIn1,axisIn2);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"HingeJoint");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'CreateHingeJoint'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateHingeJoint of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CreateHingeJoint01
+static int tolua_NeoGame_NeoPhysics_CreateHingeJoint01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"RigidBody",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"irr::core::vector3df",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  RigidBody* body = ((RigidBody*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3df pivot = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,3,0));
+  irr::core::vector3df axis = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,4,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateHingeJoint'", NULL);
+#endif
+  {
+   HingeJoint* tolua_ret = (HingeJoint*)  self->CreateHingeJoint(body,pivot,axis);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"HingeJoint");
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_NeoGame_NeoPhysics_CreateHingeJoint00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: RemoveJoint of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_RemoveJoint00
+static int tolua_NeoGame_NeoPhysics_RemoveJoint00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  int index = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'RemoveJoint'", NULL);
+#endif
+  {
+   self->RemoveJoint(index);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'RemoveJoint'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getTimescale of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_getTimescale00
+static int tolua_NeoGame_NeoPhysics_getTimescale00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoPhysics",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoPhysics* self = (const NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getTimescale'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getTimescale();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getTimescale'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setTimescale of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_setTimescale00
+static int tolua_NeoGame_NeoPhysics_setTimescale00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  float timescale = ((float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setTimescale'", NULL);
+#endif
+  {
+   self->setTimescale(timescale);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setTimescale'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getWorldScale of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_getWorldScale00
+static int tolua_NeoGame_NeoPhysics_getWorldScale00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoPhysics",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoPhysics* self = (const NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getWorldScale'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getWorldScale();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getWorldScale'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setWorldScale of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_setWorldScale00
+static int tolua_NeoGame_NeoPhysics_setWorldScale00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  float worldScale = ((float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setWorldScale'", NULL);
+#endif
+  {
+   self->setWorldScale(worldScale);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setWorldScale'.",&tolua_err);
  return 0;
 #endif
 }
@@ -37133,6 +38281,8 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"RegisterTrigger",tolua_NeoGame_NeoGameLogic_RegisterTrigger00);
    tolua_function(tolua_S,"RemoveTrigger",tolua_NeoGame_NeoGameLogic_RemoveTrigger00);
    tolua_function(tolua_S,"ResetAllTriggers",tolua_NeoGame_NeoGameLogic_ResetAllTriggers00);
+   tolua_function(tolua_S,"AddLuaUpdateFunction",tolua_NeoGame_NeoGameLogic_AddLuaUpdateFunction00);
+   tolua_function(tolua_S,"removeLuaUpdateFunction",tolua_NeoGame_NeoGameLogic_removeLuaUpdateFunction00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"NeoEvent","NeoEvent","",NULL);
   tolua_beginmodule(tolua_S,"NeoEvent");
@@ -37202,7 +38352,7 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"AddComponent",tolua_NeoGame_GameObject_AddComponent00);
    tolua_function(tolua_S,"RemoveComponent",tolua_NeoGame_GameObject_RemoveComponent00);
    tolua_function(tolua_S,"GetSceneNode",tolua_NeoGame_GameObject_GetSceneNode00);
-   tolua_function(tolua_S,"BindSceneNode",tolua_NeoGame_GameObject_BindSceneNode00);
+   tolua_function(tolua_S,"setSceneNode",tolua_NeoGame_GameObject_setSceneNode00);
    tolua_function(tolua_S,"SetParent",tolua_NeoGame_GameObject_SetParent00);
    tolua_function(tolua_S,"GetParent",tolua_NeoGame_GameObject_GetParent00);
    tolua_function(tolua_S,"AddChild",tolua_NeoGame_GameObject_AddChild00);
@@ -37221,8 +38371,8 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getRigidBody",tolua_NeoGame_GameObject_getRigidBody00);
    tolua_function(tolua_S,"AddRigidBody",tolua_NeoGame_GameObject_AddRigidBody00);
    tolua_function(tolua_S,"AddRigidBody",tolua_NeoGame_GameObject_AddRigidBody01);
-   tolua_function(tolua_S,"getLuaIndentifier",tolua_NeoGame_GameObject_getLuaIndentifier00);
-   tolua_function(tolua_S,"setLuaIndentifier",tolua_NeoGame_GameObject_setLuaIndentifier00);
+   tolua_function(tolua_S,"getLuaIdentifier",tolua_NeoGame_GameObject_getLuaIdentifier00);
+   tolua_function(tolua_S,"setLuaIdentifier",tolua_NeoGame_GameObject_setLuaIdentifier00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"NeoGraphics","NeoGraphics","",NULL);
   tolua_beginmodule(tolua_S,"NeoGraphics");
@@ -37284,9 +38434,44 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"LoadTexture",tolua_NeoGame_NeoGraphics_LoadTexture00);
    tolua_function(tolua_S,"UnloadTexture",tolua_NeoGame_NeoGraphics_UnloadTexture00);
    tolua_function(tolua_S,"GetAttachedGameObject",tolua_NeoGame_NeoGraphics_GetAttachedGameObject00);
-   tolua_function(tolua_S,"BindSceneNodeToGameObject",tolua_NeoGame_NeoGraphics_BindSceneNodeToGameObject00);
    tolua_function(tolua_S,"RemoveSceneNode",tolua_NeoGame_NeoGraphics_RemoveSceneNode00);
    tolua_function(tolua_S,"ClearAllNodes",tolua_NeoGame_NeoGraphics_ClearAllNodes00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"NeoPhysics","NeoPhysics","",NULL);
+  tolua_beginmodule(tolua_S,"NeoPhysics");
+   tolua_function(tolua_S,"getInstance",tolua_NeoGame_NeoPhysics_getInstance00);
+   tolua_function(tolua_S,"CleanUp",tolua_NeoGame_NeoPhysics_CleanUp00);
+   tolua_function(tolua_S,"CreateSphereShape",tolua_NeoGame_NeoPhysics_CreateSphereShape00);
+   tolua_function(tolua_S,"CreateSphereShape",tolua_NeoGame_NeoPhysics_CreateSphereShape01);
+   tolua_function(tolua_S,"CreateBoxShape",tolua_NeoGame_NeoPhysics_CreateBoxShape00);
+   tolua_function(tolua_S,"CreateBoxShape",tolua_NeoGame_NeoPhysics_CreateBoxShape01);
+   tolua_function(tolua_S,"CreateCylinderShape",tolua_NeoGame_NeoPhysics_CreateCylinderShape00);
+   tolua_function(tolua_S,"CreateCylinderShape",tolua_NeoGame_NeoPhysics_CreateCylinderShape01);
+   tolua_function(tolua_S,"CreateCapsuleShape",tolua_NeoGame_NeoPhysics_CreateCapsuleShape00);
+   tolua_function(tolua_S,"CreateCapsuleShape",tolua_NeoGame_NeoPhysics_CreateCapsuleShape01);
+   tolua_function(tolua_S,"CreateConeShape",tolua_NeoGame_NeoPhysics_CreateConeShape00);
+   tolua_function(tolua_S,"CreateConeShape",tolua_NeoGame_NeoPhysics_CreateConeShape01);
+   tolua_function(tolua_S,"CreateConvexHullShape",tolua_NeoGame_NeoPhysics_CreateConvexHullShape00);
+   tolua_function(tolua_S,"CreateConvexHullShape",tolua_NeoGame_NeoPhysics_CreateConvexHullShape01);
+   tolua_function(tolua_S,"CreateConvexTriangleMeshShape",tolua_NeoGame_NeoPhysics_CreateConvexTriangleMeshShape00);
+   tolua_function(tolua_S,"CreateConvexTriangleMeshShape",tolua_NeoGame_NeoPhysics_CreateConvexTriangleMeshShape01);
+   tolua_function(tolua_S,"CreateBvhTriangleShape",tolua_NeoGame_NeoPhysics_CreateBvhTriangleShape00);
+   tolua_function(tolua_S,"CreateBvhTriangleShape",tolua_NeoGame_NeoPhysics_CreateBvhTriangleShape01);
+   tolua_function(tolua_S,"CompoundShapeAddChild",tolua_NeoGame_NeoPhysics_CompoundShapeAddChild00);
+   tolua_function(tolua_S,"CompoundShapeAddChild",tolua_NeoGame_NeoPhysics_CompoundShapeAddChild01);
+   tolua_function(tolua_S,"CompoundShapeAddChild",tolua_NeoGame_NeoPhysics_CompoundShapeAddChild02);
+   tolua_function(tolua_S,"RemoveCollisionShape",tolua_NeoGame_NeoPhysics_RemoveCollisionShape00);
+   tolua_function(tolua_S,"CreateRigidBody",tolua_NeoGame_NeoPhysics_CreateRigidBody00);
+   tolua_function(tolua_S,"CreateRigidBody",tolua_NeoGame_NeoPhysics_CreateRigidBody01);
+   tolua_function(tolua_S,"CreateRigidBody",tolua_NeoGame_NeoPhysics_CreateRigidBody02);
+   tolua_function(tolua_S,"RemoveRigidBody",tolua_NeoGame_NeoPhysics_RemoveRigidBody00);
+   tolua_function(tolua_S,"CreateHingeJoint",tolua_NeoGame_NeoPhysics_CreateHingeJoint00);
+   tolua_function(tolua_S,"CreateHingeJoint",tolua_NeoGame_NeoPhysics_CreateHingeJoint01);
+   tolua_function(tolua_S,"RemoveJoint",tolua_NeoGame_NeoPhysics_RemoveJoint00);
+   tolua_function(tolua_S,"getTimescale",tolua_NeoGame_NeoPhysics_getTimescale00);
+   tolua_function(tolua_S,"setTimescale",tolua_NeoGame_NeoPhysics_setTimescale00);
+   tolua_function(tolua_S,"getWorldScale",tolua_NeoGame_NeoPhysics_getWorldScale00);
+   tolua_function(tolua_S,"setWorldScale",tolua_NeoGame_NeoPhysics_setWorldScale00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"SfxManager","SfxManager","",NULL);
   tolua_beginmodule(tolua_S,"SfxManager");

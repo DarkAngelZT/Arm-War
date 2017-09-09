@@ -1,0 +1,24 @@
+======================
+supported node type
+======================
+mesh_static
+mesh_animated
+billboard
+light
+octree
+sphere
+cube
+event_point
+spawn_point
+
+========================
+supported physics type
+========================
+none
+convexHull
+box
+sphere
+cylinder<--direction=x,y,z
+cone<--direction=x,y,z
+static (octree static object, never move)
+kinematic

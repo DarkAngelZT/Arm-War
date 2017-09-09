@@ -30,6 +30,7 @@ map_editor.copy_list={}
 map_editor.saved=false
 dofile(DIR_SCRIPT.."Editor/toolbar.lua")
 dofile(DIR_SCRIPT.."Editor/animationPanel.lua")
+dofile(DIR_SCRIPT.."Editor/physicsPanel.lua")
 dofile(DIR_SCRIPT.."Editor/logicDataPanel.lua")
 dofile(DIR_SCRIPT.."Editor/inputWindow.lua")
 --------------------------------------------
@@ -54,6 +55,8 @@ function map_editor.Init(resetEventHandler)
 	map_editor.InitPropertyWindow()
 	--animation window
 	map_editor.animation_wnd.Init()
+	--physics panel
+	map_editor.physics_wnd.Init()
 	-- logic data panel
 	map_editor.logic_data_wnd.Init()
 	-- clear copy list (for save)
@@ -243,11 +246,16 @@ function map_editor.UpdatePropertyWindow( object )
 	map_editor.current_editted_object_property={obj=object}
 	-- animation window
 	map_editor.animation_wnd.UpdateObject( object )
+	--physics data tab
+	map_editor.physics_wnd.UpdateObject( object )
 	-- logic data window
 	map_editor.logic_data_wnd.UpdateObject( object )
 end
 
 function map_editor.UpdatePropertyWindowSingleRow( object, key )
+	if not object then
+		return
+	end
 	local wnd=map_editor.property_wnd
 	local data = object.property[key]
 	local datatype = data.type or tolua.type(object[key]):gsub("const ","")

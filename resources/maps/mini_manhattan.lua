@@ -11,7 +11,6 @@ map_info.objects[1] = {
 name = "ground",
 id = 394383,
 scene_type = "octree",
-physics_type = "static",
 position = irr.core.vector3df:new_local(0.000000,0.000000,0.000000),
 rotation = irr.core.vector3df:new_local(0.000000,0.000000,0.000000),
 scale = irr.core.vector3df:new_local(1.000000,1.000000,1.000000),
@@ -20,6 +19,9 @@ textures = {
 "resources/maps/mini_manhattan/bulding.png",
 "resources/maps/mini_manhattan/city.png",
 }, -- textures
+physics_data = {
+physics_type = "static",
+}, -- physics_data
 logic_data = "",
 } -- map_info.objects[1]
 map_info.objects[2] = {
@@ -75,7 +77,6 @@ map_info.objects[6] = {
 name = "cube",
 id = 335223,
 scene_type = "cube",
-physics_type = "dynamic",
 position = irr.core.vector3df:new_local(110.702744,1.500000,-296.791931),
 rotation = irr.core.vector3df:new_local(0.000000,0.000000,0.000000),
 scale = irr.core.vector3df:new_local(1.000000,1.000000,1.000000),
@@ -83,13 +84,19 @@ size = 3.000000,
 textures = {
 "resources/maps/mini_manhattan/default_cobe_texture.png",
 }, -- textures
+physics_data = {
+mass = 5.000000,
+size_z = 3.000000,
+physics_type = "cube",
+size_y = 3.000000,
+size_x = 3.000000,
+}, -- physics_data
 logic_data = "",
 } -- map_info.objects[6]
 map_info.objects[7] = {
 name = "cube",
 id = 768229,
 scene_type = "cube",
-physics_type = "dynamic",
 position = irr.core.vector3df:new_local(113.974678,1.500000,-296.791931),
 rotation = irr.core.vector3df:new_local(0.000000,0.000000,0.000000),
 scale = irr.core.vector3df:new_local(1.000000,1.000000,1.000000),
@@ -97,13 +104,19 @@ size = 3.000000,
 textures = {
 "resources/maps/mini_manhattan/default_cobe_texture.png",
 }, -- textures
+physics_data = {
+mass = 5.000000,
+size_z = 3.000000,
+physics_type = "cube",
+size_y = 3.000000,
+size_x = 3.000000,
+}, -- physics_data
 logic_data = "",
 } -- map_info.objects[7]
 map_info.objects[8] = {
 name = "cube",
 id = 277775,
 scene_type = "cube",
-physics_type = "dynamic",
 position = irr.core.vector3df:new_local(117.226837,1.500000,-296.791931),
 rotation = irr.core.vector3df:new_local(0.000000,0.000000,0.000000),
 scale = irr.core.vector3df:new_local(1.000000,1.000000,1.000000),
@@ -111,13 +124,19 @@ size = 3.000000,
 textures = {
 "resources/maps/mini_manhattan/default_cobe_texture.png",
 }, -- textures
+physics_data = {
+mass = 5.000000,
+size_z = 3.000000,
+physics_type = "cube",
+size_y = 3.000000,
+size_x = 3.000000,
+}, -- physics_data
 logic_data = "",
 } -- map_info.objects[8]
 map_info.objects[9] = {
 name = "cube",
 id = 553970,
 scene_type = "cube",
-physics_type = "dynamic",
 position = irr.core.vector3df:new_local(120.317139,1.500000,-296.791931),
 rotation = irr.core.vector3df:new_local(0.000000,0.000000,0.000000),
 scale = irr.core.vector3df:new_local(1.000000,1.000000,1.000000),
@@ -125,13 +144,19 @@ size = 3.000000,
 textures = {
 "resources/maps/mini_manhattan/default_cobe_texture.png",
 }, -- textures
+physics_data = {
+mass = 5.000000,
+size_z = 3.000000,
+physics_type = "cube",
+size_y = 3.000000,
+size_x = 3.000000,
+}, -- physics_data
 logic_data = "",
 } -- map_info.objects[9]
 map_info.objects[10] = {
 name = "cube",
 id = 477397,
 scene_type = "cube",
-physics_type = "dynamic",
 position = irr.core.vector3df:new_local(120.317139,4.560368,-296.791931),
 rotation = irr.core.vector3df:new_local(0.000000,0.000000,0.000000),
 scale = irr.core.vector3df:new_local(1.000000,1.000000,1.000000),
@@ -139,13 +164,19 @@ size = 3.000000,
 textures = {
 "resources/maps/mini_manhattan/default_cobe_texture.png",
 }, -- textures
+physics_data = {
+mass = 5.000000,
+size_z = 3.000000,
+physics_type = "cube",
+size_y = 3.000000,
+size_x = 3.000000,
+}, -- physics_data
 logic_data = "",
 } -- map_info.objects[10]
 map_info.objects[11] = {
 name = "cube",
 id = 628871,
 scene_type = "cube",
-physics_type = "dynamic",
 position = irr.core.vector3df:new_local(117.226837,4.560368,-296.791931),
 rotation = irr.core.vector3df:new_local(0.000000,0.000000,0.000000),
 scale = irr.core.vector3df:new_local(1.000000,1.000000,1.000000),
@@ -153,13 +184,19 @@ size = 3.000000,
 textures = {
 "resources/maps/mini_manhattan/default_cobe_texture.png",
 }, -- textures
+physics_data = {
+mass = 5.000000,
+size_z = 3.000000,
+physics_type = "cube",
+size_y = 3.000000,
+size_x = 3.000000,
+}, -- physics_data
 logic_data = "",
 } -- map_info.objects[11]
 map_info.objects[12] = {
 name = "cube",
 id = 364785,
 scene_type = "cube",
-physics_type = "dynamic",
 position = irr.core.vector3df:new_local(113.974678,4.560368,-296.791931),
 rotation = irr.core.vector3df:new_local(0.000000,0.000000,0.000000),
 scale = irr.core.vector3df:new_local(1.000000,1.000000,1.000000),
@@ -167,13 +204,19 @@ size = 3.000000,
 textures = {
 "resources/maps/mini_manhattan/default_cobe_texture.png",
 }, -- textures
+physics_data = {
+mass = 5.000000,
+size_z = 3.000000,
+physics_type = "cube",
+size_y = 3.000000,
+size_x = 3.000000,
+}, -- physics_data
 logic_data = "",
 } -- map_info.objects[12]
 map_info.objects[13] = {
 name = "cube",
 id = 513401,
 scene_type = "cube",
-physics_type = "dynamic",
 position = irr.core.vector3df:new_local(110.702744,4.560368,-296.791931),
 rotation = irr.core.vector3df:new_local(0.000000,0.000000,0.000000),
 scale = irr.core.vector3df:new_local(1.000000,1.000000,1.000000),
@@ -181,6 +224,13 @@ size = 3.000000,
 textures = {
 "resources/maps/mini_manhattan/default_cobe_texture.png",
 }, -- textures
+physics_data = {
+mass = 5.000000,
+size_z = 3.000000,
+physics_type = "cube",
+size_y = 3.000000,
+size_x = 3.000000,
+}, -- physics_data
 logic_data = "",
 } -- map_info.objects[13]
 map_info.objects[14] = {
@@ -193,4 +243,24 @@ scale = irr.core.vector3df:new_local(1.000000,1.000000,1.000000),
 team = 2,
 logic_data = "",
 } -- map_info.objects[14]
+map_info.objects[15] = {
+name = "spawn point B2",
+id = 916195,
+scene_type = "spawn_point",
+position = irr.core.vector3df:new_local(-115.467239,1.244282,385.032013),
+rotation = irr.core.vector3df:new_local(0.000000,-92.000000,0.000000),
+scale = irr.core.vector3df:new_local(1.000000,1.000000,1.000000),
+team = 2,
+logic_data = "",
+} -- map_info.objects[15]
+map_info.objects[16] = {
+name = "spawn point B3",
+id = 635712,
+scene_type = "spawn_point",
+position = irr.core.vector3df:new_local(44.758827,1.244282,385.032013),
+rotation = irr.core.vector3df:new_local(0.000000,-92.000000,0.000000),
+scale = irr.core.vector3df:new_local(1.000000,1.000000,1.000000),
+team = 2,
+logic_data = "",
+} -- map_info.objects[16]
 return map_info

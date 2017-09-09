@@ -24,4 +24,5 @@ function SceneLoaderGeneric(map_info)
 	-- body
 	-- initialize sfx
 	NeoGraphics:getInstance():getSfxManager():Init()
+	coroutine.yield(100)
 end

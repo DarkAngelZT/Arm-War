@@ -8,4 +8,7 @@ public:
 	void RegisterTrigger(NeoTrigger* newTrigger);
 	void RemoveTrigger(NeoTrigger* trigger);
 	void ResetAllTriggers();
+
+	void AddLuaUpdateFunction(std::string funcName);
+	void removeLuaUpdateFunction(std::string funcName);
 };

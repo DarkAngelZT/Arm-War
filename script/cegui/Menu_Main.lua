@@ -13,7 +13,7 @@ end
 -----------------------------------------
 function main_menu.btn_callback( args )
 	local btnName=CEGUI.toWindowEventArgs(args).window:getName()
-	if btnName == "Single Player" then
+	if btnName == "SinglePlayer" then
 		--test game here
 		return
 	elseif btnName == "MapEditor" then
@@ -37,6 +37,7 @@ local root = winMgr:loadLayoutFromFile("mainMenu.layout")
 g_ui_table["main"]=root
 
 -- subscribe required events
+root:getChild("mainwindow/SinglePlayer"):subscribeEvent("Clicked","main_menu.btn_callback")
 root:getChild("mainwindow/MapEditor"):subscribeEvent("Clicked","main_menu.btn_callback")
 root:getChild("mainwindow/Settings"):subscribeEvent("Clicked","main_menu.btn_callback")
 -- root:getChild("mainwindow/Factory"):subscribeEvent("Clicked","main_menu.btn_callback")

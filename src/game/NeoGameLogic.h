@@ -32,6 +32,9 @@ public:
 	void RemoveAllLongTermTriggers();
 	void RemoveTrigger(NeoTrigger* trigger);
 	void ResetAllTriggers();
+
+	void AddLuaUpdateFunction(std::string funcName);
+	void removeLuaUpdateFunction(std::string funcName);
 	//--------------//
 private:
 	NeoGameLogic();
@@ -39,6 +42,7 @@ private:
 	static NeoGameLogic*_instance;
 	std::set<NeoTrigger*>list_triggers;
 	std::map<int,std::string>list_longterm_triggers;
+	std::set<std::string>lua_update_functions;
 };
 
 #endif /* SRC_GAME_NEOGAMELOGIC_H_ */
