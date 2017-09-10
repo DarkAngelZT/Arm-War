@@ -14,7 +14,7 @@ NeoScene::NeoScene()
 	go_id_counter = 0;
 }
 
-NeoScene* NeoScene::GetInstance()
+NeoScene* NeoScene::getInstance()
 {
 	if (_instance == NULL)
 	{

@@ -11,7 +11,7 @@ public:
 	void setMaxMotorImpulse(float maxMotorImpulse);
 	void setMotorTarget(float targetAngle, float dt);
 	void setLimit(float low,float high,float _softness = 0.9f, float _biasFactor = 0.3f, float _relaxationFactor = 1.0f);
-	void setAxis(const irr::core::vector3df& axisInA);
+	void setAxis(const irr::core::vector3d<float>& axisInA);
 	bool hasLimit();
 	float getHingeAngle();
 	bool getAngularOnly();

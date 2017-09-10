@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="loadingRoot" >
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Window type="GlossySerpent/StaticImage" name="bg" >
+            <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="FrameEnabled" value="false" />
+            <Property name="BackgroundEnabled" value="false" />
+        </Window>
+        <Window type="GlossySerpent/ProgressBar" name="ProgressBar" >
+            <Property name="Area" value="{{0,0},{0,-60},{0,500},{0,-20}}" />
+            <Property name="StepSize" value="0.01" />
+            <Property name="VerticalAlignment" value="Bottom" />
+            <Property name="HorizontalAlignment" value="Centre" />
+        </Window>
+        <Window type="GlossySerpent/StaticText" name="percentText" >
+            <Property name="Area" value="{{0,0},{0,-102},{0,100},{0,-60}}" />
+            <Property name="Text" value="loading..." />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="FrameEnabled" value="true" />
+            <Property name="HorzFormatting" value="WordWrapCentreAligned" />
+            <Property name="BackgroundEnabled" value="true" />
+            <Property name="VerticalAlignment" value="Bottom" />
+            <Property name="HorizontalAlignment" value="Centre" />
+            <AutoWindow namePath="__auto_vscrollbar__" >
+                <Property name="VerticalScrollbar" value="true" />
+            </AutoWindow>
+        </Window>
+    </Window>
+</GUILayout>

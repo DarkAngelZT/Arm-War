@@ -11,6 +11,7 @@ map_editor.physics_wnd={
 		cone={radius=1,height=1,align="Y",mass=1},
 		convexHull={mass=1},
 		cylinder={size_x=1,size_y=1,size_z=1,align="Y",mass=1},
+		capsule={radius=1,height=1,mass=1},
 		static={},
 		kinematic={},
 		none={}

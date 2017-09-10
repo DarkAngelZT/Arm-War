@@ -142,7 +142,7 @@ void GameObject::RemoveChild(GameObject* child)
 
 void GameObject::DestoryChild(GameObject* child)
 {
-	NeoScene::GetInstance()->DestroyGameObject(child, true);
+	NeoScene::getInstance()->DestroyGameObject(child, true);
 	RemoveChild(child);
 }
 
@@ -179,7 +179,7 @@ void GameObject::DestroyChidren()
 	for (std::set<GameObject*>::iterator iter = list_chidren.begin();
 			iter != list_chidren.end(); iter++)
 	{
-		NeoScene::GetInstance()->DestroyGameObject(*iter, true);
+		NeoScene::getInstance()->DestroyGameObject(*iter, true);
 	}
 }
 
@@ -239,7 +239,7 @@ const RigidBody* GameObject::getRigidBody() const
 
 RigidBody* GameObject::AddRigidBody(int collisionShape, float mass)
 {
-	if (collisionShape == -1 || m_sceneNode)
+	if (collisionShape == -1 || !m_sceneNode)
 		return NULL;
 	matrix4 mat = m_sceneNode->getAbsoluteTransformation();
 	vector3df pos = mat.getTranslation();

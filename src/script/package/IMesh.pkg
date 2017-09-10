@@ -16,7 +16,7 @@ namespace scene
 
 		//! Set user-defined axis aligned bounding box
 		/** \param box New bounding box to use for the mesh. */
-		virtual void setBoundingBox( const irr::core::aabbox3df& box);
+		virtual void setBoundingBox( const irr::core::aabbox3d<f32>& box);
 
 		//! Sets a flag of all contained materials to a new value.
 		/** \param flag: Flag to set in all materials.

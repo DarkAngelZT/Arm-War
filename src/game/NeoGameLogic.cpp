@@ -112,7 +112,7 @@ NeoGameLogic::~NeoGameLogic()
 	NeoGraphics::getInstance()->getDevice()->setEventReceiver(NULL);
 }
 
-NeoGameLogic* NeoGameLogic::GetInstance()
+NeoGameLogic* NeoGameLogic::getInstance()
 {
 	if (_instance == NULL)
 	{

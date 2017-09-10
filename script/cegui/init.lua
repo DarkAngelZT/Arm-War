@@ -6,6 +6,7 @@ g_ui_table.switchto = function(arg)
 	if g_ui_table[arg]~=nil then
 		CEGUI.System:getSingleton():getDefaultGUIContext():setRootWindow(g_ui_table[arg])
 		g_ui_table[arg]:activate()
+		g_ui_table.current=g_ui_table[arg]
 	end
 end
 -----------------------------------------
@@ -29,8 +30,8 @@ dofile(DIR_SCRIPT.."game/core.lua")
 dofile(DIR_SCRIPT_CEGUI.."Menu_Main.lua")
 dofile(DIR_SCRIPT_CEGUI.."Menu_Option.lua")
 dofile(DIR_SCRIPT_CEGUI.."MapEditor.lua")
+dofile(DIR_SCRIPT_CEGUI.."LoadingScreen.lua")
 -- dofile(DIR_SCRIPT_CEGUI.."TankEditor.lua")
 
 -- set the layout as the root
-guiSystem:getDefaultGUIContext():setRootWindow(g_ui_table.main)
-g_ui_table.main:activate()
+g_ui_table.switchto("main")

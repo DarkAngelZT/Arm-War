@@ -2,57 +2,65 @@ Scene={}
 Scene.entities={}
 Scene.load=SceneLoaderGeneric
 Scene.loading_percent=0
+Scene.light_type_list={
+	point=irr.video.ELT_POINT,
+	spot=irr.video.ELT_SPOT,
+	directional=irr.video.ELT_DIRECTIONAL
+}
 Scene.entityMap={
 	common=CommonObjectEntity
+}
+Scene.spawn_points={
+	--[team number]={{points},...}
 }
 
 Scene.nodeLoader={
 	mesh_static=function( info )
 		local mesh=NeoGraphics:getInstance():getMesh(info.mesh_path)
 		local node=NeoGraphics:getInstance():AddMeshSceneNode(mesh)
-		node:setPosition(position)
-		node:setRotation(rotation)
-		node:setScale(scale)
+		node:setPosition(info.position)
+		node:setRotation(info.rotation)
+		node:setScale(info.scale)
 		node:updateAbsolutePosition()
-		return node
+		return node,mesh
 	end,
 	mesh_animated=function( info )
 		local mesh=NeoGraphics:getInstance():getMesh(info.mesh_path)
 		local node=NeoGraphics:getInstance():AddOctreeSceneNode(mesh)
-		node:setPosition(position)
-		node:setRotation(rotation)
-		node:setScale(scale)
+		node:setPosition(info.position)
+		node:setRotation(info.rotation)
+		node:setScale(info.scale)
 		node:updateAbsolutePosition()
-		return node
+		return node,mesh
 	end,
 	billboard=function( info )
 		
 	end,
 	light=function( info )
 		local node=NeoGraphics:getInstance():AddLightSceneNode()
-		node:setPosition(position)
-		node:setRotation(rotation)
-		node:setScale(scale)
-		node:setRadius(obj.radius)
+		node:setPosition(info.position)
+		node:setRotation(info.rotation)
+		node:setScale(info.scale)
+		node:setRadius(info.radius)
 		node:getLightData().AmbientColor=irr.video.SColorf:new_local(info.ambient_color)
 		node:getLightData().DiffuseColor=irr.video.SColorf:new_local(info.diffuse_color)
-		node:getLightData().SpecularColor=irr.video.SColorf:new_local(obj.specular_color)
+		node:getLightData().SpecularColor=irr.video.SColorf:new_local(info.specular_color)
 		node:getLightData().Falloff=info.falloff
 		node:getLightData().Attenuation=info.attenuation
-		node:enableCastShadow(obj.cast_shadow)
+		node:enableCastShadow(info.cast_shadow)
 		node:getLightData().InnerCone=info.innerCone
 		node:getLightData().OuterCone=info.outerCone
-		node:setLightType(info.light_type)
+		node:setLightType(Scene.light_type_list[info.light_type])
 		return node
 	end,
 	octree=function( info )
 		local mesh=NeoGraphics:getInstance():getMesh(info.mesh_path)
-		local node=NeoGraphics:getInstance():AddAnimatedMeshSceneNode(mesh)
-		node:setPosition(position)
-		node:setRotation(rotation)
-		node:setScale(scale)
+		local node=NeoGraphics:getInstance():AddOctreeSceneNode(mesh)
+		node:setPosition(info.position)
+		node:setRotation(info.rotation)
+		node:setScale(info.scale)
 		node:updateAbsolutePosition()
-		return node, info.animation
+		return node, mesh
 	end,
 	event_point=function( info )
 		
@@ -70,9 +78,9 @@ Scene.nodeLoader={
 		if texture then
 			node:setMaterialTexture(0,texture)
 		end
-		node:setPosition(position)
-		node:setRotation(rotation)
-		node:setScale(scale)
+		node:setPosition(info.position)
+		node:setRotation(info.rotation)
+		node:setScale(info.scale)
 		node:updateAbsolutePosition()
 		return node
 	end,
@@ -86,9 +94,9 @@ Scene.nodeLoader={
 		if texture then
 			node:setMaterialTexture(0,texture)
 		end
-		node:setPosition(position)
-		node:setRotation(rotation)
-		node:setScale(scale)
+		node:setPosition(info.position)
+		node:setRotation(info.rotation)
+		node:setScale(info.scale)
 		node:updateAbsolutePosition()
 		return node
 	end,
@@ -96,20 +104,60 @@ Scene.nodeLoader={
 	-- camera=, -- not available yet
 }
 
-Scene.physicsLoader={
+Scene.collisionShapeLoader={
 	convexHull=function( data )
-
+		if data.mesh then
+			local physics=NeoPhysics:getInstance()
+			local scale = data.scale or irr.core.vector3df:new_local(1,1,1)
+			local shape_index=physics:CreateConvexHullShape(data.mesh,scale)
+			return shape_index
+		end
+		return nil
 	end,
 	cube=function( data )
+		local physics=NeoPhysics:getInstance()
+		local scale = data.scale or irr.core.vector3df:new_local(1,1,1)
+		local shape_index=physics:CreateBoxShape(
+			irr.core.vector3df:new_local(data.size_x,data.size_y,data.size_z),scale)
+		return shape_index
 	end,
 	sphere=function( data )
+		local physics=NeoPhysics:getInstance()
+		local scale = data.scale or irr.core.vector3df:new_local(1,1,1)
+		local shape_index=physics:CreateSphereShape(data.radius,scale)
+		return shape_index
 	end,
 	cone=function( data )
+		local physics=NeoPhysics:getInstance()
+		local align = data.align or "Y"
+		local scale = data.scale or irr.core.vector3df:new_local(1,1,1)
+		local shape_index=physics:CreateConeShape(data.radius,data.height,align,scale)
+		return shape_index
 	end,
 	cylinder=function( data )
+		local physics=NeoPhysics:getInstance()
+		local align = data.align or "Y"
+		local scale = data.scale or irr.core.vector3df:new_local(1,1,1)
+		local shape_index=physics:CreateCylinderShape(
+			irr.core.vector3df:new_local(data.size_x,data.size_y,data.size_z),align,scale)
+		return shape_index
+	end,
+	capsule=function( data )
+		local physics=NeoPhysics:getInstance()
+		local align = data.align or "Y"
+		local scale = data.scale or irr.core.vector3df:new_local(1,1,1)
+		local shape_index=physics:CreateCapsuleShape(data.radius,data.height,align,scale)
+		return shape_index
 	end,
 	static=function( data )
 	--load bvh octree collision shape
+		if data.mesh then
+			local physics=NeoPhysics:getInstance()
+			local scale = data.scale or irr.core.vector3df:new_local(1,1,1)
+			local shape_index=physics:CreateBvhTriangleShape(data.mesh,scale)
+			return shape_index
+		end
+		return nil
 	end,
 	kinematic=function()
 	end
@@ -129,16 +177,31 @@ function Scene.LoadEntity( data )
 end
 
 function Scene.Clear()
-	-- body
+	Scene.spawn_points={}
 end
 
 function Scene.Update()
 	if(Scene.loading_controller) then
 		if(Scene.loading_percent==100) then
 			Scene.loading_controller=nil
+			g_ui_table.current:hide()
 		else
-			Scene.loading_percent=coroutine.resume(Scene.loading_controller)
+			local state
+			if Scene.loading_percent<0 then
+				--初始化加载
+				state,Scene.loading_percent=
+					coroutine.resume(Scene.loading_controller,Scene.map_info)
+			else 
+				state,Scene.loading_percent=coroutine.resume(Scene.loading_controller)
+			end
+			if(not state)then
+				print("Error while loading map: "..Scene.loading_percent)
+				--载入出错处理
+				return
+			end
 			--update ui progress bar
+			LoadingScreen.setProgressPercent(Scene.loading_percent)
+			LoadingScreen.setMessage("loading..."..Scene.loading_percent.."%")
 			return
 		end
 	end
@@ -147,10 +210,29 @@ end
 function Scene.Init(map_path)
 	NeoGameLogic:getInstance():AddLuaUpdateFunction("Scene.Update")
 	Scene.loading_controller=coroutine.create(Scene.load)
-	Scene.loading_percent=coroutine.resume(Scene.loading_controller,map_path)
+	Scene.loading_percent=-1
+	Scene.map_info= assert(dofile(map_path))
+	-- Scene.load(Scene.map_info)
 end
 
 function Scene.drop()
 	Scene.Clear()
 	NeoGameLogic:getInstance():removeLuaUpdateFunction("Scene.Update")
+end
+
+Scene.DisablePhysicsSimulation=function( )
+	NeoPhysics:getInstance():setTimescale(0)
+end
+
+function Scene.EnablePhysicsSimulation( )
+	NeoPhysics:getInstance():setTimescale(1)
+end
+
+function Scene.addSpawnPoint( data )
+	if not Scene.spawn_points[data.team] then
+		 Scene.spawn_points[data.team]={}
+	end
+	local point = {}
+	point.position=irr.core.vector3df:new_local(data.position)
+	table.insert(Scene.spawn_points[data.team],point)
 end

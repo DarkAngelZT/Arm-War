@@ -31,12 +31,12 @@ namespace scene
 		getAbsoluteTransformation() or simply use
 		getTransformedBoundingBox(), which does the same.
 		\return The non-transformed bounding box. */
-		virtual const irr::core::aabbox3df& getBoundingBox() const;
+		virtual const irr::core::aabbox3d<f32>& getBoundingBox() const;
 
 
 		//! Get the axis aligned, transformed and animated absolute bounding box of this node.
 		/** \return The transformed bounding box. */
-		virtual const irr::core::aabbox3df getTransformedBoundingBox() const;
+		virtual const irr::core::aabbox3d<f32> getTransformedBoundingBox() const;
 
 
 		//! Get the absolute transformation of the node. Is recalculated every OnAnimate()-call.

@@ -161,7 +161,7 @@ public:
 	 that you'll have to drop() the returned pointer, after you don't need
 	 it any more, see IReferenceCounted::drop() for more informations. */
 	virtual irr::scene::IParticleBoxEmitter* createBoxEmitter(
-			const irr::core::aabbox3df& box = irr::core::aabbox3df(-10, 28, -10,
+			const irr::core::aabbox3d<f32>& box = irr::core::aabbox3d<f32>(-10, 28, -10,
 					10, 30, 10), const irr::core::vector3d<float>& direction =
 					irr::core::vector3d<float>(0.0f, 0.03f, 0.0f),
 			unsigned minParticlesPerSecond = 5, unsigned maxParticlesPerSecond =

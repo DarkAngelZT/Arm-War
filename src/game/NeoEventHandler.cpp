@@ -29,7 +29,7 @@ bool NeoEventHandler::OnEvent(const irr::SEvent& event)
 	{
 		char in_key[4];
 		sprintf(in_key, "%d", static_cast<int>(event.KeyInput.Key));
-		NeoGameLogic::GetInstance()->TriggerEvent(0, 2, in_key,
+		NeoGameLogic::getInstance()->TriggerEvent(0, 2, in_key,
 				event.KeyInput.PressedDown ? "1" : "0");
 		break;
 	}
@@ -74,7 +74,7 @@ bool NeoEventHandler::OnEvent(const irr::SEvent& event)
 			wheel = true;
 			char in_val[4];
 			sprintf(in_val, "%.0f", static_cast<float>(event.MouseInput.Wheel));
-			NeoGameLogic::GetInstance()->TriggerEvent(1, 2, "W", in_val);
+			NeoGameLogic::getInstance()->TriggerEvent(1, 2, "W", in_val);
 			break;
 		}
 		default:
@@ -83,7 +83,7 @@ bool NeoEventHandler::OnEvent(const irr::SEvent& event)
 		}
 		if (getEvent && !wheel)
 		{
-			NeoGameLogic::GetInstance()->TriggerEvent(1, 2, button,
+			NeoGameLogic::getInstance()->TriggerEvent(1, 2, button,
 					pressdown ? "1" : "0");
 		}
 		break;

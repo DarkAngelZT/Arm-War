@@ -255,9 +255,9 @@ namespace core
 			*/
 			//! Set to a texture transformation matrix with the given parameters.
 			CMatrix4<T>& buildTextureTransform( float rotateRad,
-					const irr::core::vector2df &rotatecenter,
-					const irr::core::vector2df &translate,
-					const irr::core::vector2df &scale);
+					const irr::core::vector2d<float> &rotatecenter,
+					const irr::core::vector2d<float> &translate,
+					const irr::core::vector2d<float> &scale);
 
 			//! Set texture transformation rotation
 			/** Rotate about z axis, recenter at (0.5,0.5).

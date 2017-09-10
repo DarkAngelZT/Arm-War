@@ -58,7 +58,7 @@ void BasicExplosionPhysics::BasicExplosionCallback(int triggerIndex,
 				luaValues.push_back(std::to_string(range));
 				luaValues.insert(luaValues.begin() + 2,
 						params.aScriptValus.begin(), params.aScriptValus.end());
-				NeoGameLogic::GetInstance()->TriggerEvent(params.nEventID,
+				NeoGameLogic::getInstance()->TriggerEvent(params.nEventID,
 						luaValues);
 				//apply physics force
 				shared_ptr<btRigidBody> rbody = go->getRigidBody()->getBtRigidBody();

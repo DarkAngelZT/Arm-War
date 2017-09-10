@@ -26,7 +26,7 @@ Application::Application()
 			LuaScriptModule::create(NeoScript::getInstance()->getLuaState()));
 	System::getSingleton().setScriptingModule(&scrptmod);
 
-	NeoGameLogic::GetInstance()->Init();
+	NeoGameLogic::getInstance()->Init();
 	System::getSingleton().executeScriptFile("init.lua");
 
 }
@@ -48,7 +48,7 @@ void Application::MainLoop()
 	{
 		NeoGraphics::getInstance()->Update();
 		NeoPhysics::getInstance()->Update(1.0/NeoGraphics::getInstance()->getFps());
-		NeoGameLogic::GetInstance()->Update();
+		NeoGameLogic::getInstance()->Update();
 	}
 }
 

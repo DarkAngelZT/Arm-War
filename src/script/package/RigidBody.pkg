@@ -4,9 +4,9 @@ public:
 	//general interface
 	void applyGravity();
 
-	void setGravity(irr::core::vector3df& acceleration);
+	void setGravity(irr::core::vector3d<float>& acceleration);
 
-	irr::core::vector3df getGravity() const;
+	irr::core::vector3d<float> getGravity() const;
 
 	void setDamping(float lin_damping, float ang_damping);
 
@@ -20,74 +20,74 @@ public:
 
 	void applyDamping(float timeStep);
 
-	void setMassProps(float mass, irr::core::vector3df& inertia);
+	void setMassProps(float mass, irr::core::vector3d<float>& inertia);
 
-	const irr::core::vector3df getLinearFactor() const;
-	void setLinearFactor(irr::core::vector3df& linearFactor);
+	const irr::core::vector3d<float> getLinearFactor() const;
+	void setLinearFactor(irr::core::vector3d<float>& linearFactor);
 	float getInvMass() const;
 
 	void integrateVelocities(float step);
 
 	void setCenterOfMassTransform(irr::core::matrix4& xform);
 
-	void applyCentralForce(irr::core::vector3df& force);
+	void applyCentralForce(irr::core::vector3d<float>& force);
 
-	const irr::core::vector3df getTotalForce() const;
+	const irr::core::vector3d<float> getTotalForce() const;
 
-	const irr::core::vector3df getTotalTorque() const;
+	const irr::core::vector3d<float> getTotalTorque() const;
 
-	const irr::core::vector3df getInvInertiaDiagLocal() const;
+	const irr::core::vector3d<float> getInvInertiaDiagLocal() const;
 
-	void setInvInertiaDiagLocal(irr::core::vector3df& diagInvInertia);
+	void setInvInertiaDiagLocal(irr::core::vector3d<float>& diagInvInertia);
 
 	void setSleepingThresholds(float linear, float angular);
 
-	void applyTorque(irr::core::vector3df& torque);
+	void applyTorque(irr::core::vector3d<float>& torque);
 
-	void applyForce(irr::core::vector3df& force, irr::core::vector3df& rel_pos);
+	void applyForce(irr::core::vector3d<float>& force, irr::core::vector3d<float>& rel_pos);
 
-	void applyCentralImpulse(irr::core::vector3df& impulse);
+	void applyCentralImpulse(irr::core::vector3d<float>& impulse);
 
-	void applyTorqueImpulse(irr::core::vector3df& torque);
+	void applyTorqueImpulse(irr::core::vector3d<float>& torque);
 
-	void applyImpulse(irr::core::vector3df& impulse,
-			irr::core::vector3df& rel_pos);
+	void applyImpulse(irr::core::vector3d<float>& impulse,
+			irr::core::vector3d<float>& rel_pos);
 
 	void clearForces();
 
 	void updateInertiaTensor();
 
-	const irr::core::vector3df getCenterOfMassPosition() const;
+	const irr::core::vector3d<float> getCenterOfMassPosition() const;
 	irr::core::quaternion getOrientation() const;
 
 	irr::core::matrix4 getCenterOfMassTransform() const;
-	irr::core::vector3df getLinearVelocity() const;
-	irr::core::vector3df getAngularVelocity() const;
+	irr::core::vector3d<float> getLinearVelocity() const;
+	irr::core::vector3d<float> getAngularVelocity() const;
 
-	void setLinearVelocity(irr::core::vector3df& lin_vel);
+	void setLinearVelocity(irr::core::vector3d<float>& lin_vel);
 
-	void setAngularVelocity(irr::core::vector3df& ang_vel);
+	void setAngularVelocity(irr::core::vector3d<float>& ang_vel);
 
-	irr::core::vector3df getVelocityInLocalPoint(
-			irr::core::vector3df& rel_pos) const;
+	irr::core::vector3d<float> getVelocityInLocalPoint(
+			irr::core::vector3d<float>& rel_pos) const;
 
-	void translate(irr::core::vector3df& v);
+	void translate(irr::core::vector3d<float>& v);
 
-	void getAabb(irr::core::vector3df& aabbMin,
-			irr::core::vector3df& aabbMax) const;
+	void getAabb(irr::core::vector3d<float>& aabbMin,
+			irr::core::vector3d<float>& aabbMax) const;
 
-	float computeImpulseDenominator(irr::core::vector3df& pos,
-			irr::core::vector3df& normal) const;
+	float computeImpulseDenominator(irr::core::vector3d<float>& pos,
+			irr::core::vector3d<float>& normal) const;
 
-	float computeAngularImpulseDenominator(irr::core::vector3df& axis) const;
+	float computeAngularImpulseDenominator(irr::core::vector3d<float>& axis) const;
 
 	void updateDeactivation(float timeStep);
 
-	void setAngularFactor(irr::core::vector3df& angFac);
+	void setAngularFactor(irr::core::vector3d<float>& angFac);
 
 	void setAngularFactor(float angFac);
 
-	irr::core::vector3df getAngularFactor() const;
-	void setPosition(irr::core::vector3df position);
-	void setRotation(irr::core::vector3df rotation);
+	irr::core::vector3d<float> getAngularFactor() const;
+	void setPosition(irr::core::vector3d<float> position);
+	void setRotation(irr::core::vector3d<float> rotation);
 };

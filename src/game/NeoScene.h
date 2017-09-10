@@ -17,7 +17,7 @@ class NeoData;
 class NeoScene
 {
 public:
-	static NeoScene*GetInstance();
+	static NeoScene*getInstance();
 	static void Destroy();
 	void Clean();
 	GameObject*CreateGameObject();

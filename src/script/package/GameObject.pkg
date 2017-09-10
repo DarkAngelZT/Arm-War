@@ -32,8 +32,8 @@ public:
 	const RigidBody* getRigidBody() const;
 	RigidBody* AddRigidBody(int collisionShape, float mass);
 	RigidBody* AddRigidBody(int collisionShape, float mass,
-			const irr::core::vector3df& position,
-			const irr::core::vector3df& rotation);
+			const irr::core::vector3d<float>& position,
+			const irr::core::vector3d<float>& rotation);
 
 	std::string getLuaIdentifier() const;
 	void setLuaIdentifier(const std::string& luaIndentifier);

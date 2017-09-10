@@ -36,7 +36,7 @@ void NeoMotionState::getWorldTransform(btTransform& worldTrans) const
 	btTransform trans;
 	trans.setIdentity();
 	trans.setOrigin(btVector3(initialPos.X, initialPos.Y, initialPos.Z));
-	quaternion rot(initialRot*DEGTORAD);
+	quaternion rot(initialRot * DEGTORAD);
 	trans.setRotation(btQuaternion(rot.X, rot.Y, rot.Z, rot.W));
 	worldTrans = trans;
 }
@@ -67,8 +67,11 @@ const irr::scene::ISceneNode* NeoMotionState::getNode() const
 void NeoMotionState::setNode(irr::scene::ISceneNode* node)
 {
 	this->node = node;
-	initialPos = node->getPosition();
-	initialRot = node->getRotation();
+	if (node)
+	{
+		initialPos = node->getPosition();
+		initialRot = node->getRotation();
+	}
 }
 
 const irr::core::vector3df& NeoMotionState::getInitialPos() const

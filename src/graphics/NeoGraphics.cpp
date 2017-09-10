@@ -150,7 +150,7 @@ void NeoGraphics::InitialiseResourceGroupDirectories()
 	rp->setResourceGroupDirectory("animations", resourcePath);
 	//以下代码是自己打的
 	//rp->setResourceGroupDirectory("topview","./sfx/UI/topViews/");
-	//rp->setResourceGroupDirectory("commonUIElement","./sfx/UI/");
+	rp->setResourceGroupDirectory("images","./resources/ui/images/");
 	//rp->setResourceGroupDirectory("overviewRoot","./maps/");
 }
 

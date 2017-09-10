@@ -1,6 +1,6 @@
 /*
 ** Lua binding: NeoGame
-** Generated automatically by tolua++-1.0.93 on Thu Sep  7 01:05:19 2017.
+** Generated automatically by tolua++-1.0.93 on Sun Sep 10 00:29:05 2017.
 */
 
 #ifndef __cplusplus
@@ -18,9 +18,9 @@ TOLUA_API int  tolua_NeoGame_open (lua_State* tolua_S);
 /* function to release collected object via destructor */
 #ifdef __cplusplus
 
-static int tolua_collect_irr__core__aabbox3df (lua_State* tolua_S)
+static int tolua_collect_irr__core__CMatrix4_float_ (lua_State* tolua_S)
 {
- irr::core::aabbox3df* self = (irr::core::aabbox3df*) tolua_tousertype(tolua_S,1,0);
+ irr::core::CMatrix4<float>* self = (irr::core::CMatrix4<float>*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -60,16 +60,9 @@ static int tolua_collect_irr__core__vector2d_int_ (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_irr__core__vector3df (lua_State* tolua_S)
+static int tolua_collect_irr__core__aabbox3d_f32_ (lua_State* tolua_S)
 {
- irr::core::vector3df* self = (irr::core::vector3df*) tolua_tousertype(tolua_S,1,0);
-	Mtolua_delete(self);
-	return 0;
-}
-
-static int tolua_collect_irr__core__aabbox3d_float_ (lua_State* tolua_S)
-{
- irr::core::aabbox3d<float>* self = (irr::core::aabbox3d<float>*) tolua_tousertype(tolua_S,1,0);
+ irr::core::aabbox3d<f32>* self = (irr::core::aabbox3d<f32>*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -109,9 +102,9 @@ static int tolua_collect_irr__video__SColorHSL (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_irr__core__CMatrix4_float_ (lua_State* tolua_S)
+static int tolua_collect_irr__core__aabbox3d_float_ (lua_State* tolua_S)
 {
- irr::core::CMatrix4<float>* self = (irr::core::CMatrix4<float>*) tolua_tousertype(tolua_S,1,0);
+ irr::core::aabbox3d<float>* self = (irr::core::aabbox3d<float>*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -191,15 +184,14 @@ static int tolua_collect_BasicExplosionParams (lua_State* tolua_S)
 /* function to register type */
 static void tolua_reg_types (lua_State* tolua_S)
 {
- tolua_usertype(tolua_S,"irr::core::aabbox3df");
  tolua_usertype(tolua_S,"irr::scene::IDummyTransformationSceneNode");
  tolua_usertype(tolua_S,"irr::SKeyMap");
  tolua_usertype(tolua_S,"irr::core::matrix4");
  tolua_usertype(tolua_S,"irr::scene::IAnimatedMesh");
- tolua_usertype(tolua_S,"irr::core::vector3df");
+ tolua_usertype(tolua_S,"Component");
  tolua_usertype(tolua_S,"irr::core::aabbox3d<float>");
  tolua_usertype(tolua_S,"irr::core::quaternion");
- tolua_usertype(tolua_S,"irr::video::ITexture");
+ tolua_usertype(tolua_S,"irr::scene::IParticleRotationAffector");
  tolua_usertype(tolua_S,"irr::scene::IParticleCylinderEmitter");
  tolua_usertype(tolua_S,"std::vector<std::string>");
  tolua_usertype(tolua_S,"irr::core::vector2d<float>");
@@ -221,7 +213,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"RigidBody");
  tolua_usertype(tolua_S,"irr::scene::IShadowVolumeSceneNode");
  tolua_usertype(tolua_S,"std::vector<int>");
- tolua_usertype(tolua_S,"irr::scene::IAnimatedMeshSceneNode");
+ tolua_usertype(tolua_S,"irr::scene::IParticleSphereEmitter");
  tolua_usertype(tolua_S,"irr::video::SColor");
  tolua_usertype(tolua_S,"NeoEditor");
  tolua_usertype(tolua_S,"irr::scene::ISceneNode");
@@ -235,32 +227,30 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"NeoScene");
  tolua_usertype(tolua_S,"irr::scene::IParticleSystemSceneNode");
  tolua_usertype(tolua_S,"irr::scene::IMeshSceneNode");
- tolua_usertype(tolua_S,"Explosion");
- tolua_usertype(tolua_S,"BasicExplosionEffectParams");
  tolua_usertype(tolua_S,"irr::core::vector2d<unsigned>");
- tolua_usertype(tolua_S,"irr::scene::IParticleGravityAffector");
+ tolua_usertype(tolua_S,"Explosion");
  tolua_usertype(tolua_S,"irr::scene::IParticleFadeOutAffector");
- tolua_usertype(tolua_S,"irr::io::IAttributeExchangingObject");
+ tolua_usertype(tolua_S,"BasicExplosionEffectParams");
  tolua_usertype(tolua_S,"irr::core::aabbox3d<int>");
  tolua_usertype(tolua_S,"irr::core::dimension2d<float>");
- tolua_usertype(tolua_S,"irr::core::dimension2d<unsigned>");
- tolua_usertype(tolua_S,"NeoPhysics");
- tolua_usertype(tolua_S,"irr::scene::IMesh");
+ tolua_usertype(tolua_S,"irr::scene::IParticleGravityAffector");
+ tolua_usertype(tolua_S,"irr::io::IAttributeExchangingObject");
+ tolua_usertype(tolua_S,"irr::scene::ICameraSceneNode");
  tolua_usertype(tolua_S,"std::vector<float>");
- tolua_usertype(tolua_S,"NeoGraphics");
- tolua_usertype(tolua_S,"GameObject");
- tolua_usertype(tolua_S,"irr::core::vector2df");
+ tolua_usertype(tolua_S,"irr::core::dimension2d<unsigned>");
+ tolua_usertype(tolua_S,"irr::video::ITexture");
+ tolua_usertype(tolua_S,"NeoPhysics");
  tolua_usertype(tolua_S,"irr::video::SColorHSL");
- tolua_usertype(tolua_S,"NeoEvent");
+ tolua_usertype(tolua_S,"NeoGraphics");
  tolua_usertype(tolua_S,"irr::scene::ILightSceneNode");
- tolua_usertype(tolua_S,"Component");
+ tolua_usertype(tolua_S,"GameObject");
+ tolua_usertype(tolua_S,"NeoEvent");
  tolua_usertype(tolua_S,"irr::core::vector3d<float>");
- tolua_usertype(tolua_S,"irr::scene::IParticleRotationAffector");
  tolua_usertype(tolua_S,"irr::scene::IParticleAffector");
  tolua_usertype(tolua_S,"irr::scene::IParticleMeshEmitter");
- tolua_usertype(tolua_S,"irr::scene::ICameraSceneNode");
+ tolua_usertype(tolua_S,"irr::scene::IMesh");
  tolua_usertype(tolua_S,"irr::video::SColorf");
- tolua_usertype(tolua_S,"irr::scene::IParticleSphereEmitter");
+ tolua_usertype(tolua_S,"irr::scene::IAnimatedMeshSceneNode");
  tolua_usertype(tolua_S,"NeoGameLogic");
 }
 
@@ -7365,7 +7355,7 @@ static int tolua_NeoGame_irr_scene_IMesh_setBoundingBox00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"irr::scene::IMesh",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::aabbox3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::aabbox3d<f32>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -7373,7 +7363,7 @@ static int tolua_NeoGame_irr_scene_IMesh_setBoundingBox00(lua_State* tolua_S)
 #endif
  {
   irr::scene::IMesh* self = (irr::scene::IMesh*)  tolua_tousertype(tolua_S,1,0);
-  const irr::core::aabbox3df* box = ((const irr::core::aabbox3df*)  tolua_tousertype(tolua_S,2,0));
+  const irr::core::aabbox3d<f32>* box = ((const irr::core::aabbox3d<f32>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setBoundingBox'", NULL);
 #endif
@@ -8349,7 +8339,7 @@ static int tolua_NeoGame_irr_scene_IParticleBoxEmitter_setBox00(lua_State* tolua
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"irr::scene::IParticleBoxEmitter",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::aabbox3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::aabbox3d<f32>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -8357,7 +8347,7 @@ static int tolua_NeoGame_irr_scene_IParticleBoxEmitter_setBox00(lua_State* tolua
 #endif
  {
   irr::scene::IParticleBoxEmitter* self = (irr::scene::IParticleBoxEmitter*)  tolua_tousertype(tolua_S,1,0);
-  const irr::core::aabbox3df* box = ((const irr::core::aabbox3df*)  tolua_tousertype(tolua_S,2,0));
+  const irr::core::aabbox3d<f32>* box = ((const irr::core::aabbox3d<f32>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setBox'", NULL);
 #endif
@@ -8393,8 +8383,8 @@ static int tolua_NeoGame_irr_scene_IParticleBoxEmitter_getBox00(lua_State* tolua
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getBox'", NULL);
 #endif
   {
-   const irr::core::aabbox3df& tolua_ret = (const irr::core::aabbox3df&)  self->getBox();
-    tolua_pushusertype(tolua_S,(void*)&tolua_ret,"const irr::core::aabbox3df");
+   const irr::core::aabbox3d<f32>& tolua_ret = (const irr::core::aabbox3d<f32>&)  self->getBox();
+    tolua_pushusertype(tolua_S,(void*)&tolua_ret,"const irr::core::aabbox3d<f32>");
   }
  }
  return 1;
@@ -11224,14 +11214,14 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createBoxEmitter01(l
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"irr::scene::IParticleSystemSceneNode",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::aabbox3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::aabbox3d<f32>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
  else
  {
   irr::scene::IParticleSystemSceneNode* self = (irr::scene::IParticleSystemSceneNode*)  tolua_tousertype(tolua_S,1,0);
-  const irr::core::aabbox3df* box = ((const irr::core::aabbox3df*)  tolua_tousertype(tolua_S,2,0));
+  const irr::core::aabbox3d<f32>* box = ((const irr::core::aabbox3d<f32>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'createBoxEmitter'", NULL);
 #endif
@@ -11253,7 +11243,7 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createBoxEmitter02(l
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"irr::scene::IParticleSystemSceneNode",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::aabbox3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::aabbox3d<f32>",0,&tolua_err)) ||
      (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnumber(tolua_S,4,1,&tolua_err) ||
      !tolua_isnumber(tolua_S,5,1,&tolua_err) ||
@@ -11263,7 +11253,7 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createBoxEmitter02(l
  else
  {
   irr::scene::IParticleSystemSceneNode* self = (irr::scene::IParticleSystemSceneNode*)  tolua_tousertype(tolua_S,1,0);
-  const irr::core::aabbox3df* box = ((const irr::core::aabbox3df*)  tolua_tousertype(tolua_S,2,0));
+  const irr::core::aabbox3d<f32>* box = ((const irr::core::aabbox3d<f32>*)  tolua_tousertype(tolua_S,2,0));
   const irr::core::vector3d<float>* direction = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,3,0));
   unsigned minParticlesPerSecond = ((unsigned)  tolua_tonumber(tolua_S,4,5));
   unsigned maxParticlesPerSecond = ((unsigned)  tolua_tonumber(tolua_S,5,10));
@@ -11288,7 +11278,7 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createBoxEmitter03(l
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"irr::scene::IParticleSystemSceneNode",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::aabbox3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::aabbox3d<f32>",0,&tolua_err)) ||
      (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
@@ -11299,7 +11289,7 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createBoxEmitter03(l
  else
  {
   irr::scene::IParticleSystemSceneNode* self = (irr::scene::IParticleSystemSceneNode*)  tolua_tousertype(tolua_S,1,0);
-  const irr::core::aabbox3df* box = ((const irr::core::aabbox3df*)  tolua_tousertype(tolua_S,2,0));
+  const irr::core::aabbox3d<f32>* box = ((const irr::core::aabbox3d<f32>*)  tolua_tousertype(tolua_S,2,0));
   const irr::core::vector3d<float>* direction = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,3,0));
   unsigned minParticlesPerSecond = ((unsigned)  tolua_tonumber(tolua_S,4,0));
   unsigned maxParticlesPerSecond = ((unsigned)  tolua_tonumber(tolua_S,5,0));
@@ -11325,7 +11315,7 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createBoxEmitter04(l
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"irr::scene::IParticleSystemSceneNode",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::aabbox3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::aabbox3d<f32>",0,&tolua_err)) ||
      (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
@@ -11340,7 +11330,7 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createBoxEmitter04(l
  else
  {
   irr::scene::IParticleSystemSceneNode* self = (irr::scene::IParticleSystemSceneNode*)  tolua_tousertype(tolua_S,1,0);
-  const irr::core::aabbox3df* box = ((const irr::core::aabbox3df*)  tolua_tousertype(tolua_S,2,0));
+  const irr::core::aabbox3d<f32>* box = ((const irr::core::aabbox3d<f32>*)  tolua_tousertype(tolua_S,2,0));
   const irr::core::vector3d<float>* direction = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,3,0));
   unsigned minParticlesPerSecond = ((unsigned)  tolua_tonumber(tolua_S,4,0));
   unsigned maxParticlesPerSecond = ((unsigned)  tolua_tonumber(tolua_S,5,0));
@@ -11370,7 +11360,7 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createBoxEmitter05(l
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"irr::scene::IParticleSystemSceneNode",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::aabbox3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::aabbox3d<f32>",0,&tolua_err)) ||
      (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
@@ -11386,7 +11376,7 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createBoxEmitter05(l
  else
  {
   irr::scene::IParticleSystemSceneNode* self = (irr::scene::IParticleSystemSceneNode*)  tolua_tousertype(tolua_S,1,0);
-  const irr::core::aabbox3df* box = ((const irr::core::aabbox3df*)  tolua_tousertype(tolua_S,2,0));
+  const irr::core::aabbox3d<f32>* box = ((const irr::core::aabbox3d<f32>*)  tolua_tousertype(tolua_S,2,0));
   const irr::core::vector3d<float>* direction = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,3,0));
   unsigned minParticlesPerSecond = ((unsigned)  tolua_tonumber(tolua_S,4,0));
   unsigned maxParticlesPerSecond = ((unsigned)  tolua_tonumber(tolua_S,5,0));
@@ -11417,7 +11407,7 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createBoxEmitter06(l
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"irr::scene::IParticleSystemSceneNode",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::aabbox3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::aabbox3d<f32>",0,&tolua_err)) ||
      (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
@@ -11434,7 +11424,7 @@ static int tolua_NeoGame_irr_scene_IParticleSystemSceneNode_createBoxEmitter06(l
  else
  {
   irr::scene::IParticleSystemSceneNode* self = (irr::scene::IParticleSystemSceneNode*)  tolua_tousertype(tolua_S,1,0);
-  const irr::core::aabbox3df* box = ((const irr::core::aabbox3df*)  tolua_tousertype(tolua_S,2,0));
+  const irr::core::aabbox3d<f32>* box = ((const irr::core::aabbox3d<f32>*)  tolua_tousertype(tolua_S,2,0));
   const irr::core::vector3d<float>* direction = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,3,0));
   unsigned minParticlesPerSecond = ((unsigned)  tolua_tonumber(tolua_S,4,0));
   unsigned maxParticlesPerSecond = ((unsigned)  tolua_tonumber(tolua_S,5,0));
@@ -13341,8 +13331,8 @@ static int tolua_NeoGame_irr_scene_ISceneNode_getBoundingBox00(lua_State* tolua_
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getBoundingBox'", NULL);
 #endif
   {
-   const irr::core::aabbox3df& tolua_ret = (const irr::core::aabbox3df&)  self->getBoundingBox();
-    tolua_pushusertype(tolua_S,(void*)&tolua_ret,"const irr::core::aabbox3df");
+   const irr::core::aabbox3d<f32>& tolua_ret = (const irr::core::aabbox3d<f32>&)  self->getBoundingBox();
+    tolua_pushusertype(tolua_S,(void*)&tolua_ret,"const irr::core::aabbox3d<f32>");
   }
  }
  return 1;
@@ -13373,15 +13363,15 @@ static int tolua_NeoGame_irr_scene_ISceneNode_getTransformedBoundingBox00(lua_St
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getTransformedBoundingBox'", NULL);
 #endif
   {
-   const irr::core::aabbox3df tolua_ret = (const irr::core::aabbox3df)  self->getTransformedBoundingBox();
+   const irr::core::aabbox3d<f32> tolua_ret = (const irr::core::aabbox3d<f32>)  self->getTransformedBoundingBox();
    {
 #ifdef __cplusplus
-    void* tolua_obj = Mtolua_new((irr::core::aabbox3df)(tolua_ret));
-     tolua_pushusertype(tolua_S,tolua_obj,"const irr::core::aabbox3df");
+    void* tolua_obj = Mtolua_new((irr::core::aabbox3d<f32>)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"const irr::core::aabbox3d<f32>");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
 #else
-    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(const irr::core::aabbox3df));
-     tolua_pushusertype(tolua_S,tolua_obj,"const irr::core::aabbox3df");
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(const irr::core::aabbox3d<f32>));
+     tolua_pushusertype(tolua_S,tolua_obj,"const irr::core::aabbox3d<f32>");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
 #endif
    }
@@ -17198,9 +17188,9 @@ static int tolua_NeoGame_irr_core_matrix4_buildTextureTransform00(lua_State* tol
  if (
      !tolua_isusertype(tolua_S,1,"irr::core::CMatrix4<float>",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const irr::core::vector2df",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"const irr::core::vector2df",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,5,&tolua_err) || !tolua_isusertype(tolua_S,5,"const irr::core::vector2df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const irr::core::vector2d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"const irr::core::vector2d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,5,&tolua_err) || !tolua_isusertype(tolua_S,5,"const irr::core::vector2d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,6,&tolua_err)
  )
   goto tolua_lerror;
@@ -17209,9 +17199,9 @@ static int tolua_NeoGame_irr_core_matrix4_buildTextureTransform00(lua_State* tol
  {
   irr::core::CMatrix4<float>* self = (irr::core::CMatrix4<float>*)  tolua_tousertype(tolua_S,1,0);
   float rotateRad = ((float)  tolua_tonumber(tolua_S,2,0));
-  const irr::core::vector2df* rotatecenter = ((const irr::core::vector2df*)  tolua_tousertype(tolua_S,3,0));
-  const irr::core::vector2df* translate = ((const irr::core::vector2df*)  tolua_tousertype(tolua_S,4,0));
-  const irr::core::vector2df* scale = ((const irr::core::vector2df*)  tolua_tousertype(tolua_S,5,0));
+  const irr::core::vector2d<float>* rotatecenter = ((const irr::core::vector2d<float>*)  tolua_tousertype(tolua_S,3,0));
+  const irr::core::vector2d<float>* translate = ((const irr::core::vector2d<float>*)  tolua_tousertype(tolua_S,4,0));
+  const irr::core::vector2d<float>* scale = ((const irr::core::vector2d<float>*)  tolua_tousertype(tolua_S,5,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'buildTextureTransform'", NULL);
 #endif
@@ -28003,7 +27993,7 @@ static int tolua_NeoGame_RigidBody_setGravity00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"RigidBody",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -28011,7 +28001,7 @@ static int tolua_NeoGame_RigidBody_setGravity00(lua_State* tolua_S)
 #endif
  {
   RigidBody* self = (RigidBody*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3df* acceleration = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3d<float>* acceleration = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setGravity'", NULL);
 #endif
@@ -28047,15 +28037,15 @@ static int tolua_NeoGame_RigidBody_getGravity00(lua_State* tolua_S)
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getGravity'", NULL);
 #endif
   {
-   irr::core::vector3df tolua_ret = (irr::core::vector3df)  self->getGravity();
+   irr::core::vector3d<float> tolua_ret = (irr::core::vector3d<float>)  self->getGravity();
    {
 #ifdef __cplusplus
-    void* tolua_obj = Mtolua_new((irr::core::vector3df)(tolua_ret));
-     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3df");
+    void* tolua_obj = Mtolua_new((irr::core::vector3d<float>)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3d<float>");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
 #else
-    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(irr::core::vector3df));
-     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3df");
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(irr::core::vector3d<float>));
+     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3d<float>");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
 #endif
    }
@@ -28275,7 +28265,7 @@ static int tolua_NeoGame_RigidBody_setMassProps00(lua_State* tolua_S)
  if (
      !tolua_isusertype(tolua_S,1,"RigidBody",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
@@ -28284,7 +28274,7 @@ static int tolua_NeoGame_RigidBody_setMassProps00(lua_State* tolua_S)
  {
   RigidBody* self = (RigidBody*)  tolua_tousertype(tolua_S,1,0);
   float mass = ((float)  tolua_tonumber(tolua_S,2,0));
-  irr::core::vector3df* inertia = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,3,0));
+  irr::core::vector3d<float>* inertia = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setMassProps'", NULL);
 #endif
@@ -28320,15 +28310,15 @@ static int tolua_NeoGame_RigidBody_getLinearFactor00(lua_State* tolua_S)
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getLinearFactor'", NULL);
 #endif
   {
-   const irr::core::vector3df tolua_ret = (const irr::core::vector3df)  self->getLinearFactor();
+   const irr::core::vector3d<float> tolua_ret = (const irr::core::vector3d<float>)  self->getLinearFactor();
    {
 #ifdef __cplusplus
-    void* tolua_obj = Mtolua_new((irr::core::vector3df)(tolua_ret));
-     tolua_pushusertype(tolua_S,tolua_obj,"const irr::core::vector3df");
+    void* tolua_obj = Mtolua_new((irr::core::vector3d<float>)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"const irr::core::vector3d<float>");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
 #else
-    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(const irr::core::vector3df));
-     tolua_pushusertype(tolua_S,tolua_obj,"const irr::core::vector3df");
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(const irr::core::vector3d<float>));
+     tolua_pushusertype(tolua_S,tolua_obj,"const irr::core::vector3d<float>");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
 #endif
    }
@@ -28351,7 +28341,7 @@ static int tolua_NeoGame_RigidBody_setLinearFactor00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"RigidBody",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -28359,7 +28349,7 @@ static int tolua_NeoGame_RigidBody_setLinearFactor00(lua_State* tolua_S)
 #endif
  {
   RigidBody* self = (RigidBody*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3df* linearFactor = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3d<float>* linearFactor = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setLinearFactor'", NULL);
 #endif
@@ -28482,7 +28472,7 @@ static int tolua_NeoGame_RigidBody_applyCentralForce00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"RigidBody",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -28490,7 +28480,7 @@ static int tolua_NeoGame_RigidBody_applyCentralForce00(lua_State* tolua_S)
 #endif
  {
   RigidBody* self = (RigidBody*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3df* force = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3d<float>* force = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'applyCentralForce'", NULL);
 #endif
@@ -28526,15 +28516,15 @@ static int tolua_NeoGame_RigidBody_getTotalForce00(lua_State* tolua_S)
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getTotalForce'", NULL);
 #endif
   {
-   const irr::core::vector3df tolua_ret = (const irr::core::vector3df)  self->getTotalForce();
+   const irr::core::vector3d<float> tolua_ret = (const irr::core::vector3d<float>)  self->getTotalForce();
    {
 #ifdef __cplusplus
-    void* tolua_obj = Mtolua_new((irr::core::vector3df)(tolua_ret));
-     tolua_pushusertype(tolua_S,tolua_obj,"const irr::core::vector3df");
+    void* tolua_obj = Mtolua_new((irr::core::vector3d<float>)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"const irr::core::vector3d<float>");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
 #else
-    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(const irr::core::vector3df));
-     tolua_pushusertype(tolua_S,tolua_obj,"const irr::core::vector3df");
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(const irr::core::vector3d<float>));
+     tolua_pushusertype(tolua_S,tolua_obj,"const irr::core::vector3d<float>");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
 #endif
    }
@@ -28568,15 +28558,15 @@ static int tolua_NeoGame_RigidBody_getTotalTorque00(lua_State* tolua_S)
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getTotalTorque'", NULL);
 #endif
   {
-   const irr::core::vector3df tolua_ret = (const irr::core::vector3df)  self->getTotalTorque();
+   const irr::core::vector3d<float> tolua_ret = (const irr::core::vector3d<float>)  self->getTotalTorque();
    {
 #ifdef __cplusplus
-    void* tolua_obj = Mtolua_new((irr::core::vector3df)(tolua_ret));
-     tolua_pushusertype(tolua_S,tolua_obj,"const irr::core::vector3df");
+    void* tolua_obj = Mtolua_new((irr::core::vector3d<float>)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"const irr::core::vector3d<float>");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
 #else
-    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(const irr::core::vector3df));
-     tolua_pushusertype(tolua_S,tolua_obj,"const irr::core::vector3df");
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(const irr::core::vector3d<float>));
+     tolua_pushusertype(tolua_S,tolua_obj,"const irr::core::vector3d<float>");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
 #endif
    }
@@ -28610,15 +28600,15 @@ static int tolua_NeoGame_RigidBody_getInvInertiaDiagLocal00(lua_State* tolua_S)
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getInvInertiaDiagLocal'", NULL);
 #endif
   {
-   const irr::core::vector3df tolua_ret = (const irr::core::vector3df)  self->getInvInertiaDiagLocal();
+   const irr::core::vector3d<float> tolua_ret = (const irr::core::vector3d<float>)  self->getInvInertiaDiagLocal();
    {
 #ifdef __cplusplus
-    void* tolua_obj = Mtolua_new((irr::core::vector3df)(tolua_ret));
-     tolua_pushusertype(tolua_S,tolua_obj,"const irr::core::vector3df");
+    void* tolua_obj = Mtolua_new((irr::core::vector3d<float>)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"const irr::core::vector3d<float>");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
 #else
-    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(const irr::core::vector3df));
-     tolua_pushusertype(tolua_S,tolua_obj,"const irr::core::vector3df");
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(const irr::core::vector3d<float>));
+     tolua_pushusertype(tolua_S,tolua_obj,"const irr::core::vector3d<float>");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
 #endif
    }
@@ -28641,7 +28631,7 @@ static int tolua_NeoGame_RigidBody_setInvInertiaDiagLocal00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"RigidBody",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -28649,7 +28639,7 @@ static int tolua_NeoGame_RigidBody_setInvInertiaDiagLocal00(lua_State* tolua_S)
 #endif
  {
   RigidBody* self = (RigidBody*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3df* diagInvInertia = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3d<float>* diagInvInertia = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setInvInertiaDiagLocal'", NULL);
 #endif
@@ -28709,7 +28699,7 @@ static int tolua_NeoGame_RigidBody_applyTorque00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"RigidBody",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -28717,7 +28707,7 @@ static int tolua_NeoGame_RigidBody_applyTorque00(lua_State* tolua_S)
 #endif
  {
   RigidBody* self = (RigidBody*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3df* torque = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3d<float>* torque = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'applyTorque'", NULL);
 #endif
@@ -28742,8 +28732,8 @@ static int tolua_NeoGame_RigidBody_applyForce00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"RigidBody",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
@@ -28751,8 +28741,8 @@ static int tolua_NeoGame_RigidBody_applyForce00(lua_State* tolua_S)
 #endif
  {
   RigidBody* self = (RigidBody*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3df* force = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
-  irr::core::vector3df* rel_pos = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,3,0));
+  irr::core::vector3d<float>* force = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3d<float>* rel_pos = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'applyForce'", NULL);
 #endif
@@ -28777,7 +28767,7 @@ static int tolua_NeoGame_RigidBody_applyCentralImpulse00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"RigidBody",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -28785,7 +28775,7 @@ static int tolua_NeoGame_RigidBody_applyCentralImpulse00(lua_State* tolua_S)
 #endif
  {
   RigidBody* self = (RigidBody*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3df* impulse = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3d<float>* impulse = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'applyCentralImpulse'", NULL);
 #endif
@@ -28810,7 +28800,7 @@ static int tolua_NeoGame_RigidBody_applyTorqueImpulse00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"RigidBody",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -28818,7 +28808,7 @@ static int tolua_NeoGame_RigidBody_applyTorqueImpulse00(lua_State* tolua_S)
 #endif
  {
   RigidBody* self = (RigidBody*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3df* torque = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3d<float>* torque = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'applyTorqueImpulse'", NULL);
 #endif
@@ -28843,8 +28833,8 @@ static int tolua_NeoGame_RigidBody_applyImpulse00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"RigidBody",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
@@ -28852,8 +28842,8 @@ static int tolua_NeoGame_RigidBody_applyImpulse00(lua_State* tolua_S)
 #endif
  {
   RigidBody* self = (RigidBody*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3df* impulse = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
-  irr::core::vector3df* rel_pos = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,3,0));
+  irr::core::vector3d<float>* impulse = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3d<float>* rel_pos = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'applyImpulse'", NULL);
 #endif
@@ -28951,15 +28941,15 @@ static int tolua_NeoGame_RigidBody_getCenterOfMassPosition00(lua_State* tolua_S)
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getCenterOfMassPosition'", NULL);
 #endif
   {
-   const irr::core::vector3df tolua_ret = (const irr::core::vector3df)  self->getCenterOfMassPosition();
+   const irr::core::vector3d<float> tolua_ret = (const irr::core::vector3d<float>)  self->getCenterOfMassPosition();
    {
 #ifdef __cplusplus
-    void* tolua_obj = Mtolua_new((irr::core::vector3df)(tolua_ret));
-     tolua_pushusertype(tolua_S,tolua_obj,"const irr::core::vector3df");
+    void* tolua_obj = Mtolua_new((irr::core::vector3d<float>)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"const irr::core::vector3d<float>");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
 #else
-    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(const irr::core::vector3df));
-     tolua_pushusertype(tolua_S,tolua_obj,"const irr::core::vector3df");
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(const irr::core::vector3d<float>));
+     tolua_pushusertype(tolua_S,tolua_obj,"const irr::core::vector3d<float>");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
 #endif
    }
@@ -29077,15 +29067,15 @@ static int tolua_NeoGame_RigidBody_getLinearVelocity00(lua_State* tolua_S)
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getLinearVelocity'", NULL);
 #endif
   {
-   irr::core::vector3df tolua_ret = (irr::core::vector3df)  self->getLinearVelocity();
+   irr::core::vector3d<float> tolua_ret = (irr::core::vector3d<float>)  self->getLinearVelocity();
    {
 #ifdef __cplusplus
-    void* tolua_obj = Mtolua_new((irr::core::vector3df)(tolua_ret));
-     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3df");
+    void* tolua_obj = Mtolua_new((irr::core::vector3d<float>)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3d<float>");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
 #else
-    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(irr::core::vector3df));
-     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3df");
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(irr::core::vector3d<float>));
+     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3d<float>");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
 #endif
    }
@@ -29119,15 +29109,15 @@ static int tolua_NeoGame_RigidBody_getAngularVelocity00(lua_State* tolua_S)
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getAngularVelocity'", NULL);
 #endif
   {
-   irr::core::vector3df tolua_ret = (irr::core::vector3df)  self->getAngularVelocity();
+   irr::core::vector3d<float> tolua_ret = (irr::core::vector3d<float>)  self->getAngularVelocity();
    {
 #ifdef __cplusplus
-    void* tolua_obj = Mtolua_new((irr::core::vector3df)(tolua_ret));
-     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3df");
+    void* tolua_obj = Mtolua_new((irr::core::vector3d<float>)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3d<float>");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
 #else
-    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(irr::core::vector3df));
-     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3df");
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(irr::core::vector3d<float>));
+     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3d<float>");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
 #endif
    }
@@ -29150,7 +29140,7 @@ static int tolua_NeoGame_RigidBody_setLinearVelocity00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"RigidBody",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -29158,7 +29148,7 @@ static int tolua_NeoGame_RigidBody_setLinearVelocity00(lua_State* tolua_S)
 #endif
  {
   RigidBody* self = (RigidBody*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3df* lin_vel = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3d<float>* lin_vel = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setLinearVelocity'", NULL);
 #endif
@@ -29183,7 +29173,7 @@ static int tolua_NeoGame_RigidBody_setAngularVelocity00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"RigidBody",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -29191,7 +29181,7 @@ static int tolua_NeoGame_RigidBody_setAngularVelocity00(lua_State* tolua_S)
 #endif
  {
   RigidBody* self = (RigidBody*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3df* ang_vel = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3d<float>* ang_vel = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setAngularVelocity'", NULL);
 #endif
@@ -29216,7 +29206,7 @@ static int tolua_NeoGame_RigidBody_getVelocityInLocalPoint00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"const RigidBody",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -29224,20 +29214,20 @@ static int tolua_NeoGame_RigidBody_getVelocityInLocalPoint00(lua_State* tolua_S)
 #endif
  {
   const RigidBody* self = (const RigidBody*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3df* rel_pos = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3d<float>* rel_pos = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getVelocityInLocalPoint'", NULL);
 #endif
   {
-   irr::core::vector3df tolua_ret = (irr::core::vector3df)  self->getVelocityInLocalPoint(*rel_pos);
+   irr::core::vector3d<float> tolua_ret = (irr::core::vector3d<float>)  self->getVelocityInLocalPoint(*rel_pos);
    {
 #ifdef __cplusplus
-    void* tolua_obj = Mtolua_new((irr::core::vector3df)(tolua_ret));
-     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3df");
+    void* tolua_obj = Mtolua_new((irr::core::vector3d<float>)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3d<float>");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
 #else
-    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(irr::core::vector3df));
-     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3df");
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(irr::core::vector3d<float>));
+     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3d<float>");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
 #endif
    }
@@ -29260,7 +29250,7 @@ static int tolua_NeoGame_RigidBody_translate00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"RigidBody",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -29268,7 +29258,7 @@ static int tolua_NeoGame_RigidBody_translate00(lua_State* tolua_S)
 #endif
  {
   RigidBody* self = (RigidBody*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3df* v = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3d<float>* v = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'translate'", NULL);
 #endif
@@ -29293,8 +29283,8 @@ static int tolua_NeoGame_RigidBody_getAabb00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"const RigidBody",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
@@ -29302,8 +29292,8 @@ static int tolua_NeoGame_RigidBody_getAabb00(lua_State* tolua_S)
 #endif
  {
   const RigidBody* self = (const RigidBody*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3df* aabbMin = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
-  irr::core::vector3df* aabbMax = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,3,0));
+  irr::core::vector3d<float>* aabbMin = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3d<float>* aabbMax = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getAabb'", NULL);
 #endif
@@ -29328,8 +29318,8 @@ static int tolua_NeoGame_RigidBody_computeImpulseDenominator00(lua_State* tolua_
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"const RigidBody",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
@@ -29337,8 +29327,8 @@ static int tolua_NeoGame_RigidBody_computeImpulseDenominator00(lua_State* tolua_
 #endif
  {
   const RigidBody* self = (const RigidBody*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3df* pos = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
-  irr::core::vector3df* normal = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,3,0));
+  irr::core::vector3d<float>* pos = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3d<float>* normal = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'computeImpulseDenominator'", NULL);
 #endif
@@ -29364,7 +29354,7 @@ static int tolua_NeoGame_RigidBody_computeAngularImpulseDenominator00(lua_State*
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"const RigidBody",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -29372,7 +29362,7 @@ static int tolua_NeoGame_RigidBody_computeAngularImpulseDenominator00(lua_State*
 #endif
  {
   const RigidBody* self = (const RigidBody*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3df* axis = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3d<float>* axis = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'computeAngularImpulseDenominator'", NULL);
 #endif
@@ -29431,7 +29421,7 @@ static int tolua_NeoGame_RigidBody_setAngularFactor00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"RigidBody",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -29439,7 +29429,7 @@ static int tolua_NeoGame_RigidBody_setAngularFactor00(lua_State* tolua_S)
 #endif
  {
   RigidBody* self = (RigidBody*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3df* angFac = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3d<float>* angFac = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setAngularFactor'", NULL);
 #endif
@@ -29503,15 +29493,15 @@ static int tolua_NeoGame_RigidBody_getAngularFactor00(lua_State* tolua_S)
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getAngularFactor'", NULL);
 #endif
   {
-   irr::core::vector3df tolua_ret = (irr::core::vector3df)  self->getAngularFactor();
+   irr::core::vector3d<float> tolua_ret = (irr::core::vector3d<float>)  self->getAngularFactor();
    {
 #ifdef __cplusplus
-    void* tolua_obj = Mtolua_new((irr::core::vector3df)(tolua_ret));
-     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3df");
+    void* tolua_obj = Mtolua_new((irr::core::vector3d<float>)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3d<float>");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
 #else
-    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(irr::core::vector3df));
-     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3df");
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(irr::core::vector3d<float>));
+     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3d<float>");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
 #endif
    }
@@ -29534,7 +29524,7 @@ static int tolua_NeoGame_RigidBody_setPosition00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"RigidBody",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -29542,7 +29532,7 @@ static int tolua_NeoGame_RigidBody_setPosition00(lua_State* tolua_S)
 #endif
  {
   RigidBody* self = (RigidBody*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3df position = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3d<float> position = *((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setPosition'", NULL);
 #endif
@@ -29567,7 +29557,7 @@ static int tolua_NeoGame_RigidBody_setRotation00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"RigidBody",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -29575,7 +29565,7 @@ static int tolua_NeoGame_RigidBody_setRotation00(lua_State* tolua_S)
 #endif
  {
   RigidBody* self = (RigidBody*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3df rotation = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3d<float> rotation = *((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setRotation'", NULL);
 #endif
@@ -29876,7 +29866,7 @@ static int tolua_NeoGame_HingeJoint_setAxis00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"HingeJoint",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -29884,7 +29874,7 @@ static int tolua_NeoGame_HingeJoint_setAxis00(lua_State* tolua_S)
 #endif
  {
   HingeJoint* self = (HingeJoint*)  tolua_tousertype(tolua_S,1,0);
-  const irr::core::vector3df* axisInA = ((const irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
+  const irr::core::vector3d<float>* axisInA = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setAxis'", NULL);
 #endif
@@ -30446,9 +30436,9 @@ static int tolua_NeoGame_NeoTrigger_addTriggerCondition00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: GetInstance of class  NeoGameLogic */
-#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGameLogic_GetInstance00
-static int tolua_NeoGame_NeoGameLogic_GetInstance00(lua_State* tolua_S)
+/* method: getInstance of class  NeoGameLogic */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGameLogic_getInstance00
+static int tolua_NeoGame_NeoGameLogic_getInstance00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -30461,14 +30451,14 @@ static int tolua_NeoGame_NeoGameLogic_GetInstance00(lua_State* tolua_S)
 #endif
  {
   {
-   NeoGameLogic* tolua_ret = (NeoGameLogic*)  NeoGameLogic::GetInstance();
+   NeoGameLogic* tolua_ret = (NeoGameLogic*)  NeoGameLogic::getInstance();
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"NeoGameLogic");
   }
  }
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'GetInstance'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'getInstance'.",&tolua_err);
  return 0;
 #endif
 }
@@ -31514,8 +31504,8 @@ static int tolua_NeoGame_GameObject_AddRigidBody01(lua_State* tolua_S)
      !tolua_isusertype(tolua_S,1,"GameObject",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"const irr::core::vector3df",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,5,&tolua_err) || !tolua_isusertype(tolua_S,5,"const irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"const irr::core::vector3d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,5,&tolua_err) || !tolua_isusertype(tolua_S,5,"const irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,6,&tolua_err)
  )
   goto tolua_lerror;
@@ -31524,8 +31514,8 @@ static int tolua_NeoGame_GameObject_AddRigidBody01(lua_State* tolua_S)
   GameObject* self = (GameObject*)  tolua_tousertype(tolua_S,1,0);
   int collisionShape = ((int)  tolua_tonumber(tolua_S,2,0));
   float mass = ((float)  tolua_tonumber(tolua_S,3,0));
-  const irr::core::vector3df* position = ((const irr::core::vector3df*)  tolua_tousertype(tolua_S,4,0));
-  const irr::core::vector3df* rotation = ((const irr::core::vector3df*)  tolua_tousertype(tolua_S,5,0));
+  const irr::core::vector3d<float>* position = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,4,0));
+  const irr::core::vector3d<float>* rotation = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,5,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'AddRigidBody'", NULL);
 #endif
@@ -33861,7 +33851,7 @@ static int tolua_NeoGame_NeoPhysics_CreateSphereShape01(lua_State* tolua_S)
  if (
      !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
@@ -33869,7 +33859,7 @@ static int tolua_NeoGame_NeoPhysics_CreateSphereShape01(lua_State* tolua_S)
  {
   NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
   float radius = ((float)  tolua_tonumber(tolua_S,2,0));
-  const irr::core::vector3df* scale = ((const irr::core::vector3df*)  tolua_tousertype(tolua_S,3,0));
+  const irr::core::vector3d<float>* scale = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateSphereShape'", NULL);
 #endif
@@ -33892,7 +33882,7 @@ static int tolua_NeoGame_NeoPhysics_CreateBoxShape00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -33900,7 +33890,7 @@ static int tolua_NeoGame_NeoPhysics_CreateBoxShape00(lua_State* tolua_S)
 #endif
  {
   NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3df* size = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3d<float>* size = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateBoxShape'", NULL);
 #endif
@@ -33925,16 +33915,16 @@ static int tolua_NeoGame_NeoPhysics_CreateBoxShape01(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
  else
  {
   NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3df* size = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
-  const irr::core::vector3df* scale = ((const irr::core::vector3df*)  tolua_tousertype(tolua_S,3,0));
+  irr::core::vector3d<float>* size = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
+  const irr::core::vector3d<float>* scale = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateBoxShape'", NULL);
 #endif
@@ -33957,7 +33947,7 @@ static int tolua_NeoGame_NeoPhysics_CreateCylinderShape00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnumber(tolua_S,3,1,&tolua_err) ||
      !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
@@ -33966,7 +33956,7 @@ static int tolua_NeoGame_NeoPhysics_CreateCylinderShape00(lua_State* tolua_S)
 #endif
  {
   NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3df* extents = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3d<float>* extents = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
   char align = ((char)  tolua_tonumber(tolua_S,3,'Y'));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateCylinderShape'", NULL);
@@ -33992,18 +33982,18 @@ static int tolua_NeoGame_NeoPhysics_CreateCylinderShape01(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"const irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"const irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,5,&tolua_err)
  )
   goto tolua_lerror;
  else
  {
   NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3df* extents = ((irr::core::vector3df*)  tolua_tousertype(tolua_S,2,0));
+  irr::core::vector3d<float>* extents = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
   char align = ((char)  tolua_tonumber(tolua_S,3,0));
-  const irr::core::vector3df* scale = ((const irr::core::vector3df*)  tolua_tousertype(tolua_S,4,0));
+  const irr::core::vector3d<float>* scale = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,4,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateCylinderShape'", NULL);
 #endif
@@ -34066,7 +34056,7 @@ static int tolua_NeoGame_NeoPhysics_CreateCapsuleShape01(lua_State* tolua_S)
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,5,&tolua_err) || !tolua_isusertype(tolua_S,5,"const irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,5,&tolua_err) || !tolua_isusertype(tolua_S,5,"const irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,6,&tolua_err)
  )
   goto tolua_lerror;
@@ -34076,7 +34066,7 @@ static int tolua_NeoGame_NeoPhysics_CreateCapsuleShape01(lua_State* tolua_S)
   float radius = ((float)  tolua_tonumber(tolua_S,2,0));
   float height = ((float)  tolua_tonumber(tolua_S,3,0));
   char align = ((char)  tolua_tonumber(tolua_S,4,0));
-  const irr::core::vector3df* scale = ((const irr::core::vector3df*)  tolua_tousertype(tolua_S,5,0));
+  const irr::core::vector3d<float>* scale = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,5,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateCapsuleShape'", NULL);
 #endif
@@ -34139,7 +34129,7 @@ static int tolua_NeoGame_NeoPhysics_CreateConeShape01(lua_State* tolua_S)
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,5,&tolua_err) || !tolua_isusertype(tolua_S,5,"const irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,5,&tolua_err) || !tolua_isusertype(tolua_S,5,"const irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,6,&tolua_err)
  )
   goto tolua_lerror;
@@ -34149,7 +34139,7 @@ static int tolua_NeoGame_NeoPhysics_CreateConeShape01(lua_State* tolua_S)
   float radius = ((float)  tolua_tonumber(tolua_S,2,0));
   float height = ((float)  tolua_tonumber(tolua_S,3,0));
   char align = ((char)  tolua_tonumber(tolua_S,4,0));
-  const irr::core::vector3df* scale = ((const irr::core::vector3df*)  tolua_tousertype(tolua_S,5,0));
+  const irr::core::vector3d<float>* scale = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,5,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateConeShape'", NULL);
 #endif
@@ -34206,7 +34196,7 @@ static int tolua_NeoGame_NeoPhysics_CreateConvexHullShape01(lua_State* tolua_S)
  if (
      !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
      !tolua_isusertype(tolua_S,2,"irr::scene::IMesh",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
@@ -34214,7 +34204,7 @@ static int tolua_NeoGame_NeoPhysics_CreateConvexHullShape01(lua_State* tolua_S)
  {
   NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
   irr::scene::IMesh* mesh = ((irr::scene::IMesh*)  tolua_tousertype(tolua_S,2,0));
-  irr::core::vector3df scale = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,3,0));
+  irr::core::vector3d<float> scale = *((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateConvexHullShape'", NULL);
 #endif
@@ -34271,7 +34261,7 @@ static int tolua_NeoGame_NeoPhysics_CreateConvexTriangleMeshShape01(lua_State* t
  if (
      !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
      !tolua_isusertype(tolua_S,2,"irr::scene::IMesh",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
@@ -34279,7 +34269,7 @@ static int tolua_NeoGame_NeoPhysics_CreateConvexTriangleMeshShape01(lua_State* t
  {
   NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
   irr::scene::IMesh* mesh = ((irr::scene::IMesh*)  tolua_tousertype(tolua_S,2,0));
-  irr::core::vector3df scale = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,3,0));
+  irr::core::vector3d<float> scale = *((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateConvexTriangleMeshShape'", NULL);
 #endif
@@ -34336,7 +34326,7 @@ static int tolua_NeoGame_NeoPhysics_CreateBvhTriangleShape01(lua_State* tolua_S)
  if (
      !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
      !tolua_isusertype(tolua_S,2,"irr::scene::IMesh",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
@@ -34344,7 +34334,7 @@ static int tolua_NeoGame_NeoPhysics_CreateBvhTriangleShape01(lua_State* tolua_S)
  {
   NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
   irr::scene::IMesh* mesh = ((irr::scene::IMesh*)  tolua_tousertype(tolua_S,2,0));
-  irr::core::vector3df scale = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,3,0));
+  irr::core::vector3d<float> scale = *((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateBvhTriangleShape'", NULL);
 #endif
@@ -34356,6 +34346,38 @@ static int tolua_NeoGame_NeoPhysics_CreateBvhTriangleShape01(lua_State* tolua_S)
  return 1;
 tolua_lerror:
  return tolua_NeoGame_NeoPhysics_CreateBvhTriangleShape00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateCompoundShape of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CreateCompoundShape00
+static int tolua_NeoGame_NeoPhysics_CreateCompoundShape00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateCompoundShape'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->CreateCompoundShape();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'CreateCompoundShape'.",&tolua_err);
+ return 0;
+#endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -34403,7 +34425,7 @@ static int tolua_NeoGame_NeoPhysics_CompoundShapeAddChild01(lua_State* tolua_S)
      !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,5,&tolua_err)
  )
   goto tolua_lerror;
@@ -34412,7 +34434,7 @@ static int tolua_NeoGame_NeoPhysics_CompoundShapeAddChild01(lua_State* tolua_S)
   NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
   int shapeIndex = ((int)  tolua_tonumber(tolua_S,2,0));
   int childIndex = ((int)  tolua_tonumber(tolua_S,3,0));
-  irr::core::vector3df localPos = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,4,0));
+  irr::core::vector3d<float> localPos = *((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,4,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CompoundShapeAddChild'", NULL);
 #endif
@@ -34435,8 +34457,8 @@ static int tolua_NeoGame_NeoPhysics_CompoundShapeAddChild02(lua_State* tolua_S)
      !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"irr::core::vector3df",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,5,&tolua_err) || !tolua_isusertype(tolua_S,5,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"irr::core::vector3d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,5,&tolua_err) || !tolua_isusertype(tolua_S,5,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,6,&tolua_err)
  )
   goto tolua_lerror;
@@ -34445,8 +34467,8 @@ static int tolua_NeoGame_NeoPhysics_CompoundShapeAddChild02(lua_State* tolua_S)
   NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
   int shapeIndex = ((int)  tolua_tonumber(tolua_S,2,0));
   int childIndex = ((int)  tolua_tonumber(tolua_S,3,0));
-  irr::core::vector3df localPos = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,4,0));
-  irr::core::vector3df localRotation = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,5,0));
+  irr::core::vector3d<float> localPos = *((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,4,0));
+  irr::core::vector3d<float> localRotation = *((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,5,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CompoundShapeAddChild'", NULL);
 #endif
@@ -34541,7 +34563,7 @@ static int tolua_NeoGame_NeoPhysics_CreateRigidBody01(lua_State* tolua_S)
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      !tolua_isusertype(tolua_S,3,"irr::scene::ISceneNode",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,5,&tolua_err) || !tolua_isusertype(tolua_S,5,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,5,&tolua_err) || !tolua_isusertype(tolua_S,5,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,6,&tolua_err)
  )
   goto tolua_lerror;
@@ -34551,7 +34573,7 @@ static int tolua_NeoGame_NeoPhysics_CreateRigidBody01(lua_State* tolua_S)
   int collisionShapeIndex = ((int)  tolua_tonumber(tolua_S,2,0));
   irr::scene::ISceneNode* node = ((irr::scene::ISceneNode*)  tolua_tousertype(tolua_S,3,0));
   float mass = ((float)  tolua_tonumber(tolua_S,4,0));
-  irr::core::vector3df pos = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,5,0));
+  irr::core::vector3d<float> pos = *((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,5,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateRigidBody'", NULL);
 #endif
@@ -34576,8 +34598,8 @@ static int tolua_NeoGame_NeoPhysics_CreateRigidBody02(lua_State* tolua_S)
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      !tolua_isusertype(tolua_S,3,"irr::scene::ISceneNode",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,5,&tolua_err) || !tolua_isusertype(tolua_S,5,"irr::core::vector3df",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,6,&tolua_err) || !tolua_isusertype(tolua_S,6,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,5,&tolua_err) || !tolua_isusertype(tolua_S,5,"irr::core::vector3d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,6,&tolua_err) || !tolua_isusertype(tolua_S,6,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,7,&tolua_err)
  )
   goto tolua_lerror;
@@ -34587,8 +34609,8 @@ static int tolua_NeoGame_NeoPhysics_CreateRigidBody02(lua_State* tolua_S)
   int collisionShapeIndex = ((int)  tolua_tonumber(tolua_S,2,0));
   irr::scene::ISceneNode* node = ((irr::scene::ISceneNode*)  tolua_tousertype(tolua_S,3,0));
   float mass = ((float)  tolua_tonumber(tolua_S,4,0));
-  irr::core::vector3df pos = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,5,0));
-  irr::core::vector3df rotation = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,6,0));
+  irr::core::vector3d<float> pos = *((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,5,0));
+  irr::core::vector3d<float> rotation = *((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,6,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateRigidBody'", NULL);
 #endif
@@ -34646,10 +34668,10 @@ static int tolua_NeoGame_NeoPhysics_CreateHingeJoint00(lua_State* tolua_S)
      !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
      !tolua_isusertype(tolua_S,2,"RigidBody",0,&tolua_err) ||
      !tolua_isusertype(tolua_S,3,"RigidBody",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"irr::core::vector3df",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,5,&tolua_err) || !tolua_isusertype(tolua_S,5,"irr::core::vector3df",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,6,&tolua_err) || !tolua_isusertype(tolua_S,6,"irr::core::vector3df",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,7,&tolua_err) || !tolua_isusertype(tolua_S,7,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"irr::core::vector3d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,5,&tolua_err) || !tolua_isusertype(tolua_S,5,"irr::core::vector3d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,6,&tolua_err) || !tolua_isusertype(tolua_S,6,"irr::core::vector3d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,7,&tolua_err) || !tolua_isusertype(tolua_S,7,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,8,&tolua_err)
  )
   goto tolua_lerror;
@@ -34659,10 +34681,10 @@ static int tolua_NeoGame_NeoPhysics_CreateHingeJoint00(lua_State* tolua_S)
   NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
   RigidBody* rigidbody1 = ((RigidBody*)  tolua_tousertype(tolua_S,2,0));
   RigidBody* rigidbody2 = ((RigidBody*)  tolua_tousertype(tolua_S,3,0));
-  irr::core::vector3df pivot1 = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,4,0));
-  irr::core::vector3df pivot2 = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,5,0));
-  irr::core::vector3df axisIn1 = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,6,0));
-  irr::core::vector3df axisIn2 = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,7,0));
+  irr::core::vector3d<float> pivot1 = *((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,4,0));
+  irr::core::vector3d<float> pivot2 = *((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,5,0));
+  irr::core::vector3d<float> axisIn1 = *((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,6,0));
+  irr::core::vector3d<float> axisIn2 = *((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,7,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateHingeJoint'", NULL);
 #endif
@@ -34688,8 +34710,8 @@ static int tolua_NeoGame_NeoPhysics_CreateHingeJoint01(lua_State* tolua_S)
  if (
      !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
      !tolua_isusertype(tolua_S,2,"RigidBody",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"irr::core::vector3df",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"irr::core::vector3df",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"irr::core::vector3d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"irr::core::vector3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,5,&tolua_err)
  )
   goto tolua_lerror;
@@ -34697,8 +34719,8 @@ static int tolua_NeoGame_NeoPhysics_CreateHingeJoint01(lua_State* tolua_S)
  {
   NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
   RigidBody* body = ((RigidBody*)  tolua_tousertype(tolua_S,2,0));
-  irr::core::vector3df pivot = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,3,0));
-  irr::core::vector3df axis = *((irr::core::vector3df*)  tolua_tousertype(tolua_S,4,0));
+  irr::core::vector3d<float> pivot = *((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,3,0));
+  irr::core::vector3d<float> axis = *((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,4,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateHingeJoint'", NULL);
 #endif
@@ -36267,9 +36289,9 @@ static int tolua_NeoGame_NeoEditor_CleanUp00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: GetInstance of class  NeoScene */
-#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoScene_GetInstance00
-static int tolua_NeoGame_NeoScene_GetInstance00(lua_State* tolua_S)
+/* method: getInstance of class  NeoScene */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoScene_getInstance00
+static int tolua_NeoGame_NeoScene_getInstance00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -36282,14 +36304,14 @@ static int tolua_NeoGame_NeoScene_GetInstance00(lua_State* tolua_S)
 #endif
  {
   {
-   NeoScene* tolua_ret = (NeoScene*)  NeoScene::GetInstance();
+   NeoScene* tolua_ret = (NeoScene*)  NeoScene::getInstance();
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"NeoScene");
   }
  }
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'GetInstance'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'getInstance'.",&tolua_err);
  return 0;
 #endif
 }
@@ -38275,7 +38297,7 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"NeoGameLogic","NeoGameLogic","",NULL);
   tolua_beginmodule(tolua_S,"NeoGameLogic");
-   tolua_function(tolua_S,"GetInstance",tolua_NeoGame_NeoGameLogic_GetInstance00);
+   tolua_function(tolua_S,"getInstance",tolua_NeoGame_NeoGameLogic_getInstance00);
    tolua_function(tolua_S,"Destroy",tolua_NeoGame_NeoGameLogic_Destroy00);
    tolua_function(tolua_S,"Update",tolua_NeoGame_NeoGameLogic_Update00);
    tolua_function(tolua_S,"RegisterTrigger",tolua_NeoGame_NeoGameLogic_RegisterTrigger00);
@@ -38457,6 +38479,7 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"CreateConvexTriangleMeshShape",tolua_NeoGame_NeoPhysics_CreateConvexTriangleMeshShape01);
    tolua_function(tolua_S,"CreateBvhTriangleShape",tolua_NeoGame_NeoPhysics_CreateBvhTriangleShape00);
    tolua_function(tolua_S,"CreateBvhTriangleShape",tolua_NeoGame_NeoPhysics_CreateBvhTriangleShape01);
+   tolua_function(tolua_S,"CreateCompoundShape",tolua_NeoGame_NeoPhysics_CreateCompoundShape00);
    tolua_function(tolua_S,"CompoundShapeAddChild",tolua_NeoGame_NeoPhysics_CompoundShapeAddChild00);
    tolua_function(tolua_S,"CompoundShapeAddChild",tolua_NeoGame_NeoPhysics_CompoundShapeAddChild01);
    tolua_function(tolua_S,"CompoundShapeAddChild",tolua_NeoGame_NeoPhysics_CompoundShapeAddChild02);
@@ -38545,7 +38568,7 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"NeoScene","NeoScene","",NULL);
   tolua_beginmodule(tolua_S,"NeoScene");
-   tolua_function(tolua_S,"GetInstance",tolua_NeoGame_NeoScene_GetInstance00);
+   tolua_function(tolua_S,"getInstance",tolua_NeoGame_NeoScene_getInstance00);
    tolua_function(tolua_S,"Destroy",tolua_NeoGame_NeoScene_Destroy00);
    tolua_function(tolua_S,"Clean",tolua_NeoGame_NeoScene_Clean00);
    tolua_function(tolua_S,"CreateGameObject",tolua_NeoGame_NeoScene_CreateGameObject00);

@@ -15,7 +15,7 @@ using namespace std;
 class NeoGameLogic
 {
 public:
-	static NeoGameLogic*GetInstance();
+	static NeoGameLogic*getInstance();
 	static void Destroy();
 	void Init();
 	void Update();

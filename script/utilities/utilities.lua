@@ -93,5 +93,9 @@ end
 -- eval function
 --------------------------------------------
 function eval( s )
-    return assert(loadstring(s))()
+    if s=="" then
+        return nil
+    else 
+        return assert(loadstring("return "..s))()
+    end
 end

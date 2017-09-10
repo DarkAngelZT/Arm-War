@@ -636,7 +636,7 @@ function EditorLightObject:setSpecularColor( color )
 end
 
 function EditorLightObject:setAtenuation( attenuation )
-	self.attenuation=color
+	self.attenuation=attenuation
 	if self.scene_node then
 		self.scene_node:getLightData().Attenuation=attenuation
 	end
