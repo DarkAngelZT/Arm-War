@@ -7,7 +7,7 @@
 
 #include "Component.h"
 
-Component::Component()
+Component::Component():enabled(true)
 {
 	// TODO 自动生成的构造函数存根
 

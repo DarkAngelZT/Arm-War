@@ -1,0 +1,11 @@
+ammoName="AP",
+model="AP/ap.obj",
+mass=1,
+power=60,--炮弹爆炸冲击力
+damage=35,
+rage=10,--爆炸影响范围
+piercePossibility=0.4,--穿甲概率
+ricochetEnabled=true,--是否会发生跳弹
+squashPossibility=0.25,--碎甲（减护甲）概率
+pierceDamage=64,--穿加后的额外伤害
+shieldDamage=5,--对护甲的伤害

@@ -22,6 +22,8 @@ public:
 		irr::video::ITexture* texure;
 		int row;
 		int column;
+		irr::core::array<irr::core::vector2df> spriteCoordinates;
+		irr::core::vector2df scale;
 	};
 	SfxManager();
 	virtual ~SfxManager();

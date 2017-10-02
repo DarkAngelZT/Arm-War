@@ -8,8 +8,8 @@ public:
 	irr::scene::ISceneNode* GetSceneNode();
 	void setSceneNode(irr::scene::ISceneNode*node);
 
-	void SetParent(GameObject*);
-	GameObject*GetParent() const;
+	void setParent(GameObject*);
+	GameObject*getParent() const;
 	void AddChild(GameObject*);
 	void RemoveChild(GameObject*child);
 	//remove all child (just unregister them, won't delete)
@@ -20,10 +20,10 @@ public:
 	void DestoryChild(GameObject*child);
 	void DestroyChidren();
 	//transform functions
-	void SetPostion(irr::core::vector3d<float>& pos);
-	void SetRotation(irr::core::vector3d<float>& rot);
-	irr::core::vector3d<float> GetPostion() const;
-	irr::core::vector3d<float> GetRotation() const;
+	void setPosition(irr::core::vector3d<float>& pos);
+	void setRotation(irr::core::vector3d<float>& rot);
+	irr::core::vector3d<float> getPosition() const;
+	irr::core::vector3d<float> getRotation() const;
 	int getId() const;
 	void setId(int id);
 	bool isActive() const;
@@ -37,5 +37,10 @@ public:
 
 	std::string getLuaIdentifier() const;
 	void setLuaIdentifier(const std::string& luaIndentifier);
+	virtual std::string getObjectType();
+
+	void setOnCollisionEnterLuaCallback(std::string&func);
+	void setOnCollisionLuaCallback(std::string&func);
+	void setOnCollisionExitLuaCallback(std::string&func);
 };
 

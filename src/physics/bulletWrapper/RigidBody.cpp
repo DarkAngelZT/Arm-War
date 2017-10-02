@@ -295,3 +295,8 @@ void* RigidBody::getUserData()
 {
 	return rigidbody->getUserPointer();
 }
+
+void RigidBody::setActivationState(int state)
+{
+	rigidbody->setActivationState(state);
+}

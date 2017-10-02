@@ -9,12 +9,14 @@
 #define SRC_GRAPHICS_NEOGRAPHICS_H_
 #include"../game/GameObject.h"
 #include "../game/stdafx.h"
+#include "I3rdPersonCamera.h"
 #include "sfx/SfxManager.h"
 #include <unordered_map>
 #include <functional>
 class GameObject;
 class SfxManager;
 using namespace irr;
+
 class NeoGraphics
 {
 public:
@@ -68,6 +70,12 @@ public:
 			float moveSpeed = 0.5f, int id = -1, SKeyMap* keyMapArray = 0,
 			int keyMapSize = 0, bool noVerticalMovement = false, int jumpSpeed =
 					0.f, bool invertMouse = false, bool makeActive = true);
+
+	irr::scene::I3rdPersonCamera* AddCamera3rdPerson(
+			irr::scene::ISceneNode*targetNode, irr::scene::ISceneNode* parent =
+					0, int id = -1, float rotationSpeed = 100, float zoomSpeed =
+					1, float maxVerticalAngel = 20, float maxZoom = 20,
+			bool makeActive = true);
 
 	irr::scene::IMeshSceneNode* AddCubeSceneNode(float size = 10.0f,
 			irr::scene::ISceneNode* parent = 0, int id = -1,
@@ -149,6 +157,10 @@ public:
 	std::string getOperatingSystemVersion();
 	std::vector<std::string> getMeshTexturePath(irr::scene::IMesh*mesh);
 	//-------c++ API---------//
+	irr::scene::ISceneNodeAnimator* createAxisAlignedRotateAnimator(
+			u32 cycleTime, char align, int direction);
+	irr::scene::ISceneNodeAnimator* createTextureMoveAnimator(float speed,
+			irr::core::vector2df direction);
 private:
 	NeoGraphics();
 	virtual ~NeoGraphics();

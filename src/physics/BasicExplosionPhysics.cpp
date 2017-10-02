@@ -41,7 +41,7 @@ void BasicExplosionPhysics::BasicExplosionCallback(int triggerIndex,
 		{
 			continue;
 		}
-		irr::core::vector3df pos = go->GetPostion();
+		irr::core::vector3df pos = go->getPosition();
 		btVector3 target = NeoPhysics::irrToBulletVector(pos);
 		btCollisionWorld::ClosestRayResultCallback RayCallback(origin, target);
 		NeoPhysics::getInstance()->getDynamicsWorld()->rayTest(origin, target,

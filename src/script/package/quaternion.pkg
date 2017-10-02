@@ -62,7 +62,7 @@ class quaternion
 		quaternion& normalize();
 
 		//! Creates a matrix from this quaternion
-		void getMatrix( irr::core::matrix4 &dest, const irr::core::vector3d<float> &translation=irr::core::vector3d<float>() ) const;
+		void getMatrix( irr::core::CMatrix4<float> &dest, const irr::core::vector3d<float> &translation=irr::core::vector3d<float>() ) const;
 
 		/*!
 			Creates a matrix from this quaternion
@@ -81,10 +81,10 @@ class quaternion
 			lookat *= m3;
 
 		*/
-		void getMatrixCenter( irr::core::matrix4 &dest, const irr::core::vector3d<float> &center, const irr::core::vector3d<float> &translation ) const;
+		void getMatrixCenter( irr::core::CMatrix4<float> &dest, const irr::core::vector3d<float> &center, const irr::core::vector3d<float> &translation ) const;
 
 		//! Creates a matrix from this quaternion
-		void getMatrix_transposed( irr::core::matrix4 &dest ) const;
+		void getMatrix_transposed( irr::core::CMatrix4<float> &dest ) const;
 
 		//! Inverts this quaternion
 		quaternion& makeInverse();

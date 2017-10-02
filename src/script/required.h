@@ -10,6 +10,8 @@
 #include"../game/NeoTrigger.h"
 #include "../game/NeoEvent.h"
 #include "../game/GameObject.h"
+#include "../game/object/SimpleTankTrackObject.h"
 #include "../game/NeoScene.h"
 #include "../Editor/NeoEditor.h"
+#include "../game/object/StandardTankBodyObject.h"
 #include "../Utilities/LuaHelper.h"

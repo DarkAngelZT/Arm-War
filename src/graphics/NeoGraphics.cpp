@@ -10,6 +10,9 @@
 
 #include "NeoGraphics.h"
 #include "CEGUI/RendererModules/Irrlicht/ResourceProvider.h"
+#include "animators/CSceneNodeAnimatorAxisAlignedRotate.h"
+#include "animators/CSceneNodeAnimatorTextureMove.h"
+#include "animators/CSceneNodeAnimatorCamera3rdPerson.h"
 
 NeoGraphics* NeoGraphics::_instance = NULL;
 using namespace irr;
@@ -150,7 +153,7 @@ void NeoGraphics::InitialiseResourceGroupDirectories()
 	rp->setResourceGroupDirectory("animations", resourcePath);
 	//以下代码是自己打的
 	//rp->setResourceGroupDirectory("topview","./sfx/UI/topViews/");
-	rp->setResourceGroupDirectory("images","./resources/ui/images/");
+	rp->setResourceGroupDirectory("images", "./resources/ui/images/");
 	//rp->setResourceGroupDirectory("overviewRoot","./maps/");
 }
 
@@ -182,9 +185,8 @@ CEGUI::IrrlichtRenderer* NeoGraphics::getUIRenderer() const
 
 GameObject* NeoGraphics::GetAttachedGameObject(irr::scene::ISceneNode*node)
 {
-	return (GameObject*)node->getUserData();
+	return (GameObject*) node->getUserData();
 }
-
 
 std::string NeoGraphics::GetAvailableResolution()
 {
@@ -305,7 +307,7 @@ irr::scene::IMeshSceneNode* NeoGraphics::AddCubeSceneNode(float size,
 		const irr::core::vector3df& position,
 		const irr::core::vector3df& rotation, const irr::core::vector3df& scale)
 {
-	return smgr->addCubeSceneNode(size,parent,id,position,rotation,scale);
+	return smgr->addCubeSceneNode(size, parent, id, position, rotation, scale);
 }
 
 irr::scene::IMeshSceneNode* NeoGraphics::AddSphereSceneNode(float radius,
@@ -313,7 +315,39 @@ irr::scene::IMeshSceneNode* NeoGraphics::AddSphereSceneNode(float radius,
 		const core::vector3df& position, const core::vector3df& rotation,
 		const core::vector3df& scale)
 {
-	return smgr->addSphereSceneNode(radius,polyCount,parent,id,position,rotation,scale);
+	return smgr->addSphereSceneNode(radius, polyCount, parent, id, position,
+			rotation, scale);
+}
+
+irr::scene::ISceneNodeAnimator* NeoGraphics::createTextureMoveAnimator(
+		float speed, irr::core::vector2df direction)
+{
+	return new scene::CSceneNodeAnimatorTextureMove(speed, direction);
+}
+
+irr::scene::I3rdPersonCamera* NeoGraphics::AddCamera3rdPerson(
+		ISceneNode* targetNode, irr::scene::ISceneNode* parent, int id,
+		float rotationSpeed, float zoomSpeed, float maxVerticalAngel,
+		float maxZoom, bool makeActive)
+{
+	ICameraSceneNode* node = smgr->addCameraSceneNode(parent, core::vector3df(),
+			core::vector3df(0, 0, 100), id, makeActive);
+	if (node)
+	{
+		CSceneNodeAnimatorCamera3rdPerson* animator =
+				new CSceneNodeAnimatorCamera3rdPerson(targetNode,
+						device->getCursorControl(), rotationSpeed, zoomSpeed,
+						maxVerticalAngel, maxZoom);
+
+		node->addAnimator(animator);
+		I3rdPersonCamera* camera = new I3rdPersonCamera(node);
+		camera->setCameraAnimator(animator);
+
+		animator->drop();
+
+		return camera;
+	}
+	return NULL;
 }
 
 void NeoGraphics::InitialiseDefaultResourceGroups()
@@ -454,4 +488,13 @@ std::string NeoGraphics::getOperatingSystemVersion()
 {
 	return std::string(
 			device->getOSOperator()->getOperatingSystemVersion().c_str());
+}
+
+irr::scene::ISceneNodeAnimator* NeoGraphics::createAxisAlignedRotateAnimator(
+		u32 cycleTime, char align, int direction)
+{
+	scene::ISceneNodeAnimator* animator =
+			new irr::scene::CSceneNodeAnimatorAxisAlignedRotate(cycleTime,
+					align, direction);
+	return animator;
 }

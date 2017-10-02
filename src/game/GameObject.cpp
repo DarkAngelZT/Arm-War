@@ -21,18 +21,23 @@ GameObject::GameObject() :
 
 GameObject::~GameObject()
 {
-	// TODO 自动生成的析构函数存根
 	//detach children
 	for (std::set<GameObject*>::iterator iter = list_chidren.begin();
 			iter != list_chidren.end(); iter++)
 	{
-		(*iter)->SetParent(NULL);
+		(*iter)->setParent(NULL);
 	}
 	components.clear();
 	list_chidren.clear();
+	if (NULL != m_sceneNode)
+	{
+		m_sceneNode->remove();
+		m_sceneNode = NULL;
+	}
 	if (NULL != m_rigidBody)
 	{
 		delete m_rigidBody;
+		m_rigidBody = NULL;
 	}
 }
 
@@ -74,7 +79,7 @@ void GameObject::RemoveComponent(std::string& key)
 	components.erase(key);
 }
 
-void GameObject::SetParent(GameObject*newParent)
+void GameObject::setParent(GameObject*newParent)
 {
 	if (parent)
 	{
@@ -90,7 +95,7 @@ std::set<GameObject*>& GameObject::GetChidren()
 	return list_chidren;
 }
 
-void GameObject::SetPostion(vector3df& pos)
+void GameObject::setPosition(vector3df& pos)
 {
 	if (m_sceneNode != NULL)
 	{
@@ -102,7 +107,7 @@ void GameObject::SetPostion(vector3df& pos)
 	}
 }
 
-void GameObject::SetRotation(vector3df& rot)
+void GameObject::setRotation(vector3df& rot)
 {
 	if (m_sceneNode != NULL)
 	{
@@ -115,28 +120,32 @@ void GameObject::SetRotation(vector3df& rot)
 	}
 }
 
-vector3df GameObject::GetPostion() const
+vector3df GameObject::getPosition() const
 {
 	vector3df result;
 	if (m_sceneNode != NULL)
 		result = m_sceneNode->getPosition();
+	else if (m_rigidBody)
+		result = m_rigidBody->getCenterOfMassPosition();
 	return result;
 }
 
-vector3df GameObject::GetRotation() const
+vector3df GameObject::getRotation() const
 {
 	vector3df result;
 	if (m_sceneNode != NULL)
 		result = m_sceneNode->getRotation();
+	else if (m_rigidBody)
+		result = m_rigidBody->getCenterOfMassTransform().getRotationDegrees();
 	return result;
 }
 
 void GameObject::RemoveChild(GameObject* child)
 {
 	list_chidren.erase(child);
-	if (child->GetParent() == this)
+	if (child->getParent() == this)
 	{
-		child->SetParent(NULL);
+		child->setParent(NULL);
 	}
 }
 
@@ -146,7 +155,7 @@ void GameObject::DestoryChild(GameObject* child)
 	RemoveChild(child);
 }
 
-GameObject* GameObject::GetParent() const
+GameObject* GameObject::getParent() const
 {
 	return parent;
 }
@@ -156,9 +165,9 @@ void GameObject::RemoveChildren()
 	for (std::set<GameObject*>::iterator iter = list_chidren.begin();
 			iter != list_chidren.end(); iter++)
 	{
-		if ((*iter)->GetParent() == this)
+		if ((*iter)->getParent() == this)
 		{
-			(*iter)->SetParent(NULL);
+			(*iter)->setParent(NULL);
 		}
 	}
 	list_chidren.clear();
@@ -188,9 +197,9 @@ bool GameObject::isActive() const
 	return active;
 }
 
-void GameObject::setActive(bool active)
+void GameObject::setActive(bool b_active)
 {
-	if (active)
+	if (b_active)
 	{
 		//set visual node
 		if (m_sceneNode)
@@ -198,6 +207,10 @@ void GameObject::setActive(bool active)
 			m_sceneNode->setVisible(visible);
 		}
 		//set physics object
+		if (!this->active && m_rigidBody)
+		{
+			NeoPhysics::getInstance()->AddRigidiBodyToWorld(m_rigidBody);
+		}
 	}
 	else
 	{
@@ -207,8 +220,12 @@ void GameObject::setActive(bool active)
 			m_sceneNode->setVisible(false);
 		}
 		//set physics object
+		if (m_rigidBody && this->active)
+		{
+			NeoPhysics::getInstance()->RemoveRigidBodyFromWorld(m_rigidBody);
+		}
 	}
-	this->active = active;
+	this->active = b_active;
 }
 
 irr::scene::ISceneNode* GameObject::GetSceneNode()
@@ -229,6 +246,10 @@ bool GameObject::isVisible() const
 
 void GameObject::setVisible(bool visible)
 {
+	if (m_sceneNode)
+	{
+		m_sceneNode->setVisible(visible);
+	}
 	this->visible = visible;
 }
 
@@ -254,6 +275,7 @@ RigidBody* GameObject::AddRigidBody(int collisionShape, float mass,
 	m_rigidBody = NeoPhysics::getInstance()->CreateRigidBody(
 			collisionShapeIndex, m_sceneNode, mass, position, rotation);
 	m_rigidBody->setUserData(this);
+	NeoPhysics::getInstance()->AddRigidiBodyToWorld(m_rigidBody);
 	return m_rigidBody;
 }
 
@@ -319,4 +341,3 @@ void GameObject::setOnCollisionExitLuaCallback(std::string& func)
 {
 	m_lua_OnCollisionExit_callback = func;
 }
-

@@ -128,6 +128,8 @@ public:
 	void setUserData(void*ptr);
 	void* getUserData();
 
+	void setActivationState(int state);
+
 private:
 	std::shared_ptr<btRigidBody> rigidbody;
 	int m_internalIndex;

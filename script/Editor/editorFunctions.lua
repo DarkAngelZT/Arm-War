@@ -1443,6 +1443,7 @@ function map_editor:save(name)
 	self.map_name=name or self.map_name
 	print("Save map: "..self.map_name.." ...")
 	-- create resource folder
+	NeoEditor:getInstance():ChangeWorkingDirectory(map_editor.root_directory);
 	createDirectory(DIR_MAPS..self.map_name)
 	mapfile=io.open(DIR_MAPS..self.map_name..".lua","w")
 	if mapfile then
@@ -1528,8 +1529,8 @@ map_editor.objectLoader={
 	-- camera=, -- not available yet
 }
 function map_editor:load( path )
-	local info =  assert(dofile(path))
 	NeoEditor:getInstance():ChangeWorkingDirectory(map_editor.root_directory);
+	local info =  assert(dofile(path))
 	map_editor.CleanUp(false)
 	map_editor.Init(false)
 	-- map settings

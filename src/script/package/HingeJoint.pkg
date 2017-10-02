@@ -1,4 +1,4 @@
-class HingeJoint
+class HingeJoint : public Component
 {
 public:
 	const RigidBody* getRbodyA() const;

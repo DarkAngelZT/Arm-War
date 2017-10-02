@@ -75,6 +75,8 @@ public:
 			irr::scene::ISceneNode*node, float mass, irr::core::vector3df pos =
 					irr::core::vector3df(0, 0, 0),
 			irr::core::vector3df rotation = irr::core::vector3df(0, 0, 0));
+	void AddRigidiBodyToWorld(RigidBody*rigidbody);
+	void RemoveRigidBodyFromWorld(RigidBody*rigidbody);
 	void RemoveRigidBody(int index);
 	//------joint-------
 	HingeJoint* CreateHingeJoint(RigidBody* rigidbody1, RigidBody* rigidbody2,
@@ -88,6 +90,9 @@ public:
 	std::shared_ptr<btTypedConstraint> CreateHingeJoint_cpp_api(
 			shared_ptr<btRigidBody> body, irr::core::vector3df pivot,
 			irr::core::vector3df axis);
+	void AddHingeJointToWorld(HingeJoint*hinge,bool disableCollisionsBetweenLinkedBodies=true);
+	void AddJointToWorld_cpp(shared_ptr<btTypedConstraint>constraint,bool disableCollisionsBetweenLinkedBodies=true);
+	void RemoveJointFromWorld(int index);
 	void RemoveJoint(int index);
 	//------ghost object-------
 	int CreateGhostObject(int collisionSahpIndex,

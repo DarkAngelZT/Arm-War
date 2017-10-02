@@ -22,7 +22,6 @@ NeoData& BasicExplosionEffector::getParameters()
 BasicExplosionEffector::BasicExplosionEffector(
 		BasicExplosionEffectParams&params)
 {
-	// TODO 自动生成的构造函数存根
 	m_params = params;
 	Init();
 }
@@ -50,7 +49,7 @@ void BasicExplosionEffector::Play()
 			smgr->addParticleSystemSceneNode(false);
 	//粒子系统,爆炸中心
 	irr::scene::IParticleSphereExplosionEmitter* emitter_high_speed =
-			irr::scene::CreateExplosionSphereEmitter(vector3df(0, 0, 0), //中心位置
+			irr::scene::CreateExplosionSphereEmitter(m_params.origin, //中心位置
 					m_params.fRadius, //emitter半径
 					vector3df(0, m_params.fRadius / 800.f, 0), //初始方向
 					200,
@@ -65,7 +64,7 @@ void BasicExplosionEffector::Play()
 	ps_high->setEmitter(emitter_high_speed);
 	//粒子系统,爆炸烟雾
 	irr::scene::IParticleSphereExplosionEmitter* emitter_low_speed =
-			irr::scene::CreateExplosionSphereEmitter(vector3df(0, 0, 0), //中心位置
+			irr::scene::CreateExplosionSphereEmitter(m_params.origin, //中心位置
 					m_params.fRadius, //emitter半径
 					vector3df(0, m_params.fRadius / 900.f, 0), //初始方向
 					200,

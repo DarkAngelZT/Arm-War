@@ -10,18 +10,18 @@
 NeoMotionState::NeoMotionState()
 {
 	// TODO 自动生成的构造函数存根
-	node = NULL;
+	m_node = NULL;
 }
 
 NeoMotionState::NeoMotionState(irr::scene::ISceneNode* irrnode)
 {
-	node = irrnode;
+	setNode(irrnode);
 }
 
 NeoMotionState::NeoMotionState(irr::core::vector3df& pos,
 		irr::core::vector3df& rot)
 {
-	node = NULL;
+	m_node = NULL;
 	initialPos = pos;
 	initialRot = rot;
 }
@@ -43,34 +43,35 @@ void NeoMotionState::getWorldTransform(btTransform& worldTrans) const
 
 void NeoMotionState::setWorldTransform(const btTransform& worldTrans)
 {
-	if (node)
+	if (m_node)
 	{
 		irr::core::matrix4 mat;
 		NeoPhysics::btTransformToIrrlichtMatrix(worldTrans, mat);
-//		btQuaternion rot = worldTrans.getRotation();
-//		quaternion qrot(rot.x(), rot.y(), rot.z(), rot.w());
-//		vector3df rotation;
-//		qrot.toEuler(rotation);
-//		node->setRotation(rotation * RADTODEG);
-//		btVector3 pos = worldTrans.getOrigin();
-//		node->setPosition(vector3df(pos.x(), pos.y(), pos.z()));
-		node->setPosition(mat.getTranslation());
-		node->setRotation(mat.getRotationDegrees());
+		m_node->updateAbsolutePosition();
+		matrix4 transform = m_node->getParent()->getAbsoluteTransformation();
+		transform.makeInverse();
+		mat=transform*mat;
+
+		m_node->setPosition(mat.getTranslation());
+		m_node->setRotation(mat.getRotationDegrees());
 	}
 }
 
 const irr::scene::ISceneNode* NeoMotionState::getNode() const
 {
-	return node;
+	return m_node;
 }
 
 void NeoMotionState::setNode(irr::scene::ISceneNode* node)
 {
-	this->node = node;
+	this->m_node = node;
 	if (node)
 	{
-		initialPos = node->getPosition();
-		initialRot = node->getRotation();
+		m_node->getParent()->updateAbsolutePosition();
+		m_node->updateAbsolutePosition();
+		matrix4 tranform = m_node->getAbsoluteTransformation();
+		initialPos = tranform.getTranslation();
+		initialRot = tranform.getRotationDegrees();
 	}
 }
 

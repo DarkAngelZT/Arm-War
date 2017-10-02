@@ -5,9 +5,11 @@ DIR_DATA="resources/data/"
 DIR_RESOURCES="resources/"
 DIR_EDITOR="resources/Editor/"
 DIR_MAPS="resources/maps/"
+DIR_TANKS="resources/model/tanks/"
+DIR_SHELL="resources/model/ammo/shell/"
 DIR_SCRIPT="script/"
 DIR_SCRIPT_CEGUI="script/cegui/"
 
 print '加载系统配置...'
-dofile(DIR_DATA..'syscfg.lua')
-dofile(DIR_SCRIPT..'system_function_init.lua')
+require(DIR_DATA..'syscfg')
+require(DIR_SCRIPT..'system_function_init')

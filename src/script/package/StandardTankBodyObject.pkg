@@ -1,0 +1,27 @@
+class StandardTankBodyObject: public GameObject
+{
+public:
+	//position is relative
+	void setBodyNode(irr::scene::IAnimatedMeshSceneNode*node,
+			const irr::core::vector3d<float>& position = irr::core::vector3d<float>(0, 0,
+					0));
+	irr::scene::IAnimatedMeshSceneNode* getTankBodyNode();
+	//position is relative
+	void addWheelNode(irr::scene::IAnimatedMeshSceneNode*node,
+			std::string side = "left");
+	void addTrackNode(irr::scene::IAnimatedMeshSceneNode*node,
+			std::string side = "left");
+	void setWheelAnimationSpeed(float cycleTime_s, std::string side = "left",
+			int direction);
+	void setTrackAnimationSpeed(float speed, std::string side = "left",
+			const irr::core::vector2d<float>& dir = irr::core::vector2d<float>(1, 0));
+
+	virtual bool isActive() const;
+	virtual void setActive(bool active);
+	virtual bool isVisible() const;
+	virtual void setVisible(bool visible);
+
+	virtual RigidBody* AddRigidBody(int collisionShape, float mass);
+	virtual RigidBody* AddRigidBody(int collisionShape, float mass,
+			const irr::core::vector3d<float>& position, const irr::core::vector3d<float>& rotation);
+};

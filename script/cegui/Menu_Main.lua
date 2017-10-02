@@ -17,7 +17,14 @@ function main_menu.btn_callback( args )
 		--test game here
 		g_ui_table.switchto("loading")
 		LoadingScreen.Init()
-		Scene.Init("resources/maps/mini_manhattan.lua")
+		players={}
+		players[1]={
+			name="Neo",
+			tank_type="t34",
+			id="a01",
+			team=1
+		}
+		Scene.Init("resources/maps/mini_manhattan.lua",players)
 		return
 	elseif btnName == "MapEditor" then
 		g_ui_table.switchto("editor")

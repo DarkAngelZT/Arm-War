@@ -1,4 +1,4 @@
-class RigidBody
+class RigidBody:public Component
 {
 public:
 	//general interface
@@ -28,7 +28,7 @@ public:
 
 	void integrateVelocities(float step);
 
-	void setCenterOfMassTransform(irr::core::matrix4& xform);
+	void setCenterOfMassTransform(irr::core::CMatrix4<float>& xform);
 
 	void applyCentralForce(irr::core::vector3d<float>& force);
 
@@ -60,7 +60,7 @@ public:
 	const irr::core::vector3d<float> getCenterOfMassPosition() const;
 	irr::core::quaternion getOrientation() const;
 
-	irr::core::matrix4 getCenterOfMassTransform() const;
+	irr::core::CMatrix4<float> getCenterOfMassTransform() const;
 	irr::core::vector3d<float> getLinearVelocity() const;
 	irr::core::vector3d<float> getAngularVelocity() const;
 
@@ -90,4 +90,6 @@ public:
 	irr::core::vector3d<float> getAngularFactor() const;
 	void setPosition(irr::core::vector3d<float> position);
 	void setRotation(irr::core::vector3d<float> rotation);
+
+	void setActivationState(int state);
 };

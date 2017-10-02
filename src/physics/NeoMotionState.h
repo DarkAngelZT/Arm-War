@@ -33,7 +33,7 @@ public:
 	void setInitialRot(const irr::core::vector3df& initialRot);
 
 private:
-	irr::scene::ISceneNode*node;
+	irr::scene::ISceneNode*m_node;
 	irr::core::vector3df initialPos;
 	irr::core::vector3df initialRot;
 };

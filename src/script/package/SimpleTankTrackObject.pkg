@@ -1,0 +1,6 @@
+class SimpleTankTrackObject: public GameObject
+{
+public:
+	float getSpeed() const;
+	void setSpeed(float speed);
+};

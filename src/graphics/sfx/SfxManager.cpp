@@ -7,17 +7,17 @@
 
 #include "SfxManager.h"
 #include "BasicExplosionEffector.h"
+#include "BillboardAnimationEffector.h"
 
 SfxManager::SfxManager()
 {
-	// TODO 自动生成的构造函数存根
 	//bind Effector creation functions
 	RegisterEffector("BasicExplosionEffector", BasicExplosionEffector::Create);
+	RegisterEffector("BillboardAnimation",BillboardAnimationEffector::Create);
 }
 
 SfxManager::~SfxManager()
 {
-	// TODO 自动生成的析构函数存根
 }
 
 void SfxManager::Init()
@@ -36,7 +36,7 @@ void SfxManager::Init()
 		irr::video::ITexture* particle_texture = video_driver->getTexture(
 				file_path);
 		/*video_driver->makeColorKeyTexture(particle_texture,
-				video::SColor(0, 0, 0, 0));*/
+		 video::SColor(0, 0, 0, 0));*/
 		m_dParticle_textures[(*it).c_str()] = particle_texture;
 	}
 	//load sprite images
@@ -81,6 +81,7 @@ void SfxManager::CleanUp()
 	{
 		NeoGraphics::getInstance()->getVideoDriver()->removeTexture(
 				it_sprite->second.texure);
+		it_sprite->second.spriteCoordinates.clear();
 	}
 	m_dSprite_textures.clear();
 }
@@ -140,8 +141,16 @@ void SfxManager::AddSpriteTexture(std::string sprite_file, int row, int column)
 	irr::io::path file_path = (sprite_parent_folder + sprite_file).c_str();
 	irr::video::ITexture* sprite_texture =
 			NeoGraphics::getInstance()->getVideoDriver()->getTexture(file_path);
-	/*NeoGraphics::getInstance()->getVideoDriver()->makeColorKeyTexture(
-			sprite_texture, video::SColor(0, 0, 0, 0));*/
 	m_dSprite_textures[sprite_file] = SpriteInfo
 	{ sprite_texture, row, column };
+	vector2df s_scale(1.0f / (float) column, 1.0f / (float) row);
+	//计算sprite坐标
+	for (float r = 0; r < row; r++)
+		for (float c = 0; c < column; c++)
+		{
+			vector2df translation = vector2df(c, r) * s_scale;
+			m_dSprite_textures[sprite_file].spriteCoordinates.push_back(
+					translation);
+		}
+	m_dSprite_textures[sprite_file].scale = s_scale;
 }

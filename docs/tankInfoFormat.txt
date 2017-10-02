@@ -1,0 +1,20 @@
+local tank={}
+tank.components={}
+tank.components.wheel={}
+tank.property={
+tank_type="standard"
+health
+armor
+fire_power
+reload_time
+ricochet_possibility
+max_speed
+turret_rotation_speed
+}
+tank.components[i]={
+}
+return tank
+操作：
+放置好所有零件
+firepoint指定好canonId
+save

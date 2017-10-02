@@ -9,7 +9,7 @@
 
 HingeJoint::HingeJoint(std::shared_ptr<btHingeConstraint> hinge, RigidBody*rbA,
 		RigidBody*rbB) :
-		hinge(hinge), rbodyA(rbA), rbodyB(rbB),m_internalIndex(-1)
+		m_hinge(hinge), rbodyA(rbA), rbodyB(rbB),m_internalIndex(-1)
 {
 }
 
@@ -22,68 +22,68 @@ HingeJoint::~HingeJoint()
 
 void HingeJoint::setAngularOnly(bool angularOnly)
 {
-	hinge->setAngularOnly(angularOnly);
+	m_hinge->setAngularOnly(angularOnly);
 }
 
 void HingeJoint::enableAngularMotor(bool enableMotor, float targetVelocity,
 		float maxMotorImpulse)
 {
-	hinge->enableAngularMotor(enableMotor,targetVelocity,maxMotorImpulse);
+	m_hinge->enableAngularMotor(enableMotor,targetVelocity,maxMotorImpulse);
 }
 
 void HingeJoint::enableMotor(bool enableMotor)
 {
-	hinge->enableMotor(enableMotor);
+	m_hinge->enableMotor(enableMotor);
 }
 
 void HingeJoint::setMaxMotorImpulse(float maxMotorImpulse)
 {
-	hinge->setMaxMotorImpulse(maxMotorImpulse);
+	m_hinge->setMaxMotorImpulse(maxMotorImpulse);
 }
 
 void HingeJoint::setMotorTarget(float targetAngle, float dt)
 {
-	hinge->setMotorTarget(targetAngle,dt);
+	m_hinge->setMotorTarget(targetAngle,dt);
 }
 
 void HingeJoint::setLimit(float low, float high, float _softness,
 		float _biasFactor, float _relaxationFactor)
 {
-	hinge->setLimit(low,high,_softness,_biasFactor,_relaxationFactor);
+	m_hinge->setLimit(low,high,_softness,_biasFactor,_relaxationFactor);
 }
 
 void HingeJoint::setAxis(const irr::core::vector3df& axisInA)
 {
 	btVector3 axis=NeoPhysics::irrToBulletVector(axisInA);
-	hinge->setAxis(axis);
+	m_hinge->setAxis(axis);
 }
 
 bool HingeJoint::hasLimit()
 {
-	return hinge->hasLimit();
+	return m_hinge->hasLimit();
 }
 
 float HingeJoint::getHingeAngle()
 {
-	return hinge->getHingeAngle();
+	return m_hinge->getHingeAngle();
 }
 
 bool HingeJoint::getAngularOnly()
 {
-	return hinge->getAngularOnly();
+	return m_hinge->getAngularOnly();
 }
 
 bool HingeJoint::getEnableAngularMotor()
 {
-	return hinge->getEnableAngularMotor();
+	return m_hinge->getEnableAngularMotor();
 }
 
 float HingeJoint::getMotorTargetVelosity()
 {
-	return hinge->getMotorTargetVelosity();
+	return m_hinge->getMotorTargetVelosity();
 }
 
 float HingeJoint::getMaxMotorImpulse()
 {
-	return hinge->getMaxMotorImpulse();
+	return m_hinge->getMaxMotorImpulse();
 }

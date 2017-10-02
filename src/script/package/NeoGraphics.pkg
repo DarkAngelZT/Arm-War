@@ -16,23 +16,24 @@ public:
 			irr::scene::IAnimatedMesh* mesh, irr::scene::ISceneNode* parent = 0,
 			int id = -1, const irr::core::vector3d<float>& position =
 					irr::core::vector3d<float>(0, 0, 0),
-			const irr::core::vector3d<float>& rotation = irr::core::vector3d<float>(0, 0,
-					0), const irr::core::vector3d<float>& scale =
+			const irr::core::vector3d<float>& rotation = irr::core::vector3d<
+					float>(0, 0, 0), const irr::core::vector3d<float>& scale =
 					irr::core::vector3d<float>(1.0f, 1.0f, 1.0f),
 			bool alsoAddIfMeshPointerZero = false);
 
 	irr::scene::IMeshSceneNode* AddMeshSceneNode(irr::scene::IMesh* mesh,
 			irr::scene::ISceneNode* parent = 0, int id = -1,
-			const irr::core::vector3d<float>& position = irr::core::vector3d<float>(0, 0,
-					0), const irr::core::vector3d<float>& rotation =
-					irr::core::vector3d<float>(0, 0, 0),
-			const irr::core::vector3d<float>& scale = irr::core::vector3d<float>(1.0f, 1.0f,
-					1.0f), bool alsoAddIfMeshPointerZero = false);
+			const irr::core::vector3d<float>& position = irr::core::vector3d<
+					float>(0, 0, 0),
+			const irr::core::vector3d<float>& rotation = irr::core::vector3d<
+					float>(0, 0, 0), const irr::core::vector3d<float>& scale =
+					irr::core::vector3d<float>(1.0f, 1.0f, 1.0f),
+			bool alsoAddIfMeshPointerZero = false);
 
 	irr::scene::ICameraSceneNode * AddCameraSceneNode(
 			irr::scene::ISceneNode* parent = 0,
-			const irr::core::vector3d<float>& position = irr::core::vector3d<float>(0, 0,
-					0), const irr::core::vector3d<float>& lookat =
+			const irr::core::vector3d<float>& position = irr::core::vector3d<
+					float>(0, 0, 0), const irr::core::vector3d<float>& lookat =
 					irr::core::vector3d<float>(0, 0, 100), int id = -1,
 			bool makeActive = true);
 
@@ -47,31 +48,42 @@ public:
 			int keyMapSize = 0, bool noVerticalMovement = false, int jumpSpeed =
 					0.f, bool invertMouse = false, bool makeActive = true);
 
-	irr::scene::IMeshSceneNode* AddCubeSceneNode(float size=10.0f, irr::scene::ISceneNode* parent=0, int id=-1,
-			const irr::core::vector3d<float>& position = irr::core::vector3d<float>(0,0,0),
-			const irr::core::vector3d<float>& rotation = irr::core::vector3d<float>(0,0,0),
-			const irr::core::vector3d<float>& scale = irr::core::vector3d<float>(1.0f, 1.0f, 1.0f));
+	irr::scene::I3rdPersonCamera* AddCamera3rdPerson(
+			irr::scene::ISceneNode*targetNode, irr::scene::ISceneNode* parent =
+					0, int id = -1, float rotationSpeed = 100, float zoomSpeed =
+					1, float maxVerticalAngel = 20, float maxZoom = 20,
+			bool makeActive = true);
+
+	irr::scene::IMeshSceneNode* AddCubeSceneNode(float size = 10.0f,
+			irr::scene::ISceneNode* parent = 0, int id = -1,
+			const irr::core::vector3d<float>& position = irr::core::vector3d<
+					float>(0, 0, 0),
+			const irr::core::vector3d<float>& rotation = irr::core::vector3d<
+					float>(0, 0, 0), const irr::core::vector3d<float>& scale =
+					irr::core::vector3d<float>(1.0f, 1.0f, 1.0f));
 
 	irr::scene::IMeshSceneNode* AddSphereSceneNode(float radius = 5.0f,
 			int polyCount = 16, irr::scene::ISceneNode* parent = 0, int id = -1,
-			const irr::core::vector3d<float>& position = irr::core::vector3d<float>(0, 0, 0),
-			const irr::core::vector3d<float>& rotation = irr::core::vector3d<float>(0, 0, 0),
-			const irr::core::vector3d<float>& scale = irr::core::vector3d<float>(1.0f, 1.0f, 1.0f));
+			const irr::core::vector3d<float>& position = irr::core::vector3d<
+					float>(0, 0, 0),
+			const irr::core::vector3d<float>& rotation = irr::core::vector3d<
+					float>(0, 0, 0), const irr::core::vector3d<float>& scale =
+					irr::core::vector3d<float>(1.0f, 1.0f, 1.0f));
 
 	irr::scene::ILightSceneNode * AddLightSceneNode(
 			irr::scene::ISceneNode* parent = 0,
-			const irr::core::vector3d<float>& position = irr::core::vector3d<float>(0, 0,
-					0),
-			irr::video::SColorf color = irr::video::SColorf(1.0f, 1.0f, 1.0f),
+			const irr::core::vector3d<float>& position = irr::core::vector3d<
+					float>(0, 0, 0), irr::video::SColorf color =
+					irr::video::SColorf(1.0f, 1.0f, 1.0f),
 			float radius = 100.0f, int id = -1);
 
 	irr::scene::IBillboardSceneNode * AddBillboardSceneNode(
 			irr::scene::ISceneNode* parent = 0,
-			const irr::core::dimension2d<float>& size = irr::core::dimension2d<float>(
-					10.0f, 10.0f), const irr::core::vector3d<float>& position =
-					irr::core::vector3d<float>(0, 0, 0), int id = -1,
-			irr::video::SColor colorTop = 0xFFFFFFFF,
-			irr::video::SColor colorBottom = 0xFFFFFFFF);
+			const irr::core::dimension2d<float>& size = irr::core::dimension2d<
+					float>(10.0f, 10.0f),
+			const irr::core::vector3d<float>& position = irr::core::vector3d<
+					float>(0, 0, 0), int id = -1, irr::video::SColor colorTop =
+					0xFFFFFFFF, irr::video::SColor colorBottom = 0xFFFFFFFF);
 
 	irr::scene::IMeshSceneNode* AddOctreeSceneNode(
 			irr::scene::IAnimatedMesh* mesh, irr::scene::ISceneNode* parent = 0,
@@ -84,16 +96,17 @@ public:
 			bool alsoAddIfMeshPointerZero = false);
 
 	irr::scene::ISceneNode* AddSkyDomeSceneNode(irr::video::ITexture* texture,
-					unsigned int horiRes=16, unsigned int vertRes=8,
-					float texturePercentage=0.9, float spherePercentage=2.0,float radius = 1000.f,
-					irr::scene::ISceneNode* parent=0, int id=-1);
+			unsigned int horiRes = 16, unsigned int vertRes = 8,
+			float texturePercentage = 0.9, float spherePercentage = 2.0,
+			float radius = 1000.f, irr::scene::ISceneNode* parent = 0, int id =
+					-1);
 
 	irr::scene::IParticleSystemSceneNode * AddParticleSystemSceneNode(
 			bool withDefaultEmitter = true, irr::scene::ISceneNode* parent = 0,
 			int id = -1, const irr::core::vector3d<float>& position =
 					irr::core::vector3d<float>(0, 0, 0),
-			const irr::core::vector3d<float>& rotation = irr::core::vector3d<float>(0, 0,
-					0), const irr::core::vector3d<float>& scale =
+			const irr::core::vector3d<float>& rotation = irr::core::vector3d<
+					float>(0, 0, 0), const irr::core::vector3d<float>& scale =
 					irr::core::vector3d<float>(1.0f, 1.0f, 1.0f));
 
 	irr::scene::ISceneNode* AddEmptySceneNode(

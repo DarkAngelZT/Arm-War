@@ -18,7 +18,7 @@ public:
 
 	const std::shared_ptr<btHingeConstraint> getHinge() const
 	{
-		return hinge;
+		return m_hinge;
 	}
 
 	const RigidBody* getRbodyA() const
@@ -56,7 +56,7 @@ public:
 	}
 
 private:
-	std::shared_ptr<btHingeConstraint> hinge;
+	std::shared_ptr<btHingeConstraint> m_hinge;
 	RigidBody*rbodyA;
 	RigidBody*rbodyB;
 	int m_internalIndex;

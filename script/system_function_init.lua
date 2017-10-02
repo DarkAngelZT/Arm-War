@@ -20,7 +20,7 @@ end
 -- Scene Loader
 -- @map_info: a table contain all data about how to load and place object
 --------------------------------------------
-function SceneLoaderGeneric(map_info)
+function SceneLoaderGeneric(map_info,player_info)
 	-- initialize sfx
 	NeoGraphics:getInstance():getSfxManager():Init()
 	Scene.DisablePhysicsSimulation()
@@ -32,6 +32,7 @@ function SceneLoaderGeneric(map_info)
 	--map object
 	local object_number = #map_info.objects
 	local percent=0
+	local loaded_entity_type={}
 	for i=1,object_number do
 		--因为lua没有continue这种东西，所以之有用内嵌repeat+break实现
 		repeat
@@ -55,19 +56,63 @@ function SceneLoaderGeneric(map_info)
 			if Scene.entityMap[entity_type] then
 				local game_entity = Scene.entityMap[entity_type].Load(data)
 				Scene.entities[game_entity.id]=game_entity
+				--event handler
+				if not loaded_entity_type[entity_type] then
+					loaded_entity_type[entity_type]=true
+					Scene.entityMap[entity_type].RegisterSingleModeEventHandler()
+				end
 			end
 			--return progress
 			percent=i/object_number*50
-			print(percent)
 			coroutine.yield(percent)
 			-- print("object: "data.name.." load finish")
 		until true
 		
 	end
+	--shell object
+	ShellFactory:init({"AP","HE","HESH","HEAT"})
+	coroutine.yield(60)
 	--tank object
+	local tank_model_data = {}
+	local spawn_points_index = {}
+	if player_info then
+		local player_number = #player_info
+		--load tank according to player data
+		for i,v in ipairs(player_info) do
+			local tank_type = v.tank_type
+			if not tank_model_data[tank_type] then
+				local file_path = DIR_TANKS..tank_type..".lua"
+				tank_model_data[tank_type]=assert(dofile(file_path))
+			end
+			local current_tank_data = tank_model_data[v.tank_type]
+			if not spawn_points_index[v.team] then
+				spawn_points_index[v.team]=1
+			end
+			local team_index = spawn_points_index[v.team]
+			local point=Scene.spawn_points[v.team][team_index]
+			spawn_points_index[v.team]=team_index+1
+			local tank_data = {
+				id=v.id,tank_name=current_tank_data.tank_name,
+				position=point.position,rotation=point.rotation,
+				data=current_tank_data
+			}
+			local tank=Scene.tankLoader[current_tank_data.property.tank_type].Load(tank_data)
+			local current_actor = Actor.new(v.id)
+			current_actor.name=v.name
+			current_actor:setEntity(tank)
+			if i==1 then
+				Logic.actor_me=current_actor
+			end
+			Logic:addActor(current_actor)
+		end
+	end
 	--camera
+	local camera = NeoGraphics:getInstance():AddCamera3rdPerson(
+		Logic.actor_me.entity.components.body.object:getTankBodyNode())
+	Scene.cameras.third_person=camera
+	-- set input handler
+	Logic.input_handler=SingleModeInputHandler
+	--resume physics
 	Scene.EnablePhysicsSimulation()
-	--test
-	NeoGraphics:getInstance():AddCameraSceneNodeFPS()
 	coroutine.yield(100)
 end

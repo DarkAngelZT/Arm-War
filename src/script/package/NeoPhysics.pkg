@@ -43,6 +43,7 @@ public:
 			irr::core::vector3d<float> axisIn1, irr::core::vector3d<float> axisIn2);
 	HingeJoint* CreateHingeJoint(RigidBody*body, irr::core::vector3d<float> pivot,
 			irr::core::vector3d<float> axis);
+	void AddHingeJointToWorld(HingeJoint*hinge,bool disableCollisionsBetweenLinkedBodies=true);
 	void RemoveJoint(int index);
 	//---------------useful functions---------
 //	void RegisterPreProcessingCall();

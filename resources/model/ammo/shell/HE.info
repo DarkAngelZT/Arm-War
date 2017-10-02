@@ -1,0 +1,11 @@
+ammoName="HE",
+model="HE/HE.obj",
+mass=1,
+power=70,
+damage=70,
+rage=40,
+ricochetEnabled=true,
+piercePossibility=0.3,
+squashPossibility=0.18,
+pierceDamage=70,
+shieldDamage=3

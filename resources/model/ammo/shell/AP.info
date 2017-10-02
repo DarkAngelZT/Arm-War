@@ -1,0 +1,11 @@
+ammoName="AP",
+model="AP/ap.obj",
+mass=1,
+power=60,
+damage=35,
+rage=10,
+piercePossibility=0.4,
+ricochetEnabled=true,
+squashPossibility=0.25,
+pierceDamage=64,
+shieldDamage=5

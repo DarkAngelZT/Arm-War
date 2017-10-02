@@ -49,6 +49,8 @@ void NeoPhysics::Init()
 			m_solver, m_collisionConfiguration);
 
 	m_dynamicsWorld->setGravity(btVector3(0, -10, 0));
+	m_dynamicsWorld->getSolverInfo().m_solverMode |=
+			SOLVER_ENABLE_FRICTION_DIRECTION_CACHING;
 	//ghost object collision detection
 	m_ghostpairCallback = shared_ptr<btGhostPairCallback>(
 			new btGhostPairCallback());
@@ -869,6 +871,35 @@ void NeoPhysics::GetObjectsInArea(float radius, irr::core::vector3df pos,
 	int colshape = CreateSphereShape(radius);
 	CreateGhostObject(colshape, callback, pos);
 	m_temporaryCollisionShaps.push_back(colshape);
+}
+
+void NeoPhysics::AddRigidiBodyToWorld(RigidBody* rigidbody)
+{
+	m_dynamicsWorld->addRigidBody(rigidbody->getBtRigidBody().get());
+}
+
+void NeoPhysics::AddHingeJointToWorld(HingeJoint* hinge,
+		bool disableCollisionsBetweenLinkedBodies)
+{
+	AddJointToWorld_cpp(hinge->getHinge(),
+			disableCollisionsBetweenLinkedBodies);
+}
+
+void NeoPhysics::AddJointToWorld_cpp(shared_ptr<btTypedConstraint> constraint,
+		bool disableCollisionsBetweenLinkedBodies)
+{
+	m_dynamicsWorld->addConstraint(constraint.get(),
+			disableCollisionsBetweenLinkedBodies);
+}
+
+void NeoPhysics::RemoveRigidBodyFromWorld(RigidBody* rigidbody)
+{
+	m_dynamicsWorld->removeRigidBody(rigidbody->getBtRigidBody().get());
+}
+
+void NeoPhysics::RemoveJointFromWorld(int index)
+{
+	m_dynamicsWorld->removeConstraint(m_constrains[index].get());
 }
 
 std::shared_ptr<btTriangleMesh> NeoPhysics::getTriangleMesh(int index)

@@ -31,7 +31,7 @@ dofile(DIR_SCRIPT_CEGUI.."Menu_Main.lua")
 dofile(DIR_SCRIPT_CEGUI.."Menu_Option.lua")
 dofile(DIR_SCRIPT_CEGUI.."MapEditor.lua")
 dofile(DIR_SCRIPT_CEGUI.."LoadingScreen.lua")
--- dofile(DIR_SCRIPT_CEGUI.."TankEditor.lua")
+dofile(DIR_SCRIPT_CEGUI.."TankEditor.lua")
 
 -- set the layout as the root
 g_ui_table.switchto("main")

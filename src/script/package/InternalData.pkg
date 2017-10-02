@@ -1,5 +1,11 @@
+class NeoData
+{
+public:
+	NeoData(){}
+	virtual ~NeoData(){}
+};
 /***Physics*****/
-class BasicExplosionParams
+class BasicExplosionParams:public NeoData
 {
 public:
 	BasicExplosionParams();
@@ -19,7 +25,7 @@ public:
 };
 
 /***Graphics**/
-class BasicExplosionEffectParams
+class BasicExplosionEffectParams:public NeoData
 {
 public:
 	BasicExplosionEffectParams();
@@ -35,4 +41,16 @@ public:
 	irr::video::SColor start_color_low_speed;
 	irr::video::SColor end_color_low_speed;
 	irr::video::SColor shock_wave_color;
+};
+
+class BillboardAnimationEffectorParams:public NeoData
+{
+public:
+	BillboardAnimationEffectorParams();
+	virtual ~BillboardAnimationEffectorParams();
+
+
+	irr::core::vector3d<float> origin;
+	std::string material_name;
+	irr::core::dimension2d<float> size;
 };

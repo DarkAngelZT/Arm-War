@@ -2,6 +2,11 @@ Entity = class()
 Entity.id=-1
 Entity.name="entity"
 Entity.active=true
+Entity.logic_data={}
+function Entity.RegisterSingleModeEventHandler( )
+end
+function Entity.RegisterMultiModeEventHandler( )
+end
 --[[*****************************************
  skybox
 *******************************************]]
@@ -44,7 +49,7 @@ function CommonObjectEntity.Load(data,logic_data)
 			attribute.mesh=mesh
 		end
 		local shape_index = 
-		Scene.collisionShapeLoader[data.physics_data.physics_type](attribute)
+			Scene.collisionShapeLoader[data.physics_data.physics_type](attribute)
 		local mass = data.physics_data.mass or 0
 		self.gameobject:AddRigidBody(shape_index,mass)
 	end
@@ -53,4 +58,20 @@ function CommonObjectEntity.Load(data,logic_data)
 	return self
 end
 
-dofile(DIR_SCRIPT.."game/tankEntity.lua")
+function CommonObjectEntity:Destory()
+	if self.gameobject then
+		NeoScene:getInstance():DestoryGameObject(self.gameobject,true)
+	end
+end
+
+-----------------
+--event handler
+-----------------
+CommonObjectEntity.event_handlers={
+}
+
+function CommonObjectEntity.RegisterSingleModeEventHandler( )
+end
+
+require(DIR_SCRIPT.."game/tankEntity")
+require(DIR_SCRIPT.."game/shellEntity")

@@ -1,0 +1,6 @@
+class Explosion
+{
+public:
+	virtual void Play();
+	virtual void setParams(NeoData&visual_p,NeoData&physics_p);
+};

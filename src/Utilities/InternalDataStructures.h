@@ -48,14 +48,15 @@ public:
 	{
 		aScriptValus.clear();
 	}
-	bool SetScriptValueAt(int i,std::string&v)
+	bool SetScriptValueAt(int i, std::string&v)
 	{
-		if(i<aScriptValus.size())
+		if (i < aScriptValus.size())
 		{
-			aScriptValus[i]=v;
+			aScriptValus[i] = v;
 			return true;
 		}
-		else return false;
+		else
+			return false;
 	}
 	//---------------//
 	float fRange;
@@ -73,8 +74,8 @@ public:
 	BasicExplosionEffectParams()
 	{
 		fRadius = 10;
-		material_name_high_speed = "explosion01.jpg";
-		material_name_low_speed = "explosion02.jpg";
+		material_name_high_speed = "explosion01.png";
+		material_name_low_speed = "explosion02.png";
 		start_color_high_speed = irr::video::SColor(255, 100, 0, 0);
 		end_color_high_speed = irr::video::SColor(0, 0, 0, 0);
 		start_color_low_speed = irr::video::SColor(200, 0, 0, 0);
@@ -109,4 +110,31 @@ public:
 	irr::video::SColor end_color_low_speed;
 	irr::video::SColor shock_wave_color;
 };
+
+class BillboardAnimationEffectorParams: public NeoData
+{
+public:
+	BillboardAnimationEffectorParams()
+	{
+		material_name="cannon_1.png";
+		size=irr::core::dimension2df(20,20);
+	}
+
+	virtual ~BillboardAnimationEffectorParams()
+	{
+	}
+
+	BillboardAnimationEffectorParams& operator=(BillboardAnimationEffectorParams&another)
+	{
+		origin = another.origin;
+		material_name=another.material_name;
+		size=another.size;
+		return *this;
+	}
+
+	irr::core::vector3df origin;
+	std::string material_name;
+	irr::core::dimension2df size;
+};
+
 #endif /* SRC_UTILITIES_INTERNALDATASTRUCTURES_H_ */

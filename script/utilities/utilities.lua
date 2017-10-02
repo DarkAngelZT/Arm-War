@@ -58,6 +58,15 @@ function parsePath( path )
     return dir, file
 end
 --------------------------------------------
+-- read file
+--------------------------------------------
+function readAllText( file )
+    local f=io.open(file,"r")
+    local content = f:read("*all")
+    f:close()
+    return content
+end
+--------------------------------------------
 -- id generator
 --------------------------------------------
 IDGenerator={
@@ -97,5 +106,38 @@ function eval( s )
         return nil
     else 
         return assert(loadstring("return "..s))()
+    end
+end
+--------------------------------------------
+-- object pool
+--------------------------------------------
+ObjectPool=class()
+ObjectPool.pool={}
+ObjectPool.type=nil
+function ObjectPool:create( data )
+    if not self.type then
+        return
+    end
+    if #self.pool >0 then
+        local object = self.pool[#self.pool]
+        table.remove(self.pool,#self.pool)
+        object:setParameters(data)
+        object:setActive(true)
+        return object
+    else
+        local object = self.type.create(data)
+        return object
+    end
+end
+
+function ObjectPool:returnObject( object )
+    table.insert(self.pool,object)
+    object:setActive(false)
+end
+
+function ObjectPool:clear()
+    for i,v in ipairs(self.pool) do
+        v:Destroy()
+        self.pool[i]=nil
     end
 end

@@ -846,7 +846,7 @@ function map_editor.OnKeyDown( args )
 		map_editor.key_states.shift=false
 	end
 	
-	if map_editor.key_states.Control then
+	if map_editor.key_states.control then
 		--handle copy & paste event
 		if event.scancode == CEGUI.Key.V then
 			local graphicWrapper=NeoGraphics:getInstance()

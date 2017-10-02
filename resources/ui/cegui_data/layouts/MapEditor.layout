@@ -121,6 +121,19 @@
                 <Property name="Text" value="Tool" />
                 <Property name="VerticalAlignment" value="Centre" />
                 <Property name="WantsMultiClickEvents" value="false" />
+                <Window type="GlossySerpent/PopupMenu" name="PopupMenu" >
+                    <Property name="Area" value="{{0,0},{0,0},{0,97.7408},{0,33.8828}}" />
+                    <Property name="Text" value="Tank Builder" />
+                    <Property name="Visible" value="false" />
+                    <Property name="ItemSpacing" value="2" />
+                    <Property name="ClippedByParent" value="false" />
+                    <Property name="AutoResizeEnabled" value="true" />
+                    <Window type="GlossySerpent/MenuItem" name="tankbuilder" >
+                        <Property name="Area" value="{{0,5},{0,5},{0,94},{0,30}}" />
+                        <Property name="Text" value="Tank Builder" />
+                        <Property name="WantsMultiClickEvents" value="false" />
+                    </Window>
+                </Window>
             </Window>
         </Window>
         <Window type="GlossySerpent/SerpentPanel" name="Toolbar" >
@@ -522,6 +535,89 @@
                 <Property name="Text" value="OK" />
                 <Property name="VerticalAlignment" value="Bottom" />
                 <Property name="HorizontalAlignment" value="Right" />
+            </Window>
+        </Window>
+        <Window type="GlossySerpent/FrameWindow" name="TankFactory" >
+            <Property name="Area" value="{{0,0},{0,0},{0,206},{0,502}}" />
+            <Property name="Text" value="Tank Factory" />
+            <Property name="Visible" value="false" />
+            <Property name="HorizontalAlignment" value="Right" />
+            <Property name="AutoRenderingSurface" value="true" />
+            <AutoWindow namePath="__auto_titlebar__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="false" />
+            </AutoWindow>
+            <AutoWindow namePath="__auto_closebutton__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="true" />
+            </AutoWindow>
+            <Window type="GlossySerpent/Editbox" name="ebx_name" >
+                <Property name="Area" value="{{0,67},{0,-1},{0,166},{0,25}}" />
+            </Window>
+            <Window type="GlossySerpent/StaticText" name="name_text" >
+                <Property name="Area" value="{{0,0},{0,0},{0,62},{0,23}}" />
+                <Property name="Text" value="Name" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="FrameEnabled" value="false" />
+                <Property name="BackgroundEnabled" value="false" />
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <Property name="VerticalScrollbar" value="true" />
+                </AutoWindow>
+            </Window>
+            <Window type="GlossySerpent/Button" name="btn_body" >
+                <Property name="Area" value="{{0,0},{0,30},{0,181},{0,54}}" />
+                <Property name="Text" value="Add Body" />
+                <Property name="HorizontalAlignment" value="Centre" />
+            </Window>
+            <Window type="GlossySerpent/Button" name="btn_wheel" >
+                <Property name="Area" value="{{0,0},{0,58},{0,181},{0,82}}" />
+                <Property name="Text" value="Add Wheel" />
+                <Property name="HorizontalAlignment" value="Centre" />
+            </Window>
+            <Window type="GlossySerpent/Button" name="btn_turret" >
+                <Property name="Area" value="{{0,0},{0,87},{0,181},{0,111}}" />
+                <Property name="Text" value="Add Turret" />
+                <Property name="HorizontalAlignment" value="Centre" />
+            </Window>
+            <Window type="GlossySerpent/Button" name="btn_canon" >
+                <Property name="Area" value="{{0,0},{0,118},{0,181},{0,142}}" />
+                <Property name="Text" value="Add Canon" />
+                <Property name="HorizontalAlignment" value="Centre" />
+            </Window>
+            <Window type="GlossySerpent/Button" name="btn_track" >
+                <Property name="Area" value="{{0,0},{0,146},{0,181},{0,170}}" />
+                <Property name="Text" value="Add Track" />
+                <Property name="HorizontalAlignment" value="Centre" />
+            </Window>
+            <Window type="GlossySerpent/GroupBox" name="GroupBox" >
+                <Property name="Area" value="{{0,1},{0,227},{1,1},{0.5,227}}" />
+                <Property name="Text" value="Properties" />
+                <Property name="RiseOnClickEnabled" value="false" />
+                <AutoWindow namePath="__auto_contentpane__" >
+                    <Window type="GlossySerpent/Button" name="btn_save" >
+                        <Property name="Area" value="{{0,0},{0,-1},{0,181},{0,23}}" />
+                        <Property name="Text" value="Save" />
+                        <Property name="HorizontalAlignment" value="Centre" />
+                    </Window>
+                    <Window type="GlossySerpent/Button" name="btn_load" >
+                        <Property name="Area" value="{{0,-1},{0,28},{0,180},{0,52}}" />
+                        <Property name="Text" value="Load" />
+                        <Property name="HorizontalAlignment" value="Centre" />
+                    </Window>
+                    <Window type="GlossySerpent/MultiLineEditbox" name="ebx_property" >
+                        <Property name="Area" value="{{0,0},{0,54},{1,0},{1,0}}" />
+                        <Property name="Text" >
+</Property>
+                        <AutoWindow namePath="__auto_vscrollbar__" >
+                            <Property name="VerticalScrollbar" value="true" />
+                        </AutoWindow>
+                    </Window>
+                </AutoWindow>
+            </Window>
+            <Window type="GlossySerpent/Button" name="btn_firePoint" >
+                <Property name="Area" value="{{0,0},{0,178},{0,181},{0,202}}" />
+                <Property name="Text" value="Add firePoint" />
+                <Property name="HorizontalAlignment" value="Centre" />
             </Window>
         </Window>
     </Window>

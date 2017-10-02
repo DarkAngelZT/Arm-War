@@ -13,6 +13,12 @@ Scene.entityMap={
 Scene.spawn_points={
 	--[team number]={{points},...}
 }
+Scene.tankLoader={
+	standard=StandardTankEntity
+}
+Scene.cameras={
+	
+}
 
 Scene.nodeLoader={
 	mesh_static=function( info )
@@ -26,7 +32,7 @@ Scene.nodeLoader={
 	end,
 	mesh_animated=function( info )
 		local mesh=NeoGraphics:getInstance():getMesh(info.mesh_path)
-		local node=NeoGraphics:getInstance():AddOctreeSceneNode(mesh)
+		local node=NeoGraphics:getInstance():AddAnimatedMeshSceneNode(mesh)
 		node:setPosition(info.position)
 		node:setRotation(info.rotation)
 		node:setScale(info.scale)
@@ -34,7 +40,18 @@ Scene.nodeLoader={
 		return node,mesh
 	end,
 	billboard=function( info )
-		
+		local texture=NeoGraphics:getInstance():LoadTexture(info.textures[1])
+		local size = irr.core.dimension2df:new_local(info.width,info.height)
+		local node=NeoGraphics:getInstance():AddBillboardSceneNode()
+		node:setSize(size)
+		if texture then
+			node:setMaterialTexture(0,texture)
+		end
+		node:setMaterialFlag(irr.video.EMF_LIGHTING, false)
+		node:setMaterialType(irr.video.EMT_TRANSPARENT_ALPHA_CHANNEL)
+		node:setPosition(position)
+		node:updateAbsolutePosition()
+		return node
 	end,
 	light=function( info )
 		local node=NeoGraphics:getInstance():AddLightSceneNode()
@@ -51,6 +68,7 @@ Scene.nodeLoader={
 		node:getLightData().InnerCone=info.innerCone
 		node:getLightData().OuterCone=info.outerCone
 		node:setLightType(Scene.light_type_list[info.light_type])
+		node:updateAbsolutePosition()
 		return node
 	end,
 	octree=function( info )
@@ -90,7 +108,7 @@ Scene.nodeLoader={
 			texture_path = DIR_RESOURCES.."model/default/default_cobe_texture.png"
 		end
 		local texture=NeoGraphics:getInstance():LoadTexture(texture_path)
-		local node=NeoGraphics:getInstance():AddCubeSceneNode(info.radius)
+		local node=NeoGraphics:getInstance():AddSphereSceneNode(info.radius)
 		if texture then
 			node:setMaterialTexture(0,texture)
 		end
@@ -163,6 +181,19 @@ Scene.collisionShapeLoader={
 	end
 }
 
+Scene.shell_pool={}
+Scene.shell_pool.AP=ObjectPool.new()
+Scene.shell_pool.AP.type=ShellEntity
+
+Scene.shell_pool.HE=ObjectPool.new()
+Scene.shell_pool.HE.type=ShellEntity
+
+Scene.shell_pool.HEAT=ObjectPool.new()
+Scene.shell_pool.HEAT.type=ShellEntity
+
+Scene.shell_pool.HESH=ObjectPool.new()
+Scene.shell_pool.HESH.type=ShellEntity
+
 function Scene.LoadEntity( data )
 	local logic_data=nil
 	if(data.logic_data ~= "")then
@@ -173,29 +204,50 @@ function Scene.LoadEntity( data )
 		entity_type = logic_data.entity_type
 	end
 	local entity=Scene.entityMap[entity_type].load(data,logic_data)
-	Scene.entities[data.id]=entiry
+	Scene.entities[data.id]=entity
+end
+
+function Scene:ShootShell( property, impulse, data )
+	if property.shell_type and self.shell_pool[property.shell_type] then
+		local shell = self.shell_pool[property.shell_type]:create(property)
+		local rbody = shell.gameobject:getRigidBody()
+		local zero_v = irr.core.vector3df()
+		--reset velocity
+		rbody:setLinearVelocity(zero_v)
+		rbody:setAngularVelocity(zero_v)
+		for k,v in pairs(data) do
+			shell[k]=v
+		end
+		shell.gameobject:getRigidBody():applyCentralImpulse(impulse)
+	end
 end
 
 function Scene.Clear()
 	Scene.spawn_points={}
+	ShellFactory.clear()
 end
 
-function Scene.Update()
+function Scene.LoadUpdate()
 	if(Scene.loading_controller) then
 		if(Scene.loading_percent==100) then
 			Scene.loading_controller=nil
+			NeoGameLogic:getInstance():removeLuaUpdateFunction("Scene.LoadUpdate")
+			NeoGameLogic:getInstance():AddLuaUpdateFunction("Scene.Update")
+			Logic:Init()
 			g_ui_table.current:hide()
 		else
 			local state
 			if Scene.loading_percent<0 then
 				--初始化加载
 				state,Scene.loading_percent=
-					coroutine.resume(Scene.loading_controller,Scene.map_info)
+					coroutine.resume(Scene.loading_controller,Scene.map_info,Scene.player_info)
 			else 
 				state,Scene.loading_percent=coroutine.resume(Scene.loading_controller)
 			end
 			if(not state)then
-				print("Error while loading map: "..Scene.loading_percent)
+				local error_str = "Error while loading map: "..Scene.loading_percent
+				print(error_str)
+				LoadingScreen.setMessage(error_str)
 				--载入出错处理
 				return
 			end
@@ -207,11 +259,16 @@ function Scene.Update()
 	end
 end
 
-function Scene.Init(map_path)
-	NeoGameLogic:getInstance():AddLuaUpdateFunction("Scene.Update")
+function Scene.Update()
+	-- body
+end
+
+function Scene.Init(map_path,player_info)
+	NeoGameLogic:getInstance():AddLuaUpdateFunction("Scene.LoadUpdate")
 	Scene.loading_controller=coroutine.create(Scene.load)
 	Scene.loading_percent=-1
 	Scene.map_info= assert(dofile(map_path))
+	Scene.player_info=player_info
 	-- Scene.load(Scene.map_info)
 end
 
@@ -234,5 +291,6 @@ function Scene.addSpawnPoint( data )
 	end
 	local point = {}
 	point.position=irr.core.vector3df:new_local(data.position)
+	point.rotation=irr.core.vector3df:new_local(data.rotation)
 	table.insert(Scene.spawn_points[data.team],point)
 end

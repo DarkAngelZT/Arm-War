@@ -1,0 +1,7 @@
+class Effector
+{
+public:
+	virtual void Play();
+	virtual NeoData& getParameters();
+	virtual void setParameters(NeoData&data);
+};
