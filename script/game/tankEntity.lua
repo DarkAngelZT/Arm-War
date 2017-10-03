@@ -8,20 +8,25 @@ StandardTankEntity=class(Entity)
 StandardTankEntity.tank_type="standard"
 StandardTankEntity.actor=nil
 StandardTankEntity.property={}
-StandardTankEntity.components={
-	body={object=nil},
-	left_track={object=nil},
-	right_track={object=nil},
-	turret={object=nil},
-	canon={object=nil},
-	fire_position=irr.core.vector3df:new_local(),
-	body_hinge=nil,
-	turret_hinge=nil,
-	canon_hinge=nil,
-	left_track_hinge=nil,
-	right_track_hinge=nil
-}
 StandardTankEntity.fire_effector=nil
+
+function StandardTankEntity:onCreate(id)
+	self.id=id or -1
+	self.components={
+		body={object=nil},
+		left_track={object=nil},
+		right_track={object=nil},
+		turret={object=nil},
+		canon={object=nil},
+		fire_position=irr.core.vector3df:new_local(),
+		body_hinge=nil,
+		turret_hinge=nil,
+		canon_hinge=nil,
+		left_track_hinge=nil,
+		right_track_hinge=nil
+	}
+end
+
 --@transform:matrix4
 function StandardTankEntity:setTransform(transform)
 	local body = self.components.body
@@ -66,24 +71,44 @@ function StandardTankEntity:setTurretAngle( angle_degree )
 	if current_angle<0 then
 		current_angle=current_angle+360
 	end
-	local d = math.min(
-		angle_degree-current_angle,360-angle_degree+current_angle)/self.property.turret_rotation_speed
-	if angle_degree>180 then
-		angle_degree=angle_degree-360
+	local delta_angle=angle_degree-current_angle
+	local delta_angle_abs = math.abs(delta_angle)
+	local dir = 0
+	if delta_angle_abs>0 then
+		dir = delta_angle/delta_angle_abs
 	end
-	d=math.abs(d)
-	if d<0.1 then
-		d=0.1
+	if delta_angle_abs>180 then
+		dir=dir*-1
+		delta_angle = (360 - delta_angle_abs) * dir
 	end
-	hinge:setMotorTarget(math.rad(angle_degree),d)
+	local angular_speed = math.rad(self.property.turret_rotation_speed)*dir
+
+	if delta_angle_abs<10 then
+		angular_speed = math.rad(delta_angle)
+	end
+	hinge:enableAngularMotor(true,angular_speed,0.8)
 end
 
 function StandardTankEntity:setCanonAngle( angle_degree )
 	local hinge = self.components.canon_hinge
 	local current_angle = math.deg(hinge:getHingeAngle())
-	--print(current_angle)
 
 	hinge:setMotorTarget(math.rad(angle_degree),1)
+end
+
+function StandardTankEntity:getTurretAngle()
+	local hinge = self.components.turret_hinge
+	local current_angle = math.deg(hinge:getHingeAngle())
+	if current_angle<0 then
+		current_angle=current_angle+360
+	end
+	return current_angle
+end
+
+function StandardTankEntity:getCanonAngle()
+	local hinge = self.components.canon_hinge
+	local current_angle = math.deg(hinge:getHingeAngle())
+	return current_angle
 end
 
 function StandardTankEntity:setTrackSpeed( side, speed )
@@ -107,7 +132,7 @@ function StandardTankEntity:getCurrentFireInfo()
 	local tranform = self.components.canon.object:GetSceneNode():getAbsoluteTransformation()
 	local fire_position = irr.core.vector3df:new_local()
 	tranform:transformVect(fire_position,self.components.fire_position)
-	local fire_direction = fire_position-self.components.canon.object:getPosition()
+	local fire_direction = fire_position-tranform:getTranslation()
 	fire_direction:normalize()
 	return fire_position,fire_direction
 end
@@ -127,80 +152,80 @@ function StandardTankEntity.Load( info, logic_data )
 	local physics = NeoPhysics:getInstance()
 	local neo_scene = NeoScene:getInstance()
 
-	local self = StandardTankEntity.new()
-
-	self.property.tank_name = info.tank_name
+	local tank = StandardTankEntity.new(info.id)
+	tank.property.tank_name = info.tank_name
 	local data =  info.data
 	--组装车身
-	self.components.body.object=neo_scene:CreateStandardTankBodyObject()
+	tank.components.body.object=neo_scene:CreateStandardTankBodyObject()
 	local body_main_node,shape_index_body = 
 		StandardTankEntity.LoadRegularComponent(data.components.body )
-	self.components.body.object:setBodyNode(body_main_node)
+	tank.components.body.object:setBodyNode(body_main_node)
 	local rigid_body = StandardTankEntity.LoadRigidBody(
-		self.components.body.object,shape_index_body, data.components.body)
+		tank.components.body.object,shape_index_body, data.components.body)
 	--添加轮子
 	for _,wheel_data in ipairs(data.components.wheel) do
 		local node,_ = Scene.nodeLoader.mesh_animated(wheel_data)
 		if node then
-			self.components.body.object:addWheelNode(node,wheel_data.side)
+			tank.components.body.object:addWheelNode(node,wheel_data.side)
 		end
 	end
 	--组装炮台
-	self.components.turret.object=neo_scene:CreateGameObject()
+	tank.components.turret.object=neo_scene:CreateGameObject()
 	local turret_node,shape_index_turret = 
 		StandardTankEntity.LoadRegularComponent(data.components.turret)
-	self.components.turret.object:setSceneNode(turret_node)
+	tank.components.turret.object:setSceneNode(turret_node)
 	local rigid_turret = StandardTankEntity.LoadRigidBody(
-		self.components.turret.object,shape_index_turret, data.components.turret)
+		tank.components.turret.object,shape_index_turret, data.components.turret)
 	rigid_turret:setActivationState(4)--DISABLE_DEACTIVATION 
 	--组装炮管
-	self.components.canon.object=neo_scene:CreateGameObject()
-	self.components.canon.animation={}
+	tank.components.canon.object=neo_scene:CreateGameObject()
+	tank.components.canon.animation={}
 	for _,v in ipairs(data.components.canon.animation) do
-		self.components.canon.animation[v.label]={ from=v.from, to=v.to }
+		tank.components.canon.animation[v.label]={ from=v.from, to=v.to }
 	end
 	local canon_node,shape_index_canon =
 		StandardTankEntity.LoadRegularComponent(data.components.canon)
-	self.components.canon.object:setSceneNode(canon_node)
+	tank.components.canon.object:setSceneNode(canon_node)
 	canon_node:setLoopMode(false)
 	local rigid_cannon = StandardTankEntity.LoadRigidBody(
-		self.components.canon.object,shape_index_canon, data.components.canon)
+		tank.components.canon.object,shape_index_canon, data.components.canon)
 	rigid_cannon:setActivationState(4)--DISABLE_DEACTIVATION 
 	--组装履带
 	for _,v in ipairs(data.components.track) do
 		if v.side=="left" then
-			self.components.left_track.object=neo_scene:CreateSimpleTankTrackObject()
+			tank.components.left_track.object=neo_scene:CreateSimpleTankTrackObject()
 			local track_node,shape_index_track = StandardTankEntity.LoadRegularComponent( v )
 
-			self.components.body.object:addTrackNode(track_node,v.side)
-			-- self.components.left_track.object:setSceneNode(track_node)
+			tank.components.body.object:addTrackNode(track_node,v.side)
+			-- tank.components.left_track.object:setSceneNode(track_node)
 
-			local rigidbody=self.components.left_track.object:AddRigidBody(
+			local rigidbody=tank.components.left_track.object:AddRigidBody(
 				shape_index_track,v.mass,v.position,v.rotation)
 			rigidbody:setDamping(0.1,0.9)
 		else
-			self.components.right_track.object=neo_scene:CreateSimpleTankTrackObject()
+			tank.components.right_track.object=neo_scene:CreateSimpleTankTrackObject()
 			local track_node,shape_index_track = StandardTankEntity.LoadRegularComponent( v )
 
-			self.components.body.object:addTrackNode(track_node,v.side)
-			-- self.components.right_track.object:setSceneNode(track_node)
+			tank.components.body.object:addTrackNode(track_node,v.side)
+			-- tank.components.right_track.object:setSceneNode(track_node)
 
-			local rigidbody=self.components.right_track.object:AddRigidBody(
+			local rigidbody=tank.components.right_track.object:AddRigidBody(
 				shape_index_track,v.mass,v.position,v.rotation)
 			rigidbody:setDamping(0.1,0.9)
 		end
 	end
 	--设置Id
-	self.components.body.object:setLuaIdentifier(info.id)
-	self.components.turret.object:setLuaIdentifier(info.id)
-	self.components.canon.object:setLuaIdentifier(info.id)
-	self.components.left_track.object:setLuaIdentifier(info.id)
-	self.components.right_track.object:setLuaIdentifier(info.id)
+	tank.components.body.object:setLuaIdentifier(info.id)
+	tank.components.turret.object:setLuaIdentifier(info.id)
+	tank.components.canon.object:setLuaIdentifier(info.id)
+	tank.components.left_track.object:setLuaIdentifier(info.id)
+	tank.components.right_track.object:setLuaIdentifier(info.id)
 	--设置炮弹发射点
 	local fire_point = data.components.fire_point
-	local transform = self.components.turret.object:GetSceneNode():getAbsoluteTransformation()
-	transform:inverseTranslateVect(fire_point.position)
-	self.components.fire_position=fire_point.position
+	local transform = tank.components.canon.object:GetSceneNode():getAbsoluteTransformation()
+	local fire_position = irr.core.vector3df(fire_point.position)
+	transform:inverseTranslateVect(fire_position)
+	tank.components.fire_position=fire_position
 	--物理结构组装
 	--炮塔与车身
 	local pivot_body = irr.core.vector3df:new_local()
@@ -208,7 +233,7 @@ function StandardTankEntity.Load( info, logic_data )
 	local axis_body_turret = irr.core.vector3df:new_local(0,1,0)
 	local turret_hinge = NeoPhysics:getInstance():CreateHingeJoint(
 		rigid_body,rigid_turret,pivot_body,pivot_turret_body,axis_body_turret,axis_body_turret)
-	self.components.turret_hinge=turret_hinge
+	tank.components.turret_hinge=turret_hinge
 	turret_hinge:enableAngularMotor(true,0,1)
 	physics:AddHingeJointToWorld(turret_hinge)
 	--炮管与炮塔
@@ -217,7 +242,7 @@ function StandardTankEntity.Load( info, logic_data )
 	local axis_canon_turret = irr.core.vector3df:new_local(0,0,0.5)
 	local canon_hinge = NeoPhysics:getInstance():CreateHingeJoint(
 		rigid_turret,rigid_cannon,pivot_turret_canon,pivot_canon,axis_canon_turret,axis_canon_turret)
-	self.components.canon_hinge=canon_hinge
+	tank.components.canon_hinge=canon_hinge
 	canon_hinge:setLimit(
 		-math.rad(data.components.canon.max_angle),
 		-math.rad(data.components.canon.min_angle))
@@ -226,39 +251,39 @@ function StandardTankEntity.Load( info, logic_data )
 	--左履带与车身
 	local axis_track=axis_canon_turret
 	local pivot_left_track = 
-		body_main_node:getPosition()-self.components.left_track.object:getPosition()
+		body_main_node:getPosition()-tank.components.left_track.object:getPosition()
 	local left_track_hinge = StandardTankEntity.LoadTrackRigidBody(
-		rigid_body,self.components.left_track.object:getRigidBody(),
+		rigid_body,tank.components.left_track.object:getRigidBody(),
 		pivot_body,pivot_left_track,axis_track)
-	self.components.left_track_hinge=left_track_hinge
+	tank.components.left_track_hinge=left_track_hinge
 	--右履带与车身
 	local pivot_right_track = 
-		body_main_node:getPosition()-self.components.right_track.object:getPosition()
+		body_main_node:getPosition()-tank.components.right_track.object:getPosition()
 	local right_track_hinge = StandardTankEntity.LoadTrackRigidBody(
-		rigid_body,self.components.right_track.object:getRigidBody(),
+		rigid_body,tank.components.right_track.object:getRigidBody(),
 		pivot_body,pivot_right_track,axis_track)
-	self.components.right_track_hinge=right_track_hinge
+	tank.components.right_track_hinge=right_track_hinge
 	--加入主体组件列表
-	local main_body_object = self.components.body.object
+	local main_body_object = tank.components.body.object
 	main_body_object:AddComponent("turretHinge",turret_hinge)
 	main_body_object:AddComponent("canonHinge",canon_hinge)
 	main_body_object:AddComponent("leftTrackHinge",left_track_hinge)
 	main_body_object:AddComponent("rightTrackHinge",right_track_hinge)
 	--设置动画
-	self.setAnimation(self.components.canon,"idle")
-	local transform = irr.core.matrix4:new_local()
-	transform:setTranslation(info.position)
-	transform:setRotationDegrees(info.rotation)
-	self:setTransform(transform)
+	tank.setAnimation(tank.components.canon,"idle")
+	local transform_tank = irr.core.matrix4:new_local()
+	transform_tank:setTranslation(info.position)
+	transform_tank:setRotationDegrees(info.rotation)
+	tank:setTransform(transform_tank)
 	--加载炮火特效
-	self.fire_effector=NeoScene:getInstance():addSpriteAnimationEffector(
-			irr.core.vector3df(),"canon_1.png",irr.core.dimension2df(10,10))
+	tank.fire_effector=NeoScene:getInstance():addSpriteAnimationEffector(
+			irr.core.vector3df(),"canon_1.png",irr.core.dimension2df(8,8))
 	--记录逻辑数据
 	for k,v in pairs(data.property) do
-		self.property[k]=v
+		tank.property[k]=v
 	end
 
-	return self
+	return tank
 end
 
 function StandardTankEntity.LoadRegularComponent( data )
@@ -315,7 +340,13 @@ end
 
 --event:NeoEvent 结构
 function StandardTankEntity.OnShellHit( event )
-	
+	local actor_id = event:getData(0)
+	local shell_id = event:getData(1)
+
+	local actor = Logic.actors[actor_id]
+	local shell=Scene.entities[shell_id]
+	--处理跳弹情况
+	actor:OnShellHit(shell)
 end
 
 -----------------
@@ -361,7 +392,7 @@ function StandardTankEntity:Stop()
 	self:setTrackSpeed("right",0)
 end
 
-function StandardTankEntity:Attack( shell_type, actor )
+function StandardTankEntity:Attack( shell_type )
 	local fire_position, fire_dir = self:getCurrentFireInfo()
 	local impulse = fire_dir*self.property.fire_power
 	local vector = irr.core.vector3df:new_local(1,0,0)
@@ -373,14 +404,17 @@ function StandardTankEntity:Attack( shell_type, actor )
 		rotation=shell_rot
 	}
 	local data = {
-		owner=actor
+		owner=self.actor
 	}
-	print("effect")
-	self:PlayFireEffect(fire_position)
-	--print("animation")
-	--StandardTankEntity.setAnimation(self.components.canon,"fire")
-	print("bullet")
+
+	--炮弹
 	Scene:ShootShell(shell_prop,impulse,data)
-	print("impulse")
-	self.components.turret.object:getRigidBody():applyCentralImpulse(impulse*-1)
+	--炮火特效
+	self:PlayFireEffect(fire_position)
+	--反作用力
+	local turret = self.components.turret.object:getRigidBody()
+	local impulse_turret = impulse * -1
+	turret:applyCentralImpulse(impulse_turret)
+	--炮管动画
+	StandardTankEntity.setAnimation(self.components.canon,"fire")
 end

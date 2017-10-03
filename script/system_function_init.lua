@@ -55,7 +55,7 @@ function SceneLoaderGeneric(map_info,player_info)
 			end
 			if Scene.entityMap[entity_type] then
 				local game_entity = Scene.entityMap[entity_type].Load(data)
-				Scene.entities[game_entity.id]=game_entity
+				Scene.entities[tostring(game_entity.id)]=game_entity
 				--event handler
 				if not loaded_entity_type[entity_type] then
 					loaded_entity_type[entity_type]=true
@@ -75,6 +75,7 @@ function SceneLoaderGeneric(map_info,player_info)
 	--tank object
 	local tank_model_data = {}
 	local spawn_points_index = {}
+	local loaded_tank_type = {}
 	if player_info then
 		local player_number = #player_info
 		--load tank according to player data
@@ -97,6 +98,13 @@ function SceneLoaderGeneric(map_info,player_info)
 				data=current_tank_data
 			}
 			local tank=Scene.tankLoader[current_tank_data.property.tank_type].Load(tank_data)
+			Scene.entities[tank.id]=tank
+			local tank_enitity_type = current_tank_data.property.tank_type
+			if not loaded_tank_type[tank_enitity_type] then
+				loaded_tank_type[tank_enitity_type]=true
+				Scene.tankLoader[tank_enitity_type].RegisterSingleModeEventHandler()
+			end
+			
 			local current_actor = Actor.new(v.id)
 			current_actor.name=v.name
 			current_actor:setEntity(tank)
@@ -104,6 +112,8 @@ function SceneLoaderGeneric(map_info,player_info)
 				Logic.actor_me=current_actor
 			end
 			Logic:addActor(current_actor)
+			percent=60+i/player_number*30
+			coroutine.yield(percent)
 		end
 	end
 	--camera

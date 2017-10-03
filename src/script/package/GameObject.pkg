@@ -29,11 +29,12 @@ public:
 	bool isActive() const;
 	void setActive(bool active);
 	//physics
-	const RigidBody* getRigidBody() const;
+	RigidBody* getRigidBody();
 	RigidBody* AddRigidBody(int collisionShape, float mass);
 	RigidBody* AddRigidBody(int collisionShape, float mass,
 			const irr::core::vector3d<float>& position,
 			const irr::core::vector3d<float>& rotation);
+	virtual void ResetPhysicsStates();
 
 	std::string getLuaIdentifier() const;
 	void setLuaIdentifier(const std::string& luaIndentifier);

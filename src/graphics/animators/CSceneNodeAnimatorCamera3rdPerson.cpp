@@ -274,12 +274,12 @@ void CSceneNodeAnimatorCamera3rdPerson::UpdatePosition(ICameraSceneNode*cam)
 			* sin(core::degToRad(camTilt + 90));
 
 	core::matrix4 tmatrix;
-	tmatrix.setRotationDegrees(camTarget->getRotation());
+	tmatrix.setRotationDegrees(camTarget->getAbsoluteTransformation().getRotationDegrees());
 	//把euler角转换成球面坐标，再取水平旋转角
 	core::vector3df unitVector(1,0,0);
 	tmatrix.rotateVect(unitVector);
 	core::vector3df rot = unitVector.getSphericalCoordinateAngles();
-	float angle_y=rot.Y*-1;
+	float angle_y=rot.Y*-1+90;
 	if(angle_y<0){
 		angle_y+=360;
 	}

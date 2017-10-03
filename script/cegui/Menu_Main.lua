@@ -24,6 +24,12 @@ function main_menu.btn_callback( args )
 			id="a01",
 			team=1
 		}
+		players[2]={
+			name="Dummy",
+			tank_type="t34",
+			id="a02",
+			team=2
+		}
 		Scene.Init("resources/maps/mini_manhattan.lua",players)
 		return
 	elseif btnName == "MapEditor" then

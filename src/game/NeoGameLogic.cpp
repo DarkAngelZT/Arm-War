@@ -159,7 +159,7 @@ void NeoGameLogic::Update()
 		static std::vector<std::string> params;
 		std::set<std::string>::iterator iter_func;
 		for (iter_func = lua_update_functions.begin();
-				iter_func != lua_update_functions.end(); iter_func++)
+				iter_func != lua_update_functions.end(); ++iter_func)
 		{
 			NeoScript::getInstance()->ExecuteScriptedFunction((*iter_func),
 					params);

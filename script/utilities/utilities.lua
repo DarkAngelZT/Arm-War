@@ -33,6 +33,14 @@ function trim(s)
   return s:match "^%s*(.-)%s*$"
 end
 --------------------------------------------
+-- math.clamp
+--------------------------------------------
+function clamp( number, min, max)
+    min=min or 0
+    max=max or 1
+    return math.min(math.max(min,number),max)
+end
+--------------------------------------------
 -- make directory
 --------------------------------------------
 function createDirectory( dirname )
@@ -112,8 +120,10 @@ end
 -- object pool
 --------------------------------------------
 ObjectPool=class()
-ObjectPool.pool={}
 ObjectPool.type=nil
+function ObjectPool:onCreate( )
+    self.pool={}
+end
 function ObjectPool:create( data )
     if not self.type then
         return
@@ -122,7 +132,6 @@ function ObjectPool:create( data )
         local object = self.pool[#self.pool]
         table.remove(self.pool,#self.pool)
         object:setParameters(data)
-        object:setActive(true)
         return object
     else
         local object = self.type.create(data)

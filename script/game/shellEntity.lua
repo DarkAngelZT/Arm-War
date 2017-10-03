@@ -83,8 +83,9 @@ function ShellEntity.OnCollisionEnter( id_self, id_another )
 	local shell=Scene.entities[id_self]
 	if target.actor then
 		--触发击中事件
+		NeoGameLogic:getInstance():TriggerEvent(Logic.EVENT.SHELL_HIT,target.actor.id,id_self)
 	end
-	Scene.shell_pool[shell.shell_type].returnObject(shell)
+	Scene.shell_pool[shell.shell_type]:returnObject(shell)
 end
 
 -----------------

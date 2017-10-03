@@ -1,6 +1,6 @@
 /*
 ** Lua binding: NeoGame
-** Generated automatically by tolua++-1.0.93 on Mon Oct  2 05:40:42 2017.
+** Generated automatically by tolua++-1.0.93 on Tue Oct  3 01:20:20 2017.
 */
 
 #ifndef __cplusplus
@@ -31640,20 +31640,20 @@ static int tolua_NeoGame_GameObject_getRigidBody00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"const GameObject",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"GameObject",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  const GameObject* self = (const GameObject*)  tolua_tousertype(tolua_S,1,0);
+  GameObject* self = (GameObject*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getRigidBody'", NULL);
 #endif
   {
-   const RigidBody* tolua_ret = (const RigidBody*)  self->getRigidBody();
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"const RigidBody");
+   RigidBody* tolua_ret = (RigidBody*)  self->getRigidBody();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"RigidBody");
   }
  }
  return 1;
@@ -31733,6 +31733,37 @@ static int tolua_NeoGame_GameObject_AddRigidBody01(lua_State* tolua_S)
  return 1;
 tolua_lerror:
  return tolua_NeoGame_GameObject_AddRigidBody00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: ResetPhysicsStates of class  GameObject */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_GameObject_ResetPhysicsStates00
+static int tolua_NeoGame_GameObject_ResetPhysicsStates00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"GameObject",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  GameObject* self = (GameObject*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'ResetPhysicsStates'", NULL);
+#endif
+  {
+   self->ResetPhysicsStates();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'ResetPhysicsStates'.",&tolua_err);
+ return 0;
+#endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -40355,6 +40386,7 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getRigidBody",tolua_NeoGame_GameObject_getRigidBody00);
    tolua_function(tolua_S,"AddRigidBody",tolua_NeoGame_GameObject_AddRigidBody00);
    tolua_function(tolua_S,"AddRigidBody",tolua_NeoGame_GameObject_AddRigidBody01);
+   tolua_function(tolua_S,"ResetPhysicsStates",tolua_NeoGame_GameObject_ResetPhysicsStates00);
    tolua_function(tolua_S,"getLuaIdentifier",tolua_NeoGame_GameObject_getLuaIdentifier00);
    tolua_function(tolua_S,"setLuaIdentifier",tolua_NeoGame_GameObject_setLuaIdentifier00);
    tolua_function(tolua_S,"getObjectType",tolua_NeoGame_GameObject_getObjectType00);

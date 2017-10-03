@@ -78,6 +78,7 @@ end
 function Logic:Init()
 	NeoGameLogic:getInstance():AddLuaUpdateFunction("Logic.Update")
 	if self.input_handler then
+		self.input_handler:Init()
 		self.event_handlers[0]={self.input_handler.OnKeyEvent}
 		self.event_handlers[1]={self.input_handler.OnMouseEvent}
 	end

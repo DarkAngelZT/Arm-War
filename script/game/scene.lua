@@ -211,14 +211,13 @@ function Scene:ShootShell( property, impulse, data )
 	if property.shell_type and self.shell_pool[property.shell_type] then
 		local shell = self.shell_pool[property.shell_type]:create(property)
 		local rbody = shell.gameobject:getRigidBody()
-		local zero_v = irr.core.vector3df()
 		--reset velocity
-		rbody:setLinearVelocity(zero_v)
-		rbody:setAngularVelocity(zero_v)
+		shell.gameobject:ResetPhysicsStates()
 		for k,v in pairs(data) do
 			shell[k]=v
 		end
-		shell.gameobject:getRigidBody():applyCentralImpulse(impulse)
+		shell:setActive(true)
+		rbody:applyCentralImpulse(impulse)
 	end
 end
 

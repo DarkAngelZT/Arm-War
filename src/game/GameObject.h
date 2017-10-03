@@ -57,10 +57,11 @@ public:
 	virtual void OnCollision(GameObject*another);
 	virtual void OnCollisionExit(GameObject*another);
 	virtual void OnContactCallback(btPersistentManifold*pm, GameObject*another);
-	const RigidBody* getRigidBody() const;
+	RigidBody* getRigidBody();
 	virtual RigidBody* AddRigidBody(int collisionShape, float mass);
 	virtual RigidBody* AddRigidBody(int collisionShape, float mass,
 			const vector3df& position, const vector3df& rotation);
+	virtual void ResetPhysicsStates();
 	std::string getLuaIdentifier() const;
 	void setLuaIdentifier(const std::string& luaIndentifier);
 	virtual std::string getObjectType()

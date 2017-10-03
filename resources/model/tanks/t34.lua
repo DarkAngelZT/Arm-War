@@ -279,7 +279,7 @@ tank_type = "standard",
 health = 120,
 fire_power = 60,
 armor = 3.5,
-max_speed = 15,
+max_speed = 18,
 ricochet_possibility = 0.4,
 reload_time = 15,
 }

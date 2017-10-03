@@ -2,6 +2,14 @@ SingleModeInputHandler={}
 SingleModeInputHandler.move_key_status={
 	forward=0,back=0,left=0,right=0
 }
+SingleModeInputHandler.key_turret_lock=false
+
+function SingleModeInputHandler:Init()
+	self.key_turret_lock=false
+	for k,_ in pairs(self.move_key_status) do
+	 	self.move_key_status[k]=0
+	 end 
+end
 
 function SingleModeInputHandler.OnKeyEvent(event)
 	local key = tonumber(event:getData(0))
@@ -36,6 +44,11 @@ function SingleModeInputHandler.OnKeyEvent(event)
 		Logic:addCommand(cmd)
 	else
 		Logic:addCommand(ActorMoveCommad.new(Logic.actor_me,straight_status,l_r_status))	
+	end
+	-- lock turret
+	if key==irr.KEY_SPACE and press==0 then
+		SingleModeInputHandler.key_turret_lock = not SingleModeInputHandler.key_turret_lock
+		Logic.actor_me:LockTurret(SingleModeInputHandler.key_turret_lock)
 	end
 end
 

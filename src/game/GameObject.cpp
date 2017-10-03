@@ -253,7 +253,7 @@ void GameObject::setVisible(bool visible)
 	this->visible = visible;
 }
 
-const RigidBody* GameObject::getRigidBody() const
+RigidBody* GameObject::getRigidBody()
 {
 	return m_rigidBody;
 }
@@ -340,4 +340,14 @@ void GameObject::setOnCollisionLuaCallback(std::string& func)
 void GameObject::setOnCollisionExitLuaCallback(std::string& func)
 {
 	m_lua_OnCollisionExit_callback = func;
+}
+
+void GameObject::ResetPhysicsStates()
+{
+	if(m_rigidBody){
+		core::vector3df zero;
+		m_rigidBody->clearForces();
+		m_rigidBody->setLinearVelocity(zero);
+		m_rigidBody->setAngularVelocity(zero);
+	}
 }
