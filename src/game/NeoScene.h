@@ -11,7 +11,7 @@
 #include <list>
 #include "GameObject.h"
 #include "../graphics/sfx/Effector.h"
-#include "ExplosionObjectPool.h"
+#include "objectPool/ExplosionObjectPool.h"
 #include "object/StandardTankBodyObject.h"
 #include "object/SimpleTankTrackObject.h"
 

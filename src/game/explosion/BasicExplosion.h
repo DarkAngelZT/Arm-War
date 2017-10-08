@@ -27,7 +27,7 @@ public:
 	const std::shared_ptr<ExplosionPhysics>& getPhysicsEmulator() const;
 	void setPhysicsEmulator(
 			const std::shared_ptr<ExplosionPhysics>& physicsEmulator);
-	virtual void setRecycleCallback(std::function<void()>&funtor);
+	virtual void setRecycleCallback(const std::function<void()>&funtor);
 
 private:
 	BasicExplosion();

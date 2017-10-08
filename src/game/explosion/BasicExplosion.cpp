@@ -10,13 +10,11 @@
 
 void BasicExplosion::setParams(NeoData& visual_p, NeoData& Physics_p)
 {
-	static_cast<BasicExplosionEffectParams&>(effector->getParameters()) =
-			static_cast<BasicExplosionEffectParams&>(visual_p);
-	static_cast<BasicExplosionParams&>(physics_emulator->getParameters()) =
-			static_cast<BasicExplosionParams&>(Physics_p);
+	effector->setParameters(visual_p);
+	physics_emulator->setParameters(Physics_p);
 }
 
-void BasicExplosion::setRecycleCallback(std::function<void()>& funtor)
+void BasicExplosion::setRecycleCallback(const std::function<void()>& funtor)
 {
 	if(physics_emulator)
 	{
@@ -31,12 +29,10 @@ void BasicExplosion::Reset()
 
 BasicExplosion::BasicExplosion()
 {
-	// TODO 自动生成的构造函数存根
 }
 
 BasicExplosion::~BasicExplosion()
 {
-	// TODO 自动生成的析构函数存根
 }
 
 void BasicExplosion::Play()

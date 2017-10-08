@@ -48,8 +48,10 @@ $pfile "quaternion.pkg"
 $pfile "vector3d.pkg"
 $pfile "vector2d.pkg"
 
+$pfile "CollisionObject.pkg"
 $pfile "RigidBody.pkg"
 $pfile "HingeJoint.pkg"
+$pfile "GhostObject.pkg"
 
 $pfile "Component.pkg"
 $pfile "Explosion.pkg"

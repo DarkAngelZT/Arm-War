@@ -31,6 +31,9 @@ public:
 			irr::core::vector3d<float> localPos = irr::core::vector3d<float>(0, 0, 0),
 			irr::core::vector3d<float> localRotation = irr::core::vector3d<float>(0, 0, 0));
 	void RemoveCollisionShape(int index);
+	//-----general collision object
+	void AddCollisionObjectToWorld(CollisionObject*collisionObj);
+	void RemoveCollisionObjectFromWorld(CollisionObject*collisionObj);
 	//------rigid body-------
 	RigidBody* CreateRigidBody(int collisionShapeIndex,
 			irr::scene::ISceneNode*node, float mass, irr::core::vector3d<float> pos =

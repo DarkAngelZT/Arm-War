@@ -1,4 +1,4 @@
-class RigidBody:public Component
+class RigidBody:public CollisionObject
 {
 public:
 	//general interface
@@ -88,8 +88,6 @@ public:
 	void setAngularFactor(float angFac);
 
 	irr::core::vector3d<float> getAngularFactor() const;
-	void setPosition(irr::core::vector3d<float> position);
-	void setRotation(irr::core::vector3d<float> rotation);
 
 	void setActivationState(int state);
 };

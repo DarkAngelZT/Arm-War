@@ -1,6 +1,6 @@
 /*
 ** Lua binding: NeoGame
-** Generated automatically by tolua++-1.0.93 on Tue Oct  3 01:20:20 2017.
+** Generated automatically by tolua++-1.0.93 on Sat Oct  7 16:22:20 2017.
 */
 
 #ifndef __cplusplus
@@ -195,16 +195,17 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"irr::SKeyMap");
  tolua_usertype(tolua_S,"irr::io::IAttributeExchangingObject");
  tolua_usertype(tolua_S,"irr::scene::IAnimatedMesh");
+ tolua_usertype(tolua_S,"GhostObject");
  tolua_usertype(tolua_S,"Component");
  tolua_usertype(tolua_S,"irr::core::aabbox3d<float>");
  tolua_usertype(tolua_S,"irr::core::quaternion");
- tolua_usertype(tolua_S,"irr::video::ITexture");
+ tolua_usertype(tolua_S,"irr::scene::IParticleRotationAffector");
  tolua_usertype(tolua_S,"irr::scene::IParticleCylinderEmitter");
  tolua_usertype(tolua_S,"std::vector<std::string>");
  tolua_usertype(tolua_S,"irr::core::vector2d<float>");
  tolua_usertype(tolua_S,"BillboardAnimationEffectorParams");
  tolua_usertype(tolua_S,"LuaHelper");
- tolua_usertype(tolua_S,"irr::core::dimension2d<unsigned int>");
+ tolua_usertype(tolua_S,"CollisionObject");
  tolua_usertype(tolua_S,"irr::scene::I3rdPersonCamera");
  tolua_usertype(tolua_S,"irr::IReferenceCounted");
  tolua_usertype(tolua_S,"BasicExplosionParams");
@@ -238,10 +239,11 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"irr::scene::IMeshSceneNode");
  tolua_usertype(tolua_S,"SimpleTankTrackObject");
  tolua_usertype(tolua_S,"BasicExplosionEffectParams");
- tolua_usertype(tolua_S,"irr::core::vector2d<unsigned>");
  tolua_usertype(tolua_S,"SfxManager");
- tolua_usertype(tolua_S,"irr::scene::IParticleFadeOutAffector");
+ tolua_usertype(tolua_S,"irr::core::vector2d<unsigned>");
  tolua_usertype(tolua_S,"NeoPhysics");
+ tolua_usertype(tolua_S,"irr::scene::IParticleFadeOutAffector");
+ tolua_usertype(tolua_S,"NeoGraphics");
  tolua_usertype(tolua_S,"irr::core::aabbox3d<int>");
  tolua_usertype(tolua_S,"irr::core::dimension2d<float>");
  tolua_usertype(tolua_S,"StandardTankBodyObject");
@@ -249,13 +251,13 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"irr::scene::IMesh");
  tolua_usertype(tolua_S,"std::vector<float>");
  tolua_usertype(tolua_S,"irr::core::dimension2d<unsigned>");
- tolua_usertype(tolua_S,"NeoGraphics");
  tolua_usertype(tolua_S,"GameObject");
- tolua_usertype(tolua_S,"irr::video::SColorHSL");
  tolua_usertype(tolua_S,"NeoEvent");
- tolua_usertype(tolua_S,"irr::scene::ILightSceneNode");
+ tolua_usertype(tolua_S,"irr::video::SColorHSL");
  tolua_usertype(tolua_S,"Explosion");
- tolua_usertype(tolua_S,"irr::scene::IParticleRotationAffector");
+ tolua_usertype(tolua_S,"irr::scene::ILightSceneNode");
+ tolua_usertype(tolua_S,"irr::video::ITexture");
+ tolua_usertype(tolua_S,"irr::core::dimension2d<unsigned int>");
  tolua_usertype(tolua_S,"irr::scene::IParticleAffector");
  tolua_usertype(tolua_S,"irr::core::vector3d<float>");
  tolua_usertype(tolua_S,"irr::scene::IParticleMeshEmitter");
@@ -27965,6 +27967,138 @@ static int tolua_set_irr__core__vector2d_float__Y(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: setEnabled of class  CollisionObject */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_CollisionObject_setEnabled00
+static int tolua_NeoGame_CollisionObject_setEnabled00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CollisionObject",0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CollisionObject* self = (CollisionObject*)  tolua_tousertype(tolua_S,1,0);
+  bool bEnabled = ((bool)  tolua_toboolean(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setEnabled'", NULL);
+#endif
+  {
+   self->setEnabled(bEnabled);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setEnabled'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: activate of class  CollisionObject */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_CollisionObject_activate00
+static int tolua_NeoGame_CollisionObject_activate00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CollisionObject",0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,2,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CollisionObject* self = (CollisionObject*)  tolua_tousertype(tolua_S,1,0);
+  bool forceActivation = ((bool)  tolua_toboolean(tolua_S,2,false));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'activate'", NULL);
+#endif
+  {
+   self->activate(forceActivation);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'activate'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setPosition of class  CollisionObject */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_CollisionObject_setPosition00
+static int tolua_NeoGame_CollisionObject_setPosition00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CollisionObject",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CollisionObject* self = (CollisionObject*)  tolua_tousertype(tolua_S,1,0);
+  irr::core::vector3d<float> position = *((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setPosition'", NULL);
+#endif
+  {
+   self->setPosition(position);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setPosition'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setRotation of class  CollisionObject */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_CollisionObject_setRotation00
+static int tolua_NeoGame_CollisionObject_setRotation00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CollisionObject",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CollisionObject* self = (CollisionObject*)  tolua_tousertype(tolua_S,1,0);
+  irr::core::vector3d<float> rotation = *((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setRotation'", NULL);
+#endif
+  {
+   self->setRotation(rotation);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setRotation'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: applyGravity of class  RigidBody */
 #ifndef TOLUA_DISABLE_tolua_NeoGame_RigidBody_applyGravity00
 static int tolua_NeoGame_RigidBody_applyGravity00(lua_State* tolua_S)
@@ -29522,72 +29656,6 @@ static int tolua_NeoGame_RigidBody_getAngularFactor00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'getAngularFactor'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setPosition of class  RigidBody */
-#ifndef TOLUA_DISABLE_tolua_NeoGame_RigidBody_setPosition00
-static int tolua_NeoGame_RigidBody_setPosition00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"RigidBody",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  RigidBody* self = (RigidBody*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3d<float> position = *((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setPosition'", NULL);
-#endif
-  {
-   self->setPosition(position);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setPosition'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setRotation of class  RigidBody */
-#ifndef TOLUA_DISABLE_tolua_NeoGame_RigidBody_setRotation00
-static int tolua_NeoGame_RigidBody_setRotation00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"RigidBody",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  RigidBody* self = (RigidBody*)  tolua_tousertype(tolua_S,1,0);
-  irr::core::vector3d<float> rotation = *((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setRotation'", NULL);
-#endif
-  {
-   self->setRotation(rotation);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setRotation'.",&tolua_err);
  return 0;
 #endif
 }
@@ -35998,6 +36066,72 @@ static int tolua_NeoGame_NeoPhysics_RemoveCollisionShape00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: AddCollisionObjectToWorld of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_AddCollisionObjectToWorld00
+static int tolua_NeoGame_NeoPhysics_AddCollisionObjectToWorld00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"CollisionObject",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  CollisionObject* collisionObj = ((CollisionObject*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'AddCollisionObjectToWorld'", NULL);
+#endif
+  {
+   self->AddCollisionObjectToWorld(collisionObj);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'AddCollisionObjectToWorld'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: RemoveCollisionObjectFromWorld of class  NeoPhysics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_RemoveCollisionObjectFromWorld00
+static int tolua_NeoGame_NeoPhysics_RemoveCollisionObjectFromWorld00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoPhysics",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"CollisionObject",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoPhysics* self = (NeoPhysics*)  tolua_tousertype(tolua_S,1,0);
+  CollisionObject* collisionObj = ((CollisionObject*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'RemoveCollisionObjectFromWorld'", NULL);
+#endif
+  {
+   self->RemoveCollisionObjectFromWorld(collisionObj);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'RemoveCollisionObjectFromWorld'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: CreateRigidBody of class  NeoPhysics */
 #ifndef TOLUA_DISABLE_tolua_NeoGame_NeoPhysics_CreateRigidBody00
 static int tolua_NeoGame_NeoPhysics_CreateRigidBody00(lua_State* tolua_S)
@@ -40192,7 +40326,14 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
     tolua_endmodule(tolua_S);
    tolua_endmodule(tolua_S);
   tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"RigidBody","RigidBody","Component",NULL);
+  tolua_cclass(tolua_S,"CollisionObject","CollisionObject","Component",NULL);
+  tolua_beginmodule(tolua_S,"CollisionObject");
+   tolua_function(tolua_S,"setEnabled",tolua_NeoGame_CollisionObject_setEnabled00);
+   tolua_function(tolua_S,"activate",tolua_NeoGame_CollisionObject_activate00);
+   tolua_function(tolua_S,"setPosition",tolua_NeoGame_CollisionObject_setPosition00);
+   tolua_function(tolua_S,"setRotation",tolua_NeoGame_CollisionObject_setRotation00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"RigidBody","RigidBody","CollisionObject",NULL);
   tolua_beginmodule(tolua_S,"RigidBody");
    tolua_function(tolua_S,"applyGravity",tolua_NeoGame_RigidBody_applyGravity00);
    tolua_function(tolua_S,"setGravity",tolua_NeoGame_RigidBody_setGravity00);
@@ -40238,8 +40379,6 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setAngularFactor",tolua_NeoGame_RigidBody_setAngularFactor00);
    tolua_function(tolua_S,"setAngularFactor",tolua_NeoGame_RigidBody_setAngularFactor01);
    tolua_function(tolua_S,"getAngularFactor",tolua_NeoGame_RigidBody_getAngularFactor00);
-   tolua_function(tolua_S,"setPosition",tolua_NeoGame_RigidBody_setPosition00);
-   tolua_function(tolua_S,"setRotation",tolua_NeoGame_RigidBody_setRotation00);
    tolua_function(tolua_S,"setActivationState",tolua_NeoGame_RigidBody_setActivationState00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"HingeJoint","HingeJoint","Component",NULL);
@@ -40259,6 +40398,9 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getEnableAngularMotor",tolua_NeoGame_HingeJoint_getEnableAngularMotor00);
    tolua_function(tolua_S,"getMotorTargetVelosity",tolua_NeoGame_HingeJoint_getMotorTargetVelosity00);
    tolua_function(tolua_S,"getMaxMotorImpulse",tolua_NeoGame_HingeJoint_getMaxMotorImpulse00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"GhostObject","GhostObject","CollisionObject",NULL);
+  tolua_beginmodule(tolua_S,"GhostObject");
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"Component","Component","",NULL);
   tolua_beginmodule(tolua_S,"Component");
@@ -40312,8 +40454,26 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
      69,118,101,110,116, 40,101, 41, 10,114,101,116,117,114,110,
      32,116,111,108,117, 97, 46, 99, 97,115,116, 40,101, 44, 34,
      99,111,110,115,116, 32, 78,101,111, 69,118,101,110,116, 34,
-     41, 10,101,110,100, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45,
-     45, 45, 45, 45, 45,32
+     41, 10,101,110,100, 10,102,117,110, 99,116,105,111,110, 32,
+    116,111, 86,101, 99,116,111,114, 51,100,102, 40,101, 41, 10,
+    114,101,116,117,114,110, 32,116,111,108,117, 97, 46, 99, 97,
+    115,116, 40,101, 44, 34, 99,111,110,115,116, 32,105,114,114,
+     58, 58, 99,111,114,101, 58, 58,118,101, 99,116,111,114, 51,
+    100, 60,102,108,111, 97,116, 62, 34, 41, 10,101,110,100, 10,
+    102,117,110, 99,116,105,111,110, 32,116,111, 66, 97,115,105,
+     99, 69,120,112,108,111,115,105,111,110, 80, 97,114, 97,109,
+    115, 40,101, 41, 10,114,101,116,117,114,110, 32,116,111,108,
+    117, 97, 46, 99, 97,115,116, 40,101, 44, 34, 99,111,110,115,
+    116, 32,116,111, 66, 97,115,105, 99, 69,120,112,108,111,115,
+    105,111,110, 80, 97,114, 97,109,115, 34, 41, 10,101,110,100,
+     10,102,117,110, 99,116,105,111,110, 32,116,111, 66, 97,115,
+    105, 99, 69,120,112,108,111,115,105,111,110, 69,102,102,101,
+     99,116, 80, 97,114, 97,109,115, 40,101, 41, 10,114,101,116,
+    117,114,110, 32,116,111,108,117, 97, 46, 99, 97,115,116, 40,
+    101, 44, 34, 99,111,110,115,116, 32, 66, 97,115,105, 99, 69,
+    120,112,108,111,115,105,111,110, 69,102,102,101, 99,116, 80,
+     97,114, 97,109,115, 34, 41, 10,101,110,100, 45, 45, 45, 45,
+     45, 45, 45, 45, 45, 45, 45,32
    };
    tolua_dobuffer(tolua_S,(char*)B,sizeof(B),"tolua: embedded Lua code 1");
    lua_settop(tolua_S, top);
@@ -40527,6 +40687,8 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"CompoundShapeAddChild",tolua_NeoGame_NeoPhysics_CompoundShapeAddChild01);
    tolua_function(tolua_S,"CompoundShapeAddChild",tolua_NeoGame_NeoPhysics_CompoundShapeAddChild02);
    tolua_function(tolua_S,"RemoveCollisionShape",tolua_NeoGame_NeoPhysics_RemoveCollisionShape00);
+   tolua_function(tolua_S,"AddCollisionObjectToWorld",tolua_NeoGame_NeoPhysics_AddCollisionObjectToWorld00);
+   tolua_function(tolua_S,"RemoveCollisionObjectFromWorld",tolua_NeoGame_NeoPhysics_RemoveCollisionObjectFromWorld00);
    tolua_function(tolua_S,"CreateRigidBody",tolua_NeoGame_NeoPhysics_CreateRigidBody00);
    tolua_function(tolua_S,"CreateRigidBody",tolua_NeoGame_NeoPhysics_CreateRigidBody01);
    tolua_function(tolua_S,"CreateRigidBody",tolua_NeoGame_NeoPhysics_CreateRigidBody02);

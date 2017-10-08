@@ -156,7 +156,7 @@ void NeoGameLogic::Update()
 	//-------------lua update---------------------//
 	if (!lua_update_functions.empty())
 	{
-		static std::vector<std::string> params;
+		std::vector<std::string> params;
 		std::set<std::string>::iterator iter_func;
 		for (iter_func = lua_update_functions.begin();
 				iter_func != lua_update_functions.end(); ++iter_func)

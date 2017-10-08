@@ -85,6 +85,8 @@ void NeoPhysics::Update(float timestep)
 						static_cast<GameObject*>(obj_a->getUserPointer());
 				GameObject*go_b =
 						static_cast<GameObject*>(obj_b->getUserPointer());
+				if (!go_a || !go_b)
+					continue;
 				new_contacts.insert(
 						std::make_pair<GameObject*, GameObject*>(
 								static_cast<GameObject*>(obj_a->getUserPointer()),
@@ -186,24 +188,18 @@ void NeoPhysics::Update(float timestep)
 		//---------------------------------------//
 		m_contact = new_contacts;
 		//------ghost objects---------//
-		int i = 0;
-		for (std::vector<std::shared_ptr<btGhostObject>>::iterator iter =
-				m_ghostObjects.begin(); iter != m_ghostObjects.end();
-				iter++, i++)
+		for (std::map<int, GhostObject*>::iterator iter =
+				m_activeGhostObjects.begin();
+				iter != m_activeGhostObjects.end(); iter++)
 		{
-			int n_obj = iter->get()->getNumOverlappingObjects();
-			if (n_obj > 0)
+			int index = iter->first;
+			GhostObject* ghostObject = iter->second;
+			if (ghostObject->isActive())
 			{
-				m_ghostObjectCallbacks[i](i,
-						iter->get()->getOverlappingPairs());
+				m_ghostObjectCallbacks[index](ghostObject,
+						ghostObject->getBtGhostObject()->getOverlappingPairs());
 			}
 		}
-		//clean up temporary collision shapes
-		for (i = 0; i < m_temporaryCollisionShaps.size(); i++)
-		{
-			RemoveCollisionShape(m_temporaryCollisionShaps[i]);
-		}
-		m_temporaryCollisionShaps.clear();
 		PostProcessingCall();
 	}
 }
@@ -238,8 +234,9 @@ void NeoPhysics::CleanUp()
 	m_motionStates.clear();
 	m_collisionShapes.clear();
 	m_triangleMeshes.clear();
+	m_activeGhostObjects.clear();
 
-	m_temporaryCollisionShaps.clear();
+	m_areaDetectGhostObjectPool.Clear();
 
 	m_available_shapes.clear();
 	m_available_rigidbody.clear();
@@ -805,6 +802,7 @@ void NeoPhysics::PreProcessingCall()
 
 void NeoPhysics::PostProcessingCall()
 {
+	m_areaDetectGhostObjectPool.RecyleAll();
 }
 
 void NeoPhysics::RemoveCollisionShape(int index)
@@ -820,12 +818,16 @@ void NeoPhysics::RemoveRigidBody(int index)
 	m_rigidBodies[index] = NULL;
 }
 
-int NeoPhysics::CreateGhostObject(int collisionSahpIndex,
-		std::function<void(int, btAlignedObjectArray<btCollisionObject*>&)> callback,
+GhostObject* NeoPhysics::CreateGhostObject(int collisionSahpIndex,
+		std::function<
+				void(GhostObject*, btAlignedObjectArray<btCollisionObject*>&)> overlapCallback,
 		irr::core::vector3df pos, irr::core::vector3df rotation)
 {
 	btGhostObject* go = new btGhostObject();
 	go->setCollisionShape(m_collisionShapes[collisionSahpIndex].get());
+	go->setCollisionFlags(
+			go->getCollisionFlags()
+					| btCollisionObject::CF_NO_CONTACT_RESPONSE);
 	//set transform
 	irr::core::matrix4 mat;
 	mat.makeIdentity();
@@ -834,18 +836,36 @@ int NeoPhysics::CreateGhostObject(int collisionSahpIndex,
 	btTransform btTrans;
 	IrrlichtMatrixTobtTransform(mat, btTrans);
 	go->setWorldTransform(btTrans);
-	m_dynamicsWorld->addCollisionObject(go);
 	std::shared_ptr<btGhostObject> ptr(go);
-	return assignGhostBodyIndex(ptr, callback);
+	int index = assignGhostBodyIndex(ptr, overlapCallback);
+
+	GhostObject* ghostObject = new GhostObject(ptr);
+	ghostObject->setInternalIndex(index);
+	AddActiveGhostObject(ghostObject);
+	return ghostObject;
+}
+
+void NeoPhysics::AddActiveGhostObject(GhostObject* obj)
+{
+	m_activeGhostObjects[obj->getInternalIndex()] = obj;
+}
+
+void NeoPhysics::RemoveActiveGhostObject(GhostObject* obj)
+{
+	if (m_activeGhostObjects.count(obj->getInternalIndex()) > 0)
+	{
+		m_activeGhostObjects.erase(obj->getInternalIndex());
+	}
 }
 
 int NeoPhysics::assignGhostBodyIndex(std::shared_ptr<btGhostObject>& ptr,
-		std::function<void(int, btAlignedObjectArray<btCollisionObject*>&)> callback)
+		std::function<
+				void(GhostObject*, btAlignedObjectArray<btCollisionObject*>&)> overlapCallback)
 {
 	if (m_available_ghostObjects.empty())
 	{
 		m_ghostObjects.push_back(ptr);
-		m_ghostObjectCallbacks.push_back(callback);
+		m_ghostObjectCallbacks.push_back(overlapCallback);
 		return m_ghostObjects.size() - 1;
 	}
 	else
@@ -853,7 +873,7 @@ int NeoPhysics::assignGhostBodyIndex(std::shared_ptr<btGhostObject>& ptr,
 		int index = m_available_ghostObjects.front();
 		m_available_ghostObjects.pop_front();
 		m_ghostObjects[index] = ptr;
-		m_ghostObjectCallbacks[index] = callback;
+		m_ghostObjectCallbacks[index] = overlapCallback;
 		return index;
 	}
 }
@@ -866,11 +886,12 @@ void NeoPhysics::RemoveGhostObject(int index)
 }
 
 void NeoPhysics::GetObjectsInArea(float radius, irr::core::vector3df pos,
-		std::function<void(int, btAlignedObjectArray<btCollisionObject*>&)> callback)
+		std::function<
+				void(GhostObject*, btAlignedObjectArray<btCollisionObject*>&)> callback)
 {
-	int colshape = CreateSphereShape(radius);
-	CreateGhostObject(colshape, callback, pos);
-	m_temporaryCollisionShaps.push_back(colshape);
+	std::shared_ptr<GhostObject> ptr = m_areaDetectGhostObjectPool.Create(
+			radius, pos, callback);
+	m_areaDetectGhostObjectPool.AddToRecycleQueue(ptr);
 }
 
 void NeoPhysics::AddRigidiBodyToWorld(RigidBody* rigidbody)
@@ -902,6 +923,18 @@ void NeoPhysics::RemoveJointFromWorld(int index)
 	m_dynamicsWorld->removeConstraint(m_constrains[index].get());
 }
 
+void NeoPhysics::AddCollisionObjectToWorld(CollisionObject* collisionObj)
+{
+	m_dynamicsWorld->addCollisionObject(
+			collisionObj->getBtCollisionObject().get());
+}
+
+void NeoPhysics::RemoveCollisionObjectFromWorld(CollisionObject* collisionObj)
+{
+	m_dynamicsWorld->removeCollisionObject(
+			collisionObj->getBtCollisionObject().get());
+}
+
 std::shared_ptr<btTriangleMesh> NeoPhysics::getTriangleMesh(int index)
 {
 	if (index >= 0 && index < m_triangleMeshes.size())
@@ -924,4 +957,13 @@ void NeoPhysics::RegisterExplosionCreator(std::string type,
 		std::function<std::shared_ptr<ExplosionPhysics>(NeoData&)> functor)
 {
 	d_explosion_type[type] = functor;
+}
+
+void NeoPhysics::GhostObjectSetOverLapCallback(GhostObject* obj,
+		std::function<
+				void(GhostObject*, btAlignedObjectArray<btCollisionObject*> &)> overlapCallback)
+{
+	int index = obj->getInternalIndex();
+	if (index >= 0)
+		m_ghostObjectCallbacks[index] = overlapCallback;
 }

@@ -7,6 +7,15 @@ $[
 function toNeoEvent(e)
     return tolua.cast(e,"const NeoEvent")
 end
+function toVector3df(e)
+	return tolua.cast(e,"const irr::core::vector3d<float>")
+end
+function toBasicExplosionParams(e)
+	return tolua.cast(e,"const toBasicExplosionParams")
+end
+function toBasicExplosionEffectParams(e)
+	return tolua.cast(e,"const BasicExplosionEffectParams")
+end
 $]
 /****************************************************
 	Bitwise operations.

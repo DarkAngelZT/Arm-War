@@ -24,7 +24,7 @@ public:
 		this->enabled = enabled;
 	}
 
-private:
+protected:
 	bool enabled;
 };
 

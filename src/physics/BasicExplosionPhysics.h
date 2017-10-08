@@ -22,7 +22,7 @@ public:
 	virtual void Play();
 	virtual void setParameters(NeoData&data);
 	virtual NeoData& getParameters();
-	void BasicExplosionCallback(int triggerIndex,
+	void BasicExplosionCallback(GhostObject*triggerObject,
 			btAlignedObjectArray<btCollisionObject*>&objects);
 	const std::function<void()>& getFuncOnFinish() const;
 	virtual void setFuncOnFinish(const std::function<void()>& funcOnFinish);

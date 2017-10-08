@@ -85,6 +85,13 @@ function ShellEntity.OnCollisionEnter( id_self, id_another )
 		--触发击中事件
 		NeoGameLogic:getInstance():TriggerEvent(Logic.EVENT.SHELL_HIT,target.actor.id,id_self)
 	end
+	-- 爆炸
+	local exp_type = shell.property.explosion_type or "default"
+	Scene:TriggerExplosion(
+		exp_type , Scene.EVENT.EXPLOSION, shell.owner, 
+		shell.property.damage, shell.gameobject:getPosition(),
+		shell.property.range, shell.property.power, true )
+
 	Scene.shell_pool[shell.shell_type]:returnObject(shell)
 end
 

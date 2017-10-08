@@ -1,0 +1,4 @@
+class GhostObject: CollisionObject
+{
+public:
+};

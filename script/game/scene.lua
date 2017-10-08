@@ -1,3 +1,4 @@
+require(DIR_SCRIPT.."game/explosionDispatcher")
 Scene={}
 Scene.entities={}
 Scene.load=SceneLoaderGeneric
@@ -18,6 +19,12 @@ Scene.tankLoader={
 }
 Scene.cameras={
 	
+}
+Scene.internal_observers={
+	
+}
+Scene.EVENT={
+	EXPLOSION=1
 }
 
 Scene.nodeLoader={
@@ -224,6 +231,7 @@ end
 function Scene.Clear()
 	Scene.spawn_points={}
 	ShellFactory.clear()
+	Scene.internal_observers={}
 end
 
 function Scene.LoadUpdate()
@@ -268,6 +276,7 @@ function Scene.Init(map_path,player_info)
 	Scene.loading_percent=-1
 	Scene.map_info= assert(dofile(map_path))
 	Scene.player_info=player_info
+	Scene.internal_observers={}
 	-- Scene.load(Scene.map_info)
 end
 
@@ -292,4 +301,26 @@ function Scene.addSpawnPoint( data )
 	point.position=irr.core.vector3df:new_local(data.position)
 	point.rotation=irr.core.vector3df:new_local(data.rotation)
 	table.insert(Scene.spawn_points[data.team],point)
+end
+
+function Scene:TriggerExplosion(type, event_id, 
+	invoker, damage, position, range, impulse, attenuate )
+	local event={
+		event_id = event_id, invoker=invoker, damage=damage,
+		type=type, position=position,
+		range=range, impulse=impulse, attenuate = attenuate
+	}
+	self:notify(invoker,event)
+end
+--------------------------
+-- internal lua event
+--------------------------
+function Scene:notify( invoker, event )
+	for _,v in ipairs(self.internal_observers) do
+		v:notify(invoker,event)
+	end
+end
+
+function Scene:addInternalObserver( observer )
+	table.insert(self.internal_observers,observer)
 end

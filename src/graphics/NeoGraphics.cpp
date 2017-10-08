@@ -18,7 +18,6 @@ NeoGraphics* NeoGraphics::_instance = NULL;
 using namespace irr;
 NeoGraphics::NeoGraphics()
 {
-	// TODO Auto-generated constructor stub
 	device = NULL;
 }
 

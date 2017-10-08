@@ -124,7 +124,7 @@ vector3df GameObject::getPosition() const
 {
 	vector3df result;
 	if (m_sceneNode != NULL)
-		result = m_sceneNode->getPosition();
+		result = m_sceneNode->getAbsolutePosition();
 	else if (m_rigidBody)
 		result = m_rigidBody->getCenterOfMassPosition();
 	return result;
@@ -134,7 +134,7 @@ vector3df GameObject::getRotation() const
 {
 	vector3df result;
 	if (m_sceneNode != NULL)
-		result = m_sceneNode->getRotation();
+		result = m_sceneNode->getAbsoluteTransformation().getRotationDegrees ();
 	else if (m_rigidBody)
 		result = m_rigidBody->getCenterOfMassTransform().getRotationDegrees();
 	return result;

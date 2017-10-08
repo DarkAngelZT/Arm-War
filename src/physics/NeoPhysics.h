@@ -15,9 +15,13 @@
 #include <functional>
 #include "NeoMotionState.h"
 #include "ExplosionPhysics.h"
+#include "bulletWrapper/CollisionObject.h"
 #include "bulletWrapper/RigidBody.h"
 #include "bulletWrapper/HingeJoint.h"
 #include "bulletWrapper/Ragdoll.h"
+#include "bulletWrapper/GhostObject.h"
+
+#include "../game/objectPool/AreaDetectGhostObjectPool.h"
 /*
  *物理系统封装类
  */
@@ -25,8 +29,10 @@ class NeoMotionState;
 class GameObject;
 class ExplosionPhysics;
 class NeoData;
+class CollisionObject;
 class RigidBody;
 class HingeJoint;
+class GhostObject;
 class Ragdoll;
 
 using namespace std;
@@ -66,14 +72,17 @@ public:
 			irr::core::vector3df localPos = irr::core::vector3df(0, 0, 0),
 			irr::core::vector3df localRotation = irr::core::vector3df(0, 0, 0));
 	void RemoveCollisionShape(int index);
+	//-----general collision object
+	void AddCollisionObjectToWorld(CollisionObject*collisionObj);
+	void RemoveCollisionObjectFromWorld(CollisionObject*collisionObj);
 	//------rigid body-------
 	RigidBody* CreateRigidBody(int collisionShapeIndex,
 			irr::scene::ISceneNode*node, float mass, irr::core::vector3df pos =
 					irr::core::vector3df(0, 0, 0),
 			irr::core::vector3df rotation = irr::core::vector3df(0, 0, 0));
-	std::shared_ptr<btRigidBody> CreateRigidBody_cpp_api(int collisionShapeIndex,
-			irr::scene::ISceneNode*node, float mass, irr::core::vector3df pos =
-					irr::core::vector3df(0, 0, 0),
+	std::shared_ptr<btRigidBody> CreateRigidBody_cpp_api(
+			int collisionShapeIndex, irr::scene::ISceneNode*node, float mass,
+			irr::core::vector3df pos = irr::core::vector3df(0, 0, 0),
 			irr::core::vector3df rotation = irr::core::vector3df(0, 0, 0));
 	void AddRigidiBodyToWorld(RigidBody*rigidbody);
 	void RemoveRigidBodyFromWorld(RigidBody*rigidbody);
@@ -84,21 +93,33 @@ public:
 			irr::core::vector3df axisIn1, irr::core::vector3df axisIn2);
 	HingeJoint* CreateHingeJoint(RigidBody*body, irr::core::vector3df pivot,
 			irr::core::vector3df axis);
-	std::shared_ptr<btTypedConstraint> CreateHingeJoint_cpp_api(shared_ptr<btRigidBody> rigidbody1, shared_ptr<btRigidBody> rigidbody2,
-			irr::core::vector3df pivot1, irr::core::vector3df pivot2,
-			irr::core::vector3df axisIn1, irr::core::vector3df axisIn2);
+	std::shared_ptr<btTypedConstraint> CreateHingeJoint_cpp_api(
+			shared_ptr<btRigidBody> rigidbody1,
+			shared_ptr<btRigidBody> rigidbody2, irr::core::vector3df pivot1,
+			irr::core::vector3df pivot2, irr::core::vector3df axisIn1,
+			irr::core::vector3df axisIn2);
 	std::shared_ptr<btTypedConstraint> CreateHingeJoint_cpp_api(
 			shared_ptr<btRigidBody> body, irr::core::vector3df pivot,
 			irr::core::vector3df axis);
-	void AddHingeJointToWorld(HingeJoint*hinge,bool disableCollisionsBetweenLinkedBodies=true);
-	void AddJointToWorld_cpp(shared_ptr<btTypedConstraint>constraint,bool disableCollisionsBetweenLinkedBodies=true);
+	void AddHingeJointToWorld(HingeJoint*hinge,
+			bool disableCollisionsBetweenLinkedBodies = true);
+	void AddJointToWorld_cpp(shared_ptr<btTypedConstraint> constraint,
+			bool disableCollisionsBetweenLinkedBodies = true);
 	void RemoveJointFromWorld(int index);
 	void RemoveJoint(int index);
-	//------ghost object-------
-	int CreateGhostObject(int collisionSahpIndex,
-			std::function<void(int, btAlignedObjectArray<btCollisionObject*>&)> callback,
+	//------ghost object ( c++ only )-------
+	GhostObject* CreateGhostObject(int collisionSahpIndex,
+			std::function<
+					void(GhostObject*,
+							btAlignedObjectArray<btCollisionObject*>&)> overlapCallback,
 			irr::core::vector3df pos = irr::core::vector3df(0, 0, 0),
 			irr::core::vector3df rotation = irr::core::vector3df(0, 0, 0));
+	void GhostObjectSetOverLapCallback(GhostObject*obj,
+			std::function<
+					void(GhostObject*,
+							btAlignedObjectArray<btCollisionObject*>&)> overlapCallback);
+	void AddActiveGhostObject(GhostObject*obj);
+	void RemoveActiveGhostObject(GhostObject*obj);
 	void RemoveGhostObject(int index);
 	//-----explosion physics---
 	std::shared_ptr<ExplosionPhysics> CreateExplosion(std::string type,
@@ -107,7 +128,9 @@ public:
 			std::function<std::shared_ptr<ExplosionPhysics>(NeoData&)> functor);
 	//---------------useful functions---------
 	void GetObjectsInArea(float radius, irr::core::vector3df pos,
-			std::function<void(int, btAlignedObjectArray<btCollisionObject*>&)> callback);
+			std::function<
+					void(GhostObject*,
+							btAlignedObjectArray<btCollisionObject*>&)> callback);
 //	void RegisterPreProcessingCall();
 //	void RemovePreProcessingCall();
 //
@@ -187,7 +210,9 @@ private:
 	int assignRigidBodyIndex(std::shared_ptr<btRigidBody>&ptr);
 	int assignConstraintIndex(std::shared_ptr<btTypedConstraint>&ptr);
 	int assignGhostBodyIndex(std::shared_ptr<btGhostObject>&ptr,
-			std::function<void(int, btAlignedObjectArray<btCollisionObject*>&)> callback);
+			std::function<
+					void(GhostObject*,
+							btAlignedObjectArray<btCollisionObject*>&)> overlapCallback);
 	btTriangleMesh*createTriangleMesh(irr::scene::IMesh*mesh,
 			irr::core::vector3df scale = irr::core::vector3df(1, 1, 1),
 			int*assignedIndex = NULL);
@@ -200,9 +225,13 @@ private:
 	std::vector<std::shared_ptr<btTypedConstraint>> m_constrains;
 
 	std::vector<std::shared_ptr<btGhostObject>> m_ghostObjects;
+	std::map<int, GhostObject*> m_activeGhostObjects;
 	std::vector<
-			std::function<void(int, btAlignedObjectArray<btCollisionObject*>&)>> m_ghostObjectCallbacks;
+			std::function<
+					void(GhostObject*,
+							btAlignedObjectArray<btCollisionObject*>&)>>m_ghostObjectCallbacks;
 	std::shared_ptr<btGhostPairCallback> m_ghostpairCallback;
+	AreaDetectGhostObjectPool m_areaDetectGhostObjectPool;
 
 	std::list<int> m_available_shapes;
 	std::list<int> m_available_rigidbody;
@@ -218,10 +247,9 @@ private:
 	float fWorldScale;
 	//-------------runtime structure---------//
 	std::set<std::pair<GameObject*, GameObject*>> m_contact;
-	std::vector<int> m_temporaryCollisionShaps;
 	//-----Internal functions-----//
 	std::map<std::string,
-			std::function<std::shared_ptr<ExplosionPhysics>(NeoData&)>> d_explosion_type;
+	std::function<std::shared_ptr<ExplosionPhysics>(NeoData&)>> d_explosion_type;
 };
 
 #endif /* SRC_PHYSICS_NEOPHYSICS_H_ */

@@ -116,6 +116,9 @@ function SceneLoaderGeneric(map_info,player_info)
 			coroutine.yield(percent)
 		end
 	end
+	--explosion
+	Scene:addInternalObserver(SingleModeExplosionDispatcher)
+	coroutine.yield(95)
 	--camera
 	local camera = NeoGraphics:getInstance():AddCamera3rdPerson(
 		Logic.actor_me.entity.components.body.object:getTankBodyNode())

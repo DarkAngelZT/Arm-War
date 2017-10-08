@@ -35,8 +35,7 @@ public:
 		bAttenuateByRange = another.bAttenuateByRange;
 		nEventID = another.nEventID;
 		origin = another.origin;
-		std::copy(another.aScriptValus.begin(), another.aScriptValus.end(),
-				aScriptValus.begin());
+		aScriptValus=another.aScriptValus;
 		return *this;
 	}
 	//---lua interface---//

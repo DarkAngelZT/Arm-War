@@ -1,0 +1,8 @@
+class CollisionObject: public Component
+{
+public:
+	virtual void setEnabled(bool bEnabled);
+	void activate(bool forceActivation = false);
+	virtual void setPosition(irr::core::vector3d<float> position);
+	virtual void setRotation(irr::core::vector3d<float> rotation);
+};

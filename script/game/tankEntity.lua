@@ -201,7 +201,7 @@ function StandardTankEntity.Load( info, logic_data )
 
 			local rigidbody=tank.components.left_track.object:AddRigidBody(
 				shape_index_track,v.mass,v.position,v.rotation)
-			rigidbody:setDamping(0.1,0.9)
+			rigidbody:setDamping(0.1,0.5)
 		else
 			tank.components.right_track.object=neo_scene:CreateSimpleTankTrackObject()
 			local track_node,shape_index_track = StandardTankEntity.LoadRegularComponent( v )
@@ -211,7 +211,7 @@ function StandardTankEntity.Load( info, logic_data )
 
 			local rigidbody=tank.components.right_track.object:AddRigidBody(
 				shape_index_track,v.mass,v.position,v.rotation)
-			rigidbody:setDamping(0.1,0.9)
+			rigidbody:setDamping(0.1,0.5)
 		end
 	end
 	--设置Id
@@ -311,14 +311,14 @@ function StandardTankEntity.LoadTrackRigidBody( bodyRigidBody,trackRigidBody,bod
 	local track_hinge = NeoPhysics:getInstance():CreateHingeJoint(
 		bodyRigidBody,trackRigidBody,bodyPivot,trackPivot,axis,axis)
 	NeoPhysics:getInstance():AddHingeJointToWorld(track_hinge)
-	track_hinge:setLimit(math.rad(-1.5),math.rad(2))
+	track_hinge:setLimit(math.rad(-0.01),math.rad(0.01))
 	return track_hinge
 end
 
 function StandardTankEntity.setAnimation(part,key)
 	if part.animation and part.animation[key] then
 		local animation=part.animation[key]
-		tolua.cast(part.object:GetSceneNode(),"const irr::scene::IAnimatedMeshSceneNode"):
+		tolua.cast(part.object:GetSceneNode(),"irr::scene::IAnimatedMeshSceneNode"):
 			setFrameLoop(animation.from,animation.to)
 	end
 end
@@ -413,7 +413,7 @@ function StandardTankEntity:Attack( shell_type )
 	self:PlayFireEffect(fire_position)
 	--反作用力
 	local turret = self.components.turret.object:getRigidBody()
-	local impulse_turret = impulse * -1
+	local impulse_turret = impulse * -0.5
 	turret:applyCentralImpulse(impulse_turret)
 	--炮管动画
 	StandardTankEntity.setAnimation(self.components.canon,"fire")

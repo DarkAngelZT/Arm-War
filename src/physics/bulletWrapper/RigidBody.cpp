@@ -5,18 +5,16 @@
  *      Author: neo
  */
 
+#include "../../game/stdafx.h"
 #include "RigidBody.h"
 
-RigidBody::RigidBody(std::shared_ptr<btRigidBody> body) :
-		m_internalIndex(-1)
+RigidBody::RigidBody(std::shared_ptr<btRigidBody> body)
 {
-	// TODO 自动生成的构造函数存根
-	rigidbody = body;
+	m_collisionObject = rigidbody = body;
 }
 
 RigidBody::~RigidBody()
 {
-	// TODO 自动生成的析构函数存根
 	if (m_internalIndex > 0)
 		NeoPhysics::getInstance()->RemoveRigidBody(m_internalIndex);
 }
@@ -271,19 +269,6 @@ irr::core::vector3df RigidBody::getAngularFactor() const
 {
 	return NeoPhysics::bulletToIrrVector(
 			const_cast<btVector3&>(rigidbody->getAngularFactor()));
-}
-
-void RigidBody::setPosition(irr::core::vector3df position)
-{
-	btVector3 pos = NeoPhysics::irrToBulletVector(position);
-	rigidbody->getWorldTransform().setOrigin(pos);
-}
-
-void RigidBody::setRotation(irr::core::vector3df rotation)
-{
-	quaternion rot(DEGTORAD*rotation);
-	btQuaternion r = NeoPhysics::irrToBulletQuaternion(rot);
-	rigidbody->getWorldTransform().setRotation(r);
 }
 
 void RigidBody::setUserData(void* ptr)

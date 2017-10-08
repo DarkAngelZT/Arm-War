@@ -17,16 +17,16 @@ public:
 	NeoReusableObject(){active=true;}
 	virtual ~NeoReusableObject(){}
 	virtual void Reset(){}
-	bool isActive() const
+	virtual bool isActive() const
 	{
 		return active;
 	}
 
-	void setActive(bool active)
+	virtual void setActive(bool active)
 	{
 		this->active = active;
 	}
-	virtual void setRecycleCallback(std::function<void()>funtor){}
+	virtual void setRecycleCallback(const std::function<void()>&funtor){}
 protected:
 	bool active;
 };

@@ -8,12 +8,13 @@
 #ifndef SRC_PHYSICS_BULLETWRAPPER_RIGIDBODY_H_
 #define SRC_PHYSICS_BULLETWRAPPER_RIGIDBODY_H_
 #include "../NeoPhysics.h"
-#include "../../game/Component.h"
+#include "CollisionObject.h"
+
 /*
  * Wrapper for rigidbody, used for unify the vector
  * variable and export interface for lua
  */
-class RigidBody:public Component
+class RigidBody:public CollisionObject
 {
 public:
 	RigidBody(std::shared_ptr<btRigidBody> body);
@@ -107,22 +108,10 @@ public:
 
 	irr::core::vector3df getAngularFactor() const;
 
-	void setPosition(irr::core::vector3df position);
-	void setRotation(irr::core::vector3df rotation);
 	//c++ interface
 	std::shared_ptr<btRigidBody> getBtRigidBody()
 	{
 		return rigidbody;
-	}
-
-	int getInternalIndex() const
-	{
-		return m_internalIndex;
-	}
-
-	void setInternalIndex(int internalIndex)
-	{
-		m_internalIndex = internalIndex;
 	}
 
 	void setUserData(void*ptr);
@@ -132,7 +121,6 @@ public:
 
 private:
 	std::shared_ptr<btRigidBody> rigidbody;
-	int m_internalIndex;
 };
 
 #endif /* SRC_PHYSICS_BULLETWRAPPER_RIGIDBODY_H_ */

@@ -15,14 +15,12 @@ class ExplosionPhysics
 public:
 	ExplosionPhysics()
 	{
+		active=true;
 	}
 	virtual ~ExplosionPhysics()
 	{
 	}
 	virtual void Play()=0;
-	static std::shared_ptr<ExplosionPhysics> Create(NeoData&data)
-	{
-	}
 	virtual void setParameters(NeoData&)=0;
 	virtual NeoData& getParameters()=0;
 	virtual bool isActive()

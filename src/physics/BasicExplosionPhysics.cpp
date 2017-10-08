@@ -16,7 +16,6 @@ BasicExplosionPhysics::BasicExplosionPhysics(BasicExplosionParams& param)
 
 BasicExplosionPhysics::~BasicExplosionPhysics()
 {
-	// TODO 自动生成的析构函数存根
 }
 
 void BasicExplosionPhysics::Play()
@@ -28,58 +27,66 @@ void BasicExplosionPhysics::Play()
 					std::placeholders::_1, std::placeholders::_2));
 }
 
-void BasicExplosionPhysics::BasicExplosionCallback(int triggerIndex,
+void BasicExplosionPhysics::BasicExplosionCallback(GhostObject*triggerObject,
 		btAlignedObjectArray<btCollisionObject*>& objects)
 {
 	btVector3 origin = NeoPhysics::irrToBulletVector(params.origin);
 	//如果有物体阻挡，则判定爆炸不会波及到;
 	for (int i = 0; i < objects.size(); ++i)
 	{
+		btVector3 target = objects[i]->getWorldTransform().getOrigin();
+		btVector3 impulseDir = target - origin;
+		float range = impulseDir.norm();
+		if (range > params.fRange)
+			continue;
 		//ray test for each object
 		GameObject*go = static_cast<GameObject*>(objects[i]->getUserPointer());
 		if (go == NULL)
 		{
 			continue;
 		}
-		irr::core::vector3df pos = go->getPosition();
-		btVector3 target = NeoPhysics::irrToBulletVector(pos);
 		btCollisionWorld::ClosestRayResultCallback RayCallback(origin, target);
 		NeoPhysics::getInstance()->getDynamicsWorld()->rayTest(origin, target,
 				RayCallback);
 		if (RayCallback.hasHit())
 		{
-			if (RayCallback.m_collisionObject == objects[i])
+			GameObject*go_target =
+					static_cast<GameObject*>(RayCallback.m_collisionObject->getUserPointer());
+			if (!go)
+				continue;
+			if (go == go_target)
 			{
-				btVector3 impulseDir = target - origin;
-				float range = impulseDir.norm();
 				//apply event function here
 				std::vector<std::string> luaValues;
 				luaValues.push_back(go->getLuaIdentifier());
 				luaValues.push_back(std::to_string(range));
 				luaValues.insert(luaValues.begin() + 2,
 						params.aScriptValus.begin(), params.aScriptValus.end());
+				luaValues.push_back(std::to_string(params.bAttenuateByRange));
 				NeoGameLogic::getInstance()->TriggerEvent(params.nEventID,
 						luaValues);
 				//apply physics force
-				shared_ptr<btRigidBody> rbody = go->getRigidBody()->getBtRigidBody();
+				btRigidBody* rbody = btRigidBody::upcast(objects[i]);
 				if (rbody)
 				{
 					btVector3 impulse = impulseDir.normalized();
 					if (params.bAttenuateByRange)
 					{
-						impulse *= params.fImpulse * (range / params.fRange);
+						impulse *= params.fImpulse
+								* (1 - range / params.fRange);
 					}
 					else
 					{
 						impulse *= params.fImpulse;
 					}
 					rbody->applyCentralImpulse(impulse);
+					rbody->activate(true);
 				}
 			}
 		}
 	}
-	active=false;
-	if(func_on_finish)
+	active = false;
+	if (func_on_finish)
 		func_on_finish();
 }
 

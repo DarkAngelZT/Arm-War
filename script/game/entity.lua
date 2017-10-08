@@ -71,7 +71,20 @@ CommonObjectEntity.event_handlers={
 }
 
 function CommonObjectEntity.RegisterSingleModeEventHandler( )
+	-- Logic:RegisterEventHandler(
+	-- 	Logic.EVENT.EXPLOSION,"CommonObjectEntity",CommonObjectEntity.OnExplosion)
 end
+
+-- function CommonObjectEntity.OnExplosion( event )
+-- 	local actor_id = event:getData(0)
+-- 	local range = tonumber(event:getData(1))
+-- 	local shell_id = event:getData(2)
+-- 	local damage = tonumber(event:getData(3))
+-- 	local attenuate = event:getData(4)
+
+-- 	print(actor_id,range,shell_id,damage,attenuate)
+
+-- end
 
 require(DIR_SCRIPT.."game/tankEntity")
 require(DIR_SCRIPT.."game/shellEntity")
