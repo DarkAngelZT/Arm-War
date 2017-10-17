@@ -5,4 +5,7 @@ public:
 	void activate(bool forceActivation = false);
 	virtual void setPosition(irr::core::vector3d<float> position);
 	virtual void setRotation(irr::core::vector3d<float> rotation);
+	void EnableContinuousCollisionDetection(bool enabled);
+	void setFriction(float f);
+	float getFriction();
 };

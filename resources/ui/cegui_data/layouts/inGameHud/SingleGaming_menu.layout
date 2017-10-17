@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="SingleGameMenuRoot" >
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Property name="AlwaysOnTop" value="true" />
+        <Window type="GlossySerpent/SimplePanel" name="Background" >
+            <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+            <Property name="Alpha" value="0.4" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        </Window>
+        <Window type="GlossySerpent/FrameWindow" name="menuWnd" >
+            <Property name="Area" value="{{0,0},{0,0},{0,300},{0,350}}" />
+            <Property name="Text" value="Game Paused" />
+            <Property name="AlwaysOnTop" value="true" />
+            <Property name="TitlebarFont" value="DejaVuSans-HD-10" />
+            <Property name="SizingEnabled" value="false" />
+            <Property name="DragMovingEnabled" value="false" />
+            <Property name="VerticalAlignment" value="Centre" />
+            <Property name="CloseButtonEnabled" value="false" />
+            <Property name="HorizontalAlignment" value="Centre" />
+            <Property name="AutoRenderingSurface" value="true" />
+            <AutoWindow namePath="__auto_titlebar__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="false" />
+                <Property name="DraggingEnabled" value="false" />
+            </AutoWindow>
+            <AutoWindow namePath="__auto_closebutton__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="true" />
+            </AutoWindow>
+            <Window type="GlossySerpent/Button32" name="btn_resume" >
+                <Property name="Area" value="{{0,0},{0,30},{0,180},{0,70}}" />
+                <Property name="Text" value="Resume" />
+                <Property name="HorizontalAlignment" value="Centre" />
+            </Window>
+            <Window type="GlossySerpent/Button32" name="btn_option" >
+                <Property name="Area" value="{{0,0},{0,100},{0,180},{0,140}}" />
+                <Property name="Text" >options
+</Property>
+                <Property name="HorizontalAlignment" value="Centre" />
+            </Window>
+            <Window type="GlossySerpent/Button32" name="btn_Restart" >
+                <Property name="Area" value="{{0,0},{0,170},{0,180},{0,210}}" />
+                <Property name="Text" value="Restart" />
+                <Property name="HorizontalAlignment" value="Centre" />
+            </Window>
+            <Window type="GlossySerpent/Button32" name="btn_Quit" >
+                <Property name="Area" value="{{0,0},{0,240},{0,180},{0,280}}" />
+                <Property name="Text" value="Quit" />
+                <Property name="HorizontalAlignment" value="Centre" />
+            </Window>
+        </Window>
+        <Window type="GlossySerpent/FrameWindow" name="Options" >
+            <Property name="Area" value="{{0,0},{0,0},{0,300},{0,400}}" />
+            <Property name="Visible" value="false" />
+            <Property name="AlwaysOnTop" value="true" />
+            <Property name="TitlebarFont" value="DejaVuSans-HD-10" />
+            <Property name="SizingEnabled" value="false" />
+            <Property name="DragDropTarget" value="false" />
+            <Property name="DragMovingEnabled" value="false" />
+            <Property name="VerticalAlignment" value="Centre" />
+            <Property name="HorizontalAlignment" value="Centre" />
+            <Property name="AutoRenderingSurface" value="true" />
+            <AutoWindow namePath="__auto_titlebar__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="false" />
+                <Property name="DraggingEnabled" value="false" />
+            </AutoWindow>
+            <AutoWindow namePath="__auto_closebutton__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="true" />
+            </AutoWindow>
+            <Window type="GlossySerpent/StaticText" name="BGMVolumeText" >
+                <Property name="Area" value="{{0,20},{0,10},{0,120},{0,30}}" />
+                <Property name="Text" value="BGM Volume" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="FrameEnabled" value="false" />
+                <Property name="BackgroundEnabled" value="false" />
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <Property name="VerticalScrollbar" value="true" />
+                </AutoWindow>
+            </Window>
+            <Window type="GlossySerpent/StaticText" name="EffectVolumeText" >
+                <Property name="Area" value="{{0,20},{0,90},{0,120},{0,110}}" />
+                <Property name="Text" value="Effect Volume" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="FrameEnabled" value="false" />
+                <Property name="BackgroundEnabled" value="false" />
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <Property name="VerticalScrollbar" value="true" />
+                </AutoWindow>
+            </Window>
+            <Window type="GlossySerpent/StaticText" name="ResolutionText" >
+                <Property name="Area" value="{{0,20},{0,155},{0,100},{0,175}}" />
+                <Property name="Text" value="Resolution" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="FrameEnabled" value="false" />
+                <Property name="BackgroundEnabled" value="false" />
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <Property name="VerticalScrollbar" value="true" />
+                </AutoWindow>
+            </Window>
+            <Window type="GlossySerpent/Button32" name="btn_OK" >
+                <Property name="Area" value="{{0,20},{0,-30},{0,120},{0,2}}" />
+                <Property name="Text" value="OK" />
+                <Property name="VerticalAlignment" value="Bottom" />
+            </Window>
+            <Window type="GlossySerpent/Button32" name="btn_Cancel" >
+                <Property name="Area" value="{{0,-20},{0,-30},{0,80},{0,2}}" />
+                <Property name="Text" value="Cancel" />
+                <Property name="VerticalAlignment" value="Bottom" />
+                <Property name="HorizontalAlignment" value="Right" />
+            </Window>
+            <Window type="GlossySerpent/Combobox" name="Resolution_cb" >
+                <Property name="Area" value="{{0,20},{0,180},{0,220},{0,360}}" />
+                <AutoWindow namePath="__auto_droplist__" >
+                    <AutoWindow namePath="__auto_vscrollbar__" >
+                        <Property name="VerticalScrollbar" value="true" />
+                    </AutoWindow>
+                </AutoWindow>
+            </Window>
+            <Window type="GlossySerpent/HorizontalScrollbar" name="BGMVolume_sb" >
+                <Property name="Area" value="{{0,0},{0.132001,0},{0,250},{0.132001,25}}" />
+                <Property name="HorizontalAlignment" value="Centre" />
+            </Window>
+            <Window type="GlossySerpent/HorizontalScrollbar" name="EffectVolume_sb" >
+                <Property name="Area" value="{{0,0},{0,115},{0,250},{0,140}}" />
+                <Property name="HorizontalAlignment" value="Centre" />
+            </Window>
+        </Window>
+        <Window type="GlossySerpent/FrameWindow" name="QuitMenu" >
+            <Property name="Area" value="{{0,0},{0,0},{0,300},{0,200}}" />
+            <Property name="Text" value="Quit Game" />
+            <Property name="Visible" value="false" />
+            <Property name="AlwaysOnTop" value="true" />
+            <Property name="TitlebarFont" value="DejaVuSerif-HD-10" />
+            <Property name="SizingEnabled" value="false" />
+            <Property name="VerticalAlignment" value="Centre" />
+            <Property name="CloseButtonEnabled" value="false" />
+            <Property name="HorizontalAlignment" value="Centre" />
+            <Property name="AutoRenderingSurface" value="true" />
+            <AutoWindow namePath="__auto_titlebar__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="false" />
+            </AutoWindow>
+            <AutoWindow namePath="__auto_closebutton__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="true" />
+            </AutoWindow>
+            <Window type="GlossySerpent/Button32" name="btn_Quit2Menu" >
+                <Property name="Area" value="{{0,0},{0,15},{0,180},{0,50}}" />
+                <Property name="Text" value="Quit To Menu" />
+                <Property name="HorizontalAlignment" value="Centre" />
+            </Window>
+            <Window type="GlossySerpent/Button32" name="btn_Quit2System" >
+                <Property name="Area" value="{{0,0},{0,60},{0,180},{0,95}}" />
+                <Property name="Text" value="Quit To System" />
+                <Property name="HorizontalAlignment" value="Centre" />
+            </Window>
+            <Window type="GlossySerpent/Button32" name="btn_Cancel" >
+                <Property name="Area" value="{{0,0},{0,105},{0,180},{0,140}}" />
+                <Property name="Text" value="Cancel" />
+                <Property name="HorizontalAlignment" value="Centre" />
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>

@@ -27,7 +27,9 @@ ShellFactory={
 			local object = NeoScene:getInstance():CreateGameObject()
 			local node=NeoGraphics:getInstance():AddAnimatedMeshSceneNode(prototype.mesh)
 			object:setSceneNode(node)
-			object:AddRigidBody(prototype.collision_shape_index,prototype.property.mass)
+			local rigidbody = object:AddRigidBody(
+				prototype.collision_shape_index,prototype.property.mass)
+			rigidbody:EnableContinuousCollisionDetection(true)
 			local shell = ShellEntity.new()
 			shell.gameobject=object
 			shell.shell_type=shell_type
@@ -45,6 +47,9 @@ ShellEntity.owner=nil
 ShellEntity.shell_type="AP"
 function ShellEntity:setActive( state )
 	self.gameobject:setActive(state)
+end
+function ShellEntity:isActive()
+	return self.gameobject:isActive()
 end
 
 function ShellEntity.Load( data, logic_data )
@@ -81,6 +86,10 @@ end
 function ShellEntity.OnCollisionEnter( id_self, id_another )
 	local target = Scene.entities[id_another]
 	local shell=Scene.entities[id_self]
+	if not shell:isActive() then
+		--防止多个碰撞物体产生重复触发
+		return
+	end
 	if target.actor then
 		--触发击中事件
 		NeoGameLogic:getInstance():TriggerEvent(Logic.EVENT.SHELL_HIT,target.actor.id,id_self)

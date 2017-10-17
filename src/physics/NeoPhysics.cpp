@@ -13,7 +13,6 @@ NeoPhysics* NeoPhysics::_instance = NULL;
 
 NeoPhysics::NeoPhysics()
 {
-	// TODO 自动生成的构造函数存根
 	fTimeScale = 1;
 	fWorldScale = 1;
 }
@@ -933,6 +932,11 @@ void NeoPhysics::RemoveCollisionObjectFromWorld(CollisionObject* collisionObj)
 {
 	m_dynamicsWorld->removeCollisionObject(
 			collisionObj->getBtCollisionObject().get());
+}
+
+void NeoPhysics::RemoveHingeJointFromWorld(HingeJoint* hinge)
+{
+	RemoveJointFromWorld(hinge->getInternalIndex());
 }
 
 std::shared_ptr<btTriangleMesh> NeoPhysics::getTriangleMesh(int index)

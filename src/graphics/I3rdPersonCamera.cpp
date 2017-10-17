@@ -135,5 +135,12 @@ void irr::scene::I3rdPersonCamera::setCameraAnimator(
 {
 	m_camera_animator = cameraAnimator;
 }
+void irr::scene::I3rdPersonCamera::setReceiveInput(bool receive)
+{
+	if(m_camera_animator){
+		m_camera_animator->setReceiveInput(receive);
+	}
+}
 } /* namespace scene */
 } /* namespace irr */
+

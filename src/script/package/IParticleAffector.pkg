@@ -16,7 +16,7 @@ enum E_PARTICLE_AFFECTOR_TYPE
 };
 
 //! A particle affector modifies particles.
-class IParticleAffector : public irr::io::IAttributeExchangingObject
+class IParticleAffector : public irr::IReferenceCounted
 {
 public:
 	//! Sets whether or not the affector is currently enabled.

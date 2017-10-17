@@ -105,6 +105,7 @@ public:
 			bool disableCollisionsBetweenLinkedBodies = true);
 	void AddJointToWorld_cpp(shared_ptr<btTypedConstraint> constraint,
 			bool disableCollisionsBetweenLinkedBodies = true);
+	void RemoveHingeJointFromWorld(HingeJoint*hinge);
 	void RemoveJointFromWorld(int index);
 	void RemoveJoint(int index);
 	//------ghost object ( c++ only )-------

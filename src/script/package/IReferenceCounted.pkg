@@ -4,13 +4,13 @@ namespace irr
 	{
 	public:
 
-		void grab() const ;
+		void grab() ;
 
-		bool drop() const;
+		bool drop() ;
 
 		//! Get the reference count.
 		/** \return Current value of the reference counter. */
-		int getReferenceCount() const;
+		int getReferenceCount() ;
 	};
 
 } // end namespace irr

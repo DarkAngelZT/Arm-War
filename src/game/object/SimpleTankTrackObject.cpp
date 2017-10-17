@@ -6,7 +6,7 @@
  */
 
 #include "SimpleTankTrackObject.h"
-#include<iostream>
+#include <limits>
 using namespace irr;
 
 SimpleTankTrackObject::SimpleTankTrackObject() :
@@ -41,13 +41,10 @@ void SimpleTankTrackObject::OnContactCallback(btPersistentManifold* pm,
 		float combinedRestitution =
 				btManifoldResult::calculateCombinedRestitution(
 						bt_rigidbody.get(), bt_another_rigidbody.get());
-		//纠正速度向量
-		btVector3 velocity = bt_rigidbody->getLinearVelocity();
-		float v = velocity.length();
-		btVector3 vel_new = v * btVector3(dir.X, dir.Y, dir.Z);
-		bt_rigidbody->setLinearVelocity(vel_new);
-		float t_speed = core::abs_(m_speed);
 
+		float min_distance = std::numeric_limits<int>::max();
+		btVector3 minDir;
+		float t_speed = core::abs_(m_speed);
 		for (int j = 0; j < pm->getNumContacts(); j++)
 		{
 			btManifoldPoint& point = pm->getContactPoint(j);
@@ -55,9 +52,23 @@ void SimpleTankTrackObject::OnContactCallback(btPersistentManifold* pm,
 			point.m_lateralFrictionInitialized = true;
 			point.m_lateralFrictionDir1.setValue(dir.X, dir.Y, dir.Z);
 			//point.m_lateralFrictionDir1.normalize();
+
 			point.m_contactMotion1 = t_speed;
 			point.m_combinedFriction = 9;
 			point.m_combinedRestitution = combinedRestitution;
+			if (abs_(point.m_distance1) < min_distance)
+			{
+				min_distance = abs_(point.m_distance1);
+				btVector3 herizonLeft = point.m_lateralFrictionDir1.cross(
+										point.m_normalWorldOnB);
+				minDir = point.m_normalWorldOnB.cross(herizonLeft);
+			}
+		}
+		//设置速度向量
+		if (pm->getNumContacts() > 0)
+		{
+			btVector3 vel_new = t_speed * minDir;
+			bt_rigidbody->setLinearVelocity(vel_new);
 		}
 	}
 }

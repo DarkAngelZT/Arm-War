@@ -21,6 +21,11 @@ public:
 	virtual void setEnabled(bool bEnabled);
 	virtual void setActive(bool bActive);
 	void activate(bool forceActivation = false);
+	virtual void setPosition(irr::core::vector3df position);
+	virtual void setRotation(irr::core::vector3df rotation);
+	void EnableContinuousCollisionDetection(bool enabled);
+	void setFriction(float f);
+	float getFriction();
 	//c++ interface
 	std::shared_ptr<btCollisionObject> getBtCollisionObject();
 	int getInternalIndex() const
@@ -32,11 +37,10 @@ public:
 	{
 		m_internalIndex = internalIndex;
 	}
-	virtual void setPosition(irr::core::vector3df position);
-	virtual void setRotation(irr::core::vector3df rotation);
 protected:
 	CollisionObject()
 	{
+		m_internalIndex = -1;
 	}
 	std::shared_ptr<btCollisionObject> m_collisionObject;
 	int m_internalIndex;

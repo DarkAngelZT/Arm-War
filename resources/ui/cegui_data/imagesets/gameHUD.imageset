@@ -1,0 +1,10 @@
+<Imageset autoScaled="false" imagefile="gameHUD.png" name="gameHUD" nativeHorzRes="384" nativeVertRes="232" version="2">
+    <Image height="64" name="AP_icon" width="64" xPos="0" yPos="0" />
+    <Image height="34" name="canon_cursur" width="61" xPos="64" yPos="0" />
+    <Image height="64" name="HE_icon" width="64" xPos="125" yPos="0" />
+    <Image height="64" name="HEAT_icon" width="64" xPos="189" yPos="0" />
+    <Image height="64" name="HESH_icon" width="64" xPos="253" yPos="0" />
+    <Image height="35" name="iconFrame" width="35" xPos="317" yPos="0" />
+    <Image height="61" name="mouse_cursor" width="64" xPos="0" yPos="64" />
+    <Image height="168" name="panelBase_noShadow" width="320" xPos="64" yPos="64" />
+</Imageset>

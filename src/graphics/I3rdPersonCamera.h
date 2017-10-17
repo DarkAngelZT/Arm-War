@@ -65,6 +65,8 @@ public:
 	void setCameraAnimator(
 			const CSceneNodeAnimatorCamera3rdPerson* cameraAnimator);
 
+	void setReceiveInput(bool receive);
+
 protected:
 	ICameraSceneNode* m_camera;
 	CSceneNodeAnimatorCamera3rdPerson* m_camera_animator;

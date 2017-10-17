@@ -497,3 +497,10 @@ irr::scene::ISceneNodeAnimator* NeoGraphics::createAxisAlignedRotateAnimator(
 					align, direction);
 	return animator;
 }
+
+irr::scene::IParticleAffector* NeoGraphics::CreateColourAffactorQ(
+		const irr::video::SColor& targetColor0,
+		const irr::video::SColor& targetColor1)
+{
+	return irr::scene::CreateColourAffactorQ(targetColor0, targetColor1);
+}

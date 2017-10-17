@@ -6,3 +6,13 @@ Open lookNfeel file, find contentsize name area of the listitem, add code:
 </OperatorDim>
 
 Done. Same for the width
+
+------------------------------
+bullet contact callback problem (used in track movement, as a conveyor belt mechanism)
+*contact motion seems to have the maxmum speed of 10, no matter how large the value you gave to the variable
+<current solution>
+set speed at forward direction
+**new problem**
+cannot use body rotation as forward direction
+**solution**
+enable friction 2 and calculate the forward direction use closest contact point's normal and frictionDir2 (which is vertical to normal but towords the left side)

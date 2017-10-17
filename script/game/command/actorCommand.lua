@@ -41,3 +41,12 @@ function ActorAttackCommand:Execute()
 	self.executed=true
 	self.reciever:Attack()
 end
+---------------------------
+-- dead
+---------------------------
+ActorDestroyedCommand=class(Command)
+
+function ActorDestroyedCommand:Execute()
+	self.executed=true
+	self.reciever:Die()
+end

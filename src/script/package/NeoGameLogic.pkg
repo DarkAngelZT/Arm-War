@@ -11,4 +11,5 @@ public:
 
 	void AddLuaUpdateFunction(std::string funcName);
 	void removeLuaUpdateFunction(std::string funcName);
+	void removeLuaUpdateFunctionExeSafe(std::string funcName);
 };

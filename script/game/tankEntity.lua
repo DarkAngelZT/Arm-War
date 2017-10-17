@@ -19,19 +19,19 @@ function StandardTankEntity:onCreate(id)
 		turret={object=nil},
 		canon={object=nil},
 		fire_position=irr.core.vector3df:new_local(),
-		body_hinge=nil,
 		turret_hinge=nil,
 		canon_hinge=nil,
 		left_track_hinge=nil,
 		right_track_hinge=nil
 	}
+	self.destroyed_prefab={}
 end
 
 --@transform:matrix4
 function StandardTankEntity:setTransform(transform)
 	local body = self.components.body
 	local trans = irr.core.matrix4:new_local(
-		self.components.body.object:GetSceneNode():getAbsoluteTransformation())
+		self.components.body.object:getTankBodyNode():getAbsoluteTransformation())
 	trans:makeInverse()
 	--转换坐标
 	local turret = self.components.turret
@@ -282,6 +282,10 @@ function StandardTankEntity.Load( info, logic_data )
 	for k,v in pairs(data.property) do
 		tank.property[k]=v
 	end
+	-- 加载损毁状态的模型
+	tank.destroyed_prefab.mesh=NeoGraphics:getInstance():getMesh(data.property.mesh_destoryed)
+	tank.destroyed_prefab.shape_index = Scene.collisionShapeLoader.convexHull(
+		{mesh=tank.destroyed_prefab.mesh, scale=irr.core.vector3df:new_local(1,1,1)})
 
 	return tank
 end
@@ -323,6 +327,36 @@ function StandardTankEntity.setAnimation(part,key)
 	end
 end
 
+function StandardTankEntity:AddToScene()
+	local physics = NeoPhysics:getInstance()
+	local components = self.components
+	physics:AddHingeJointToWorld(components.turret_hinge)
+	physics:AddHingeJointToWorld(components.turret_hinge)
+	physics:AddHingeJointToWorld(components.left_track_hinge)
+	physics:AddHingeJointToWorld(components.right_track_hinge)
+
+	components.body.object:setActive(true)
+	components.turret.object:setActive(true)
+	components.canon.object:setActive(true)
+	components.left_track.object:setActive(true)
+	components.right_track.object:setActive(true)
+end
+
+function StandardTankEntity:RemoveFromScene()
+	local physics = NeoPhysics:getInstance()
+	local components = self.components
+	physics:RemoveHingeJointFromWorld(components.turret_hinge)
+	physics:RemoveHingeJointFromWorld(components.turret_hinge)
+	physics:RemoveHingeJointFromWorld(components.left_track_hinge)
+	physics:RemoveHingeJointFromWorld(components.right_track_hinge)
+
+	components.body.object:setActive(false)
+	components.turret.object:setActive(false)
+	components.canon.object:setActive(false)
+	components.left_track.object:setActive(false)
+	components.right_track.object:setActive(false)
+end
+
 -----------------
 --event handler
 -----------------
@@ -345,7 +379,7 @@ function StandardTankEntity.OnShellHit( event )
 
 	local actor = Logic.actors[actor_id]
 	local shell=Scene.entities[shell_id]
-	--处理跳弹情况
+
 	actor:OnShellHit(shell)
 end
 
@@ -360,11 +394,11 @@ function StandardTankEntity:Move( dir, side )
 		--left
 		local left_speed = speed*0.12*dir
 		if left_speed == 0 then
-			left_speed = -speed
+			left_speed = -speed*0.5
 		end
-		local right_speed = speed*dir
+		local right_speed = speed*dir*0.5
 		if right_speed == 0 then
-			right_speed = speed
+			right_speed = speed*0.5
 		end
 		self:setTrackSpeed("left",left_speed)
 		self:setTrackSpeed("right",right_speed)
@@ -372,11 +406,11 @@ function StandardTankEntity:Move( dir, side )
 		--right
 		local right_speed = speed*0.12*dir
 		if right_speed == 0 then
-			right_speed = -speed
+			right_speed = -speed*0.5
 		end
-		local left_speed = speed*dir
+		local left_speed = speed*dir*0.5
 		if left_speed == 0 then
-			left_speed = speed
+			left_speed = speed*0.5
 		end
 		self:setTrackSpeed("left",left_speed)
 		self:setTrackSpeed("right",right_speed)
@@ -417,4 +451,57 @@ function StandardTankEntity:Attack( shell_type )
 	turret:applyCentralImpulse(impulse_turret)
 	--炮管动画
 	StandardTankEntity.setAnimation(self.components.canon,"fire")
+end
+
+function StandardTankEntity:CreateDestroyedObject()
+	local remain = CommonObjectEntity.new()
+	remain.gameobject = NeoScene:getInstance():CreateGameObject()
+	remain.id="remain"..self.actor.id..os.time()
+	remain.gameobject:setLuaIdentifier(remain.id)
+	Scene.entities[remain.id]=remain
+	--加入被摧毁的模型
+	local node=NeoGraphics:getInstance():AddMeshSceneNode(self.destroyed_prefab.mesh)
+	local body_position = 
+		self.components.body.object:getPosition()
+	local body_rotation = 
+		self.components.body.object:getRotation()
+	node:setPosition(body_position)
+	node:setRotation(body_rotation)
+	node:updateAbsolutePosition()
+	remain.gameobject:setSceneNode(node)
+	remain.gameobject:AddRigidBody(self.destroyed_prefab.shape_index,30)
+	local graphics = NeoGraphics:getInstance()
+	--浓烟效果
+	local smoke = NeoGraphics:getInstance():AddParticleSystemSceneNode(false,node)
+	local center = irr.core.vector3df:new_local(0,0,0)
+	local radius = 1.2
+	local dir = irr.core.vector3df:new_local(0,1,0)
+	local length = 1
+	local size_min = irr.core.dimension2df:new_local(2,2)
+	local size_max = irr.core.dimension2df:new_local(8,8)
+	local smoke_emitter = smoke:createCylinderEmitter(
+		center,radius,dir,length,false,irr.core.vector3df:new_local(0,0.006,0),
+		10,15,irr.video.SColor:new_local(180, 0, 0, 0),irr.video.SColor:new_local(180, 0, 0, 0),
+		1000,2000,0,size_min,size_max)
+	local smoke_affector = graphics:CreateColourAffactorQ(
+		irr.video.SColor:new_local(180, 0, 0, 0),irr.video.SColor:new_local(0, 0, 0, 0))
+	smoke:setEmitter(smoke_emitter)
+	smoke:addAffector(smoke_affector)
+	local smoke_tex_path = "resources/sfx/particles/explosion04.png"
+	local texture=NeoGraphics:getInstance():LoadTexture(smoke_tex_path)
+	if texture then
+		smoke:setMaterialTexture(0,texture)
+	end
+	smoke:setMaterialFlag(irr.video.EMF_LIGHTING, false);
+	smoke:setMaterialFlag(irr.video.EMF_ZWRITE_ENABLE, false);
+	smoke:setMaterialType(irr.video.EMT_TRANSPARENT_ALPHA_CHANNEL);
+	return remain
+end
+
+function StandardTankEntity:Die()
+	local entity = self:CreateDestroyedObject()
+	self:RemoveFromScene()
+	if self.actor == Logic.actor_me then
+		Scene.cameras.third_person:setTarget(entity.gameobject:GetSceneNode())
+	end
 end

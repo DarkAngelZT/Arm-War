@@ -165,4 +165,20 @@ void NeoGameLogic::Update()
 					params);
 		}
 	}
+	if (!lua_update_function_delete_queue.empty())
+	{
+		std::set<std::string>::iterator iter_queue;
+		for (iter_queue = lua_update_function_delete_queue.begin();
+				iter_queue != lua_update_function_delete_queue.end();
+				iter_queue++)
+		{
+			removeLuaUpdateFunction(*iter_queue);
+		}
+		lua_update_function_delete_queue.clear();
+	}
+}
+
+void NeoGameLogic::removeLuaUpdateFunctionExeSafe(std::string funcName)
+{
+	lua_update_function_delete_queue.insert(funcName);
 }

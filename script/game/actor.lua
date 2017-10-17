@@ -1,4 +1,4 @@
-ACTOR_STATE={LIVE,DESTROYED,SPECTATE}
+ACTOR_STATE={LIVE=1,DESTROYED=2,SPECTATE=3}
 --游戏对象的逻辑封装类
 Actor=class()
 Actor.id="actor0"
@@ -43,6 +43,37 @@ end
 
 function Actor:OnShellHit( shell )
 	print(self.id.." hitted by "..shell.shell_type.." from "..shell.owner.id)
+	local damage = shell.property.damage
+	if self.shield>0 then
+		--先扣护盾
+		if self.shield>=damage then
+			self.shield=self.shield-damage
+		else
+			damage=damage-self.shield
+			self.shield=0
+		end
+	end
+	if math.random()<self.ricochet_possibility then
+		--触发跳弹事件
+		print("跳弹了")
+	else 
+		--处理伤害
+		if math.random()<shell.property.piercePossibility then
+			--穿甲伤害
+			damage=shell.property.pierceDamage
+		end
+		damage = damage*(1-0.06*self.armor/(1+0.06*self.armor))
+		self.armor=clamp(self.armor-shell.property.armorDamage)
+		self:DealDamage(damage)
+		print("health",self.health)
+		if self.health ==0 then
+			--发出死亡命令
+			local cmd = ActorDestroyedCommand.new(self)
+			Logic:addCommand(cmd)
+		end
+	end
+	
+	print("done")
 end
 
 function Actor:Update( ... )
@@ -103,5 +134,13 @@ function Actor:LockTurret( state )
 			turret=self.entity:getTurretAngle(),
 			canon=self.entity:getCanonAngle()
 		}
+	end
+end
+
+function Actor:Die()
+	if self.state==ACTOR_STATE.LIVE then
+		self.state=ACTOR_STATE.DESTROYED
+		self.entity:Die()
+		--触发死亡事件
 	end
 end

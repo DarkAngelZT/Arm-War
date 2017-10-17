@@ -57,7 +57,7 @@ void BasicExplosionEffector::Play()
 					m_params.start_color_high_speed,
 					m_params.start_color_high_speed, 50, 150, //粒子生存周期
 					360, //偏角
-					dimension2df(40.f, 40.f), dimension2df(10.f, 10.f), //粒子最小尺寸、最大尺寸
+					dimension2df(10.f, 10.f), dimension2df(40.f, 40.f), //粒子最小尺寸、最大尺寸
 					static_cast<u32>(totalParticleHighSpeed) //最多释放粒子数
 					);
 	emitter_high_speed->Configure(device);
@@ -73,7 +73,7 @@ void BasicExplosionEffector::Play()
 					m_params.start_color_low_speed,
 					m_params.start_color_low_speed, 500, 1000, //粒子生存周期
 					360, //偏角
-					dimension2df(40.f, 40.f), dimension2df(12.f, 12.f), //粒子最小尺寸、最大尺寸
+					dimension2df(12.f, 12.f), dimension2df(40.f, 40.f), //粒子最小尺寸、最大尺寸
 					static_cast<u32>(totalParticleSmoke) //最多释放粒子数
 					);
 	emitter_low_speed->Configure(device);
@@ -104,7 +104,7 @@ void BasicExplosionEffector::Play()
 	ps_low->setRotation(m_params.rotation);
 	ps_low->setMaterialFlag(irr::video::EMF_LIGHTING, false);
 	ps_low->setMaterialFlag(irr::video::EMF_ZWRITE_ENABLE, false);
-	ps_low->setMaterialTexture(0, m_particle_texture_high);
+	ps_low->setMaterialTexture(0, m_particle_texture_low);
 	ps_low->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL);
 	//火光效果
 	irr::scene::ILightSceneNode* blast_light = smgr->addLightSceneNode(0,

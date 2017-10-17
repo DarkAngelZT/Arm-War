@@ -238,7 +238,7 @@ function Scene.LoadUpdate()
 	if(Scene.loading_controller) then
 		if(Scene.loading_percent==100) then
 			Scene.loading_controller=nil
-			NeoGameLogic:getInstance():removeLuaUpdateFunction("Scene.LoadUpdate")
+			NeoGameLogic:getInstance():removeLuaUpdateFunctionExeSafe("Scene.LoadUpdate")
 			NeoGameLogic:getInstance():AddLuaUpdateFunction("Scene.Update")
 			Logic:Init()
 			g_ui_table.current:hide()

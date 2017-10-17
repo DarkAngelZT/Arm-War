@@ -3,8 +3,8 @@ class StandardTankBodyObject: public GameObject
 public:
 	//position is relative
 	void setBodyNode(irr::scene::IAnimatedMeshSceneNode*node,
-			const irr::core::vector3d<float>& position = irr::core::vector3d<float>(0, 0,
-					0));
+			const irr::core::vector3d<float>& position = irr::core::vector3d<
+					float>(0, 0, 0));
 	irr::scene::IAnimatedMeshSceneNode* getTankBodyNode();
 	//position is relative
 	void addWheelNode(irr::scene::IAnimatedMeshSceneNode*node,
@@ -14,8 +14,13 @@ public:
 	void setWheelAnimationSpeed(float cycleTime_s, std::string side = "left",
 			int direction);
 	void setTrackAnimationSpeed(float speed, std::string side = "left",
-			const irr::core::vector2d<float>& dir = irr::core::vector2d<float>(1, 0));
+			const irr::core::vector2d<float>& dir = irr::core::vector2d<float>(
+					1, 0));
 
+	virtual void setPosition(irr::core::vector3d<float>& pos);
+	virtual void setRotation(irr::core::vector3d<float>& rot);
+	virtual irr::core::vector3d<float> getPosition() const;
+	virtual irr::core::vector3d<float> getRotation() const;
 	virtual bool isActive() const;
 	virtual void setActive(bool active);
 	virtual bool isVisible() const;
@@ -23,5 +28,6 @@ public:
 
 	virtual RigidBody* AddRigidBody(int collisionShape, float mass);
 	virtual RigidBody* AddRigidBody(int collisionShape, float mass,
-			const irr::core::vector3d<float>& position, const irr::core::vector3d<float>& rotation);
+			const irr::core::vector3d<float>& position,
+			const irr::core::vector3d<float>& rotation);
 };

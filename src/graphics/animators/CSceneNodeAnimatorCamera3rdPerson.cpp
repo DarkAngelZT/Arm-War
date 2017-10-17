@@ -17,9 +17,10 @@ CSceneNodeAnimatorCamera3rdPerson::CSceneNodeAnimatorCamera3rdPerson(
 		ISceneNode*targetNode, gui::ICursorControl* cursorControl,
 		f32 rotaionSpeed, f32 zoomSpeed, f32 maxTilt/* = 89*/,
 		f32 maxZoom/* = 20*/) :
-		camTarget(targetNode), m_cursorControl(cursorControl), m_enabled(true), m_rotationSpeed(
-				rotaionSpeed), m_zoomSpeed(zoomSpeed), m_maxTilt(maxTilt), m_maxZoom(
-				maxZoom), m_firstUpdate(true), LastAnimationTime(0)
+		camTarget(targetNode), m_cursorControl(cursorControl), m_enabled(true), m_receiveInput(
+				true), m_rotationSpeed(rotaionSpeed), m_zoomSpeed(zoomSpeed), m_maxTilt(
+				maxTilt), m_maxZoom(maxZoom), m_firstUpdate(true), LastAnimationTime(
+				0)
 {
 	camPan = 90;
 	camTilt = -30;
@@ -132,7 +133,7 @@ void CSceneNodeAnimatorCamera3rdPerson::animateNode(ISceneNode* node,
 		return;
 	LastAnimationTime = timeMs;
 	core::vector3df relativeRotation;
-	if (m_cursorControl)
+	if (m_cursorControl && m_receiveInput)
 	{
 		if (m_cursorPos != m_centerCursor)
 		{
@@ -161,7 +162,7 @@ void CSceneNodeAnimatorCamera3rdPerson::animateNode(ISceneNode* node,
 		core::rect<u32> screenRect(0, 0, driver->getScreenSize().Width,
 				driver->getScreenSize().Height);
 		//如果鼠标在窗口外
-		bool reset = !screenRect.isPointInside(mousePos);
+		bool reset = !screenRect.isPointInside(mousePos) && m_receiveInput;
 
 		if (reset)
 		{
@@ -178,6 +179,8 @@ void CSceneNodeAnimatorCamera3rdPerson::animateNode(ISceneNode* node,
 
 bool CSceneNodeAnimatorCamera3rdPerson::OnEvent(const SEvent& event)
 {
+	if (!m_receiveInput)
+		return false;
 	switch (event.EventType)
 	{
 	case EET_MOUSE_INPUT_EVENT:
@@ -243,17 +246,18 @@ void CSceneNodeAnimatorCamera3rdPerson::setZoomSpeed(f32 zoomSpeed)
 	m_zoomSpeed = zoomSpeed;
 }
 
-void CSceneNodeAnimatorCamera3rdPerson::setOrientation(f32 pan, f32 titl, f32 zoom)
+void CSceneNodeAnimatorCamera3rdPerson::setOrientation(f32 pan, f32 titl,
+		f32 zoom)
 {
-	camPan = fmod(pan,360.0f);
-	camTilt = core::clamp(titl,-89.0f,m_maxTilt);
-	camZoom = core::clamp(zoom,0.1f,m_maxZoom);
+	camPan = fmod(pan, 360.0f);
+	camTilt = core::clamp(titl, -89.0f, m_maxTilt);
+	camZoom = core::clamp(zoom, 0.1f, m_maxZoom);
 }
 
 void CSceneNodeAnimatorCamera3rdPerson::ChangeOrientation(float pan, float tilt,
 		float zoom)
 {
-	setOrientation(camPan+pan,camTilt+tilt,camZoom+zoom);
+	setOrientation(camPan + pan, camTilt + tilt, camZoom + zoom);
 }
 
 void CSceneNodeAnimatorCamera3rdPerson::UpdatePosition(ICameraSceneNode*cam)
@@ -274,16 +278,18 @@ void CSceneNodeAnimatorCamera3rdPerson::UpdatePosition(ICameraSceneNode*cam)
 			* sin(core::degToRad(camTilt + 90));
 
 	core::matrix4 tmatrix;
-	tmatrix.setRotationDegrees(camTarget->getAbsoluteTransformation().getRotationDegrees());
+	tmatrix.setRotationDegrees(
+			camTarget->getAbsoluteTransformation().getRotationDegrees());
 	//把euler角转换成球面坐标，再取水平旋转角
-	core::vector3df unitVector(1,0,0);
+	core::vector3df unitVector(1, 0, 0);
 	tmatrix.rotateVect(unitVector);
 	core::vector3df rot = unitVector.getSphericalCoordinateAngles();
-	float angle_y=rot.Y*-1+90;
-	if(angle_y<0){
-		angle_y+=360;
+	float angle_y = rot.Y * -1 + 90;
+	if (angle_y < 0)
+	{
+		angle_y += 360;
 	}
-	tmatrix.setRotationDegrees(core::vector3df(0,angle_y,0));
+	tmatrix.setRotationDegrees(core::vector3df(0, angle_y, 0));
 	tmatrix.transformVect(CamPosVector);
 
 	//把摄像机抬高一点，这样平视的时候就不会被挡住视线了
@@ -295,6 +301,16 @@ void CSceneNodeAnimatorCamera3rdPerson::UpdatePosition(ICameraSceneNode*cam)
 	cam->setUpVector(core::vector3df(0, 1.f, 0));
 	cam->setTarget(core::vector3df(Target));
 	cam->updateAbsolutePosition();
+}
+
+bool CSceneNodeAnimatorCamera3rdPerson::isReceiveInput() const
+{
+	return m_receiveInput;
+}
+
+void CSceneNodeAnimatorCamera3rdPerson::setReceiveInput(bool receiveInput)
+{
+	m_receiveInput = receiveInput;
 }
 
 } /* namespace scene */

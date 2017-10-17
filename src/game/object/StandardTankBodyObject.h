@@ -26,13 +26,17 @@ public:
 	void addTrackNode(irr::scene::IAnimatedMeshSceneNode*node,
 			std::string side = "left");
 	void setWheelAnimationSpeed(float cycleTime_s, std::string side = "left",
-			int direction=1);
+			int direction = 1);
 	void setTrackAnimationSpeed(float speed, std::string side = "left",
 			const irr::core::vector2df& dir = irr::core::vector2df(1, 0));
 	virtual void OnCollisionEnter(GameObject*another);
 	virtual void OnCollision(GameObject*another);
 	virtual void OnCollisionExit(GameObject*another);
 
+	virtual void setPosition(vector3df& pos);
+	virtual void setRotation(vector3df& rot);
+	virtual vector3df getPosition() const;
+	virtual vector3df getRotation() const;
 	virtual bool isActive() const;
 	virtual void setActive(bool active);
 	virtual bool isVisible() const;

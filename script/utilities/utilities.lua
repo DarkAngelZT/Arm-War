@@ -140,6 +140,12 @@ function ObjectPool:create( data )
 end
 
 function ObjectPool:returnObject( object )
+    for _,v in ipairs(self.pool) do
+        if v == object then
+            print("dulplicated")
+           return
+        end
+    end
     table.insert(self.pool,object)
     object:setActive(false)
 end

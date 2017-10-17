@@ -134,6 +134,10 @@ public:
 	irr::scene::IDummyTransformationSceneNode* AddDummyTransformationSceneNode(
 			irr::scene::ISceneNode* parent = 0, int id = -1);
 
+	irr::scene::IParticleAffector* CreateColourAffactorQ(
+			const irr::video::SColor& targetColor0,
+			const irr::video::SColor& targetColor1);
+
 	irr::scene::ICameraSceneNode* GetActiveCamera();
 	void SetActiveCamera(irr::scene::ICameraSceneNode*camera);
 	void SetAmbientLight(const irr::video::SColor& colour);

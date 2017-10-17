@@ -50,6 +50,11 @@ function SingleModeInputHandler.OnKeyEvent(event)
 		SingleModeInputHandler.key_turret_lock = not SingleModeInputHandler.key_turret_lock
 		Logic.actor_me:LockTurret(SingleModeInputHandler.key_turret_lock)
 	end
+	--test dead
+	if key==irr.KEY_KEY_O and press==0 then
+		local cmd = ActorDestroyedCommand.new(Logic.actor_me)
+		Logic:addCommand(cmd)
+	end
 end
 
 function SingleModeInputHandler.OnMouseEvent( event )

@@ -72,3 +72,31 @@ void CollisionObject::setRotation(irr::core::vector3df rotation)
 	btQuaternion r = NeoPhysics::irrToBulletQuaternion(rot);
 	m_collisionObject->getWorldTransform().setRotation(r);
 }
+
+void CollisionObject::EnableContinuousCollisionDetection(bool enabled)
+{
+	if (enabled)
+	{
+		m_collisionObject->setCcdMotionThreshold(1);
+		btCollisionShape* shape = m_collisionObject->getCollisionShape();
+		btVector3 center;
+		float radius;
+		shape->getBoundingSphere(center, radius);
+		m_collisionObject->setCcdSweptSphereRadius(radius * 0.2f);
+	}
+	else
+	{
+		m_collisionObject->setCcdMotionThreshold(0);
+		m_collisionObject->setCcdSweptSphereRadius(0);
+	}
+}
+
+void CollisionObject::setFriction(float f)
+{
+	m_collisionObject->setFriction(f);
+}
+
+float CollisionObject::getFriction()
+{
+	return m_collisionObject->getFriction();
+}

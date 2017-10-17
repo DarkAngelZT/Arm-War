@@ -24,7 +24,8 @@ StandardTankBodyObject::~StandardTankBodyObject()
 	m_right_wheel_animator->drop();
 }
 
-void StandardTankBodyObject::setBodyNode(irr::scene::IAnimatedMeshSceneNode*node,
+void StandardTankBodyObject::setBodyNode(
+		irr::scene::IAnimatedMeshSceneNode*node,
 		const irr::core::vector3df& position/* = irr::core::vector3df(0, 0,
 		 0)*/)
 {
@@ -61,8 +62,8 @@ bool StandardTankBodyObject::isVisible() const
 	return GameObject::isVisible();
 }
 
-void StandardTankBodyObject::addWheelNode(irr::scene::IAnimatedMeshSceneNode* node,
-		std::string side)
+void StandardTankBodyObject::addWheelNode(
+		irr::scene::IAnimatedMeshSceneNode* node, std::string side)
 {
 	if (NULL != m_body)
 	{
@@ -94,8 +95,8 @@ void StandardTankBodyObject::addWheelNode(irr::scene::IAnimatedMeshSceneNode* no
 	}
 }
 
-void StandardTankBodyObject::addTrackNode(irr::scene::IAnimatedMeshSceneNode* node,
-		std::string side)
+void StandardTankBodyObject::addTrackNode(
+		irr::scene::IAnimatedMeshSceneNode* node, std::string side)
 {
 	if (NULL != m_body)
 	{
@@ -105,8 +106,8 @@ void StandardTankBodyObject::addTrackNode(irr::scene::IAnimatedMeshSceneNode* no
 			if (!m_left_track_animator)
 			{
 				m_left_track_animator =
-						NeoGraphics::getInstance()->createTextureMoveAnimator(
-								0, vector2df(-1, 0));
+						NeoGraphics::getInstance()->createTextureMoveAnimator(0,
+								vector2df(-1, 0));
 			}
 			node->addAnimator(m_left_track_animator);
 		}
@@ -116,8 +117,8 @@ void StandardTankBodyObject::addTrackNode(irr::scene::IAnimatedMeshSceneNode* no
 			if (!m_right_track_animator)
 			{
 				m_right_track_animator =
-						NeoGraphics::getInstance()->createTextureMoveAnimator(
-								0, vector2df(-1, 0));
+						NeoGraphics::getInstance()->createTextureMoveAnimator(0,
+								vector2df(-1, 0));
 			}
 			node->addAnimator(m_right_track_animator);
 		}
@@ -142,8 +143,8 @@ void StandardTankBodyObject::setWheelAnimationSpeed(float cycleTime_s,
 	}
 }
 
-void StandardTankBodyObject::setTrackAnimationSpeed(float speed, std::string side =
-		"left", const vector2df& dir)
+void StandardTankBodyObject::setTrackAnimationSpeed(float speed,
+		std::string side = "left", const vector2df& dir)
 {
 	if (side == "left")
 	{
@@ -212,4 +213,49 @@ void StandardTankBodyObject::ConvertCoordinate(scene::ISceneNode* node,
 		node->setRotation(mat.getRotationDegrees());
 		node->setScale(mat.getScale());
 	}
+}
+
+void StandardTankBodyObject::setPosition(vector3df& pos)
+{
+	if (m_body != NULL)
+	{
+		m_body->setPosition(pos);
+	}
+	if (m_rigidBody)
+	{
+		m_rigidBody->setPosition(pos);
+	}
+}
+
+void StandardTankBodyObject::setRotation(vector3df& rot)
+{
+	if (m_body != NULL)
+	{
+		m_body->setRotation(rot);
+	}
+
+	if (m_rigidBody)
+	{
+		m_rigidBody->setRotation(rot);
+	}
+}
+
+vector3df StandardTankBodyObject::getPosition() const
+{
+	vector3df result;
+	if (m_body != NULL)
+		result = m_body->getAbsolutePosition();
+	else if (m_rigidBody)
+		result = m_rigidBody->getCenterOfMassPosition();
+	return result;
+}
+
+vector3df StandardTankBodyObject::getRotation() const
+{
+	vector3df result;
+	if (m_body != NULL)
+		result = m_body->getAbsoluteTransformation().getRotationDegrees();
+	else if (m_rigidBody)
+		result = m_rigidBody->getCenterOfMassTransform().getRotationDegrees();
+	return result;
 }

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="SinglePlayerRoot" >
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Window type="GlossySerpent/FrameWindow" name="FrameWnd" >
+            <Property name="Area" value="{{0,0},{0,0},{0,750},{0,600}}" />
+            <Property name="Text" value="Single Player" />
+            <Property name="TitlebarFont" value="DejaVuSans-HD-10" />
+            <Property name="SizingEnabled" value="false" />
+            <Property name="VerticalAlignment" value="Centre" />
+            <Property name="CloseButtonEnabled" value="false" />
+            <Property name="HorizontalAlignment" value="Centre" />
+            <Property name="AutoRenderingSurface" value="true" />
+            <AutoWindow namePath="__auto_titlebar__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="false" />
+            </AutoWindow>
+            <AutoWindow namePath="__auto_closebutton__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="true" />
+            </AutoWindow>
+            <Window type="GlossySerpent/StaticImage" name="mapOverView" >
+                <Property name="Area" value="{{0,30},{0,20},{0,250},{0,240}}" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="FrameEnabled" value="true" />
+                <Property name="BackgroundEnabled" value="true" />
+            </Window>
+            <Window type="GlossySerpent/Listbox" name="MapList" >
+                <Property name="Area" value="{{0,-20},{0,20},{0.282502,-20},{0.535714,20}}" />
+                <Property name="HorizontalAlignment" value="Right" />
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <Property name="VerticalScrollbar" value="true" />
+                </AutoWindow>
+            </Window>
+            <Window type="GlossySerpent/Button32" name="VehicleBtn" >
+                <Property name="Area" value="{{0.70698,0},{0.632773,0},{0.95698,0},{0.707983,0}}" />
+                <Property name="Text" value="Choose Tank" />
+                <Property name="Visible" value="false" />
+            </Window>
+            <Window type="GlossySerpent/Button32" name="StartBtn" >
+                <Property name="Area" value="{{0,-40},{0,-100},{0,180},{0,-55}}" />
+                <Property name="Text" value="Start Game" />
+                <Property name="VerticalAlignment" value="Bottom" />
+                <Property name="HorizontalAlignment" value="Right" />
+            </Window>
+            <Window type="GlossySerpent/Button32" name="ExitBtn" >
+                <Property name="Area" value="{{0,-40},{0,-30},{0,180},{0,15}}" />
+                <Property name="Text" value="Cancel" />
+                <Property name="VerticalAlignment" value="Bottom" />
+                <Property name="HorizontalAlignment" value="Right" />
+            </Window>
+            <Window type="GlossySerpent/SimplePanel" name="PlayerListRoot" >
+                <Property name="Area" value="{{0,34},{0,273},{0,434},{0,543}}" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Window type="GlossySerpent/ItemListbox" name="PlayerList" >
+                    <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+                    <AutoWindow namePath="__auto_content_pane__" >
+                        <Property name="MouseInputPropagationEnabled" value="true" />
+                    </AutoWindow>
+                    <AutoWindow namePath="__auto_vscrollbar__" >
+                        <Property name="NonClient" value="true" />
+                        <Property name="AlwaysOnTop" value="true" />
+                        <Property name="VerticalScrollbar" value="true" />
+                    </AutoWindow>
+                    <AutoWindow namePath="__auto_hscrollbar__" >
+                        <Property name="NonClient" value="true" />
+                        <Property name="AlwaysOnTop" value="true" />
+                    </AutoWindow>
+                </Window>
+                <Window type="GlossySerpent/ListboxItem" name="PlayerItemPrefab" >
+                    <Property name="Area" value="{{0,0},{0,0},{1,0},{0,32}}" />
+                    <Property name="Visible" value="false" />
+                    <Property name="Selectable" value="true" />
+                    <Property name="MouseInputPropagationEnabled" value="false" />
+                    <Window type="GlossySerpent/Combobox" name="PlayerName" >
+                        <Property name="Area" value="{{0,5},{0,5},{0,140},{1,61}}" />
+                        <AutoWindow namePath="__auto_droplist__" >
+                            <AutoWindow namePath="__auto_vscrollbar__" >
+                                <Property name="VerticalScrollbar" value="true" />
+                            </AutoWindow>
+                        </AutoWindow>
+                    </Window>
+                    <Window type="GlossySerpent/Combobox" name="Type" >
+                        <Property name="Area" value="{{0,150},{0,5},{0,267},{0,91}}" />
+                        <AutoWindow namePath="__auto_droplist__" >
+                            <AutoWindow namePath="__auto_vscrollbar__" >
+                                <Property name="VerticalScrollbar" value="true" />
+                            </AutoWindow>
+                        </AutoWindow>
+                    </Window>
+                    <Window type="GlossySerpent/Combobox" name="Team" >
+                        <Property name="Area" value="{{0,277},{0,5},{0,373},{0,96}}" />
+                        <AutoWindow namePath="__auto_droplist__" >
+                            <AutoWindow namePath="__auto_vscrollbar__" >
+                                <Property name="VerticalScrollbar" value="true" />
+                            </AutoWindow>
+                        </AutoWindow>
+                    </Window>
+                </Window>
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>

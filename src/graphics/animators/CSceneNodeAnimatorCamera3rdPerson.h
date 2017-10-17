@@ -62,6 +62,8 @@ public:
 
 	void setOrientation(f32 pan, f32 titl, f32 zoom);
 	void ChangeOrientation(float pan,float tilt,float zoom);
+	bool isReceiveInput() const;
+	void setReceiveInput(bool receiveInput);
 
 protected:
 	void UpdatePosition(ICameraSceneNode*cam);
@@ -75,6 +77,7 @@ protected:
 	core::vector3df offset;
 	f32 m_rotationSpeed;
 	bool m_enabled;
+	bool m_receiveInput;
 	gui::ICursorControl * m_cursorControl;
 	core::position2d<f32> m_centerCursor, m_cursorPos;
 	bool m_firstUpdate;

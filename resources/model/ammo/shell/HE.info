@@ -8,4 +8,4 @@ ricochetEnabled=true,
 piercePossibility=0.3,
 squashPossibility=0.18,
 pierceDamage=70,
-shieldDamage=3
+armorDamage=3

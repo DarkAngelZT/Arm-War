@@ -26,6 +26,8 @@ public:
 
 	void ChangeOrientation(float pan, float titl, float zoom);
 	void setOrientation(float pan, float titl, float zoom);
+
+	void setReceiveInput(bool receive);
 };
 
 } // end namespace scene

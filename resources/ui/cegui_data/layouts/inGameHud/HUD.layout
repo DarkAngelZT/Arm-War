@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="GameHUDRoot" >
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Property name="VerticalAlignment" value="Centre" />
+        <Property name="HorizontalAlignment" value="Centre" />
+        <Window type="GlossySerpent/StaticImage" name="TopViewPanel" >
+            <Property name="Area" value="{{0,0},{0,0},{0,150},{0,150}}" />
+            <Property name="Image" value="gameHUD/panelBase_noShadow" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="FrameEnabled" value="false" />
+            <Property name="ImageColours" value="tl:ffa4bdff tr:ffa4bdff bl:FF0037db br:FF0037db" />
+            <Property name="BackgroundEnabled" value="false" />
+            <Property name="VerticalAlignment" value="Bottom" />
+            <Property name="HorizontalAlignment" value="Right" />
+            <Property name="AutoRenderingSurface" value="true" />
+        </Window>
+        <Window type="DefaultWindow" name="AmmoRoot" >
+            <Property name="Area" value="{{0,0},{0,0},{0,400},{0,80}}" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="VerticalAlignment" value="Bottom" />
+            <Property name="HorizontalAlignment" value="Centre" />
+            <Window type="DefaultWindow" name="slot1" >
+                <Property name="Area" value="{{0,0},{0,0},{0,50},{0,80}}" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="VerticalAlignment" value="Bottom" />
+                <Window type="GlossySerpent/StaticImage" name="icon" >
+                    <Property name="Area" value="{{0,0},{0,0},{0,50},{0,50}}" />
+                    <Property name="Image" value="gameHUD/AP_icon" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="FrameEnabled" value="false" />
+                    <Property name="BackgroundEnabled" value="false" />
+                    <Property name="VerticalAlignment" value="Bottom" />
+                </Window>
+                <Window type="GlossySerpent/StaticText" name="amount" >
+                    <Property name="Area" value="{{0,0},{0,0},{0,20},{0,20}}" />
+                    <Property name="Font" value="BreeSerif-Regular-12" />
+                    <Property name="Text" value="0" />
+                    <Property name="Alpha" value="0.95" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="AlwaysOnTop" value="true" />
+                    <Property name="FrameEnabled" value="false" />
+                    <Property name="HorzFormatting" value="RightAligned" />
+                    <Property name="BackgroundEnabled" value="true" />
+                    <Property name="VerticalAlignment" value="Bottom" />
+                    <Property name="HorizontalAlignment" value="Right" />
+                    <AutoWindow namePath="__auto_vscrollbar__" >
+                        <Property name="VerticalScrollbar" value="true" />
+                    </AutoWindow>
+                </Window>
+                <Window type="GlossySerpent/Button32" name="key" >
+                    <Property name="Area" value="{{0,0},{0,-55},{0,50},{0,-30}}" />
+                    <Property name="Font" value="BreeSerif-Regular-12" />
+                    <Property name="Text" value="1" />
+                    <Property name="Disabled" value="true" />
+                    <Property name="VerticalAlignment" value="Bottom" />
+                    <Property name="DisabledTextColour" value="FFfff426" />
+                </Window>
+            </Window>
+            <Window type="DefaultWindow" name="slot2" >
+                <Property name="Area" value="{{0,55},{0,0},{0,105},{0,80}}" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="VerticalAlignment" value="Bottom" />
+                <Window type="GlossySerpent/StaticImage" name="icon" >
+                    <Property name="Area" value="{{0,0},{0,0},{0,50},{0,50}}" />
+                    <Property name="Image" value="gameHUD/HE_icon" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="FrameEnabled" value="false" />
+                    <Property name="BackgroundEnabled" value="false" />
+                    <Property name="VerticalAlignment" value="Bottom" />
+                </Window>
+                <Window type="GlossySerpent/StaticText" name="amount" >
+                    <Property name="Area" value="{{0,0},{0,0},{0,20},{0,20}}" />
+                    <Property name="Font" value="BreeSerif-Regular-12" />
+                    <Property name="Text" value="0" />
+                    <Property name="Alpha" value="0.95" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="AlwaysOnTop" value="true" />
+                    <Property name="FrameEnabled" value="false" />
+                    <Property name="HorzFormatting" value="RightAligned" />
+                    <Property name="BackgroundEnabled" value="true" />
+                    <Property name="VerticalAlignment" value="Bottom" />
+                    <Property name="HorizontalAlignment" value="Right" />
+                    <AutoWindow namePath="__auto_vscrollbar__" >
+                        <Property name="VerticalScrollbar" value="true" />
+                    </AutoWindow>
+                </Window>
+                <Window type="GlossySerpent/Button32" name="key" >
+                    <Property name="Area" value="{{0,0},{0,-55},{0,50},{0,-30}}" />
+                    <Property name="Font" value="BreeSerif-Regular-12" />
+                    <Property name="Text" value="2" />
+                    <Property name="Disabled" value="true" />
+                    <Property name="VerticalAlignment" value="Bottom" />
+                    <Property name="DisabledTextColour" value="FFfff426" />
+                </Window>
+            </Window>
+            <Window type="DefaultWindow" name="slot3" >
+                <Property name="Area" value="{{0,110},{0,0},{0,160},{0,80}}" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="VerticalAlignment" value="Bottom" />
+                <Window type="GlossySerpent/StaticImage" name="icon" >
+                    <Property name="Area" value="{{0,0},{0,0},{0,50},{0,50}}" />
+                    <Property name="Image" value="gameHUD/HEAT_icon" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="FrameEnabled" value="false" />
+                    <Property name="BackgroundEnabled" value="false" />
+                    <Property name="VerticalAlignment" value="Bottom" />
+                </Window>
+                <Window type="GlossySerpent/StaticText" name="amount" >
+                    <Property name="Area" value="{{0,0},{0,0},{0,20},{0,20}}" />
+                    <Property name="Font" value="BreeSerif-Regular-12" />
+                    <Property name="Text" value="0" />
+                    <Property name="Alpha" value="0.95" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="AlwaysOnTop" value="true" />
+                    <Property name="FrameEnabled" value="false" />
+                    <Property name="HorzFormatting" value="RightAligned" />
+                    <Property name="BackgroundEnabled" value="true" />
+                    <Property name="VerticalAlignment" value="Bottom" />
+                    <Property name="HorizontalAlignment" value="Right" />
+                    <AutoWindow namePath="__auto_vscrollbar__" >
+                        <Property name="VerticalScrollbar" value="true" />
+                    </AutoWindow>
+                </Window>
+                <Window type="GlossySerpent/Button32" name="key" >
+                    <Property name="Area" value="{{0,0},{0,-55},{0,50},{0,-30}}" />
+                    <Property name="Font" value="BreeSerif-Regular-12" />
+                    <Property name="Text" value="3" />
+                    <Property name="Disabled" value="true" />
+                    <Property name="VerticalAlignment" value="Bottom" />
+                    <Property name="DisabledTextColour" value="FFfff426" />
+                </Window>
+            </Window>
+            <Window type="GlossySerpent/StaticImage" name="activeSlotFrame" >
+                <Property name="Area" value="{{0,0},{0,0},{0,50},{0,50}}" />
+                <Property name="Image" value="gameHUD/iconFrame" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="FrameEnabled" value="false" />
+                <Property name="BackgroundEnabled" value="false" />
+                <Property name="VerticalAlignment" value="Bottom" />
+            </Window>
+            <Window type="GlossySerpent/StaticText" name="AmmoText" >
+                <Property name="Area" value="{{0,0},{0,0},{0,100},{0,40}}" />
+                <Property name="Font" value="BreeSerif-Regular-16" />
+                <Property name="Text" value="AP" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="FrameEnabled" value="false" />
+                <Property name="BackgroundEnabled" value="false" />
+                <Property name="VerticalAlignment" value="Centre" />
+                <Property name="HorizontalAlignment" value="Right" />
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <Property name="VerticalScrollbar" value="true" />
+                </AutoWindow>
+            </Window>
+        </Window>
+        <Window type="GlossySerpent/StaticImage" name="Cursor_mouse" >
+            <Property name="Area" value="{{0,0},{0,0},{0,64},{0,61}}" />
+            <Property name="Image" value="gameHUD/mouse_cursor" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="FrameEnabled" value="false" />
+            <Property name="BackgroundEnabled" value="false" />
+            <Property name="VerticalAlignment" value="Centre" />
+            <Property name="HorizontalAlignment" value="Centre" />
+        </Window>
+        <Window type="GlossySerpent/StaticImage" name="Cursor_canon" >
+            <Property name="Area" value="{{0,0},{0,0},{0,61},{0,34}}" />
+            <Property name="Image" value="gameHUD/canon_cursur" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="Visible" value="false" />
+            <Property name="FrameEnabled" value="false" />
+            <Property name="BackgroundEnabled" value="false" />
+        </Window>
+    </Window>
+</GUILayout>

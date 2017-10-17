@@ -20,7 +20,7 @@ enum E_PARTICLE_EMITTER_TYPE
 //! A particle emitter for using with particle systems.
 /** A Particle emitter emitts new particles into a particle system.
 */
-class IParticleEmitter : public irr::io::IAttributeExchangingObject
+class IParticleEmitter : public irr::IReferenceCounted
 {
 public:
 	//! Set direction the emitter emits particles
