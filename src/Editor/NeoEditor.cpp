@@ -29,7 +29,7 @@ NeoEditor* NeoEditor::getInstance()
 void NeoEditor::CreateFileOpenDialog(const std::string& lua_callback)
 {
 	NeoGraphics::getInstance()->getGuiEnv()->addFileOpenDialog(
-			L"Please choose a file.", true, 0, -1, false);
+			L"Please choose a file.", true, 0, -1, true);
 	file_open_callback_lua = lua_callback;
 }
 

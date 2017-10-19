@@ -22,16 +22,17 @@ guiSystem:getDefaultGUIContext():getMouseCursor():setDefaultImage("GlossySerpent
 -- set the Tooltip type
 guiSystem:getDefaultGUIContext():setDefaultTooltipType("GlossySerpent/Tooltip")
 --实现OOP
-dofile(DIR_SCRIPT.."utilities/class.lua")
+require(DIR_SCRIPT.."utilities/class")
 --初始化全局函数
-dofile(DIR_SCRIPT.."utilities/global_functions.lua")
-dofile(DIR_SCRIPT.."game/core.lua")
+require(DIR_SCRIPT.."utilities/global_functions")
+require(DIR_SCRIPT.."game/core")
 --初始化所有ui
-dofile(DIR_SCRIPT_CEGUI.."Menu_Main.lua")
-dofile(DIR_SCRIPT_CEGUI.."Menu_Option.lua")
-dofile(DIR_SCRIPT_CEGUI.."MapEditor.lua")
-dofile(DIR_SCRIPT_CEGUI.."LoadingScreen.lua")
-dofile(DIR_SCRIPT_CEGUI.."TankEditor.lua")
+require(DIR_SCRIPT_CEGUI.."Menu_Main")
+require(DIR_SCRIPT_CEGUI.."Menu_Option")
+require(DIR_SCRIPT_CEGUI.."MapEditor")
+require(DIR_SCRIPT_CEGUI.."LoadingScreen")
+require(DIR_SCRIPT_CEGUI.."TankEditor")
+require(DIR_SCRIPT_CEGUI.."SingleModeMenu")
 
 -- set the layout as the root
 g_ui_table.switchto("main")

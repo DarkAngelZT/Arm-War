@@ -51,7 +51,8 @@ function CommonObjectEntity.Load(data,logic_data)
 		local shape_index = 
 			Scene.collisionShapeLoader[data.physics_data.physics_type](attribute)
 		local mass = data.physics_data.mass or 0
-		self.gameobject:AddRigidBody(shape_index,mass)
+		local rbody = self.gameobject:AddRigidBody(shape_index,mass)
+		rbody:setFriction(0.8)
 	end
 	self.gameobject:setLuaIdentifier(data.id)
 	self.id=data.id

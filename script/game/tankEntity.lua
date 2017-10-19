@@ -18,7 +18,7 @@ function StandardTankEntity:onCreate(id)
 		right_track={object=nil},
 		turret={object=nil},
 		canon={object=nil},
-		fire_position=irr.core.vector3df:new_local(),
+		fire_position=nil,
 		turret_hinge=nil,
 		canon_hinge=nil,
 		left_track_hinge=nil,
@@ -130,8 +130,8 @@ end
 
 function StandardTankEntity:getCurrentFireInfo()
 	local tranform = self.components.canon.object:GetSceneNode():getAbsoluteTransformation()
-	local fire_position = irr.core.vector3df:new_local()
-	tranform:transformVect(fire_position,self.components.fire_position)
+	local fire_position = 
+		self.components.fire_position:getAbsoluteTransformation():getTranslation()
 	local fire_direction = fire_position-tranform:getTranslation()
 	fire_direction:normalize()
 	return fire_position,fire_direction
@@ -162,6 +162,7 @@ function StandardTankEntity.Load( info, logic_data )
 	tank.components.body.object:setBodyNode(body_main_node)
 	local rigid_body = StandardTankEntity.LoadRigidBody(
 		tank.components.body.object,shape_index_body, data.components.body)
+	rigid_body:setFriction(0.8)
 	--添加轮子
 	for _,wheel_data in ipairs(data.components.wheel) do
 		local node,_ = Scene.nodeLoader.mesh_animated(wheel_data)
@@ -177,6 +178,7 @@ function StandardTankEntity.Load( info, logic_data )
 	local rigid_turret = StandardTankEntity.LoadRigidBody(
 		tank.components.turret.object,shape_index_turret, data.components.turret)
 	rigid_turret:setActivationState(4)--DISABLE_DEACTIVATION 
+	rigid_turret:setFriction(0.8)
 	--组装炮管
 	tank.components.canon.object=neo_scene:CreateGameObject()
 	tank.components.canon.animation={}
@@ -202,6 +204,7 @@ function StandardTankEntity.Load( info, logic_data )
 			local rigidbody=tank.components.left_track.object:AddRigidBody(
 				shape_index_track,v.mass,v.position,v.rotation)
 			rigidbody:setDamping(0.1,0.5)
+			rigidbody:setFriction(0.8)
 		else
 			tank.components.right_track.object=neo_scene:CreateSimpleTankTrackObject()
 			local track_node,shape_index_track = StandardTankEntity.LoadRegularComponent( v )
@@ -212,6 +215,7 @@ function StandardTankEntity.Load( info, logic_data )
 			local rigidbody=tank.components.right_track.object:AddRigidBody(
 				shape_index_track,v.mass,v.position,v.rotation)
 			rigidbody:setDamping(0.1,0.5)
+			rigidbody:setFriction(0.8)
 		end
 	end
 	--设置Id
@@ -225,7 +229,8 @@ function StandardTankEntity.Load( info, logic_data )
 	local transform = tank.components.canon.object:GetSceneNode():getAbsoluteTransformation()
 	local fire_position = irr.core.vector3df(fire_point.position)
 	transform:inverseTranslateVect(fire_position)
-	tank.components.fire_position=fire_position
+	tank.components.fire_position=graphics:AddEmptySceneNode(canon_node) 
+	tank.components.fire_position:setPosition(fire_position)
 	--物理结构组装
 	--炮塔与车身
 	local pivot_body = irr.core.vector3df:new_local()
@@ -392,25 +397,25 @@ function StandardTankEntity:Move( dir, side )
 	local speed = self.property.max_speed
 	if side==-1 then
 		--left
-		local left_speed = speed*0.12*dir
+		local left_speed = speed*0.6*dir
 		if left_speed == 0 then
-			left_speed = -speed*0.5
+			left_speed = -speed*0.2
 		end
-		local right_speed = speed*dir*0.5
+		local right_speed = speed*dir*0.8
 		if right_speed == 0 then
-			right_speed = speed*0.5
+			right_speed = speed*0.2
 		end
 		self:setTrackSpeed("left",left_speed)
 		self:setTrackSpeed("right",right_speed)
 	elseif side==1 then
 		--right
-		local right_speed = speed*0.12*dir
+		local right_speed = speed*0.6*dir
 		if right_speed == 0 then
-			right_speed = -speed*0.5
+			right_speed = -speed*0.2
 		end
-		local left_speed = speed*dir*0.5
+		local left_speed = speed*dir*0.8
 		if left_speed == 0 then
-			left_speed = speed*0.5
+			left_speed = speed*0.2
 		end
 		self:setTrackSpeed("left",left_speed)
 		self:setTrackSpeed("right",right_speed)
@@ -469,7 +474,9 @@ function StandardTankEntity:CreateDestroyedObject()
 	node:setRotation(body_rotation)
 	node:updateAbsolutePosition()
 	remain.gameobject:setSceneNode(node)
-	remain.gameobject:AddRigidBody(self.destroyed_prefab.shape_index,30)
+	local rigidbody=remain.gameobject:AddRigidBody(self.destroyed_prefab.shape_index,30)
+	rigidbody:setFriction(0.8)
+
 	local graphics = NeoGraphics:getInstance()
 	--浓烟效果
 	local smoke = NeoGraphics:getInstance():AddParticleSystemSceneNode(false,node)

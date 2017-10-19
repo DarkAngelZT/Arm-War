@@ -14,24 +14,8 @@ end
 function main_menu.btn_callback( args )
 	local btnName=CEGUI.toWindowEventArgs(args).window:getName()
 	if btnName == "SinglePlayer" then
-		--test game here
-		g_ui_table.switchto("loading")
-		LoadingScreen.Init()
-		players={}
-		players[1]={
-			name="Neo",
-			tank_type="t34",
-			id="a01",
-			team=1
-		}
-		players[2]={
-			name="Dummy",
-			tank_type="t34",
-			id="a02",
-			team=2
-		}
-		Scene.Init("resources/maps/mini_manhattan.lua",players)
-		return
+		g_ui_table.switchto("single_menu")
+		SingleMenu.Init()
 	elseif btnName == "MapEditor" then
 		g_ui_table.switchto("editor")
 		--编辑器界面初始化
