@@ -241,7 +241,7 @@ function Scene.LoadUpdate()
 			NeoGameLogic:getInstance():removeLuaUpdateFunctionExeSafe("Scene.LoadUpdate")
 			NeoGameLogic:getInstance():AddLuaUpdateFunction("Scene.Update")
 			Logic:Init()
-			g_ui_table.current:hide()
+			g_ui_table.switchto("hud")
 		else
 			local state
 			if Scene.loading_percent<0 then

@@ -3,7 +3,7 @@ map_info.setting={
 map_name = "mini_manhattan",
 ["ambient colour"] = irr.video.SColor:new_local(255,100,100,100),
 ["skydome texture"] = "resources/sfx/env/skydome/cloud_skydome.jpg",
-logic_data = "",
+logic_data = "max_player=2,max_team_allowed=2",
 } -- settings
 -- objects
 map_info.objects={}

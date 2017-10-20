@@ -89,6 +89,8 @@ function Logic:Init()
 		trigger:addTriggerCondition(v)
 	end
 	NeoGameLogic:getInstance():RegisterTrigger(trigger)
+	--set random seed
+	math.randomseed( os.time() )
 end
 
 function Logic:Clear()

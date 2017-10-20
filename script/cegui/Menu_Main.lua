@@ -15,7 +15,7 @@ function main_menu.btn_callback( args )
 	local btnName=CEGUI.toWindowEventArgs(args).window:getName()
 	if btnName == "SinglePlayer" then
 		g_ui_table.switchto("single_menu")
-		SingleMenu.Init()
+		SingleMenu:Init()
 	elseif btnName == "MapEditor" then
 		g_ui_table.switchto("editor")
 		--编辑器界面初始化

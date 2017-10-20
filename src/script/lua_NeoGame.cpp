@@ -1,6 +1,6 @@
 /*
 ** Lua binding: NeoGame
-** Generated automatically by tolua++-1.0.93 on Mon Oct 16 23:40:42 2017.
+** Generated automatically by tolua++-1.0.93 on Fri Oct 20 03:08:21 2017.
 */
 
 #ifndef __cplusplus
@@ -1376,6 +1376,106 @@ static int tolua_NeoGame_LuaHelper_BitRshift00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'BitRshift'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: NeoGame::io::getFileInfolder */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_io_getFileInfolder00
+static int tolua_NeoGame_NeoGame_io_getFileInfolder00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_iscppstring(tolua_S,1,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const std::string folder_name = ((const std::string)  tolua_tocppstring(tolua_S,1,0));
+  const std::string extensions = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  {
+   std::vector<std::string> tolua_ret = (std::vector<std::string>)  NeoGame::io::getFileInfolder(folder_name,extensions);
+   {
+#ifdef __cplusplus
+    void* tolua_obj = Mtolua_new((std::vector<std::string>)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"std::vector<std::string>");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#else
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(std::vector<std::string>));
+     tolua_pushusertype(tolua_S,tolua_obj,"std::vector<std::string>");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#endif
+   }
+   tolua_pushcppstring(tolua_S,(const char*)folder_name);
+   tolua_pushcppstring(tolua_S,(const char*)extensions);
+  }
+ }
+ return 3;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getFileInfolder'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: NeoGame::io::getCurrentWorkingDirectory */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_io_getCurrentWorkingDirectory00
+static int tolua_NeoGame_NeoGame_io_getCurrentWorkingDirectory00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isnoobj(tolua_S,1,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   std::string tolua_ret = (std::string)  NeoGame::io::getCurrentWorkingDirectory();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getCurrentWorkingDirectory'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: NeoGame::io::isFileExist */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_io_isFileExist00
+static int tolua_NeoGame_NeoGame_io_isFileExist00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_iscppstring(tolua_S,1,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const std::string path = ((const std::string)  tolua_tocppstring(tolua_S,1,0));
+  {
+   bool tolua_ret = (bool)  NeoGame::io::isFileExist(path);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+   tolua_pushcppstring(tolua_S,(const char*)path);
+  }
+ }
+ return 2;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'isFileExist'.",&tolua_err);
  return 0;
 #endif
 }
@@ -39116,6 +39216,15 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"BitNot",tolua_NeoGame_LuaHelper_BitNot00);
    tolua_function(tolua_S,"BitLshift",tolua_NeoGame_LuaHelper_BitLshift00);
    tolua_function(tolua_S,"BitRshift",tolua_NeoGame_LuaHelper_BitRshift00);
+  tolua_endmodule(tolua_S);
+  tolua_module(tolua_S,"NeoGame",0);
+  tolua_beginmodule(tolua_S,"NeoGame");
+   tolua_module(tolua_S,"io",0);
+   tolua_beginmodule(tolua_S,"io");
+    tolua_function(tolua_S,"getFileInfolder",tolua_NeoGame_NeoGame_io_getFileInfolder00);
+    tolua_function(tolua_S,"getCurrentWorkingDirectory",tolua_NeoGame_NeoGame_io_getCurrentWorkingDirectory00);
+    tolua_function(tolua_S,"isFileExist",tolua_NeoGame_NeoGame_io_isFileExist00);
+   tolua_endmodule(tolua_S);
   tolua_endmodule(tolua_S);
   tolua_module(tolua_S,"irr",0);
   tolua_beginmodule(tolua_S,"irr");

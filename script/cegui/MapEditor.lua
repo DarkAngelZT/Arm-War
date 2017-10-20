@@ -7,8 +7,8 @@ CEGUI.ImageManager:getSingleton():loadImageset("editor_icon.imageset");
 local root = winMgr:loadLayoutFromFile("MapEditor.layout")
 g_ui_table.editor=root
 --加载操作函数
-dofile(DIR_SCRIPT.."Editor/editorUI.lua")
-dofile(DIR_SCRIPT.."Editor/editorFunctions.lua")
+require(DIR_SCRIPT.."Editor/editorUI")
+require(DIR_SCRIPT.."Editor/editorFunctions")
 --初始化属性表（编辑器居然不提供编辑功能，靠）
 local property_wnd=CEGUI.toMultiColumnList(
 	CEGUI.WindowManager:getSingleton():createWindow("GlossySerpent/MultiColumnList", "list"))

@@ -1,0 +1,1 @@
+Remember to put same number of spawnpoint for each team that equal to maximum number players.

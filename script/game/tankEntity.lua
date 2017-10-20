@@ -475,7 +475,7 @@ function StandardTankEntity:CreateDestroyedObject()
 	node:updateAbsolutePosition()
 	remain.gameobject:setSceneNode(node)
 	local rigidbody=remain.gameobject:AddRigidBody(self.destroyed_prefab.shape_index,30)
-	rigidbody:setFriction(0.8)
+	rigidbody:setFriction(0.9)
 
 	local graphics = NeoGraphics:getInstance()
 	--浓烟效果

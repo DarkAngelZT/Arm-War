@@ -61,6 +61,8 @@ function Actor:OnShellHit( shell )
 		if math.random()<shell.property.piercePossibility then
 			--穿甲伤害
 			damage=shell.property.pierceDamage
+			--触发穿甲事件
+			print("穿甲")
 		end
 		damage = damage*(1-0.06*self.armor/(1+0.06*self.armor))
 		self.armor=clamp(self.armor-shell.property.armorDamage)

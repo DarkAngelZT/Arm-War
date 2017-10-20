@@ -28,11 +28,11 @@ map_editor.scene_node_icon=
 -- file list that needs to be copied to des folder
 map_editor.copy_list={}
 map_editor.saved=false
-dofile(DIR_SCRIPT.."Editor/toolbar.lua")
-dofile(DIR_SCRIPT.."Editor/animationPanel.lua")
-dofile(DIR_SCRIPT.."Editor/physicsPanel.lua")
-dofile(DIR_SCRIPT.."Editor/logicDataPanel.lua")
-dofile(DIR_SCRIPT.."Editor/inputWindow.lua")
+require(DIR_SCRIPT.."Editor/toolbar")
+require(DIR_SCRIPT.."Editor/animationPanel")
+require(DIR_SCRIPT.."Editor/physicsPanel")
+require(DIR_SCRIPT.."Editor/logicDataPanel")
+require(DIR_SCRIPT.."Editor/inputWindow")
 --------------------------------------------
 -- initialize
 --------------------------------------------
@@ -228,10 +228,10 @@ function map_editor.UpdatePropertyWindow( object )
 	for k,v in pairs(object.property) do
 		-- add row
 		local row=wnd:addRow()
-		-- --key
+		--key
 		local display=v.display or k
 		local keycol=CEGUI.createListboxTextItem(display,0)
-		-- --value
+		--value
 		local datatype= v.type or tolua.type(object[k]):gsub("const ","")
 		local value=map_editor.property_converter[datatype](object[k])
 		local valuecol=CEGUI.createListboxTextItem(value)
