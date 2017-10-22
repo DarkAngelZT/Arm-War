@@ -1,6 +1,6 @@
 ammoName="HEAT",
 model="HEAT/HEAT.obj",
-mass=1.5,
+mass=0.8,
 power=50,
 damage=45,
 rage=30,

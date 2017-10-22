@@ -91,7 +91,8 @@ end
 
 function StandardTankEntity:setCanonAngle( angle_degree )
 	local hinge = self.components.canon_hinge
-	local current_angle = math.deg(hinge:getHingeAngle())
+	angle_degree = clamp(
+		angle_degree,self.components.canon.min_angle,self.components.canon.max_angle)
 
 	hinge:setMotorTarget(math.rad(angle_degree),1)
 end
@@ -129,12 +130,42 @@ function StandardTankEntity:setTrackSpeed( side, speed )
 end
 
 function StandardTankEntity:getCurrentFireInfo()
-	local tranform = self.components.canon.object:GetSceneNode():getAbsoluteTransformation()
+	local canon_pos = self.components.canon.object:getPosition()
 	local fire_position = 
 		self.components.fire_position:getAbsoluteTransformation():getTranslation()
-	local fire_direction = fire_position-tranform:getTranslation()
+	local fire_direction = fire_position-canon_pos
 	fire_direction:normalize()
 	return fire_position,fire_direction
+end
+
+function StandardTankEntity:getFirePosition()
+	return self.components.fire_position:getAbsolutePosition()
+end
+
+function StandardTankEntity:getCanonAimPosition(distance)
+	distance=distance or 1000
+	local from,dir = self:getCurrentFireInfo()
+	local to = from+dir*distance
+	local raycastResult = NeoPhysics:getInstance():RayCast(from,to)
+	if raycastResult.hasHit then
+		return raycastResult.m_hitPointWorld
+	else
+		return to
+	end
+end
+
+function StandardTankEntity:getTargetAngle( position )
+	local turret_angle = 0
+	local canon_angle = 0
+	local transform = irr.core.matrix4:new_local()
+	transform:setTranslation(
+		self.components.turret.object:getPosition())
+	transform:setRotationDegrees(
+		self.components.body.object:getTankBodyNode():getAbsoluteTransformation():getRotationDegrees())
+	transform:makeInverse()
+	transform:transformVect(position)
+	canon_angle,turret_angle = CartesianCoordToSphereCoord(position)
+	return turret_angle,canon_angle
 end
 
 function StandardTankEntity:PlayFireEffect( position )
@@ -248,6 +279,8 @@ function StandardTankEntity.Load( info, logic_data )
 	local canon_hinge = NeoPhysics:getInstance():CreateHingeJoint(
 		rigid_turret,rigid_cannon,pivot_turret_canon,pivot_canon,axis_canon_turret,axis_canon_turret)
 	tank.components.canon_hinge=canon_hinge
+	tank.components.canon.max_angle=-data.components.canon.min_angle
+	tank.components.canon.min_angle=-data.components.canon.max_angle
 	canon_hinge:setLimit(
 		-math.rad(data.components.canon.max_angle),
 		-math.rad(data.components.canon.min_angle))

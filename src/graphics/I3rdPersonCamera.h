@@ -67,6 +67,8 @@ public:
 
 	void setReceiveInput(bool receive);
 
+	core::vector3df getPosition();
+
 protected:
 	ICameraSceneNode* m_camera;
 	CSceneNodeAnimatorCamera3rdPerson* m_camera_animator;

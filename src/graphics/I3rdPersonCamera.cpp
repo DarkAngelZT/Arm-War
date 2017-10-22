@@ -137,10 +137,18 @@ void irr::scene::I3rdPersonCamera::setCameraAnimator(
 }
 void irr::scene::I3rdPersonCamera::setReceiveInput(bool receive)
 {
-	if(m_camera_animator){
+	if (m_camera_animator)
+	{
 		m_camera_animator->setReceiveInput(receive);
 	}
 }
+core::vector3df irr::scene::I3rdPersonCamera::getPosition()
+{
+	irr::core::vector3df pos;
+	if(m_camera){
+		pos=m_camera->getAbsolutePosition();
+	}
+	return pos;
+}
 } /* namespace scene */
 } /* namespace irr */
-

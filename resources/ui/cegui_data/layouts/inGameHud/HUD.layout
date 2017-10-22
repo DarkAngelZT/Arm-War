@@ -148,15 +148,32 @@
                 <Property name="MaxSize" value="{{1,0},{1,0}}" />
                 <Property name="FrameEnabled" value="false" />
                 <Property name="BackgroundEnabled" value="false" />
-                <Property name="VerticalAlignment" value="Centre" />
                 <Property name="HorizontalAlignment" value="Right" />
                 <AutoWindow namePath="__auto_vscrollbar__" >
                     <Property name="VerticalScrollbar" value="true" />
                 </AutoWindow>
             </Window>
+            <Window type="GlossySerpent/ProgressBar" name="ReloadingBar" >
+                <Property name="Area" value="{{0,0},{0,0},{0,142},{0,35}}" />
+                <Property name="StepSize" value="0.01" />
+                <Property name="CurrentProgress" value="1" />
+                <Property name="VerticalAlignment" value="Bottom" />
+                <Property name="HorizontalAlignment" value="Right" />
+                <Window type="GlossySerpent/StaticText" name="status" >
+                    <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+                    <Property name="Text" value="Ready" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="FrameEnabled" value="false" />
+                    <Property name="HorzFormatting" value="CentreAligned" />
+                    <Property name="BackgroundEnabled" value="false" />
+                    <AutoWindow namePath="__auto_vscrollbar__" >
+                        <Property name="VerticalScrollbar" value="true" />
+                    </AutoWindow>
+                </Window>
+            </Window>
         </Window>
         <Window type="GlossySerpent/StaticImage" name="Cursor_mouse" >
-            <Property name="Area" value="{{0,0},{0,0},{0,64},{0,61}}" />
+            <Property name="Area" value="{{0,0},{-0.2,0},{0,64},{-0.2,61}}" />
             <Property name="Image" value="gameHUD/mouse_cursor" />
             <Property name="MaxSize" value="{{1,0},{1,0}}" />
             <Property name="FrameEnabled" value="false" />

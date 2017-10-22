@@ -277,6 +277,7 @@ function Scene.Init(map_path,player_info)
 	Scene.map_info= assert(dofile(map_path))
 	Scene.player_info=player_info
 	Scene.internal_observers={}
+	Scene.screen_size=NeoGraphics:getInstance():getScreenSize()
 	-- Scene.load(Scene.map_info)
 end
 

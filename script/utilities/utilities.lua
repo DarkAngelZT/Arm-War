@@ -117,6 +117,19 @@ function eval( s )
     end
 end
 --------------------------------------------
+--坐标系转换
+--------------------------------------------
+function CartesianCoordToSphereCoord( vector )
+    local r = vector:getLength()
+    local cosTheta = vector.Y/r
+    local theta = math.acos(cosTheta)
+    local phi = math.acos(vector.X/(r*math.sin(theta)))
+    if vector.Z<0 then
+        phi=phi*-1
+    end
+    return math.deg(theta),math.deg(phi)
+end
+--------------------------------------------
 -- object pool
 --------------------------------------------
 ObjectPool=class()

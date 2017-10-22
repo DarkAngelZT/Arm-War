@@ -153,7 +153,13 @@ public:
 	video::ITexture* LoadTexture(std::string&path);
 	void UnloadTexture(video::ITexture*texture);
 
+	irr::core::vector2di getPositionOnScreen(
+			const irr::core::vector3df& position);
+	irr::core::vector3df get3DPositionFromScreen(
+			const irr::core::vector2di& screen_position);
+
 	float getFps();
+	core::dimension2du getScreenSize();
 	std::string getTextFromOSClipboard();
 	void setAppClipboardString(const std::string& text);
 	std::string getAppClipboardString();

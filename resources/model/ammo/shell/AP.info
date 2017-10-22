@@ -1,6 +1,6 @@
 ammoName="AP",
 model="AP/ap.obj",
-mass=0.8,
+mass=0.5,
 power=60,
 damage=35,
 range=10,

@@ -153,7 +153,8 @@ void NeoGraphics::InitialiseResourceGroupDirectories()
 	//以下代码是自己打的
 	//rp->setResourceGroupDirectory("topview","./sfx/UI/topViews/");
 	rp->setResourceGroupDirectory("images", "./resources/ui/images/");
-	rp->setResourceGroupDirectory("mapPreview","./resources/ui/images/mapPreview");
+	rp->setResourceGroupDirectory("mapPreview",
+			"./resources/ui/images/mapPreview");
 }
 
 void NeoGraphics::RenderUI()
@@ -349,6 +350,21 @@ irr::scene::I3rdPersonCamera* NeoGraphics::AddCamera3rdPerson(
 	return NULL;
 }
 
+irr::core::vector3df NeoGraphics::get3DPositionFromScreen(
+		const irr::core::vector2di& screen_position)
+{
+	core::line3df line =
+			smgr->getSceneCollisionManager()->getRayFromScreenCoordinates(
+					screen_position);
+	return line.end;
+}
+
+core::dimension2du NeoGraphics::getScreenSize()
+{
+	dimension2du size = driver->getScreenSize();
+	return size;
+}
+
 void NeoGraphics::InitialiseDefaultResourceGroups()
 {
 	//以下代码搬运自cegui Sample
@@ -503,4 +519,11 @@ irr::scene::IParticleAffector* NeoGraphics::CreateColourAffactorQ(
 		const irr::video::SColor& targetColor1)
 {
 	return irr::scene::CreateColourAffactorQ(targetColor0, targetColor1);
+}
+
+irr::core::vector2di NeoGraphics::getPositionOnScreen(
+		const irr::core::vector3df& position)
+{
+	return smgr->getSceneCollisionManager()->getScreenCoordinatesFrom3DPosition(
+			position);
 }

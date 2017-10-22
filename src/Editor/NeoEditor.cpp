@@ -15,8 +15,6 @@ NeoEditor* NeoEditor::_instance = NULL;
 
 NeoEditor::NeoEditor()
 {
-	// TODO 自动生成的构造函数存根
-
 }
 
 NeoEditor* NeoEditor::getInstance()
@@ -68,7 +66,6 @@ void NeoEditor::CleanUp(bool resetEventhandler)
 
 NeoEditor::~NeoEditor()
 {
-	// TODO 自动生成的析构函数存根
 }
 
 bool NeoEditor::OnEvent(const SEvent& event)

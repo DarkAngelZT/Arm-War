@@ -90,18 +90,48 @@ function Actor:Update( ... )
 				deg_turret = self.angle_cache.turret
 				deg_canon = self.angle_cache.canon
 			else 
-				deg_turret = math.fmod( Scene.cameras.third_person:getCamPan()-90, 360)
-				deg_canon = Scene.cameras.third_person:getCamTilt()
-				deg_canon=-deg_canon-22
+				deg_turret, deg_canon= self:getTurretTargetAngle()
+				deg_canon = deg_canon - 90
 				if deg_turret<0 then
 					deg_turret = deg_turret+360
 				end
 			end
 			
+			--print(deg_canon)
 			self.entity:setTurretAngle(deg_turret)
-			self.entity:setCanonAngle(deg_canon)
+			self.entity:setCanonAngle(deg_canon*0.5)
+			
+			self:UpdateUI()
 		end
 	end
+end
+
+function Actor:getTurretTargetAngle()
+	local screen_size = Scene.screen_size
+	local pos = irr.core.vector2di:new_local(screen_size.Width*0.5,screen_size.Height*0.3)
+	local target = NeoGraphics:getInstance():get3DPositionFromScreen(pos)
+	local from = Scene.cameras.third_person:getPosition()
+	local to = target --from+dir*distance
+	local raycastResult = NeoPhysics:getInstance():RayCast(from,to)
+	if raycastResult.hasHit then
+		target = raycastResult.m_hitPointWorld
+	end
+
+	return self.entity:getTargetAngle(target)
+end
+
+function Actor:UpdateUI()
+	--update aim position
+	local aim_pos = self.entity:getCanonAimPosition()
+	local screen_pos_int = NeoGraphics:getInstance():getPositionOnScreen(aim_pos)
+	if screen_pos_int.X== -1000 and screen_pos_int.Y == -1000 then
+		gamehud:setCanonCursorEnabled(false)
+	else
+		gamehud:setCanonCursorEnabled(true)
+	end
+	local screen_pos_dim_x = irr.core.vector2df(0,clamp(screen_pos_int.X,0,math.huge))
+	local screen_pos_dim_y = irr.core.vector2df(0,clamp(screen_pos_int.Y,0,math.huge))
+	gamehud:setCanonCursorPosition(screen_pos_dim_x,screen_pos_dim_y)
 end
 
 function Actor:Attack()

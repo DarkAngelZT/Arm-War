@@ -28,6 +28,8 @@ public:
 	void setOrientation(float pan, float titl, float zoom);
 
 	void setReceiveInput(bool receive);
+
+	irr::core::vector3d<float> getPosition();
 };
 
 } // end namespace scene

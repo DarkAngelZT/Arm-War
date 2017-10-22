@@ -7,11 +7,16 @@ Logic.actors={}
 Logic.input_handler=nil
 Logic.in_game_trigger=nil
 Logic.actor_me=nil
+Logic.game_mode=1
 Logic.EVENT={
 	KEY=0,
 	MOUSE=1,
 	EXPLOSION=2,
 	SHELL_HIT=3
+}
+Logic.GAME_MODE={
+	SINGLE=1,
+	MULTIPLE=2
 }
 Logic.event_handlers=
 {
@@ -89,6 +94,8 @@ function Logic:Init()
 		trigger:addTriggerCondition(v)
 	end
 	NeoGameLogic:getInstance():RegisterTrigger(trigger)
+
+	gamehud:setCanonCursorEnabled(true)
 	--set random seed
 	math.randomseed( os.time() )
 end

@@ -1,58 +1,78 @@
 class NeoPhysics
 {
 public:
+
+	struct RaycastResult
+	{
+		bool hasHit;
+		irr::core::vector3d<float> m_hitNormalWorld;
+		irr::core::vector3d<float> m_hitPointWorld;
+		GameObject* m_gameObject;
+	};
+
 	static NeoPhysics*getInstance();
 
 	void CleanUp();
 	//=======creation wrapper=====
 	//-------collision shapes-----
-	int CreateSphereShape(float radius, const irr::core::vector3d<float>& scale =
-			irr::core::vector3d<float>(1, 1, 1));
+	int CreateSphereShape(float radius,
+			const irr::core::vector3d<float>& scale =
+					irr::core::vector3d<float>(1, 1, 1));
 	int CreateBoxShape(irr::core::vector3d<float>&size,
-			const irr::core::vector3d<float>& scale = irr::core::vector3d<float>(1, 1, 1));
-	int CreateCylinderShape(irr::core::vector3d<float>&extents, char align = 'Y',
-			const irr::core::vector3d<float>& scale = irr::core::vector3d<float>(1, 1, 1));
+			const irr::core::vector3d<float>& scale =
+					irr::core::vector3d<float>(1, 1, 1));
+	int CreateCylinderShape(irr::core::vector3d<float>&extents,
+			char align = 'Y', const irr::core::vector3d<float>& scale =
+					irr::core::vector3d<float>(1, 1, 1));
 	int CreateCapsuleShape(float radius, float height, char align = 'Y',
-			const irr::core::vector3d<float>& scale = irr::core::vector3d<float>(1, 1, 1));
+			const irr::core::vector3d<float>& scale =
+					irr::core::vector3d<float>(1, 1, 1));
 	int CreateConeShape(float radius, float height, char align = 'Y',
-			const irr::core::vector3d<float>& scale = irr::core::vector3d<float>(1, 1, 1));
+			const irr::core::vector3d<float>& scale =
+					irr::core::vector3d<float>(1, 1, 1));
 //	int CreateMultiSphereShape(irr::core::vector3d<float> positions[],
 //			float radiuses[], int numSpheres);
 	int CreateConvexHullShape(irr::scene::IMesh*mesh,
-			irr::core::vector3d<float> scale = irr::core::vector3d<float>(1, 1, 1));
+			irr::core::vector3d<float> scale = irr::core::vector3d<float>(1, 1,
+					1));
 	int CreateConvexTriangleMeshShape(irr::scene::IMesh*mesh,
-			irr::core::vector3d<float> scale = irr::core::vector3d<float>(1, 1, 1));
+			irr::core::vector3d<float> scale = irr::core::vector3d<float>(1, 1,
+					1));
 	int CreateBvhTriangleShape(irr::scene::IMesh*mesh,
-			irr::core::vector3d<float> scale = irr::core::vector3d<float>(1, 1, 1));
+			irr::core::vector3d<float> scale = irr::core::vector3d<float>(1, 1,
+					1));
 	//int CreateHeightfieldTerrainShape(int meshIndex);
 	//int CreateStaticPlaneShape();
 	int CreateCompoundShape();
 	void CompoundShapeAddChild(int shapeIndex, int childIndex,
-			irr::core::vector3d<float> localPos = irr::core::vector3d<float>(0, 0, 0),
-			irr::core::vector3d<float> localRotation = irr::core::vector3d<float>(0, 0, 0));
+			irr::core::vector3d<float> localPos = irr::core::vector3d<float>(0,
+					0, 0), irr::core::vector3d<float> localRotation =
+					irr::core::vector3d<float>(0, 0, 0));
 	void RemoveCollisionShape(int index);
 	//-----general collision object
 	void AddCollisionObjectToWorld(CollisionObject*collisionObj);
 	void RemoveCollisionObjectFromWorld(CollisionObject*collisionObj);
 	//------rigid body-------
 	RigidBody* CreateRigidBody(int collisionShapeIndex,
-			irr::scene::ISceneNode*node, float mass, irr::core::vector3d<float> pos =
-					irr::core::vector3d<float>(0, 0, 0),
-			irr::core::vector3d<float> rotation = irr::core::vector3d<float>(0, 0, 0));
+			irr::scene::ISceneNode*node, float mass,
+			irr::core::vector3d<float> pos = irr::core::vector3d<float>(0, 0,
+					0), irr::core::vector3d<float> rotation =
+					irr::core::vector3d<float>(0, 0, 0));
 	void RemoveRigidBody(int index);
 	//------joint-------
 	HingeJoint* CreateHingeJoint(RigidBody* rigidbody1, RigidBody* rigidbody2,
-			irr::core::vector3d<float> pivot1, irr::core::vector3d<float> pivot2,
-			irr::core::vector3d<float> axisIn1, irr::core::vector3d<float> axisIn2);
-	HingeJoint* CreateHingeJoint(RigidBody*body, irr::core::vector3d<float> pivot,
-			irr::core::vector3d<float> axis);
-	void AddHingeJointToWorld(HingeJoint*hinge,bool disableCollisionsBetweenLinkedBodies=true);
+			irr::core::vector3d<float> pivot1,
+			irr::core::vector3d<float> pivot2,
+			irr::core::vector3d<float> axisIn1,
+			irr::core::vector3d<float> axisIn2);
+	HingeJoint* CreateHingeJoint(RigidBody*body,
+			irr::core::vector3d<float> pivot, irr::core::vector3d<float> axis);
+	void AddHingeJointToWorld(HingeJoint*hinge,
+			bool disableCollisionsBetweenLinkedBodies = true);
 	void RemoveHingeJointFromWorld(HingeJoint*hinge);
 	void RemoveJoint(int index);
 	//---------------useful functions---------
-//	void RegisterPreProcessingCall();
-//	void RemovePreProcessingCall();
-//
+	RaycastResult RayCast(const irr::core::vector3d<float>& from,const irr::core::vector3d<float>& to);
 //	void RegisterPostProcessingCall();
 //	void RemovePostProcessingCall();
 	//=========================

@@ -40,6 +40,12 @@ using namespace std;
 class NeoPhysics
 {
 public:
+	struct RaycastResult{
+		bool hasHit;
+		irr::core::vector3df	m_hitNormalWorld;
+		irr::core::vector3df	m_hitPointWorld;
+		GameObject* m_gameObject;
+	};
 	static NeoPhysics*getInstance();
 	static void Destroy();
 	void Init();
@@ -108,7 +114,7 @@ public:
 	void RemoveHingeJointFromWorld(HingeJoint*hinge);
 	void RemoveJointFromWorld(int index);
 	void RemoveJoint(int index);
-	//------ghost object ( c++ only )-------
+	//------ghost object-------
 	GhostObject* CreateGhostObject(int collisionSahpIndex,
 			std::function<
 					void(GhostObject*,
@@ -132,9 +138,9 @@ public:
 			std::function<
 					void(GhostObject*,
 							btAlignedObjectArray<btCollisionObject*>&)> callback);
-//	void RegisterPreProcessingCall();
-//	void RemovePreProcessingCall();
-//
+
+	RaycastResult RayCast(const irr::core::vector3df& from,const irr::core::vector3df& to);
+
 //	void RegisterPostProcessingCall();
 //	void RemovePostProcessingCall();
 	//=========================
@@ -202,7 +208,6 @@ public:
 		transform.setFromOpenGLMatrix(irrmat.pointer());
 	}
 
-	void PreProcessingCall();
 	void PostProcessingCall();
 private:
 	NeoPhysics();

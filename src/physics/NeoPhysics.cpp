@@ -51,8 +51,8 @@ void NeoPhysics::Init()
 	m_dynamicsWorld->getSolverInfo().m_solverMode |=
 			SOLVER_ENABLE_FRICTION_DIRECTION_CACHING;
 	//ghost object collision detection
-	m_ghostpairCallback = shared_ptr<btGhostPairCallback>(
-			new btGhostPairCallback());
+	m_ghostpairCallback = shared_ptr < btGhostPairCallback
+			> (new btGhostPairCallback());
 	m_dynamicsWorld->getBroadphase()->getOverlappingPairCache()->setInternalGhostPairCallback(
 			m_ghostpairCallback.get());
 	//---Explosion creators---//
@@ -64,7 +64,6 @@ void NeoPhysics::Update(float timestep)
 {
 	if (fTimeScale > 0)
 	{
-		PreProcessingCall();
 		m_dynamicsWorld->stepSimulation(timestep * fTimeScale);
 		int numManifolds = m_dynamicsWorld->getDispatcher()->getNumManifolds();
 		std::set<std::pair<GameObject*, GameObject*>> new_contacts;
@@ -271,18 +270,22 @@ int NeoPhysics::CreateCylinderShape(irr::core::vector3df& extents, char align,
 	{
 	case 'X':
 	case 'x':
-		ptr = std::shared_ptr<btCollisionShape>(new btCylinderShapeX(halfext));
+		ptr = std::shared_ptr < btCollisionShape
+				> (new btCylinderShapeX(halfext));
 		break;
 	case 'Y':
 	case 'y':
-		ptr = std::shared_ptr<btCollisionShape>(new btCylinderShape(halfext));
+		ptr = std::shared_ptr < btCollisionShape
+				> (new btCylinderShape(halfext));
 		break;
 	case 'Z':
 	case 'z':
-		ptr = std::shared_ptr<btCollisionShape>(new btCylinderShapeZ(halfext));
+		ptr = std::shared_ptr < btCollisionShape
+				> (new btCylinderShapeZ(halfext));
 		break;
 	default:
-		ptr = std::shared_ptr<btCollisionShape>(new btCylinderShape(halfext));
+		ptr = std::shared_ptr < btCollisionShape
+				> (new btCylinderShape(halfext));
 		break;
 	}
 	return assignShapeIndex(ptr);
@@ -296,22 +299,22 @@ int NeoPhysics::CreateCapsuleShape(float radius, float height, char align,
 	{
 	case 'X':
 	case 'x':
-		ptr = std::shared_ptr<btCollisionShape>(
-				new btCapsuleShapeX(radius * scale.Y, height * scale.X));
+		ptr = std::shared_ptr < btCollisionShape
+				> (new btCapsuleShapeX(radius * scale.Y, height * scale.X));
 		break;
 	case 'Y':
 	case 'y':
-		ptr = std::shared_ptr<btCollisionShape>(
-				new btCapsuleShape(radius * scale.X, height * scale.Y));
+		ptr = std::shared_ptr < btCollisionShape
+				> (new btCapsuleShape(radius * scale.X, height * scale.Y));
 		break;
 	case 'Z':
 	case 'z':
-		ptr = std::shared_ptr<btCollisionShape>(
-				new btCapsuleShapeZ(radius * scale.Y, height * scale.Z));
+		ptr = std::shared_ptr < btCollisionShape
+				> (new btCapsuleShapeZ(radius * scale.Y, height * scale.Z));
 		break;
 	default:
-		ptr = std::shared_ptr<btCollisionShape>(
-				new btCapsuleShape(radius * scale.X, height * scale.Y));
+		ptr = std::shared_ptr < btCollisionShape
+				> (new btCapsuleShape(radius * scale.X, height * scale.Y));
 		break;
 	}
 	return assignShapeIndex(ptr);
@@ -325,22 +328,22 @@ int NeoPhysics::CreateConeShape(float radius, float height, char align,
 	{
 	case 'X':
 	case 'x':
-		ptr = std::shared_ptr<btCollisionShape>(
-				new btConeShapeX(radius * scale.Y, height * scale.X));
+		ptr = std::shared_ptr < btCollisionShape
+				> (new btConeShapeX(radius * scale.Y, height * scale.X));
 		break;
 	case 'Y':
 	case 'y':
-		ptr = std::shared_ptr<btCollisionShape>(
-				new btConeShape(radius * scale.X, height * scale.Y));
+		ptr = std::shared_ptr < btCollisionShape
+				> (new btConeShape(radius * scale.X, height * scale.Y));
 		break;
 	case 'Z':
 	case 'z':
-		ptr = std::shared_ptr<btCollisionShape>(
-				new btConeShapeZ(radius * scale.Y, height * scale.Z));
+		ptr = std::shared_ptr < btCollisionShape
+				> (new btConeShapeZ(radius * scale.Y, height * scale.Z));
 		break;
 	default:
-		ptr = std::shared_ptr<btCollisionShape>(
-				new btConeShape(radius * scale.X, height * scale.Y));
+		ptr = std::shared_ptr < btCollisionShape
+				> (new btConeShape(radius * scale.X, height * scale.Y));
 		break;
 	}
 	return assignShapeIndex(ptr);
@@ -580,6 +583,30 @@ int NeoPhysics::assignRigidBodyIndex(std::shared_ptr<btRigidBody>&ptr)
 	}
 }
 
+NeoPhysics::RaycastResult NeoPhysics::RayCast(const irr::core::vector3df& from,
+		const irr::core::vector3df& to)
+{
+	RaycastResult result;
+	btVector3 origin = irrToBulletVector(from);
+	btVector3 target = irrToBulletVector(to);
+	btCollisionWorld::ClosestRayResultCallback RayCallback(origin, target);
+	m_dynamicsWorld->rayTest(origin, target, RayCallback);
+	result.hasHit = RayCallback.hasHit();
+	if (result.hasHit)
+	{
+		result.m_gameObject = static_cast<GameObject*>(RayCallback.m_collisionObject->getUserPointer());
+		result.m_hitNormalWorld = bulletToIrrVector(RayCallback.m_hitNormalWorld);
+		result.m_hitPointWorld = bulletToIrrVector(RayCallback.m_hitPointWorld);
+	}
+	else
+	{
+		result.m_gameObject = NULL;
+		result.m_hitPointWorld = vector3df(0, 0, 0);
+		result.m_hitNormalWorld = vector3df(0, 0, 0);
+	}
+	return result;
+}
+
 btTriangleMesh* NeoPhysics::createTriangleMesh(irr::scene::IMesh*mesh,
 		vector3df scale, int*assignedIndex)
 {
@@ -728,7 +755,7 @@ HingeJoint* NeoPhysics::CreateHingeJoint(RigidBody* rigidbody1,
 			pivot2, axisIn1, axisIn2);
 	int index = assignConstraintIndex(ptr);
 	HingeJoint*joint = new HingeJoint(
-			dynamic_pointer_cast<btHingeConstraint>(ptr), rigidbody1,
+			dynamic_pointer_cast < btHingeConstraint > (ptr), rigidbody1,
 			rigidbody2);
 	joint->setInternalIndex(index);
 	return joint;
@@ -743,7 +770,7 @@ HingeJoint* NeoPhysics::CreateHingeJoint(RigidBody* body,
 			body->getBtRigidBody(), pivot, axis);
 	int index = assignConstraintIndex(ptr);
 	HingeJoint*joint = new HingeJoint(
-			dynamic_pointer_cast<btHingeConstraint>(ptr), body,
+			dynamic_pointer_cast < btHingeConstraint > (ptr), body,
 			NULL);
 	joint->setInternalIndex(index);
 	return joint;
@@ -793,10 +820,6 @@ void NeoPhysics::RemoveJoint(int index)
 	m_dynamicsWorld->removeConstraint(m_constrains[index].get());
 	m_available_Constraints.push_back(index);
 	m_constrains[index] = NULL;
-}
-
-void NeoPhysics::PreProcessingCall()
-{
 }
 
 void NeoPhysics::PostProcessingCall()

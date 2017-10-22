@@ -1,6 +1,6 @@
 ammoName="HE",
 model="HE/HE.obj",
-mass=1,
+mass=1.5,
 power=70,
 damage=70,
 rage=40,
