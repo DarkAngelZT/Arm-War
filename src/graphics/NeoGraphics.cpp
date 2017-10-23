@@ -151,7 +151,7 @@ void NeoGraphics::InitialiseResourceGroupDirectories()
 	sprintf(resourcePath, "%s/%s", dataPathPrefix, "animations/");
 	rp->setResourceGroupDirectory("animations", resourcePath);
 	//以下代码是自己打的
-	//rp->setResourceGroupDirectory("topview","./sfx/UI/topViews/");
+	rp->setResourceGroupDirectory("tankTopview","./resources/ui/images/tankTopView");
 	rp->setResourceGroupDirectory("images", "./resources/ui/images/");
 	rp->setResourceGroupDirectory("mapPreview",
 			"./resources/ui/images/mapPreview");

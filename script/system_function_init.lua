@@ -108,10 +108,12 @@ function SceneLoaderGeneric(map_info,player_info)
 			local current_actor = Actor.new(v.id)
 			current_actor.name=v.name
 			current_actor:setEntity(tank)
+			current_actor.team=v.team
+			current_actor.tank_type=tank_type
 			if i==1 then
 				Logic.actor_me=current_actor
 			end
-			Logic:addActor(current_actor)
+			Logic:addActor(current_actor,true)
 			percent=60+i/player_number*30
 			coroutine.yield(percent)
 		end

@@ -117,17 +117,15 @@ function eval( s )
     end
 end
 --------------------------------------------
---坐标系转换
+-- rotate a vector by quaternion
 --------------------------------------------
-function CartesianCoordToSphereCoord( vector )
-    local r = vector:getLength()
-    local cosTheta = vector.Y/r
-    local theta = math.acos(cosTheta)
-    local phi = math.acos(vector.X/(r*math.sin(theta)))
-    if vector.Z<0 then
-        phi=phi*-1
-    end
-    return math.deg(theta),math.deg(phi)
+function rotateVectorByQuaternion( vector, quaternion )
+    local inversedQ = irr.core.quaternion:new_local(
+        quaternion.X,quaternion.Y,quaternion.Z,quaternion.W)
+    local p = irr.core.quaternion:new_local(vector.X,vector.Y,vector.Z,0)
+    inversedQ:makeInverse()
+    local result = (quaternion*p)*inversedQ
+    return irr.core.vector3df:new_local(result.X,result.Y,result.Z)
 end
 --------------------------------------------
 -- object pool

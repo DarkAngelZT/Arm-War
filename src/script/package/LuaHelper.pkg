@@ -19,3 +19,5 @@ std::string getCurrentWorkingDirectory();
 bool isFileExist(const std::string& path);
 }
 }
+
+irr::core::vector3d<float> matrix4_getRotationZXY_rad(const irr::core::CMatrix4<float>& mx);

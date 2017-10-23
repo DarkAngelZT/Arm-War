@@ -15,8 +15,11 @@ Actor.state=ACTOR_STATE.LIVE
 function Actor:onCreate( id )
 	self.id=id
 	self.turret_locked=false
-	self.ammo={
-	{name="AP",amount=20}
+	self.ammo={}
+	self.ammo_config={
+		{name="AP",amount=20},
+		{name="HE",amount=53},
+		{name="HEAT",amount=5}
 	}
 end
 
@@ -34,6 +37,7 @@ function Actor:ReadProperty()
 		self.max_health=self.health
 		self.max_armor=self.armor
 	end
+	self.ammo=deepcopy(self.ammo_config)
 end
 
 function Actor:DealDamage( damage )
@@ -43,6 +47,8 @@ end
 
 function Actor:OnShellHit( shell )
 	print(self.id.." hitted by "..shell.shell_type.." from "..shell.owner.id)
+	local event = { 
+		event_id=Scene.EVENT.PLAYER_HIT, attacker = shell.owner, ricochet=false, pierce=false }
 	local damage = shell.property.damage
 	if self.shield>0 then
 		--先扣护盾
@@ -53,8 +59,9 @@ function Actor:OnShellHit( shell )
 			self.shield=0
 		end
 	end
-	if math.random()<self.ricochet_possibility then
+	if shell.property.ricochetEnabled and math.random()<self.ricochet_possibility then
 		--触发跳弹事件
+		event.ricochet=true
 		print("跳弹了")
 	else 
 		--处理伤害
@@ -62,20 +69,25 @@ function Actor:OnShellHit( shell )
 			--穿甲伤害
 			damage=shell.property.pierceDamage
 			--触发穿甲事件
+			event.pierce=true
 			print("穿甲")
 		end
 		damage = damage*(1-0.06*self.armor/(1+0.06*self.armor))
-		self.armor=clamp(self.armor-shell.property.armorDamage)
+		if math.random()<shell.property.squashPossibility then
+			self.armor=clamp(self.armor-shell.property.armorDamage)
+		end
+		
 		self:DealDamage(damage)
 		print("health",self.health)
-		if self.health ==0 then
+		if self.health == 0 then
 			--发出死亡命令
-			local cmd = ActorDestroyedCommand.new(self)
+			local deathEvent = { event_id=Scene.EVENT.PLAYER_DESTROYED, attacker = shell.owner }
+			local cmd = ActorDestroyedCommand.new(self,deathEvent)
 			Logic:addCommand(cmd)
+		else
+			Scene:notify(self,event)
 		end
 	end
-	
-	print("done")
 end
 
 function Actor:Update( ... )
@@ -92,14 +104,14 @@ function Actor:Update( ... )
 			else 
 				deg_turret, deg_canon= self:getTurretTargetAngle()
 				deg_canon = deg_canon - 90
+				deg_canon=deg_canon*0.5
 				if deg_turret<0 then
 					deg_turret = deg_turret+360
 				end
 			end
 			
-			--print(deg_canon)
 			self.entity:setTurretAngle(deg_turret)
-			self.entity:setCanonAngle(deg_canon*0.5)
+			self.entity:setCanonAngle(deg_canon)
 			
 			self:UpdateUI()
 		end
@@ -108,7 +120,7 @@ end
 
 function Actor:getTurretTargetAngle()
 	local screen_size = Scene.screen_size
-	local pos = irr.core.vector2di:new_local(screen_size.Width*0.5,screen_size.Height*0.3)
+	local pos = irr.core.vector2di:new_local(screen_size.Width*0.5,screen_size.Height*0.25)
 	local target = NeoGraphics:getInstance():get3DPositionFromScreen(pos)
 	local from = Scene.cameras.third_person:getPosition()
 	local to = target --from+dir*distance
@@ -132,11 +144,22 @@ function Actor:UpdateUI()
 	local screen_pos_dim_x = irr.core.vector2df(0,clamp(screen_pos_int.X,0,math.huge))
 	local screen_pos_dim_y = irr.core.vector2df(0,clamp(screen_pos_int.Y,0,math.huge))
 	gamehud:setCanonCursorPosition(screen_pos_dim_x,screen_pos_dim_y)
+
+	
+
+	local body_angle = self.entity:getTankComponentWorldAngles("body")
+	local turret_angle = self.entity:getTankComponentWorldAngles("turret")
+	gamehud:UpdateTopView(body_angle.Y,turret_angle.Y)
 end
+
 
 function Actor:Attack()
 	if self.state==ACTOR_STATE.LIVE and self.ammo[self.currentAmmoIdx].amount>0 then
-		self.ammo[self.currentAmmoIdx].amount = self.ammo[self.currentAmmoIdx].amount-1
+		local amount = self.ammo[self.currentAmmoIdx].amount-1
+		self.ammo[self.currentAmmoIdx].amount = amount
+		if self==Logic.actor_me then
+			gamehud:ChangeAmmoAmount(self.currentAmmoIdx,amount)
+		end
 		self.entity:Attack(self.ammo[self.currentAmmoIdx].name)
 	end
 end
@@ -173,6 +196,14 @@ function Actor:Die()
 	if self.state==ACTOR_STATE.LIVE then
 		self.state=ACTOR_STATE.DESTROYED
 		self.entity:Die()
-		--触发死亡事件
+	end
+end
+
+function Actor:setAmmo( index )
+	if index>0 and index<= #self.ammo then
+		self.currentAmmoIdx=index
+		if self==Logic.actor_me then
+			gamehud:setCurrentAmmoType(index,self.ammo[index].name)
+		end
 	end
 end

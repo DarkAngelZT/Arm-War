@@ -7,5 +7,5 @@ rage=10,--爆炸影响范围
 piercePossibility=0.4,--穿甲概率
 ricochetEnabled=true,--是否会发生跳弹
 squashPossibility=0.25,--碎甲（减护甲）概率
-pierceDamage=64,--穿加后的额外伤害
+pierceDamage=64,--穿加后的伤害
 shieldDamage=5,--对护甲的伤害

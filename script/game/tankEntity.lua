@@ -94,7 +94,7 @@ function StandardTankEntity:setCanonAngle( angle_degree )
 	angle_degree = clamp(
 		angle_degree,self.components.canon.min_angle,self.components.canon.max_angle)
 
-	hinge:setMotorTarget(math.rad(angle_degree),1)
+	hinge:setMotorTarget(math.rad(angle_degree),0.6)
 end
 
 function StandardTankEntity:getTurretAngle()
@@ -164,8 +164,25 @@ function StandardTankEntity:getTargetAngle( position )
 		self.components.body.object:getTankBodyNode():getAbsoluteTransformation():getRotationDegrees())
 	transform:makeInverse()
 	transform:transformVect(position)
-	canon_angle,turret_angle = CartesianCoordToSphereCoord(position)
+	local angles = position:getSphericalCoordinateAngles()
+	canon_angle,turret_angle = angles.X,angles.Y
 	return turret_angle,canon_angle
+end
+-------------------------------------------
+--get tank component rotation in world space, mainly used for ui update (face to z axis)
+-------------------------------------------
+function StandardTankEntity:getTankComponentWorldAngles(part_key)
+	--calculate rotation
+	local rot_euler=self.components[part_key].object:getRotation()
+	--convert to quaternion for rotation
+	local rot = irr.core.quaternion:new_local(
+		math.rad(rot_euler.X),math.rad(rot_euler.Y),math.rad(rot_euler.Z))
+	--default forward direction
+	local dir = irr.core.vector3df:new_local(1,0,0) 
+
+	dir = rotateVectorByQuaternion(dir,rot)
+	angles = dir:getSphericalCoordinateAngles()
+	return angles*-1
 end
 
 function StandardTankEntity:PlayFireEffect( position )
@@ -485,7 +502,7 @@ function StandardTankEntity:Attack( shell_type )
 	self:PlayFireEffect(fire_position)
 	--反作用力
 	local turret = self.components.turret.object:getRigidBody()
-	local impulse_turret = impulse * -0.5
+	local impulse_turret = impulse * -0.2
 	turret:applyCentralImpulse(impulse_turret)
 	--炮管动画
 	StandardTankEntity.setAnimation(self.components.canon,"fire")

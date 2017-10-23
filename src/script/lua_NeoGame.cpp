@@ -1,6 +1,6 @@
 /*
 ** Lua binding: NeoGame
-** Generated automatically by tolua++-1.0.93 on Sat Oct 21 19:31:53 2017.
+** Generated automatically by tolua++-1.0.93 on Sun Oct 22 17:02:15 2017.
 */
 
 #ifndef __cplusplus
@@ -123,9 +123,9 @@ static int tolua_collect_irr__core__aabbox3d_float_ (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_irr__core__vector3d_float_ (lua_State* tolua_S)
+static int tolua_collect_std__vector_std__string_ (lua_State* tolua_S)
 {
- irr::core::vector3d<float>* self = (irr::core::vector3d<float>*) tolua_tousertype(tolua_S,1,0);
+ std::vector<std::string>* self = (std::vector<std::string>*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -179,9 +179,9 @@ static int tolua_collect_irr__video__SColorf (lua_State* tolua_S)
 	return 0;
 }
 
-static int tolua_collect_std__vector_std__string_ (lua_State* tolua_S)
+static int tolua_collect_irr__core__vector3d_float_ (lua_State* tolua_S)
 {
- std::vector<std::string>* self = (std::vector<std::string>*) tolua_tousertype(tolua_S,1,0);
+ irr::core::vector3d<float>* self = (irr::core::vector3d<float>*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -1484,6 +1484,45 @@ static int tolua_NeoGame_NeoGame_io_isFileExist00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'isFileExist'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: matrix4_getRotationZXY_rad */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_matrix4_getRotationZXY_rad00
+static int tolua_NeoGame_matrix4_getRotationZXY_rad00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     (tolua_isvaluenil(tolua_S,1,&tolua_err) || !tolua_isusertype(tolua_S,1,"const irr::core::CMatrix4<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const irr::core::CMatrix4<float>* mx = ((const irr::core::CMatrix4<float>*)  tolua_tousertype(tolua_S,1,0));
+  {
+   irr::core::vector3d<float> tolua_ret = (irr::core::vector3d<float>)  matrix4_getRotationZXY_rad(*mx);
+   {
+#ifdef __cplusplus
+    void* tolua_obj = Mtolua_new((irr::core::vector3d<float>)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3d<float>");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#else
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(irr::core::vector3d<float>));
+     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3d<float>");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#endif
+   }
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'matrix4_getRotationZXY_rad'.",&tolua_err);
  return 0;
 #endif
 }
@@ -39572,6 +39611,7 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
     tolua_function(tolua_S,"isFileExist",tolua_NeoGame_NeoGame_io_isFileExist00);
    tolua_endmodule(tolua_S);
   tolua_endmodule(tolua_S);
+  tolua_function(tolua_S,"matrix4_getRotationZXY_rad",tolua_NeoGame_matrix4_getRotationZXY_rad00);
   tolua_module(tolua_S,"irr",0);
   tolua_beginmodule(tolua_S,"irr");
    tolua_module(tolua_S,"core",0);

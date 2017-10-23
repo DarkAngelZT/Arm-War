@@ -277,7 +277,7 @@ animation = {
 tank.property = {turret_rotation_speed = 70,
 tank_type = "standard",
 health = 120,
-fire_power = 100,
+fire_power = 200,
 armor = 3.5,
 max_speed = 14.7,
 ricochet_possibility = 0.4,

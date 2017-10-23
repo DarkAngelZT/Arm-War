@@ -100,7 +100,6 @@ function ShellEntity.OnCollisionEnter( id_self, id_another )
 		exp_type , Scene.EVENT.EXPLOSION, shell.owner, 
 		shell.property.damage, shell.gameobject:getPosition(),
 		shell.property.range, shell.property.power, true )
-
 	Scene.shell_pool[shell.shell_type]:returnObject(shell)
 end
 

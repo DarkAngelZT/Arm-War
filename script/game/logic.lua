@@ -4,6 +4,7 @@ require(DIR_SCRIPT.."game/singleModeInputHandler")
 
 Logic={}
 Logic.actors={}
+Logic.players={}
 Logic.input_handler=nil
 Logic.in_game_trigger=nil
 Logic.actor_me=nil
@@ -56,11 +57,14 @@ function Logic:RemoveEventHandler(eventId,key)
 	end
 end
 
-function Logic:addActor( actor )
+function Logic:addActor( actor, isPlayer )
 	if not actor.id then
 		actor.id="a"..makeId()
 	end
 	self.actors[actor.id]=actor
+	if isPlayer then
+		self.players[actor.id]=actor
+	end
 end
 
 function Logic.Update()
@@ -95,7 +99,13 @@ function Logic:Init()
 	end
 	NeoGameLogic:getInstance():RegisterTrigger(trigger)
 
-	gamehud:setCanonCursorEnabled(true)
+	if self.actor_me then
+		gamehud:Init(self.actor_me)
+		gamehud:setCanonCursorEnabled(true)
+	end
+	--score board
+	ScoreBoard:Init(self.players)
+	ScoreBoard:setVisible(false)
 	--set random seed
 	math.randomseed( os.time() )
 end
@@ -107,6 +117,12 @@ function Logic:Clear()
 		NeoGameLogic:getInstance():RemoveTrigger(self.in_game_trigger)
 		self.in_game_trigger:drop()
 		self.in_game_trigger=nil
+	end
+	for k,v in pairs(self.actors) do
+		self.actors[k]=nil
+	end
+	for k,_ in pairs(self.players) do
+		self.players[k]=nil
 	end
 end
 

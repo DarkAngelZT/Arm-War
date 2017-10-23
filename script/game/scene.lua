@@ -24,7 +24,7 @@ Scene.internal_observers={
 	
 }
 Scene.EVENT={
-	EXPLOSION=1
+	EXPLOSION=1, PLAYER_DESTROYED=2, PLAYER_REVIVE=3, PLAYER_HIT=4,
 }
 
 Scene.nodeLoader={
@@ -307,7 +307,7 @@ end
 function Scene:TriggerExplosion(type, event_id, 
 	invoker, damage, position, range, impulse, attenuate )
 	local event={
-		event_id = event_id, invoker=invoker, damage=damage,
+		event_id = event_id, damage=damage,
 		type=type, position=position,
 		range=range, impulse=impulse, attenuate = attenuate
 	}

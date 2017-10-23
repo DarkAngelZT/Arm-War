@@ -45,8 +45,25 @@ end
 -- dead
 ---------------------------
 ActorDestroyedCommand=class(Command)
-
+function ActorDestroyedCommand:onCreate(reciever,event)
+	self.event=event
+end
 function ActorDestroyedCommand:Execute()
 	self.executed=true
 	self.reciever:Die()
+	if self.event then
+		Scene:notify(self.reciever,self.event)
+	end
+end
+---------------------------
+-- set ammo
+---------------------------
+ActorSetAmmoCommand=class(Command)
+function ActorSetAmmoCommand:onCreate( reciever, index )
+	self.index=index
+end
+
+function ActorSetAmmoCommand:Execute()
+	self.executed=true
+	self.reciever:setAmmo(self.index)
 end

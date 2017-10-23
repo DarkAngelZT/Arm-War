@@ -5,9 +5,12 @@ CEGUI.ImageManager:getSingleton():loadImageset("gameHUD.imageset");
 local root = winMgr:loadLayoutFromFile("inGameHud/HUD.layout")
 g_ui_table.hud=root
 
+root:addChild(ScoreBoard.ui.root)
+
 gamehud={}
 gamehud.ui={
 	ammo_slot={
+		root=root:getChild("AmmoRoot"),
 		root:getChild("AmmoRoot/slot1"),
 		root:getChild("AmmoRoot/slot2"),
 		root:getChild("AmmoRoot/slot3")
@@ -18,7 +21,39 @@ gamehud.ui={
 	reload_progress_bar=CEGUI.toProgressBar(root:getChild("AmmoRoot/ReloadingBar")),
 	reload_status=root:getChild("AmmoRoot/ReloadingBar/status"),
 	active_ammo_frame=root:getChild("AmmoRoot/activeSlotFrame"),
+	top_view={
+		base=root:getChild("TopViewRoot/Base"),
+		top=root:getChild("TopViewRoot/Top")
+	},
 }
+gamehud.ammo_sprite_name={
+	AP="gameHUD/AP_icon",
+	HE="gameHUD/HE_icon",
+	HESH="gameHUD/HESH_icon",
+	HEAT="gameHUD/HEAT_icon"
+}
+
+function gamehud:Init( actor )
+	if actor then
+		self.ui.ammo_slot.root:setVisible(true)
+		--set shell icon
+		for i=1,3 do
+			local icon_type = self.ammo_sprite_name[actor.ammo[i].name]
+			self.ui.ammo_slot[i]:getChild("icon"):setProperty("Image",icon_type)
+			self.ui.ammo_slot[i]:getChild("amount"):setText(tostring(actor.ammo[i].amount))
+		end
+	else
+		self.ui.ammo_slot.root:setVisible(false)
+	end
+	local tank_type=actor.entity.property.tank_name
+	CEGUI.ImageManager:getSingleton():loadImageset(tank_type..".imageset","tankTopview")
+	self.ui.top_view.base:setProperty("Image","TankTopView/base")
+	self.ui.top_view.top:setProperty("Image","TankTopView/top")
+	-- hide cursor
+	CEGUI.System:getSingleton():getDefaultGUIContext():getMouseCursor():hide()
+	--evetn observer
+	Scene:addInternalObserver(self)
+end
 
 function gamehud:setCanonCursorPosition( pos_x, pos_y )
 	local cursor = self.ui.cursor_canon
@@ -42,5 +77,35 @@ end
 function gamehud:setCanonCursorEnabled( enable )
 	if self.ui.cursor_canon:isVisible() == not enable then
 		self.ui.cursor_canon:setVisible(enable)
+	end
+end
+
+function gamehud:setCurrentAmmoType( index, name)
+	if index>0 and index <= #self.ui.ammo_slot then
+		self.ui.active_ammo_frame:setPosition(
+			self.ui.ammo_slot[index]:getPosition())
+		self.ui.current_ammo:setText(name)
+	end
+end
+
+function gamehud:ChangeAmmoAmount( index, amount)
+	if index>0 and index <= #self.ui.ammo_slot then
+		self.ui.ammo_slot[index]:getChild("amount"):setText(tostring(amount))
+	end
+end
+
+function gamehud:UpdateTopView( base_angle,top_angle )
+
+	self.ui.top_view.base:setProperty(
+		"Rotation","x:0 y:0 z:"..base_angle)
+	self.ui.top_view.top:setProperty(
+		"Rotation","x:0 y:0 z:"..top_angle)
+end
+
+function gamehud:notify( invoker, event )
+	local event_id = event.event_id
+	if event_id == Scene.EVENT.PLAYER_HIT then
+		--body
+	elseif event_id == Scene.EVENT.PLAYER_DESTROYED then
 	end
 end
