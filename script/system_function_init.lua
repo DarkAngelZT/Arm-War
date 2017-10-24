@@ -128,7 +128,7 @@ function SceneLoaderGeneric(map_info,player_info)
 	-- set input handler
 	Logic.input_handler=SingleModeInputHandler
 	-- set game mode
-	Logic.game_mode=Logic.GAME_MODE.SINGLE
+	Logic:setGameMode(Logic.GAME_MODE.SINGLE)
 	--resume physics
 	Scene.EnablePhysicsSimulation()
 	coroutine.yield(100)

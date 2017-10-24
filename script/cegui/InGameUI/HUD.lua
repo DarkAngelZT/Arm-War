@@ -1,4 +1,6 @@
 require(DIR_SCRIPT_CEGUI.."InGameUI/ScoreBoard")
+require(DIR_SCRIPT_CEGUI.."InGameUI/PauseMenuSinglePlayer")
+require(DIR_SCRIPT_CEGUI.."InGameUI/PauseMenuMultiPlayer")
 
 local winMgr = CEGUI.WindowManager:getSingleton()
 CEGUI.ImageManager:getSingleton():loadImageset("gameHUD.imageset");
@@ -7,8 +9,14 @@ g_ui_table.hud=root
 
 root:addChild(ScoreBoard.ui.root)
 
+----------------------
+--event handler
+----------------------
+root:subscribeEvent("KeyUp","gamehud.OnKeyUp")
+----------------------
 gamehud={}
 gamehud.ui={
+	root=root,
 	ammo_slot={
 		root=root:getChild("AmmoRoot"),
 		root:getChild("AmmoRoot/slot1"),
@@ -53,6 +61,15 @@ function gamehud:Init( actor )
 	CEGUI.System:getSingleton():getDefaultGUIContext():getMouseCursor():hide()
 	--evetn observer
 	Scene:addInternalObserver(self)
+	--add pause menu
+	if self.ui.pause_menu_root then
+		self.ui.root:removeChild(self.ui.pause_menu_root)
+	end
+	if self.pause_menu then
+		self.ui.root:addChild(self.pause_menu.ui.root)
+		self.ui.pause_menu_root=self.pause_menu.ui.root
+		self.pause_menu:Hide()
+	end
 end
 
 function gamehud:setCanonCursorPosition( pos_x, pos_y )
@@ -107,5 +124,15 @@ function gamehud:notify( invoker, event )
 	if event_id == Scene.EVENT.PLAYER_HIT then
 		--body
 	elseif event_id == Scene.EVENT.PLAYER_DESTROYED then
+	end
+end
+
+function gamehud.OnKeyUp( args )
+	local keycode = CEGUI.toKeyEventArgs(args)
+	if keycode.scancode == CEGUI.Key.Escape then
+		if not gamehud.pause_menu:isVisible() then
+			gamehud.pause_menu:Show()
+			Logic:PauseGame()
+		end
 	end
 end

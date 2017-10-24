@@ -1,6 +1,6 @@
 /*
 ** Lua binding: NeoGame
-** Generated automatically by tolua++-1.0.93 on Sun Oct 22 17:02:15 2017.
+** Generated automatically by tolua++-1.0.93 on Tue Oct 24 02:46:55 2017.
 */
 
 #ifndef __cplusplus
@@ -31236,6 +31236,71 @@ static int tolua_NeoGame_NeoGameLogic_removeLuaUpdateFunctionExeSafe00(lua_State
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: isGamePaused of class  NeoGameLogic */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGameLogic_isGamePaused00
+static int tolua_NeoGame_NeoGameLogic_isGamePaused00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoGameLogic",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoGameLogic* self = (const NeoGameLogic*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isGamePaused'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->isGamePaused();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'isGamePaused'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setGamePaused of class  NeoGameLogic */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGameLogic_setGamePaused00
+static int tolua_NeoGame_NeoGameLogic_setGamePaused00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGameLogic",0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGameLogic* self = (NeoGameLogic*)  tolua_tousertype(tolua_S,1,0);
+  bool gamePaused = ((bool)  tolua_toboolean(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setGamePaused'", NULL);
+#endif
+  {
+   self->setGamePaused(gamePaused);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setGamePaused'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: getData of class  NeoEvent */
 #ifndef TOLUA_DISABLE_tolua_NeoGame_NeoEvent_getData00
 static int tolua_NeoGame_NeoEvent_getData00(lua_State* tolua_S)
@@ -32929,6 +32994,37 @@ static int tolua_NeoGame_StandardTankBodyObject_AddRigidBody01(lua_State* tolua_
  return 1;
 tolua_lerror:
  return tolua_NeoGame_StandardTankBodyObject_AddRigidBody00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: drop of class  irr::scene::I3rdPersonCamera */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_irr_scene_I3rdPersonCamera_drop00
+static int tolua_NeoGame_irr_scene_I3rdPersonCamera_drop00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"irr::scene::I3rdPersonCamera",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  irr::scene::I3rdPersonCamera* self = (irr::scene::I3rdPersonCamera*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'drop'", NULL);
+#endif
+  {
+   self->drop();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'drop'.",&tolua_err);
+ return 0;
+#endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -41312,6 +41408,8 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"AddLuaUpdateFunction",tolua_NeoGame_NeoGameLogic_AddLuaUpdateFunction00);
    tolua_function(tolua_S,"removeLuaUpdateFunction",tolua_NeoGame_NeoGameLogic_removeLuaUpdateFunction00);
    tolua_function(tolua_S,"removeLuaUpdateFunctionExeSafe",tolua_NeoGame_NeoGameLogic_removeLuaUpdateFunctionExeSafe00);
+   tolua_function(tolua_S,"isGamePaused",tolua_NeoGame_NeoGameLogic_isGamePaused00);
+   tolua_function(tolua_S,"setGamePaused",tolua_NeoGame_NeoGameLogic_setGamePaused00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"NeoEvent","NeoEvent","",NULL);
   tolua_beginmodule(tolua_S,"NeoEvent");
@@ -41453,6 +41551,7 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_beginmodule(tolua_S,"scene");
     tolua_cclass(tolua_S,"I3rdPersonCamera","irr::scene::I3rdPersonCamera","",NULL);
     tolua_beginmodule(tolua_S,"I3rdPersonCamera");
+     tolua_function(tolua_S,"drop",tolua_NeoGame_irr_scene_I3rdPersonCamera_drop00);
      tolua_function(tolua_S,"setRotationSpeed",tolua_NeoGame_irr_scene_I3rdPersonCamera_setRotationSpeed00);
      tolua_function(tolua_S,"setMaxZoom",tolua_NeoGame_irr_scene_I3rdPersonCamera_setMaxZoom00);
      tolua_function(tolua_S,"setMaxTitl",tolua_NeoGame_irr_scene_I3rdPersonCamera_setMaxTitl00);

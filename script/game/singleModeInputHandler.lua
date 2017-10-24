@@ -41,6 +41,9 @@ function SingleModeInputHandler.OnKeyEvent(event)
 end
 
 function SingleModeInputHandler.OnMouseEvent( event )
+	if Logic:isGamePaused() then
+		return
+	end
 	local button = event:getData(0)
 	local status = tonumber(event:getData(1))
 	if button == "L" then

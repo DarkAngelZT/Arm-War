@@ -19,7 +19,7 @@ public:
 	static void Destroy();
 	void Init();
 	void Update();
-
+	
 	//-------triggers-----//
 	void TriggerEvent(int eid,int argc=0,...);
 	/*
@@ -36,6 +36,9 @@ public:
 	void AddLuaUpdateFunction(std::string funcName);
 	void removeLuaUpdateFunction(std::string funcName);
 	void removeLuaUpdateFunctionExeSafe(std::string funcName);
+	bool isGamePaused() const;
+	void setGamePaused(bool gamePaused);
+
 	//--------------//
 private:
 	NeoGameLogic();
@@ -45,6 +48,7 @@ private:
 	std::map<int,std::string>list_longterm_triggers;
 	std::set<std::string>lua_update_functions;
 	std::set<std::string>lua_update_function_delete_queue;
+	bool m_gamePaused;
 };
 
 #endif /* SRC_GAME_NEOGAMELOGIC_H_ */

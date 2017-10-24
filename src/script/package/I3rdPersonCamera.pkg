@@ -5,6 +5,7 @@ namespace scene
 class I3rdPersonCamera
 {
 public:
+	void drop();
 	void setRotationSpeed(float ns);
 	void setMaxZoom(float NewMaxZoom);
 	void setMaxTitl(float NewMaxTitl);

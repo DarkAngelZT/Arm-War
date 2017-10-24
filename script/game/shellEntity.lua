@@ -15,7 +15,7 @@ ShellFactory={
 	clear=function( self )
 		for k,v in pairs(self.prototype) do
 			NeoPhysics:getInstance():RemoveCollisionShape(v.collision_shape_index)
-			prototype[k]=nil
+			self.prototype[k]=nil
 		end
 	end,
 	create=function( self, shell_type )
@@ -80,7 +80,7 @@ end
 
 function ShellEntity:Destroy()
 	NeoScene:getInstance():DestroyGameObject(self.gameobject,true)
-	Scene.entities[shell.id]=nil
+	Scene.entities[self.id]=nil
 end
 
 function ShellEntity.OnCollisionEnter( id_self, id_another )

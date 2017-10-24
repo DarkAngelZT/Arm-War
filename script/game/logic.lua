@@ -28,6 +28,16 @@ Logic.command_queue=
 	
 }
 
+function Logic:setGameMode( mode )
+	self.game_mode=mode
+	if mode == Logic.GAME_MODE.SINGLE then
+		-- set pause menu
+		gamehud.pause_menu=PauseMenuSinglePlayer
+	else
+		gamehud.pause_menu=PauseMenuMultiPlayer
+	end
+end
+
 function Logic:ClearTriggers()
 	for k,_ in pairs(self.event_handlers) do
 		self.event_handlers[k]=nil
@@ -108,6 +118,7 @@ function Logic:Init()
 	ScoreBoard:setVisible(false)
 	--set random seed
 	math.randomseed( os.time() )
+	self:ResumeGame()
 end
 
 function Logic:Clear()
@@ -118,6 +129,7 @@ function Logic:Clear()
 		self.in_game_trigger:drop()
 		self.in_game_trigger=nil
 	end
+	self.actor_me=nil
 	for k,v in pairs(self.actors) do
 		self.actors[k]=nil
 	end
@@ -128,4 +140,20 @@ end
 
 function Logic:addCommand( command )
 	table.insert(self.command_queue,command)
+end
+
+function Logic:PauseGame()
+	NeoGameLogic:getInstance():setGamePaused(true)
+	Scene.DisablePhysicsSimulation()
+	Scene.cameras.third_person:setEnabled(false)
+end
+
+function Logic:ResumeGame()
+	NeoGameLogic:getInstance():setGamePaused(false)
+	Scene.EnablePhysicsSimulation()
+	Scene.cameras.third_person:setEnabled(true)
+end
+
+function Logic:isGamePaused( )
+	return NeoGameLogic:getInstance():isGamePaused()
 end

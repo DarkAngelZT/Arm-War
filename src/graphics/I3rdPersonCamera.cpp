@@ -135,6 +135,16 @@ void irr::scene::I3rdPersonCamera::setCameraAnimator(
 {
 	m_camera_animator = cameraAnimator;
 }
+
+void I3rdPersonCamera::drop()
+{
+	if(m_camera){
+		m_camera->remove();
+	}
+
+	delete this;
+}
+
 void irr::scene::I3rdPersonCamera::setReceiveInput(bool receive)
 {
 	if (m_camera_animator)

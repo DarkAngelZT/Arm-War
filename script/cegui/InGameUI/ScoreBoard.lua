@@ -1,6 +1,5 @@
 local winMgr = CEGUI.WindowManager:getSingleton()
 local root = winMgr:loadLayoutFromFile("inGameHud/Scoreboard.layout")
-g_ui_table.hud=root
 
 ScoreBoard={
 	ui={

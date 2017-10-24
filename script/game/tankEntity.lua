@@ -411,7 +411,20 @@ function StandardTankEntity:RemoveFromScene()
 	components.left_track.object:setActive(false)
 	components.right_track.object:setActive(false)
 end
+function StandardTankEntity:Destroy()
+	-- local physics = NeoPhysics:getInstance()
+	local components = self.components
+	-- physics:RemoveHingeJointFromWorld(components.turret_hinge)
+	-- physics:RemoveHingeJointFromWorld(components.turret_hinge)
+	-- physics:RemoveHingeJointFromWorld(components.left_track_hinge)
+	-- physics:RemoveHingeJointFromWorld(components.right_track_hinge)
 
+	NeoScene:getInstance():DestroyGameObject(components.body.object,true)
+	NeoScene:getInstance():DestroyGameObject(components.turret.object,true)
+	NeoScene:getInstance():DestroyGameObject(components.canon.object,true)
+	NeoScene:getInstance():DestroyGameObject(components.left_track.object,true)
+	NeoScene:getInstance():DestroyGameObject(components.right_track.object,true)
+end
 -----------------
 --event handler
 -----------------

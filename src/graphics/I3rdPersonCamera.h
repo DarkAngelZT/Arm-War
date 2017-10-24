@@ -23,6 +23,8 @@ class I3rdPersonCamera
 public:
 	I3rdPersonCamera(ICameraSceneNode*camera);
 
+	void drop();
+
 	void setRotationSpeed(f32 ns)
 	{
 		m_camera_animator->setRotationSpeed(ns);

@@ -63,6 +63,7 @@ function Actor:OnShellHit( shell )
 		--触发跳弹事件
 		event.ricochet=true
 		print("跳弹了")
+		Scene:notify(self,event)
 	else 
 		--处理伤害
 		if math.random()<shell.property.piercePossibility then

@@ -201,6 +201,12 @@ Scene.shell_pool.HEAT.type=ShellEntity
 Scene.shell_pool.HESH=ObjectPool.new()
 Scene.shell_pool.HESH.type=ShellEntity
 
+Scene.ClearShellPool=function( self )
+	for _,v in pairs(self.shell_pool) do
+		v:clear()
+	end
+end
+
 function Scene.LoadEntity( data )
 	local logic_data=nil
 	if(data.logic_data ~= "")then
@@ -228,10 +234,19 @@ function Scene:ShootShell( property, impulse, data )
 	end
 end
 
-function Scene.Clear()
+function Scene:Clear()
 	Scene.spawn_points={}
-	ShellFactory.clear()
-	Scene.internal_observers={}
+	ShellFactory:clear()
+	self:ClearShellPool()
+	self.internal_observers={}
+	if self.cameras.third_person then
+		self.cameras.third_person:drop()
+		self.cameras.third_person=nil
+	end
+	for k,v in pairs(self.entities) do
+		v:Destroy()
+		self.entities[k]=nil
+	end
 end
 
 function Scene.LoadUpdate()

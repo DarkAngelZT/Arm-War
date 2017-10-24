@@ -18,10 +18,13 @@ StandardTankBodyObject::StandardTankBodyObject() :
 StandardTankBodyObject::~StandardTankBodyObject()
 {
 	m_sceneNode->remove();
+	m_sceneNode=NULL;
 	m_left_wheels.clear();
 	m_right_wheels.clear();
+	m_left_wheel_animator->drop();
 	m_right_wheel_animator->drop();
-	m_right_wheel_animator->drop();
+	m_left_track_animator->drop();
+	m_right_track_animator->drop();
 }
 
 void StandardTankBodyObject::setBodyNode(

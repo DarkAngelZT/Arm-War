@@ -14,7 +14,6 @@ SkydomeEntity = class(Entity)
 SkydomeEntity.sceneNode=nil
 SkydomeEntity.texture=nil
 function SkydomeEntity.Load(data,logic_data)
-	-- body
 	local self = SkydomeEntity.new()
 	local skyboxTexture=NeoGraphics:getInstance():LoadTexture(data["skydome texture"])
 	local node=NeoGraphics:getInstance():AddSkyDomeSceneNode(skyboxTexture,16,8,1.0)
@@ -26,9 +25,8 @@ function SkydomeEntity.Load(data,logic_data)
 	NeoGraphics:getInstance():SetAmbientLight(colour)
 	return self
 end
-function SkydomeEntity:Destory()
-	-- body
-	NeoGraphics:getInstance():RemoveSceneNode(self.node)
+function SkydomeEntity:Destroy()
+	NeoGraphics:getInstance():RemoveSceneNode(self.sceneNode)
 	NeoGraphics:getInstance():UnloadTexture(self.texture)
 end
 --[[*****************************************
@@ -59,9 +57,9 @@ function CommonObjectEntity.Load(data,logic_data)
 	return self
 end
 
-function CommonObjectEntity:Destory()
+function CommonObjectEntity:Destroy()
 	if self.gameobject then
-		NeoScene:getInstance():DestoryGameObject(self.gameobject,true)
+		NeoScene:getInstance():DestroyGameObject(self.gameobject,true)
 	end
 end
 

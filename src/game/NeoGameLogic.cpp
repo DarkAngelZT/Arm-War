@@ -10,10 +10,8 @@
 #include "NeoEventHandler.h"
 
 NeoGameLogic*NeoGameLogic::_instance = NULL;
-NeoGameLogic::NeoGameLogic()
+NeoGameLogic::NeoGameLogic():m_gamePaused(false)
 {
-	// TODO 自动生成的构造函数存根
-
 }
 
 void NeoGameLogic::TriggerEvent(int eid, int argc, ...)
@@ -181,4 +179,14 @@ void NeoGameLogic::Update()
 void NeoGameLogic::removeLuaUpdateFunctionExeSafe(std::string funcName)
 {
 	lua_update_function_delete_queue.insert(funcName);
+}
+
+bool NeoGameLogic::isGamePaused() const
+{
+	return m_gamePaused;
+}
+
+void NeoGameLogic::setGamePaused(bool gamePaused)
+{
+	m_gamePaused = gamePaused;
 }

@@ -34,5 +34,7 @@ require(DIR_SCRIPT_CEGUI.."LoadingScreen")
 require(DIR_SCRIPT_CEGUI.."TankEditor")
 require(DIR_SCRIPT_CEGUI.."SingleModeMenu")
 
+require(DIR_SCRIPT.."game/game")
+
 -- set the layout as the root
 g_ui_table.switchto("main")

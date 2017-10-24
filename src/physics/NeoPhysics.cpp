@@ -215,7 +215,10 @@ void NeoPhysics::CleanUp()
 	for (std::vector<std::shared_ptr<btGhostObject>>::iterator iter =
 			m_ghostObjects.begin(); iter != m_ghostObjects.end(); iter++)
 	{
-		m_dynamicsWorld->removeCollisionObject((*iter).get());
+		if (NULL != (*iter))
+		{
+			m_dynamicsWorld->removeCollisionObject((*iter).get());
+		}
 	}
 	//clean up all ghost object callbacks
 	m_ghostObjectCallbacks.clear();
@@ -223,7 +226,10 @@ void NeoPhysics::CleanUp()
 	for (std::vector<std::shared_ptr<btRigidBody>>::iterator iter =
 			m_rigidBodies.begin(); iter != m_rigidBodies.end(); iter++)
 	{
-		m_dynamicsWorld->removeRigidBody((*iter).get());
+		if (NULL != (*iter))
+		{
+			m_dynamicsWorld->removeRigidBody((*iter).get());
+		}
 	}
 	m_contact.clear();
 	m_constrains.clear();
@@ -594,8 +600,10 @@ NeoPhysics::RaycastResult NeoPhysics::RayCast(const irr::core::vector3df& from,
 	result.hasHit = RayCallback.hasHit();
 	if (result.hasHit)
 	{
-		result.m_gameObject = static_cast<GameObject*>(RayCallback.m_collisionObject->getUserPointer());
-		result.m_hitNormalWorld = bulletToIrrVector(RayCallback.m_hitNormalWorld);
+		result.m_gameObject =
+				static_cast<GameObject*>(RayCallback.m_collisionObject->getUserPointer());
+		result.m_hitNormalWorld = bulletToIrrVector(
+				RayCallback.m_hitNormalWorld);
 		result.m_hitPointWorld = bulletToIrrVector(RayCallback.m_hitPointWorld);
 	}
 	else

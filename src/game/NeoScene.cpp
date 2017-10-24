@@ -42,6 +42,7 @@ void NeoScene::Clean()
 	list_gameObjects.clear();
 	go_id_counter = 0;
 	m_effectors.clear();
+	object_pool_explosion.Clear();
 }
 
 GameObject* NeoScene::CreateGameObject()
