@@ -19,20 +19,17 @@ Logic.GAME_MODE={
 	SINGLE=1,
 	MULTIPLE=2
 }
-Logic.event_handlers=
-{
-
-}
-Logic.command_queue=
-{
-	
-}
+Logic.event_handlers={}
+Logic.command_queue={}
+Logic.timers={}
+Logic.game_judge=nil
 
 function Logic:setGameMode( mode )
 	self.game_mode=mode
 	if mode == Logic.GAME_MODE.SINGLE then
 		-- set pause menu
 		gamehud.pause_menu=PauseMenuSinglePlayer
+		gamehud.death_menu=SingleModeDeathMenu
 	else
 		gamehud.pause_menu=PauseMenuMultiPlayer
 	end
@@ -41,6 +38,12 @@ end
 function Logic:ClearTriggers()
 	for k,_ in pairs(self.event_handlers) do
 		self.event_handlers[k]=nil
+	end
+end
+
+function Logic:ClearTimers()
+	for i,_ in ipairs(self.timers) do
+		self.timers[i]=nil
 	end
 end
 
@@ -77,20 +80,72 @@ function Logic:addActor( actor, isPlayer )
 	end
 end
 
+function Logic:RemoveActor( actor, isPlayer )
+	actor:OnDestroy()
+	self.actors[actor.id]=nil
+	if isPlayer then
+		self.players[actor.id]=nil
+	end
+end
+
+function Logic:RespawnActor( actor, position, rotation )
+	--respawn
+	actor:Respawn(position,rotation)
+	--trigger respawn event
+	Scene:notify(actor,{event_id=Scene.EVENT.PLAYER_REVIVE})
+	--reset hud ui
+	if actor == self.actor_me then
+		gamehud:Refresh(actor)
+	end
+end
+
+function Logic:RespawnPlayer_SingleMode( player )
+	-- pick respawn position
+	local pos,rot=self:PickPlayerRespawnPosition(player)
+	--resawn
+	if pos and rot then
+		self:RespawnActor(player,pos,rot)
+	end
+end
+
+function Logic:AddTimer( t )
+	table.insert(self.timers,t)
+end
+
+function Logic:RemoveTimer( t )
+	for i,v in ipairs(self.timers) do
+		if v==t then
+			self.timers[i]=nil
+		end
+	end
+end
+
 function Logic.Update()
+	if Logic:isGamePaused() then
+		return
+	end
+	local delta_time = NeoGameLogic:getInstance():getDeltaTime()
+	--update timers
+	for _,v in ipairs(Logic.timers) do
+		v:Update(delta_time)
+	end
+	--execute commands
 	for i,v in ipairs(Logic.command_queue) do
 		if not v.executed then
 			v:Execute()
 		end
-		
 	end
-	for _,v in pairs(Logic.actors) do
-		v:Update()
-	end
-
 	--clear command queue
 	for i,_ in ipairs(Logic.command_queue) do
 		Logic.command_queue[i]=nil
+	end
+	--update actor status
+	for _,v in pairs(Logic.actors) do
+		v:Update()
+	end
+	--determine if game meet end condition
+	if Logic.game_judge then
+		Logic.game_judge:Update()
 	end
 end
 
@@ -124,6 +179,7 @@ end
 function Logic:Clear()
 	NeoGameLogic:getInstance():removeLuaUpdateFunction("Logic.Update")
 	self:ClearTriggers()
+	self:ClearTimers()
 	if self.in_game_trigger then
 		NeoGameLogic:getInstance():RemoveTrigger(self.in_game_trigger)
 		self.in_game_trigger:drop()
@@ -135,6 +191,10 @@ function Logic:Clear()
 	end
 	for k,_ in pairs(self.players) do
 		self.players[k]=nil
+	end
+	--clear command queue
+	for i,_ in ipairs(Logic.command_queue) do
+		Logic.command_queue[i]=nil
 	end
 end
 
@@ -156,4 +216,20 @@ end
 
 function Logic:isGamePaused( )
 	return NeoGameLogic:getInstance():isGamePaused()
+end
+
+function Logic:PickPlayerRespawnPosition(actor)
+	local isPlayer = false
+	for _,v in pairs(self.players) do
+		if v == actor then
+			isPlayer=true
+			break
+		end
+	end
+	if not isPlayer then
+		return
+	end
+	local team = actor.team
+	local point = Scene.spawn_points[team][math.random(self.max_player)]
+	return point.position,point.rotation
 end

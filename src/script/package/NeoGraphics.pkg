@@ -126,6 +126,7 @@ public:
 	bool loadScene(std::string file);
 
 	float getFps();
+	float getDeltaTime() const;
 	irr::core::dimension2d<unsigned> getScreenSize();
 	std::string getTextFromOSClipboard();
 	void setAppClipboardString(const std::string& text);

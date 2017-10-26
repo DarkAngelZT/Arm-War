@@ -281,7 +281,7 @@ fire_power = 200,
 armor = 3.5,
 max_speed = 14.7,
 ricochet_possibility = 0.4,
-reload_time = 15,
+reload_time = 8,
 mesh_destoryed="resources/model/tanks/t34/t34_destroyed.obj",
 }
 return tank

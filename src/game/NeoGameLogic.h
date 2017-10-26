@@ -38,6 +38,7 @@ public:
 	void removeLuaUpdateFunctionExeSafe(std::string funcName);
 	bool isGamePaused() const;
 	void setGamePaused(bool gamePaused);
+	float getDeltaTime();
 
 	//--------------//
 private:

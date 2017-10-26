@@ -171,6 +171,8 @@ public:
 			u32 cycleTime, char align, int direction);
 	irr::scene::ISceneNodeAnimator* createTextureMoveAnimator(float speed,
 			irr::core::vector2df direction);
+	float getDeltaTime() const;
+
 private:
 	NeoGraphics();
 	virtual ~NeoGraphics();
@@ -186,6 +188,7 @@ private:
 	//---CEGUI--//
 	CEGUI::IrrlichtRenderer* uiRenderer;
 	irr::u32 d_lastTime;
+	float m_delta_time;
 };
 
 #endif /* SRC_GRAPHICS_NEOGRAPHICS_H_ */

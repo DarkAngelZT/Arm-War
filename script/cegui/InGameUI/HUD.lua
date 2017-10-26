@@ -1,6 +1,7 @@
 require(DIR_SCRIPT_CEGUI.."InGameUI/ScoreBoard")
 require(DIR_SCRIPT_CEGUI.."InGameUI/PauseMenuSinglePlayer")
 require(DIR_SCRIPT_CEGUI.."InGameUI/PauseMenuMultiPlayer")
+require(DIR_SCRIPT_CEGUI.."InGameUI/DeathMenu")
 
 local winMgr = CEGUI.WindowManager:getSingleton()
 CEGUI.ImageManager:getSingleton():loadImageset("gameHUD.imageset");
@@ -30,9 +31,11 @@ gamehud.ui={
 	reload_status=root:getChild("AmmoRoot/ReloadingBar/status"),
 	active_ammo_frame=root:getChild("AmmoRoot/activeSlotFrame"),
 	top_view={
+		root=root:getChild("TopViewRoot"),
 		base=root:getChild("TopViewRoot/Base"),
 		top=root:getChild("TopViewRoot/Top")
 	},
+	message=root:getChild("Message")
 }
 gamehud.ammo_sprite_name={
 	AP="gameHUD/AP_icon",
@@ -41,22 +44,8 @@ gamehud.ammo_sprite_name={
 	HEAT="gameHUD/HEAT_icon"
 }
 
+
 function gamehud:Init( actor )
-	if actor then
-		self.ui.ammo_slot.root:setVisible(true)
-		--set shell icon
-		for i=1,3 do
-			local icon_type = self.ammo_sprite_name[actor.ammo[i].name]
-			self.ui.ammo_slot[i]:getChild("icon"):setProperty("Image",icon_type)
-			self.ui.ammo_slot[i]:getChild("amount"):setText(tostring(actor.ammo[i].amount))
-		end
-	else
-		self.ui.ammo_slot.root:setVisible(false)
-	end
-	local tank_type=actor.entity.property.tank_name
-	CEGUI.ImageManager:getSingleton():loadImageset(tank_type..".imageset","tankTopview")
-	self.ui.top_view.base:setProperty("Image","TankTopView/base")
-	self.ui.top_view.top:setProperty("Image","TankTopView/top")
 	-- hide cursor
 	CEGUI.System:getSingleton():getDefaultGUIContext():getMouseCursor():hide()
 	--evetn observer
@@ -70,6 +59,53 @@ function gamehud:Init( actor )
 		self.ui.pause_menu_root=self.pause_menu.ui.root
 		self.pause_menu:Hide()
 	end
+	if self.death_menu then
+		Scene:addInternalObserver(self.death_menu)
+	end
+	-- add timer for message display
+	Logic:AddTimer(self.message_fadeout_timer)
+	self:Refresh(actor)
+end
+
+function gamehud:Refresh(actor)
+	if actor then
+		self.ui.ammo_slot.root:setVisible(true)
+		--set shell icon
+		for i=1,3 do
+			local icon_type = self.ammo_sprite_name[actor.ammo[i].name]
+			self.ui.ammo_slot[i]:getChild("icon"):setProperty("Image",icon_type)
+			self.ui.ammo_slot[i]:getChild("amount"):setText(tostring(actor.ammo[i].amount))
+		end
+		local tank_type=actor.entity.property.tank_name
+		CEGUI.ImageManager:getSingleton():loadImageset(tank_type..".imageset","tankTopview")
+		self.ui.top_view.base:setProperty("Image","TankTopView/base")
+		self.ui.top_view.top:setProperty("Image","TankTopView/top")
+		--reset reloading bar
+		self:setReloadingPercent( 100 )
+		self.ui.ammo_slot.root:setVisible(true)
+		self.ui.top_view.root:setVisible(true)
+	else
+		self.ui.ammo_slot.root:setVisible(false)
+		self.ui.top_view.root:setVisible(false)
+	end
+	self.ui.message:setAlpha(0)
+	if self.pause_menu then
+		self.pause_menu:Hide()
+	end
+end
+
+function gamehud:ShowMessage( message )
+	self.ui.message:setText(message)
+	if not self.message_fadeout_timer.running then
+		gamehud.message_fadeout_animation:stop()
+		gamehud.message_fadein_animation:start()
+	end
+	self.message_fadeout_timer:Reset()
+	self.message_fadeout_timer:Start()
+end
+
+function gamehud:OnMessageTimeOut()
+	gamehud.message_fadeout_animation:start()
 end
 
 function gamehud:setCanonCursorPosition( pos_x, pos_y )
@@ -122,8 +158,27 @@ end
 function gamehud:notify( invoker, event )
 	local event_id = event.event_id
 	if event_id == Scene.EVENT.PLAYER_HIT then
-		--body
+		if event.attacker ~= Logic.actor_me then
+			return
+		end
+		if event.pirece then
+			self:ShowMessage("[colour='FFFF7F00']Hit - PIERCED")
+		elseif event.ricochet then
+			self:ShowMessage("Ricocheted")
+		else
+			self:ShowMessage("[colour='FFF4E242']Hit")
+		end
 	elseif event_id == Scene.EVENT.PLAYER_DESTROYED then
+		if invoker==Logic.actor_me then
+			if self.death_menu then
+				self.death_menu:Show()
+			end
+			return
+		end
+		if event.attacker == Logic.actor_me then
+			self:ShowMessage("[colour='FFFF0000']Target Destroyed")
+		end
+		
 	end
 end
 
@@ -136,3 +191,17 @@ function gamehud.OnKeyUp( args )
 		end
 	end
 end
+
+--------------------------
+--init script entry
+--------------------------
+gamehud.message_fadeout_timer=Timer.new()
+gamehud.message_fadeout_timer.duration=6
+gamehud.message_fadeout_timer:AddTriggerFunction(gamehud.OnMessageTimeOut,gamehud)
+local animation = CEGUI.AnimationManager:getSingleton()
+animation:loadAnimationsFromXML("game_ui.anims")
+gamehud.message_fadein_animation=animation:instantiateAnimation("FadeIn")
+gamehud.message_fadein_animation:setTargetWindow(gamehud.ui.message)
+
+gamehud.message_fadeout_animation=animation:instantiateAnimation("FadeOut")
+gamehud.message_fadeout_animation:setTargetWindow(gamehud.ui.message)

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: NeoGame
-** Generated automatically by tolua++-1.0.93 on Tue Oct 24 02:46:55 2017.
+** Generated automatically by tolua++-1.0.93 on Tue Oct 24 23:40:10 2017.
 */
 
 #ifndef __cplusplus
@@ -31301,6 +31301,38 @@ static int tolua_NeoGame_NeoGameLogic_setGamePaused00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: getDeltaTime of class  NeoGameLogic */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGameLogic_getDeltaTime00
+static int tolua_NeoGame_NeoGameLogic_getDeltaTime00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGameLogic",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGameLogic* self = (NeoGameLogic*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getDeltaTime'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getDeltaTime();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getDeltaTime'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: getData of class  NeoEvent */
 #ifndef TOLUA_DISABLE_tolua_NeoGame_NeoEvent_getData00
 static int tolua_NeoGame_NeoEvent_getData00(lua_State* tolua_S)
@@ -35525,6 +35557,38 @@ static int tolua_NeoGame_NeoGraphics_getFps00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'getFps'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getDeltaTime of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_getDeltaTime00
+static int tolua_NeoGame_NeoGraphics_getDeltaTime00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoGraphics",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoGraphics* self = (const NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getDeltaTime'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getDeltaTime();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getDeltaTime'.",&tolua_err);
  return 0;
 #endif
 }
@@ -41410,6 +41474,7 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"removeLuaUpdateFunctionExeSafe",tolua_NeoGame_NeoGameLogic_removeLuaUpdateFunctionExeSafe00);
    tolua_function(tolua_S,"isGamePaused",tolua_NeoGame_NeoGameLogic_isGamePaused00);
    tolua_function(tolua_S,"setGamePaused",tolua_NeoGame_NeoGameLogic_setGamePaused00);
+   tolua_function(tolua_S,"getDeltaTime",tolua_NeoGame_NeoGameLogic_getDeltaTime00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"NeoEvent","NeoEvent","",NULL);
   tolua_beginmodule(tolua_S,"NeoEvent");
@@ -41627,6 +41692,7 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"SetAmbientLight",tolua_NeoGame_NeoGraphics_SetAmbientLight00);
    tolua_function(tolua_S,"loadScene",tolua_NeoGame_NeoGraphics_loadScene00);
    tolua_function(tolua_S,"getFps",tolua_NeoGame_NeoGraphics_getFps00);
+   tolua_function(tolua_S,"getDeltaTime",tolua_NeoGame_NeoGraphics_getDeltaTime00);
    tolua_function(tolua_S,"getScreenSize",tolua_NeoGame_NeoGraphics_getScreenSize00);
    tolua_function(tolua_S,"getTextFromOSClipboard",tolua_NeoGame_NeoGraphics_getTextFromOSClipboard00);
    tolua_function(tolua_S,"setAppClipboardString",tolua_NeoGame_NeoGraphics_setAppClipboardString00);

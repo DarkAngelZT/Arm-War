@@ -34,6 +34,7 @@ Application::Application()
 void Application::CleanUp()
 {
 	NeoGameLogic::Destroy();
+	NeoPhysics::Destroy();
 	NeoGraphics::Drop();
 }
 
@@ -47,7 +48,7 @@ void Application::MainLoop()
 	while (running)
 	{
 		NeoGraphics::getInstance()->Update();
-		NeoPhysics::getInstance()->Update(1.0/NeoGraphics::getInstance()->getFps());
+		NeoPhysics::getInstance()->Update(NeoGraphics::getInstance()->getDeltaTime());
 		NeoGameLogic::getInstance()->Update();
 	}
 }

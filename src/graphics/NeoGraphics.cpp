@@ -16,7 +16,7 @@
 
 NeoGraphics* NeoGraphics::_instance = NULL;
 using namespace irr;
-NeoGraphics::NeoGraphics()
+NeoGraphics::NeoGraphics():m_delta_time(0)
 {
 	device = NULL;
 }
@@ -163,10 +163,10 @@ void NeoGraphics::RenderUI()
 	// calculate time elapsed
 	irr::u32 currTime = device->getTimer()->getRealTime();
 	// inject time pulse
-	const float elapsed = static_cast<float>(currTime - d_lastTime) * 0.001f;
-	CEGUI::System::getSingleton().injectTimePulse(elapsed);
+	m_delta_time = static_cast<float>(currTime - d_lastTime) * 0.001f;
+	CEGUI::System::getSingleton().injectTimePulse(m_delta_time);
 	CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(
-			elapsed);
+			m_delta_time);
 	d_lastTime = currTime;
 	//render gui
 	CEGUI::System::getSingleton().renderAllGUIContexts();
@@ -526,4 +526,9 @@ irr::core::vector2di NeoGraphics::getPositionOnScreen(
 {
 	return smgr->getSceneCollisionManager()->getScreenCoordinatesFrom3DPosition(
 			position);
+}
+
+float NeoGraphics::getDeltaTime() const
+{
+	return m_delta_time;
 }

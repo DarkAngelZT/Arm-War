@@ -26,6 +26,10 @@ function SceneLoaderGeneric(map_info,player_info)
 	Scene.DisablePhysicsSimulation()
 	--load object
 	local settings=map_info.setting
+	--load map info
+	local map_config = eval("{"..settings.logic_data.."}")
+	Logic.max_player=map_config.max_player
+	Logic.team_count = map_config.max_team_allowed
 	--skybox
 	local skybox_entity=SkydomeEntity.Load(settings)
 	Scene.entities[skybox_entity.id]=skybox_entity
@@ -106,6 +110,7 @@ function SceneLoaderGeneric(map_info,player_info)
 			end
 			
 			local current_actor = Actor.new(v.id)
+			current_actor:Init()
 			current_actor.name=v.name
 			current_actor:setEntity(tank)
 			current_actor.team=v.team

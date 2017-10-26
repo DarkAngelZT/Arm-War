@@ -132,7 +132,7 @@
             </Window>
             <Window type="GlossySerpent/StaticText" name="AmmoText" >
                 <Property name="Area" value="{{0,0},{0,0},{0,100},{0,40}}" />
-                <Property name="Font" value="BreeSerif-Regular-16" />
+                <Property name="Font" value="Commonwealth-20" />
                 <Property name="Text" value="AP" />
                 <Property name="MaxSize" value="{{1,0},{1,0}}" />
                 <Property name="FrameEnabled" value="false" />
@@ -150,6 +150,7 @@
                 <Property name="HorizontalAlignment" value="Right" />
                 <Window type="GlossySerpent/StaticText" name="status" >
                     <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+                    <Property name="Font" value="BreeSerif-Regular-12" />
                     <Property name="Text" value="Ready" />
                     <Property name="MaxSize" value="{{1,0},{1,0}}" />
                     <Property name="FrameEnabled" value="false" />
@@ -215,6 +216,24 @@
                 <Property name="RiseOnClickEnabled" value="false" />
                 <Property name="HorizontalAlignment" value="Centre" />
             </Window>
+        </Window>
+        <Window type="GlossySerpent/StaticText" name="Message" >
+            <Property name="Area" value="{{0,0},{-0.08,0},{0,600},{-0.08,200}}" />
+            <Property name="Font" value="Commonwealth-20" />
+            <Property name="Text" value="Hit! Pierced!" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="FrameEnabled" value="false" />
+            <Property name="HorzFormatting" value="CentreAligned" />
+            <Property name="VertFormatting" value="TopAligned" />
+            <Property name="BackgroundEnabled" value="false" />
+            <Property name="VerticalAlignment" value="Centre" />
+            <Property name="RiseOnClickEnabled" value="false" />
+            <Property name="HorizontalAlignment" value="Centre" />
+            <Property name="WantsMultiClickEvents" value="false" />
+            <Property name="MousePassThroughEnabled" value="true" />
+            <AutoWindow namePath="__auto_vscrollbar__" >
+                <Property name="VerticalScrollbar" value="true" />
+            </AutoWindow>
         </Window>
     </Window>
 </GUILayout>

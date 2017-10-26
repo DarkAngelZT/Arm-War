@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<Animations>
+    <AnimationDefinition name="FadeIn" duration="0.1" replayMode="once">
+        <Affector property="Alpha" interpolator="float">
+            <KeyFrame position="0" value="0" />
+            <KeyFrame position="0.1" value="0.9"/>
+        </Affector>
+    </AnimationDefinition>
+
+    <AnimationDefinition name="FadeOut" duration="0.5" replayMode="once">
+        <Affector property="Alpha" interpolator="float">
+            <KeyFrame position="0" value="0.9" />
+            <KeyFrame position="0.5" value="0"/>
+        </Affector>
+    </AnimationDefinition>
+</Animations>

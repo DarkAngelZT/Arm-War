@@ -96,7 +96,8 @@ function SingleMenu:Init()
 	local file_list = NeoGame.io.getFileInfolder(self.map_root,"lua")
 	self:InitMapList(file_list)
 	self:getTankTypes()
-	SingleMenu.ui.map_name:setText("")
+	self.ui.map_name:setText("")
+	self.ui.player_list:resetList()
 end
 -------------------------------------
 -- Initialize map list

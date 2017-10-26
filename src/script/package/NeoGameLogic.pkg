@@ -15,4 +15,5 @@ public:
 
 	bool isGamePaused() const;
 	void setGamePaused(bool gamePaused);
+	float getDeltaTime();
 };

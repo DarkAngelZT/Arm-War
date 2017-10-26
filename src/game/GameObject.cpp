@@ -10,7 +10,6 @@
 GameObject::GameObject() :
 		m_rigidBody(NULL), collisionShapeIndex(-1)
 {
-	// TODO 自动生成的构造函数存根
 	id = -1;
 	parent = NULL;
 	m_sceneNode = NULL;

@@ -102,6 +102,11 @@ void NeoGameLogic::removeLuaUpdateFunction(std::string funcName)
 	lua_update_functions.erase(funcName);
 }
 
+float NeoGameLogic::getDeltaTime()
+{
+	return NeoGraphics::getInstance()->getDeltaTime();
+}
+
 NeoGameLogic::~NeoGameLogic()
 {
 	NeoEventHandler* eventHandler =

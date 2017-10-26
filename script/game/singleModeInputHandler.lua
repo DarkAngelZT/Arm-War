@@ -35,7 +35,8 @@ function SingleModeInputHandler.OnKeyEvent(event)
 
 	--test dead
 	if key==irr.KEY_KEY_O and press==0 then
-		local cmd = ActorDestroyedCommand.new(Logic.actor_me)
+		local deathEvent = { event_id=Scene.EVENT.PLAYER_DESTROYED, attacker = Logic.actor_me }
+		local cmd = ActorDestroyedCommand.new(Logic.actor_me,deathEvent)
 		Logic:addCommand(cmd)
 	end
 end
@@ -81,6 +82,8 @@ function SingleModeInputHandler:DetectMoveOperation( key, press )
 		end
 		self.move_key_status.right=press
 		result=true
+	else
+		return false
 	end
 	local straight_status = 
 		self.move_key_status.forward-self.move_key_status.back

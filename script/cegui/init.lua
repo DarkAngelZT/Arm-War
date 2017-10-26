@@ -19,6 +19,10 @@ local schemeMgr = CEGUI.SchemeManager:getSingleton()
 schemeMgr:createFromFile("GlossySerpent.scheme");
 -- set default mouse cursor
 guiSystem:getDefaultGUIContext():getMouseCursor():setDefaultImage("GlossySerpentCursors/MouseArrow")
+--set default font
+guiSystem:getDefaultGUIContext():setDefaultFont("DejaVuSans-HD-10")
+CEGUI.FontManager:getSingleton():createFreeTypeFont( 
+	"Commonwealth-20", 20, true, "Commonv2c.ttf", "fonts" )
 -- set the Tooltip type
 guiSystem:getDefaultGUIContext():setDefaultTooltipType("GlossySerpent/Tooltip")
 --实现OOP

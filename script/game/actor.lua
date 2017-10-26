@@ -21,12 +21,27 @@ function Actor:onCreate( id )
 		{name="HE",amount=53},
 		{name="HEAT",amount=5}
 	}
+	self.fire_ready=true
+end
+
+function Actor:OnDestroy()
+	if self.reload_timer then
+		Logic:RemoveTimer(self.reload_timer)
+	end
 end
 
 function Actor:setEntity( e )
 	self.entity=e
 	e.actor=self
 	self:ReadProperty()
+end
+
+function Actor:Init( )
+	local timer = Timer.new()
+	timer:AddTickFunction(self.UpdateReloadBar,self)
+	timer:AddTriggerFunction(self.OnReloadFinish,self)
+	self.reload_timer = timer
+	Logic:AddTimer(self.reload_timer)
 end
 
 function Actor:ReadProperty()
@@ -36,6 +51,7 @@ function Actor:ReadProperty()
 		end
 		self.max_health=self.health
 		self.max_armor=self.armor
+		self.reload_timer.duration=self.reload_time
 	end
 	self.ammo=deepcopy(self.ammo_config)
 end
@@ -46,7 +62,6 @@ function Actor:DealDamage( damage )
 end
 
 function Actor:OnShellHit( shell )
-	print(self.id.." hitted by "..shell.shell_type.." from "..shell.owner.id)
 	local event = { 
 		event_id=Scene.EVENT.PLAYER_HIT, attacker = shell.owner, ricochet=false, pierce=false }
 	local damage = shell.property.damage
@@ -62,7 +77,6 @@ function Actor:OnShellHit( shell )
 	if shell.property.ricochetEnabled and math.random()<self.ricochet_possibility then
 		--触发跳弹事件
 		event.ricochet=true
-		print("跳弹了")
 		Scene:notify(self,event)
 	else 
 		--处理伤害
@@ -71,7 +85,6 @@ function Actor:OnShellHit( shell )
 			damage=shell.property.pierceDamage
 			--触发穿甲事件
 			event.pierce=true
-			print("穿甲")
 		end
 		damage = damage*(1-0.06*self.armor/(1+0.06*self.armor))
 		if math.random()<shell.property.squashPossibility then
@@ -79,7 +92,6 @@ function Actor:OnShellHit( shell )
 		end
 		
 		self:DealDamage(damage)
-		print("health",self.health)
 		if self.health == 0 then
 			--发出死亡命令
 			local deathEvent = { event_id=Scene.EVENT.PLAYER_DESTROYED, attacker = shell.owner }
@@ -153,21 +165,44 @@ function Actor:UpdateUI()
 	gamehud:UpdateTopView(body_angle.Y,turret_angle.Y)
 end
 
+function Actor:UpdateReloadBar( delta_time )
+	local percent = 1-self.reload_timer.time_remain/self.reload_timer.duration
+	percent=percent*100
+	gamehud:setReloadingPercent(percent)
+end
+
+function Actor:OnReloadFinish( )
+	self.fire_ready=true
+	gamehud:setReloadingPercent(100)
+end
 
 function Actor:Attack()
-	if self.state==ACTOR_STATE.LIVE and self.ammo[self.currentAmmoIdx].amount>0 then
+	if self.state==ACTOR_STATE.LIVE and self.fire_ready and self.ammo[self.currentAmmoIdx].amount>0 then
 		local amount = self.ammo[self.currentAmmoIdx].amount-1
 		self.ammo[self.currentAmmoIdx].amount = amount
 		if self==Logic.actor_me then
 			gamehud:ChangeAmmoAmount(self.currentAmmoIdx,amount)
 		end
 		self.entity:Attack(self.ammo[self.currentAmmoIdx].name)
+		self.reload_timer:Start()
+		self.fire_ready=false
 	end
 end
 
 function Actor:Reset()
 	self:ReadProperty()
 	self.turret_locked=false
+	self.fire_ready=true
+	self.reload_timer:Stop()
+end
+
+function Actor:Respawn( position,rotation )
+	if self.state==ACTOR_STATE.LIVE then
+		return
+	end
+	self:Reset()
+	self.entity:Respawn(position,rotation)
+	self.state=ACTOR_STATE.LIVE
 end
 
 function Actor:Move( dir, side )

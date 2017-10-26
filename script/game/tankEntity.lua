@@ -94,7 +94,7 @@ function StandardTankEntity:setCanonAngle( angle_degree )
 	angle_degree = clamp(
 		angle_degree,self.components.canon.min_angle,self.components.canon.max_angle)
 
-	hinge:setMotorTarget(math.rad(angle_degree),0.6)
+	hinge:setMotorTarget(math.rad(angle_degree),0.5)
 end
 
 function StandardTankEntity:getTurretAngle()
@@ -125,7 +125,12 @@ function StandardTankEntity:setTrackSpeed( side, speed )
 		track_dir.X=1
 	end
 
-	self.components.body.object:setWheelAnimationSpeed(8/math.abs(speed),side,wheel_dir)
+	local wheel_anim_speed = 0
+	if speed ~= 0 then
+		wheel_anim_speed=8/math.abs(speed)
+	end
+
+	self.components.body.object:setWheelAnimationSpeed(wheel_anim_speed,side,wheel_dir)
 	self.components.body.object:setTrackAnimationSpeed(math.abs(speed),side,track_dir)
 end
 
@@ -210,6 +215,7 @@ function StandardTankEntity.Load( info, logic_data )
 	tank.components.body.object:setBodyNode(body_main_node)
 	local rigid_body = StandardTankEntity.LoadRigidBody(
 		tank.components.body.object,shape_index_body, data.components.body)
+	rigid_body:setDamping(0.1,0.5)
 	rigid_body:setFriction(0.8)
 	--添加轮子
 	for _,wheel_data in ipairs(data.components.wheel) do
@@ -226,6 +232,7 @@ function StandardTankEntity.Load( info, logic_data )
 	local rigid_turret = StandardTankEntity.LoadRigidBody(
 		tank.components.turret.object,shape_index_turret, data.components.turret)
 	rigid_turret:setActivationState(4)--DISABLE_DEACTIVATION 
+	rigid_turret:setDamping(0.1,0.8)
 	rigid_turret:setFriction(0.8)
 	--组装炮管
 	tank.components.canon.object=neo_scene:CreateGameObject()
@@ -424,6 +431,22 @@ function StandardTankEntity:Destroy()
 	NeoScene:getInstance():DestroyGameObject(components.canon.object,true)
 	NeoScene:getInstance():DestroyGameObject(components.left_track.object,true)
 	NeoScene:getInstance():DestroyGameObject(components.right_track.object,true)
+end
+function StandardTankEntity:Respawn(position,rotation )
+	self.components.body.object:ResetPhysicsStates()
+	self.components.turret.object:ResetPhysicsStates()
+	self.components.canon.object:ResetPhysicsStates()
+	self.components.left_track.object:ResetPhysicsStates()
+	self.components.right_track.object:ResetPhysicsStates()
+
+	local transform = irr.core.matrix4:new_local()
+	transform:setTranslation(position)
+	transform:setRotationDegrees(rotation)
+
+	self:setTransform(transform)
+	self.components.canon_hinge:setMotorTarget(0,0.1)
+	self.components.turret_hinge:setMotorTarget(0,0.1)
+	self:AddToScene()
 end
 -----------------
 --event handler

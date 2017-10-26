@@ -1,4 +1,4 @@
---用lua实现OOP,修改子云风的bolg:http://blog.codingnow.com/cloud/LuaOO
+--用lua实现OOP,修改子云风的blog:http://blog.codingnow.com/cloud/LuaOO
 local _class={}
  
 function class(super)
