@@ -17,9 +17,9 @@ function Actor:onCreate( id )
 	self.turret_locked=false
 	self.ammo={}
 	self.ammo_config={
-		{name="AP",amount=20},
-		{name="HE",amount=53},
-		{name="HEAT",amount=5}
+		{name="AP",amount=3},
+		{name="HE",amount=3},
+		{name="HEAT",amount=3}
 	}
 	self.fire_ready=true
 end
@@ -56,9 +56,23 @@ function Actor:ReadProperty()
 	self.ammo=deepcopy(self.ammo_config)
 end
 
-function Actor:DealDamage( damage )
+function Actor:DealDamage( damage, invoker, event_to_trigger, still_trigger_event_on_death )
 	self.health=self.health-damage
 	self.health=clamp(self.health,0,self.max_health)
+	still_trigger_event_on_death=still_trigger_event_on_death or false
+	if self.health == 0 then
+			--发出死亡命令
+		local deathEvent = { event_id=Scene.EVENT.PLAYER_DESTROYED, attacker = invoker }
+		local cmd = ActorDestroyedCommand.new(self,deathEvent)
+		Logic:addCommand(cmd)
+		if still_trigger_event_on_death and event_to_trigger then
+			Scene:notify(self,event_to_trigger)
+		end
+	else
+		if event_to_trigger then
+			Scene:notify(self,event_to_trigger)
+		end
+	end
 end
 
 function Actor:OnShellHit( shell )
@@ -91,15 +105,7 @@ function Actor:OnShellHit( shell )
 			self.armor=clamp(self.armor-shell.property.armorDamage)
 		end
 		
-		self:DealDamage(damage)
-		if self.health == 0 then
-			--发出死亡命令
-			local deathEvent = { event_id=Scene.EVENT.PLAYER_DESTROYED, attacker = shell.owner }
-			local cmd = ActorDestroyedCommand.new(self,deathEvent)
-			Logic:addCommand(cmd)
-		else
-			Scene:notify(self,event)
-		end
+		self:DealDamage(damage,shell.owner,event)
 	end
 end
 
@@ -162,7 +168,7 @@ function Actor:UpdateUI()
 
 	local body_angle = self.entity:getTankComponentWorldAngles("body")
 	local turret_angle = self.entity:getTankComponentWorldAngles("turret")
-	gamehud:UpdateTopView(body_angle.Y,turret_angle.Y)
+	gamehud:UpdateTopView(body_angle.Y,turret_angle.Y,self.health/self.max_health)
 end
 
 function Actor:UpdateReloadBar( delta_time )

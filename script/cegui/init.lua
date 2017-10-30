@@ -23,6 +23,9 @@ guiSystem:getDefaultGUIContext():getMouseCursor():setDefaultImage("GlossySerpent
 guiSystem:getDefaultGUIContext():setDefaultFont("DejaVuSans-HD-10")
 CEGUI.FontManager:getSingleton():createFreeTypeFont( 
 	"Commonwealth-20", 20, true, "Commonv2c.ttf", "fonts" )
+-- irrlicht ttf support
+require(DIR_SCRIPT..'FontManager')
+FontManager:createFont("OpenSans-Bold.ttf",12,"OpenSans-Bold-12")
 -- set the Tooltip type
 guiSystem:getDefaultGUIContext():setDefaultTooltipType("GlossySerpent/Tooltip")
 --实现OOP

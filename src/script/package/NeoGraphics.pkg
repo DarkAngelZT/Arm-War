@@ -8,7 +8,7 @@ public:
 	SfxManager*getSfxManager();
 	std::string GetAvailableResolution();
 	void setWindowCaption(const std::string& title);
-
+	irr::gui::IGUIFont* LoadTTFFont(const std::string& filePath,int size);
 	void RenderUI();
 
 	irr::scene::IAnimatedMesh* getMesh(std::string&file);
@@ -115,6 +115,13 @@ public:
 	irr::scene::IDummyTransformationSceneNode* AddDummyTransformationSceneNode(
 			irr::scene::ISceneNode* parent = 0, int id = -1);
 
+	irr::scene::ITextSceneNode* AddTextSceneNode(irr::gui::IGUIFont* font,const std::string&text,
+			irr::video::SColor color = irr::video::SColor(100, 255, 255, 255),
+			irr::scene::ISceneNode* parent = 0,
+			const irr::core::vector3d<float>& position = irr::core::vector3d<float>(0, 0,
+					0), float id = -1);
+	void ITextNodeSetText(irr::scene::ITextSceneNode*node,const std::string& text);
+
 	irr::scene::IParticleAffector* CreateColourAffactorQ(
 			const irr::video::SColor& targetColor0,
 			const irr::video::SColor& targetColor1);
@@ -141,7 +148,7 @@ public:
 	irr::core::vector2d<int> getPositionOnScreen(
 			const irr::core::vector3d<float>& position);
 	irr::core::vector3d<float> get3DPositionFromScreen(
-				const irr::core::vector2d<int>& screen_position);
+			const irr::core::vector2d<int>& screen_position);
 
 	//get a game object by attached scene node index(用scene node反向查找保存它的game object)
 	GameObject*GetAttachedGameObject(irr::scene::ISceneNode*node);

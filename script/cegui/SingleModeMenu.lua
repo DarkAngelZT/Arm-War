@@ -98,6 +98,11 @@ function SingleMenu:Init()
 	self:getTankTypes()
 	self.ui.map_name:setText("")
 	self.ui.player_list:resetList()
+	local ammo_config = readTableFile(DIR_DATA.."game/ammo/shellFeasibility.txt")
+	Logic.ammo_config={
+		shell_types=ammo_config.header,
+		shell_feasibility=ammo_config.content	
+	}
 end
 -------------------------------------
 -- Initialize map list

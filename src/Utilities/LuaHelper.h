@@ -35,20 +35,6 @@ bool isFileExist(const std::string& path);
 }
 }
 
-irr::core::vector3df matrix4_getRotationZXY_rad(const irr::core::matrix4& mx)
-{
-	irr::core::vector3df r;
-	r.X = asinf(-mx(2,1));
-	const irr::f32 t = cosf(r.X);
-	if (.001f < t) {
-		r.Z = atan2f(mx(0,1), mx(1,1));
-		r.Y = atan2f(mx(2,0), mx(2,2));
-	}
-	else {
-		r.Z = atan2f(-mx (1,0), mx (0,0));
-		r.Y = 0.f;
-	}
-	return r;
-}
+irr::core::vector3df matrix4_getRotationZXY_rad(const irr::core::matrix4& mx);
 
 #endif /* SRC_UTILITIES_LUAHELPER_H_ */

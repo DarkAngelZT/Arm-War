@@ -1,0 +1,6 @@
+license of Irrlicht Multilingual conforms to Irrlicht.
+Please refer to following URL for details.
+http://irrlicht.sourceforge.net/license.html
+
+Moreover, FreeType2 is used by the Free Type license(FTL) like the BSD license.
+http://freetype.sourceforge.net/license.html

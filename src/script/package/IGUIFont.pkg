@@ -1,0 +1,13 @@
+namespace irr
+{
+namespace gui
+{
+//! Font interface.
+class IGUIFont : public virtual IReferenceCounted
+{
+
+};
+
+} // end namespace gui
+} // end namespace irr
+

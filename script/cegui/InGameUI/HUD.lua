@@ -92,6 +92,7 @@ function gamehud:Refresh(actor)
 	if self.pause_menu then
 		self.pause_menu:Hide()
 	end
+	self:setTopViewColor(255,255,255)
 end
 
 function gamehud:ShowMessage( message )
@@ -147,12 +148,30 @@ function gamehud:ChangeAmmoAmount( index, amount)
 	end
 end
 
-function gamehud:UpdateTopView( base_angle,top_angle )
-
+function gamehud:UpdateTopView( base_angle,top_angle, health_ratio )
+	health_ratio=health_ratio or 1
 	self.ui.top_view.base:setProperty(
 		"Rotation","x:0 y:0 z:"..base_angle)
 	self.ui.top_view.top:setProperty(
 		"Rotation","x:0 y:0 z:"..top_angle)
+	local green = 255
+	local blue = 255
+	if health_ratio>0.5 then
+		blue=math.floor(255*(2*health_ratio-1))
+	elseif health_ratio <=0.5 then
+		blue=0
+		green=math.floor(255*(2*health_ratio))
+	end
+	self:setTopViewColor(255,green,blue)
+end
+
+function gamehud:setTopViewColor( red, green, blue )
+	local color_str = string.format("FF%02X%02X%02X",red,green,blue)
+	local color_attr = string.format("tl:%s tr:%s bl:%s br:%s",color_str,color_str,color_str,color_str)
+	self.ui.top_view.base:setProperty(
+		"ImageColours",color_attr)
+	self.ui.top_view.top:setProperty(
+		"ImageColours",color_attr)
 end
 
 function gamehud:notify( invoker, event )

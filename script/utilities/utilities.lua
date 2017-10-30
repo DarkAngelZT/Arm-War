@@ -75,6 +75,35 @@ function readAllText( file )
     return content
 end
 --------------------------------------------
+-- read table file
+--------------------------------------------
+function readTableFile( path )
+    local f=io.open(path,"r")
+    local content = {}
+    local header = nil
+    if f then
+       for line in f:lines() do
+            if not (trim(line) == "") then
+                local tuples = split(line,"\t")
+                if not header then
+                    header={}
+                    for i=1,#tuples do
+                        table.insert(header,tuples[i])
+                    end
+                else
+                    local key = tuples[1]
+                    content[key]={}
+                    for i=2,#tuples do
+                        content[key][header[i-1]]=tuples[i]
+                    end
+                end
+           end
+       end
+    end
+    f:close()
+    return {header=header,content=content}
+end
+--------------------------------------------
 -- id generator
 --------------------------------------------
 IDGenerator={

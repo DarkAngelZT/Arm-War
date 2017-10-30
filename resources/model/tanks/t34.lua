@@ -276,12 +276,6 @@ animation = {
 } -- tank.components.wheel[14]
 tank.property = {turret_rotation_speed = 70,
 tank_type = "standard",
-health = 120,
-fire_power = 200,
-armor = 3.5,
-max_speed = 14.7,
-ricochet_possibility = 0.4,
-reload_time = 8,
 mesh_destoryed="resources/model/tanks/t34/t34_destroyed.obj",
 }
 return tank

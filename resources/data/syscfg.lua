@@ -5,7 +5,7 @@
 ApplicationSettings = {}
 
 ApplicationSettings.resolution = { width = 1024, height = 768 }
-ApplicationSettings.caption = "Neo Game Framework Demo" -- This cannot be empty
+ApplicationSettings.caption = "Arm War Demo" -- This cannot be empty
 
 ApplicationSettings.fullscreen = false
 ApplicationSettings.realtimeShadow = true

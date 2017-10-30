@@ -83,11 +83,21 @@ function SceneLoaderGeneric(map_info,player_info)
 	if player_info then
 		local player_number = #player_info
 		--load tank according to player data
+		local team = 1
 		for i,v in ipairs(player_info) do
 			local tank_type = v.tank_type
 			if not tank_model_data[tank_type] then
 				local file_path = DIR_TANKS..tank_type..".lua"
-				tank_model_data[tank_type]=assert(dofile(file_path))
+				local data_path = DIR_DATA.."game/tank/"..tank_type..".cfg"
+				local attributes = assert(dofile(file_path))
+				if not NeoGame.io.isFileExist(data_path) then
+					data_path=DIR_DATA.."game/tank/default.cfg"
+				end
+				local attr = eval("{"..readAllText(data_path).."}")
+				for k,v in pairs(attr) do
+					attributes.property[k]=v
+				end
+				tank_model_data[tank_type]=attributes
 			end
 			local current_tank_data = tank_model_data[v.tank_type]
 			if not spawn_points_index[v.team] then
@@ -112,11 +122,29 @@ function SceneLoaderGeneric(map_info,player_info)
 			local current_actor = Actor.new(v.id)
 			current_actor:Init()
 			current_actor.name=v.name
-			current_actor:setEntity(tank)
+			local ammo_config = current_tank_data.property.default_shell_config
+			if ammo_config then
+				current_actor.ammo_config=ammo_config
+			end
 			current_actor.team=v.team
 			current_actor.tank_type=tank_type
+			current_actor:setEntity(tank)
+			--add player label
+			local label_info = {
+				font="OpenSans-Bold-12",text=v.name,position=irr.core.vector3df:new_local(0,5,0)}
+			local label = Scene.nodeLoader.text(label_info)
+			if label then
+				label:setParent(tank.components.body.object:getTankBodyNode())
+				label:updateAbsolutePosition()
+				if v.team ~=team or i==1 then
+					label:setVisible(false)
+				else
+					label:setTextColor(irr.video.SColor:new_local(100,0,255,0))
+				end
+			end
 			if i==1 then
 				Logic.actor_me=current_actor
+				team = current_actor.team
 			end
 			Logic:addActor(current_actor,true)
 			percent=60+i/player_number*30

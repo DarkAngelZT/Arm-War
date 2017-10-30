@@ -35,9 +35,7 @@ function SingleModeInputHandler.OnKeyEvent(event)
 
 	--test dead
 	if key==irr.KEY_KEY_O and press==0 then
-		local deathEvent = { event_id=Scene.EVENT.PLAYER_DESTROYED, attacker = Logic.actor_me }
-		local cmd = ActorDestroyedCommand.new(Logic.actor_me,deathEvent)
-		Logic:addCommand(cmd)
+		Logic.actor_me:DealDamage(20,Logic.actor_me)
 	end
 end
 

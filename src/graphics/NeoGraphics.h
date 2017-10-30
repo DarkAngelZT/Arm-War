@@ -38,6 +38,7 @@ public:
 	}
 	std::string GetAvailableResolution();
 	void setWindowCaption(const std::string& title);
+	gui::IGUIFont* LoadTTFFont(const std::string& filePath,int size);
 	irr::scene::IAnimatedMesh* getMesh(std::string&file);
 	irr::scene::IAnimatedMeshSceneNode* AddAnimatedMeshSceneNode(
 			irr::scene::IAnimatedMesh* mesh, irr::scene::ISceneNode* parent = 0,
@@ -133,6 +134,13 @@ public:
 
 	irr::scene::IDummyTransformationSceneNode* AddDummyTransformationSceneNode(
 			irr::scene::ISceneNode* parent = 0, int id = -1);
+
+	irr::scene::ITextSceneNode* AddTextSceneNode(gui::IGUIFont* font,const std::string&text,
+				video::SColor color=video::SColor(100,255,255,255),
+				ISceneNode* parent = 0, const core::vector3df& position = core::vector3df(0,0,0),
+				s32 id=-1);
+
+	void ITextNodeSetText(irr::scene::ITextSceneNode*node,const std::string& text);
 
 	irr::scene::IParticleAffector* CreateColourAffactorQ(
 			const irr::video::SColor& targetColor0,

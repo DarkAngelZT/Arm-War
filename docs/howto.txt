@@ -16,3 +16,8 @@ set speed at forward direction
 cannot use body rotation as forward direction
 **solution**
 enable friction 2 and calculate the forward direction use closest contact point's normal and frictionDir2 (which is vertical to normal but towords the left side)
+------------------------------
+Steps to add a new tank:
+1)config model information with tank factory tool in map editor
+2)write tank attribute file in resource/data/game/tank/ folder, you can reference to the format of default.cfg
+3)add a line to resource/data/game/ammo/shellFeasibility.txt configure which shell is enabled for new tank.

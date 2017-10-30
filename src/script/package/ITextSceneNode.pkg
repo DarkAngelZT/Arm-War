@@ -1,0 +1,16 @@
+namespace irr
+{
+namespace scene
+{
+
+//! A scene node for displaying 2d text at a position in three dimensional space
+class ITextSceneNode : public ISceneNode
+{
+public:
+	//! sets the color of the text
+	virtual void setTextColor(irr::video::SColor color) = 0;
+};
+
+} // end namespace scene
+} // end namespace irr
+

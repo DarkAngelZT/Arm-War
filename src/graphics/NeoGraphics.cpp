@@ -4,15 +4,14 @@
  *  Created on: 2016年1月12日
  *      Author: neo
  */
-#ifdef _WINDOWS
-#pragma comment(lib, "Irrlicht.lib")
-#endif
 
 #include "NeoGraphics.h"
 #include "CEGUI/RendererModules/Irrlicht/ResourceProvider.h"
 #include "animators/CSceneNodeAnimatorAxisAlignedRotate.h"
 #include "animators/CSceneNodeAnimatorTextureMove.h"
 #include "animators/CSceneNodeAnimatorCamera3rdPerson.h"
+#include <IrrlichtML/CGUITTFont.h>
+#include <locale>
 
 NeoGraphics* NeoGraphics::_instance = NULL;
 using namespace irr;
@@ -365,6 +364,25 @@ core::dimension2du NeoGraphics::getScreenSize()
 	return size;
 }
 
+irr::scene::ITextSceneNode* NeoGraphics::AddTextSceneNode(gui::IGUIFont* font,const std::string&text,
+		video::SColor color, ISceneNode* parent,
+		const core::vector3df& position, s32 id)
+{
+	std::wstring str;
+	str.assign(text.begin(), text.end());
+	return smgr->addTextSceneNode(font,str.c_str(),color,parent,position,id);
+}
+
+void NeoGraphics::ITextNodeSetText(irr::scene::ITextSceneNode* node,
+		const std::string& text)
+{
+	if (!node)
+		return;
+	std::wstring str;
+	str.assign(text.begin(), text.end());
+	node->setText(str.c_str());
+}
+
 void NeoGraphics::InitialiseDefaultResourceGroups()
 {
 	//以下代码搬运自cegui Sample
@@ -531,4 +549,10 @@ irr::core::vector2di NeoGraphics::getPositionOnScreen(
 float NeoGraphics::getDeltaTime() const
 {
 	return m_delta_time;
+}
+
+gui::IGUIFont* NeoGraphics::LoadTTFFont(const std::string& filePath, int size)
+{
+	io::path p(filePath.data());
+	return gui::CGUITTFont::createTTFont(guiEnv,p,size);
 }

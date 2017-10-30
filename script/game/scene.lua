@@ -94,7 +94,7 @@ Scene.nodeLoader={
 		
 	end,
 	cube=function( info )
-		texture_path=info.textures[1] or DIR_RESOURCES.."model/default/default_cobe_texture.png"
+		local texture_path=info.textures[1] or DIR_RESOURCES.."model/default/default_cobe_texture.png"
 		if texture_path=="" then
 			texture_path = DIR_RESOURCES.."model/default/default_cobe_texture.png"
 		end
@@ -110,7 +110,7 @@ Scene.nodeLoader={
 		return node
 	end,
 	sphere=function( info )
-		texture_path=info.textures[1] or DIR_RESOURCES.."model/default/default_cobe_texture.png"
+		local texture_path=info.textures[1] or DIR_RESOURCES.."model/default/default_cobe_texture.png"
 		if texture_path=="" then
 			texture_path = DIR_RESOURCES.."model/default/default_cobe_texture.png"
 		end
@@ -122,6 +122,18 @@ Scene.nodeLoader={
 		node:setPosition(info.position)
 		node:setRotation(info.rotation)
 		node:setScale(info.scale)
+		node:updateAbsolutePosition()
+		return node
+	end,
+	text=function( info )
+		local font = FontManager:getFont(info.font) or FontManager:getFont(FontManager.default)
+		if not font then
+			return
+		end
+		local text = info.text
+		local colour = info.colour or irr.video.SColor(100,255,255,255)
+		local node = NeoGraphics:getInstance():AddTextSceneNode(font,text,colour)
+		node:setPosition(info.position)
 		node:updateAbsolutePosition()
 		return node
 	end,

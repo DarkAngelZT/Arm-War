@@ -1,6 +1,6 @@
 /*
 ** Lua binding: NeoGame
-** Generated automatically by tolua++-1.0.93 on Tue Oct 24 23:40:10 2017.
+** Generated automatically by tolua++-1.0.93 on Sun Oct 29 01:27:56 2017.
 */
 
 #ifndef __cplusplus
@@ -205,13 +205,13 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"Component");
  tolua_usertype(tolua_S,"irr::core::aabbox3d<float>");
  tolua_usertype(tolua_S,"irr::core::quaternion");
- tolua_usertype(tolua_S,"irr::video::ITexture");
+ tolua_usertype(tolua_S,"irr::scene::IParticleRotationAffector");
  tolua_usertype(tolua_S,"irr::scene::IParticleCylinderEmitter");
  tolua_usertype(tolua_S,"std::vector<std::string>");
  tolua_usertype(tolua_S,"irr::core::vector2d<float>");
  tolua_usertype(tolua_S,"BillboardAnimationEffectorParams");
- tolua_usertype(tolua_S,"LuaHelper");
- tolua_usertype(tolua_S,"CollisionObject");
+ tolua_usertype(tolua_S,"virtual IReferenceCounted");
+ tolua_usertype(tolua_S,"irr::core::dimension2d<unsigned int>");
  tolua_usertype(tolua_S,"irr::scene::I3rdPersonCamera");
  tolua_usertype(tolua_S,"irr::IReferenceCounted");
  tolua_usertype(tolua_S,"BasicExplosionParams");
@@ -220,13 +220,13 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"Effector");
  tolua_usertype(tolua_S,"irr::scene::IBillboardSceneNode");
  tolua_usertype(tolua_S,"irr::core::vector2d<int>");
- tolua_usertype(tolua_S,"irr::scene::IParticleEmitter");
+ tolua_usertype(tolua_S,"irr::scene::IParticleMeshEmitter");
  tolua_usertype(tolua_S,"irr::core::aabbox3d<f32>");
  tolua_usertype(tolua_S,"irr::scene::IParticleAttractionAffector");
  tolua_usertype(tolua_S,"NeoData");
  tolua_usertype(tolua_S,"NeoTrigger");
  tolua_usertype(tolua_S,"irr::video::SLight");
- tolua_usertype(tolua_S,"RigidBody");
+ tolua_usertype(tolua_S,"irr::scene::ITextSceneNode");
  tolua_usertype(tolua_S,"irr::scene::IShadowVolumeSceneNode");
  tolua_usertype(tolua_S,"std::vector<int>");
  tolua_usertype(tolua_S,"irr::scene::IAnimatedMeshSceneNode");
@@ -240,37 +240,40 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"irr::core::dimension2d<int>");
  tolua_usertype(tolua_S,"irr::scene::ISceneNodeAnimator");
  tolua_usertype(tolua_S,"irr::scene::IParticleRingEmitter");
- tolua_usertype(tolua_S,"NeoScene");
  tolua_usertype(tolua_S,"SimpleTankTrackObject");
- tolua_usertype(tolua_S,"irr::scene::IParticleSystemSceneNode");
- tolua_usertype(tolua_S,"irr::scene::IMeshSceneNode");
+ tolua_usertype(tolua_S,"NeoScene");
  tolua_usertype(tolua_S,"BasicExplosionEffectParams");
  tolua_usertype(tolua_S,"SfxManager");
- tolua_usertype(tolua_S,"irr::core::dimension2d<unsigned int>");
- tolua_usertype(tolua_S,"irr::core::vector2d<unsigned>");
+ tolua_usertype(tolua_S,"LuaHelper");
+ tolua_usertype(tolua_S,"irr::scene::IParticleSystemSceneNode");
+ tolua_usertype(tolua_S,"irr::scene::IMeshSceneNode");
  tolua_usertype(tolua_S,"NeoPhysics");
- tolua_usertype(tolua_S,"irr::scene::IParticleFadeOutAffector");
  tolua_usertype(tolua_S,"NeoGraphics");
+ tolua_usertype(tolua_S,"StandardTankBodyObject");
+ tolua_usertype(tolua_S,"irr::core::vector2d<unsigned>");
+ tolua_usertype(tolua_S,"GameObject");
+ tolua_usertype(tolua_S,"irr::scene::IParticleFadeOutAffector");
+ tolua_usertype(tolua_S,"irr::scene::IParticleGravityAffector");
  tolua_usertype(tolua_S,"irr::core::aabbox3d<int>");
  tolua_usertype(tolua_S,"irr::core::dimension2d<float>");
- tolua_usertype(tolua_S,"StandardTankBodyObject");
- tolua_usertype(tolua_S,"irr::scene::IParticleGravityAffector");
+ tolua_usertype(tolua_S,"irr::gui::IGUIFont");
+ tolua_usertype(tolua_S,"irr::core::dimension2d<unsigned>");
  tolua_usertype(tolua_S,"irr::scene::ICameraSceneNode");
  tolua_usertype(tolua_S,"std::vector<float>");
- tolua_usertype(tolua_S,"irr::core::dimension2d<unsigned>");
- tolua_usertype(tolua_S,"GameObject");
  tolua_usertype(tolua_S,"NeoEvent");
- tolua_usertype(tolua_S,"irr::video::SColorHSL");
  tolua_usertype(tolua_S,"Explosion");
+ tolua_usertype(tolua_S,"irr::video::ITexture");
+ tolua_usertype(tolua_S,"irr::video::SColorHSL");
+ tolua_usertype(tolua_S,"RigidBody");
  tolua_usertype(tolua_S,"irr::scene::ILightSceneNode");
- tolua_usertype(tolua_S,"irr::scene::IParticleRotationAffector");
+ tolua_usertype(tolua_S,"CollisionObject");
  tolua_usertype(tolua_S,"NeoPhysics::RaycastResult");
  tolua_usertype(tolua_S,"irr::scene::IParticleAffector");
- tolua_usertype(tolua_S,"irr::core::vector3d<float>");
- tolua_usertype(tolua_S,"irr::scene::IParticleMeshEmitter");
- tolua_usertype(tolua_S,"irr::scene::IMesh");
- tolua_usertype(tolua_S,"irr::video::SColorf");
  tolua_usertype(tolua_S,"irr::scene::IParticleSphereEmitter");
+ tolua_usertype(tolua_S,"irr::core::vector3d<float>");
+ tolua_usertype(tolua_S,"irr::scene::IParticleEmitter");
+ tolua_usertype(tolua_S,"irr::video::SColorf");
+ tolua_usertype(tolua_S,"irr::scene::IMesh");
  tolua_usertype(tolua_S,"NeoGameLogic");
 }
 
@@ -14859,6 +14862,39 @@ static int tolua_NeoGame_irr_scene_IShadowVolumeSceneNode_updateShadowVolumes00(
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'updateShadowVolumes'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setTextColor of class  irr::scene::ITextSceneNode */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_irr_scene_ITextSceneNode_setTextColor00
+static int tolua_NeoGame_irr_scene_ITextSceneNode_setTextColor00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"irr::scene::ITextSceneNode",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::video::SColor",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  irr::scene::ITextSceneNode* self = (irr::scene::ITextSceneNode*)  tolua_tousertype(tolua_S,1,0);
+  irr::video::SColor color = *((irr::video::SColor*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setTextColor'", NULL);
+#endif
+  {
+   self->setTextColor(color);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setTextColor'.",&tolua_err);
  return 0;
 #endif
 }
@@ -33886,6 +33922,43 @@ static int tolua_NeoGame_NeoGraphics_setWindowCaption00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: LoadTTFFont of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_LoadTTFFont00
+static int tolua_NeoGame_NeoGraphics_LoadTTFFont00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+  const std::string filePath = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  int size = ((int)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'LoadTTFFont'", NULL);
+#endif
+  {
+   irr::gui::IGUIFont* tolua_ret = (irr::gui::IGUIFont*)  self->LoadTTFFont(filePath,size);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"irr::gui::IGUIFont");
+   tolua_pushcppstring(tolua_S,(const char*)filePath);
+  }
+ }
+ return 2;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'LoadTTFFont'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: RenderUI of class  NeoGraphics */
 #ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_RenderUI00
 static int tolua_NeoGame_NeoGraphics_RenderUI00(lua_State* tolua_S)
@@ -35357,6 +35430,155 @@ static int tolua_NeoGame_NeoGraphics_AddDummyTransformationSceneNode00(lua_State
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'AddDummyTransformationSceneNode'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: AddTextSceneNode of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_AddTextSceneNode00
+static int tolua_NeoGame_NeoGraphics_AddTextSceneNode00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"irr::gui::IGUIFont",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+  irr::gui::IGUIFont* font = ((irr::gui::IGUIFont*)  tolua_tousertype(tolua_S,2,0));
+  const std::string text = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'AddTextSceneNode'", NULL);
+#endif
+  {
+   irr::scene::ITextSceneNode* tolua_ret = (irr::scene::ITextSceneNode*)  self->AddTextSceneNode(font,text);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"irr::scene::ITextSceneNode");
+   tolua_pushcppstring(tolua_S,(const char*)text);
+  }
+ }
+ return 2;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'AddTextSceneNode'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: AddTextSceneNode of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_AddTextSceneNode01
+static int tolua_NeoGame_NeoGraphics_AddTextSceneNode01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"irr::gui::IGUIFont",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"irr::video::SColor",0,&tolua_err)) ||
+     !tolua_isusertype(tolua_S,5,"irr::scene::ISceneNode",1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+  irr::gui::IGUIFont* font = ((irr::gui::IGUIFont*)  tolua_tousertype(tolua_S,2,0));
+  const std::string text = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+  irr::video::SColor color = *((irr::video::SColor*)  tolua_tousertype(tolua_S,4,0));
+  irr::scene::ISceneNode* parent = ((irr::scene::ISceneNode*)  tolua_tousertype(tolua_S,5,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'AddTextSceneNode'", NULL);
+#endif
+  {
+   irr::scene::ITextSceneNode* tolua_ret = (irr::scene::ITextSceneNode*)  self->AddTextSceneNode(font,text,color,parent);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"irr::scene::ITextSceneNode");
+   tolua_pushcppstring(tolua_S,(const char*)text);
+  }
+ }
+ return 2;
+tolua_lerror:
+ return tolua_NeoGame_NeoGraphics_AddTextSceneNode00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: AddTextSceneNode of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_AddTextSceneNode02
+static int tolua_NeoGame_NeoGraphics_AddTextSceneNode02(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"irr::gui::IGUIFont",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"irr::video::SColor",0,&tolua_err)) ||
+     !tolua_isusertype(tolua_S,5,"irr::scene::ISceneNode",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,6,&tolua_err) || !tolua_isusertype(tolua_S,6,"const irr::core::vector3d<float>",0,&tolua_err)) ||
+     !tolua_isnumber(tolua_S,7,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,8,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+  irr::gui::IGUIFont* font = ((irr::gui::IGUIFont*)  tolua_tousertype(tolua_S,2,0));
+  const std::string text = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+  irr::video::SColor color = *((irr::video::SColor*)  tolua_tousertype(tolua_S,4,0));
+  irr::scene::ISceneNode* parent = ((irr::scene::ISceneNode*)  tolua_tousertype(tolua_S,5,0));
+  const irr::core::vector3d<float>* position = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,6,0));
+  float id = ((float)  tolua_tonumber(tolua_S,7,-1));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'AddTextSceneNode'", NULL);
+#endif
+  {
+   irr::scene::ITextSceneNode* tolua_ret = (irr::scene::ITextSceneNode*)  self->AddTextSceneNode(font,text,color,parent,*position,id);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"irr::scene::ITextSceneNode");
+   tolua_pushcppstring(tolua_S,(const char*)text);
+  }
+ }
+ return 2;
+tolua_lerror:
+ return tolua_NeoGame_NeoGraphics_AddTextSceneNode01(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: ITextNodeSetText of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_ITextNodeSetText00
+static int tolua_NeoGame_NeoGraphics_ITextNodeSetText00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"irr::scene::ITextSceneNode",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+  irr::scene::ITextSceneNode* node = ((irr::scene::ITextSceneNode*)  tolua_tousertype(tolua_S,2,0));
+  const std::string text = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'ITextNodeSetText'", NULL);
+#endif
+  {
+   self->ITextNodeSetText(node,text);
+   tolua_pushcppstring(tolua_S,(const char*)text);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'ITextNodeSetText'.",&tolua_err);
  return 0;
 #endif
 }
@@ -40197,6 +40419,15 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
   tolua_endmodule(tolua_S);
   tolua_module(tolua_S,"irr",0);
   tolua_beginmodule(tolua_S,"irr");
+   tolua_module(tolua_S,"gui",0);
+   tolua_beginmodule(tolua_S,"gui");
+    tolua_cclass(tolua_S,"IGUIFont","irr::gui::IGUIFont","virtual IReferenceCounted",NULL);
+    tolua_beginmodule(tolua_S,"IGUIFont");
+    tolua_endmodule(tolua_S);
+   tolua_endmodule(tolua_S);
+  tolua_endmodule(tolua_S);
+  tolua_module(tolua_S,"irr",0);
+  tolua_beginmodule(tolua_S,"irr");
    tolua_module(tolua_S,"scene",0);
    tolua_beginmodule(tolua_S,"scene");
     tolua_cclass(tolua_S,"ILightSceneNode","irr::scene::ILightSceneNode","irr::scene::ISceneNode",NULL);
@@ -40604,6 +40835,16 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
     tolua_beginmodule(tolua_S,"IShadowVolumeSceneNode");
      tolua_function(tolua_S,"setShadowMesh",tolua_NeoGame_irr_scene_IShadowVolumeSceneNode_setShadowMesh00);
      tolua_function(tolua_S,"updateShadowVolumes",tolua_NeoGame_irr_scene_IShadowVolumeSceneNode_updateShadowVolumes00);
+    tolua_endmodule(tolua_S);
+   tolua_endmodule(tolua_S);
+  tolua_endmodule(tolua_S);
+  tolua_module(tolua_S,"irr",0);
+  tolua_beginmodule(tolua_S,"irr");
+   tolua_module(tolua_S,"scene",0);
+   tolua_beginmodule(tolua_S,"scene");
+    tolua_cclass(tolua_S,"ITextSceneNode","irr::scene::ITextSceneNode","irr::scene::ISceneNode",NULL);
+    tolua_beginmodule(tolua_S,"ITextSceneNode");
+     tolua_function(tolua_S,"setTextColor",tolua_NeoGame_irr_scene_ITextSceneNode_setTextColor00);
     tolua_endmodule(tolua_S);
    tolua_endmodule(tolua_S);
   tolua_endmodule(tolua_S);
@@ -41647,6 +41888,7 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getSfxManager",tolua_NeoGame_NeoGraphics_getSfxManager00);
    tolua_function(tolua_S,"GetAvailableResolution",tolua_NeoGame_NeoGraphics_GetAvailableResolution00);
    tolua_function(tolua_S,"setWindowCaption",tolua_NeoGame_NeoGraphics_setWindowCaption00);
+   tolua_function(tolua_S,"LoadTTFFont",tolua_NeoGame_NeoGraphics_LoadTTFFont00);
    tolua_function(tolua_S,"RenderUI",tolua_NeoGame_NeoGraphics_RenderUI00);
    tolua_function(tolua_S,"getMesh",tolua_NeoGame_NeoGraphics_getMesh00);
    tolua_function(tolua_S,"AddAnimatedMeshSceneNode",tolua_NeoGame_NeoGraphics_AddAnimatedMeshSceneNode00);
@@ -41686,6 +41928,10 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"AddParticleSystemSceneNode",tolua_NeoGame_NeoGraphics_AddParticleSystemSceneNode03);
    tolua_function(tolua_S,"AddEmptySceneNode",tolua_NeoGame_NeoGraphics_AddEmptySceneNode00);
    tolua_function(tolua_S,"AddDummyTransformationSceneNode",tolua_NeoGame_NeoGraphics_AddDummyTransformationSceneNode00);
+   tolua_function(tolua_S,"AddTextSceneNode",tolua_NeoGame_NeoGraphics_AddTextSceneNode00);
+   tolua_function(tolua_S,"AddTextSceneNode",tolua_NeoGame_NeoGraphics_AddTextSceneNode01);
+   tolua_function(tolua_S,"AddTextSceneNode",tolua_NeoGame_NeoGraphics_AddTextSceneNode02);
+   tolua_function(tolua_S,"ITextNodeSetText",tolua_NeoGame_NeoGraphics_ITextNodeSetText00);
    tolua_function(tolua_S,"CreateColourAffactorQ",tolua_NeoGame_NeoGraphics_CreateColourAffactorQ00);
    tolua_function(tolua_S,"GetActiveCamera",tolua_NeoGame_NeoGraphics_GetActiveCamera00);
    tolua_function(tolua_S,"SetActiveCamera",tolua_NeoGame_NeoGraphics_SetActiveCamera00);
