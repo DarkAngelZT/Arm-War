@@ -40,6 +40,7 @@ require(DIR_SCRIPT_CEGUI.."MapEditor")
 require(DIR_SCRIPT_CEGUI.."LoadingScreen")
 require(DIR_SCRIPT_CEGUI.."TankEditor")
 require(DIR_SCRIPT_CEGUI.."SingleModeMenu")
+require(DIR_SCRIPT_CEGUI.."MultiModeMenu")
 
 require(DIR_SCRIPT.."game/game")
 

@@ -22,7 +22,6 @@ static int NeoGameLogic_TriggerEvent(lua_State* tolua_S);
 
 NeoScript::NeoScript()
 {
-	// TODO Auto-generated constructor stub
 
 }
 
@@ -172,8 +171,8 @@ int NeoScript::ExecuteScriptGlobalFunc(std::string& func_name)
 void NeoScript::ExecuteString(std::string& str)
 {
 	int top = lua_gettop(lua_S);
-	int error = luaL_loadbuffer(lua_S, str.c_str(), str.length(),
-			str.c_str()) || lua_pcall(lua_S, 0, 0, 0);
+	int error = luaL_loadbuffer(lua_S, str.c_str(), str.length(), str.c_str())
+			|| lua_pcall(lua_S, 0, 0, 0);
 
 	// handle errors
 	if (error)
@@ -340,9 +339,48 @@ void NeoScript::ExecuteScriptedEventFunction(const std::string& func_name,
 	lua_settop(lua_S, top);
 }
 
+void NeoScript::ExecuteNetworkProtocolListenerFunction(
+		const std::string& func_name, const NeoGame::network::Packet& p)
+{
+	int top = lua_gettop(lua_S);
+	GetScriptField(func_name.c_str());
+	if (!lua_isfunction(lua_S, -1))
+	{
+#ifdef DEBUG
+		std::cout << "Unable to get Lua global: '" << func_name
+				<< "' as name not represent a global Lua function\n";
+#endif
+		lua_settop(lua_S, top);
+		return;
+	}
+	tolua_pushusertype(lua_S, (void*) &p, "const NeoGame::network::Packet");
+	lua_pcall(lua_S, 1, 0, 0);
+	lua_settop(lua_S, top);
+}
+
+void NeoScript::ExecuteNetworkedObjectCallback(const std::string& func_name,
+		const std::string& objectId, RakNet::BitStream* bitstream)
+{
+	int top = lua_gettop(lua_S);
+	GetScriptField(func_name.c_str());
+	if (!lua_isfunction(lua_S, -1))
+	{
+#ifdef DEBUG
+		std::cout << "Unable to get Lua global: '" << func_name
+				<< "' as name not represent a global Lua function\n";
+#endif
+		lua_settop(lua_S, top);
+		return;
+	}
+	//push id
+	lua_pushstring(lua_S, objectId.data());
+	tolua_pushusertype(lua_S, (void*) bitstream, "RakNet::BitStream");
+	lua_pcall(lua_S, 2, 0, 0);
+	lua_settop(lua_S, top);
+}
+
 NeoScript::~NeoScript()
 {
-	// TODO Auto-generated destructor stub
 }
 
 lua_State* NeoScript::getLuaState() const

@@ -1,152 +1,363 @@
-<GUILayout version="4">
-    <Window name="MultiPlayerRoot" type="DefaultWindow">
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="MultiPlayerRoot" >
         <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
-        <Window name="HostSelectWnd" type="GlossySerpent/FrameWindow">
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Window type="GlossySerpent/FrameWindow" name="HostSelectWnd" >
+            <Property name="Area" value="{{0,0},{0,0},{0,600},{0,600}}" />
             <Property name="Text" value="MultiPlayer" />
             <Property name="TitlebarFont" value="DejaVuSans-HD-10" />
-            <Property name="SizingEnabled" value="False" />
-            <Property name="TitlebarEnabled" value="True" />
-            <Property name="Area" value="{{0.246237,0},{0.0850318,0},{0.717155,0},{0.935348,0}}" />
-            <Property name="DragMovingEnabled" value="False" />
-            <Window name="IP_Text" type="GlossySerpent/Editbox">
+            <Property name="SizingEnabled" value="false" />
+            <Property name="DragMovingEnabled" value="false" />
+            <Property name="VerticalAlignment" value="Centre" />
+            <Property name="CloseButtonEnabled" value="false" />
+            <Property name="HorizontalAlignment" value="Centre" />
+            <Property name="AutoRenderingSurface" value="true" />
+            <AutoWindow namePath="__auto_titlebar__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="false" />
+                <Property name="DraggingEnabled" value="false" />
+            </AutoWindow>
+            <AutoWindow namePath="__auto_closebutton__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="true" />
+            </AutoWindow>
+            <Window type="GlossySerpent/Editbox" name="IP_Text" >
+                <Property name="Area" value="{{0,145},{0,41},{0.442071,145},{0.058988,41}}" />
+                <Property name="Font" value="OpenSans-Regular-14" />
                 <Property name="MaxTextLength" value="1073741823" />
-                <Property name="Area" value="{{0.25483,0},{0.149063,0},{0.696901,0},{0.208051,0}}" />
-                <Property name="TextParsingEnabled" value="False" />
+                <Property name="ValidationString" value="([0-9]+(\.)?)*" />
             </Window>
-            <Window name="IP_Label" type="GlossySerpent/StaticText">
+            <Window type="GlossySerpent/StaticText" name="IP_Label" >
+                <Property name="Area" value="{{0,22},{0,36},{0,127},{0,66}}" />
+                <Property name="Font" value="BreeSerif-Regular-16" />
                 <Property name="Text" value="Host IP :" />
-                <Property name="HorzExtent" value="73" />
-                <Property name="VertExtent" value="16.2241" />
-                <Property name="FrameEnabled" value="False" />
-                <Property name="Area" value="{{0.0443885,0},{0.144194,0},{0.251954,0},{0.212545,0}}" />
-                <Property name="BackgroundEnabled" value="False" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="FrameEnabled" value="false" />
+                <Property name="BackgroundEnabled" value="false" />
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <Property name="VerticalScrollbar" value="true" />
+                </AutoWindow>
             </Window>
-            <Window name="MyIP_Label" type="GlossySerpent/StaticText">
-                <Property name="Text" value="Your IP :" />
-                <Property name="HorzExtent" value="72" />
-                <Property name="VertExtent" value="16.2241" />
-                <Property name="FrameEnabled" value="False" />
-                <Property name="Area" value="{{0.0324958,0},{0.0445689,0},{0.237828,0},{0.111048,0}}" />
-                <Property name="BackgroundEnabled" value="False" />
-            </Window>
-            <Window name="MyIP_text" type="GlossySerpent/StaticText">
-                <Property name="FrameEnabled" value="False" />
-                <Property name="Area" value="{{0.244165,0},{0.0528083,0},{0.623702,0},{0.113669,0}}" />
-                <Property name="BackgroundEnabled" value="False" />
-            </Window>
-            <Window name="HostList" type="GlossySerpent/MultiColumnList">
-                <Property name="Area" value="{{0.046851,0},{0.248314,0},{0.70724,0},{0.829776,0}}" />
-            </Window>
-            <Window name="Create_btn" type="GlossySerpent/Button32">
+            <Window type="GlossySerpent/Button32" name="Create_btn" >
+                <Property name="Area" value="{{0,20},{0,-20},{0,160},{0,20}}" />
+                <Property name="Font" value="BreeSerif-Regular-14" />
                 <Property name="Text" value="Create Game" />
-                <Property name="Area" value="{{0.0479693,0},{0.889514,0},{0.34493,0},{0.961611,0}}" />
+                <Property name="VerticalAlignment" value="Bottom" />
             </Window>
-            <Window name="Join_btn" type="GlossySerpent/Button32">
+            <Window type="GlossySerpent/Button32" name="Join_btn" >
+                <Property name="Area" value="{{0,240},{0,-20},{0,380},{0,20}}" />
+                <Property name="Font" value="BreeSerif-Regular-16" />
                 <Property name="Text" value="Join Game" />
-                <Property name="Area" value="{{0.415399,0},{0.890825,0},{0.706132,0},{0.962922,0}}" />
+                <Property name="VerticalAlignment" value="Bottom" />
             </Window>
-            <Window name="Refresh_btn" type="GlossySerpent/Button32">
+            <Window type="GlossySerpent/Button32" name="Refresh_btn" >
+                <Property name="Area" value="{{0,-20},{0,180},{0,120},{0,220}}" />
+                <Property name="Font" value="BreeSerif-Regular-16" />
                 <Property name="Text" value="Refresh" />
-                <Property name="Area" value="{{0.730629,0},{0.319101,0},{0.973619,0},{0.391198,0}}" />
+                <Property name="HorizontalAlignment" value="Right" />
             </Window>
-            <Window name="Cancel_btn" type="GlossySerpent/Button32">
+            <Window type="GlossySerpent/Button32" name="Cancel_btn" >
+                <Property name="Area" value="{{0,-15},{0,250},{0,125},{0,290}}" />
+                <Property name="Font" value="BreeSerif-Regular-16" />
                 <Property name="Text" value="Cancel" />
-                <Property name="Area" value="{{0.732886,0},{0.447753,0},{0.975876,0},{0.51985,0}}" />
+                <Property name="HorizontalAlignment" value="Right" />
             </Window>
-            <Window name="JoinDes_btn" type="GlossySerpent/Button32">
+            <Window type="GlossySerpent/Button32" name="JoinDes_btn" >
+                <Property name="Area" value="{{0,-40},{0,33},{0,80},{0,73}}" />
+                <Property name="Font" value="BreeSerif-Regular-16" />
                 <Property name="Text" value="Connect" />
-                <Property name="Area" value="{{0.724184,0},{0.144194,0},{0.953426,0},{0.205055,0}}" />
+                <Property name="HorizontalAlignment" value="Right" />
+            </Window>
+            <Window type="GlossySerpent/SerpentPanel" name="HostListPanel" >
+                <Property name="Area" value="{{0,20},{0,75},{0,400},{0,485}}" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            </Window>
+            <Window type="GlossySerpent/StaticText" name="Online_ID_Label" >
+                <Property name="Area" value="{{0,19},{0,3},{0,132},{0,38}}" />
+                <Property name="Font" value="BreeSerif-Regular-16" />
+                <Property name="Text" value="Online ID: " />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="FrameEnabled" value="false" />
+                <Property name="BackgroundEnabled" value="false" />
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <Property name="VerticalScrollbar" value="true" />
+                </AutoWindow>
+            </Window>
+            <Window type="GlossySerpent/Editbox" name="Eb_Online_ID" >
+                <Property name="Area" value="{{0,145},{0,1},{0,402},{0,36}}" />
+                <Property name="Font" value="OpenSans-Regular-14" />
             </Window>
         </Window>
-        <Window name="Multi_PrepareWnd" type="GlossySerpent/FrameWindow">
-            <Property name="Text" value="MultiPlayer" />
+        <Window type="GlossySerpent/FrameWindow" name="Multi_PrepareWnd" >
+            <Property name="Area" value="{{0,0},{0,0},{0,600},{0,600}}" />
+            <Property name="Text" value="MultiPlayer Mode" />
+            <Property name="Visible" value="false" />
             <Property name="TitlebarFont" value="DejaVuSans-HD-10" />
-            <Property name="SizingEnabled" value="False" />
-            <Property name="TitlebarEnabled" value="True" />
-            <Property name="Area" value="{{0.168035,0},{0.0213378,0},{0.895064,0},{0.984714,0}}" />
-            <Property name="DragMovingEnabled" value="False" />
-            <Window name="mapOverview" type="GlossySerpent/StaticImage">
-                <Property name="Area" value="{{0.0315965,0},{0.105883,0},{0.409636,0},{0.532353,0}}" />
+            <Property name="SizingEnabled" value="false" />
+            <Property name="DragMovingEnabled" value="false" />
+            <Property name="VerticalAlignment" value="Centre" />
+            <Property name="CloseButtonEnabled" value="false" />
+            <Property name="HorizontalAlignment" value="Centre" />
+            <Property name="AutoRenderingSurface" value="true" />
+            <AutoWindow namePath="__auto_titlebar__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="false" />
+                <Property name="DraggingEnabled" value="false" />
+            </AutoWindow>
+            <AutoWindow namePath="__auto_closebutton__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="true" />
+            </AutoWindow>
+            <Window type="GlossySerpent/StaticImage" name="mapOverview" >
+                <Property name="Area" value="{{0,22},{0,77},{0,263},{0,303}}" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="FrameEnabled" value="true" />
+                <Property name="BackgroundEnabled" value="true" />
             </Window>
-            <Window name="PlayerList" type="GlossySerpent/SerpentPanel">
-                <Property name="Area" value="{{0.466573,0},{0.017647,0},{0.982491,0},{0.541598,0}}" />
-                <Window name="VScrollbar" type="GlossySerpent/VerticalScrollbar">
-                    <Property name="PageSize" value="0" />
-                    <Property name="StepSize" value="1" />
-                    <Property name="AlwaysOnTop" value="True" />
-                    <Property name="OverlapSize" value="0" />
-                    <Property name="DocumentSize" value="1" />
-                    <Property name="ScrollPosition" value="0" />
-                    <Property name="Area" value="{{0.934643,0},{0.0369694,0},{0.982844,0},{0.950961,0}}" />
+            <Window type="GlossySerpent/SerpentPanel" name="PlayerList" >
+                <Property name="Area" value="{{0,-136},{0,316},{0,289},{0,543}}" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="HorizontalAlignment" value="Right" />
+                <Window type="GlossySerpent/ItemListbox" name="list" >
+                    <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+                    <AutoWindow namePath="__auto_content_pane__" >
+                        <Property name="MouseInputPropagationEnabled" value="true" />
+                    </AutoWindow>
+                    <AutoWindow namePath="__auto_vscrollbar__" >
+                        <Property name="NonClient" value="true" />
+                        <Property name="AlwaysOnTop" value="true" />
+                        <Property name="VerticalScrollbar" value="true" />
+                    </AutoWindow>
+                    <AutoWindow namePath="__auto_hscrollbar__" >
+                        <Property name="NonClient" value="true" />
+                        <Property name="AlwaysOnTop" value="true" />
+                    </AutoWindow>
+                </Window>
+                <Window type="GlossySerpent/ListboxItem" name="playerItemPrefab" >
+                    <Property name="Area" value="{{0,0},{0,0},{1,0},{0,32}}" />
+                    <Property name="Visible" value="false" />
+                    <Property name="Selectable" value="true" />
+                    <Property name="MouseInputPropagationEnabled" value="false" />
+                    <Window type="GlossySerpent/Combobox" name="player_name" >
+                        <Property name="Area" value="{{0,0},{0,0},{0.3,0},{0,100}}" />
+                        <Property name="Font" value="OpenSans-Regular-10" />
+                        <Property name="ReadOnly" value="true" />
+                        <Property name="ClippedByParent" value="false" />
+                        <AutoWindow namePath="__auto_editbox__" >
+                            <Property name="Font" value="OpenSans-Regular-10" />
+                        </AutoWindow>
+                        <AutoWindow namePath="__auto_droplist__" >
+                            <Property name="Font" value="OpenSans-Regular-10" />
+                            <AutoWindow namePath="__auto_vscrollbar__" >
+                                <Property name="VerticalScrollbar" value="true" />
+                            </AutoWindow>
+                        </AutoWindow>
+                    </Window>
+                    <Window type="GlossySerpent/Combobox" name="team" >
+                        <Property name="Area" value="{{0.55,0},{0,0},{0.8,0},{0,100}}" />
+                        <Property name="Font" value="OpenSans-Regular-10" />
+                        <Property name="ReadOnly" value="true" />
+                        <Property name="ClippedByParent" value="false" />
+                        <AutoWindow namePath="__auto_editbox__" >
+                            <Property name="Font" value="OpenSans-Regular-10" />
+                        </AutoWindow>
+                        <AutoWindow namePath="__auto_droplist__" >
+                            <Property name="Font" value="OpenSans-Regular-10" />
+                            <AutoWindow namePath="__auto_vscrollbar__" >
+                                <Property name="VerticalScrollbar" value="true" />
+                            </AutoWindow>
+                        </AutoWindow>
+                    </Window>
+                    <Window type="GlossySerpent/StaticText" name="status" >
+                        <Property name="Area" value="{{0.8,0},{0,0},{1,0},{1,0}}" />
+                        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                        <Property name="FrameEnabled" value="true" />
+                        <Property name="BackgroundEnabled" value="true" />
+                        <AutoWindow namePath="__auto_vscrollbar__" >
+                            <Property name="VerticalScrollbar" value="true" />
+                        </AutoWindow>
+                    </Window>
+                    <Window type="GlossySerpent/StaticText" name="type" >
+                        <Property name="Area" value="{{0.3,0},{0,0},{0.55,0},{1,0}}" />
+                        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                        <Property name="FrameEnabled" value="true" />
+                        <Property name="BackgroundEnabled" value="true" />
+                        <AutoWindow namePath="__auto_vscrollbar__" >
+                            <Property name="VerticalScrollbar" value="true" />
+                        </AutoWindow>
+                    </Window>
                 </Window>
             </Window>
-            <Window name="chatWnd" type="GlossySerpent/MultiLineEditbox">
-                <Property name="Text">
+            <Window type="GlossySerpent/MultiLineEditbox" name="chatWnd" >
+                <Property name="Area" value="{{0,287},{0,15},{0,568},{0,247}}" />
+                <Property name="Font" value="OpenSans-Regular-10" />
+                <Property name="Text" >
 </Property>
-                <Property name="ReadOnly" value="True" />
+                <Property name="ReadOnly" value="true" />
                 <Property name="MaxTextLength" value="1073741823" />
-                <Property name="Area" value="{{0.0437105,0},{0.596639,0},{0.731527,0},{0.898739,0}}" />
-                <Property name="TextParsingEnabled" value="False" />
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <Property name="VerticalScrollbar" value="true" />
+                </AutoWindow>
             </Window>
-            <Window name="chatEdit" type="GlossySerpent/Editbox">
+            <Window type="GlossySerpent/Editbox" name="chatEdit" >
+                <Property name="Area" value="{{0.0510371,256},{0.921849,-263},{0.598283,222},{0.973529,-262}}" />
+                <Property name="Font" value="OpenSans-Regular-10" />
                 <Property name="MaxTextLength" value="1073741823" />
-                <Property name="Area" value="{{0.0510371,0},{0.921849,0},{0.598283,0},{0.973529,0}}" />
-                <Property name="TextParsingEnabled" value="False" />
             </Window>
-            <Window name="Start_btn" type="GlossySerpent/Button32">
+            <Window type="GlossySerpent/Button32" name="Start_btn" >
+                <Property name="Area" value="{{0,-5},{0,-80},{0,115},{0,-40}}" />
+                <Property name="Font" value="BreeSerif-Regular-16" />
                 <Property name="Text" value="Start" />
-                <Property name="Area" value="{{0.78627,0},{0.8,0},{0.980441,0},{0.870168,0}}" />
+                <Property name="VerticalAlignment" value="Bottom" />
+                <Property name="HorizontalAlignment" value="Right" />
             </Window>
-            <Window name="chat_submit_btn" type="GlossySerpent/Button32">
+            <Window type="GlossySerpent/Button32" name="chat_submit_btn" >
+                <Property name="Area" value="{{0.605621,137},{0.920168,-224},{0.605621,217},{0.920168,-194}}" />
+                <Property name="Font" value="BreeSerif-Regular-12" />
                 <Property name="Text" value="send" />
-                <Property name="Area" value="{{0.605621,0},{0.920168,0},{0.725858,0},{0.976891,0}}" />
             </Window>
-            <Window name="Cancel_btn" type="GlossySerpent/Button32">
+            <Window type="GlossySerpent/Button32" name="Cancel_btn" >
+                <Property name="Area" value="{{0,-5},{0,-20},{0,115},{0,20}}" />
+                <Property name="Font" value="BreeSerif-Regular-16" />
                 <Property name="Text" value="Cancel" />
-                <Property name="Area" value="{{0.785439,0},{0.905882,0},{0.978101,0},{0.972689,0}}" />
+                <Property name="VerticalAlignment" value="Bottom" />
+                <Property name="HorizontalAlignment" value="Right" />
             </Window>
-            <Window name="Tank_btn" type="GlossySerpent/Button32">
+            <Window type="GlossySerpent/Button32" name="Tank_btn" >
+                <Property name="Area" value="{{0,-5},{0,-150},{0,115},{0,-110}}" />
+                <Property name="Font" value="BreeSerif-Regular-12" />
                 <Property name="Text" value="Change Tank" />
-                <Property name="Area" value="{{0.785176,0},{0.609244,0},{0.979347,0},{0.679412,0}}" />
+                <Property name="VerticalAlignment" value="Bottom" />
+                <Property name="HorizontalAlignment" value="Right" />
             </Window>
-            <Window name="MapName_text" type="GlossySerpent/StaticText">
-                <Property name="Area" value="{{0.0275634,0},{0.0297522,0},{0.215715,0},{0.0830582,0}}" />
+            <Window type="GlossySerpent/StaticText" name="MapName_text" >
+                <Property name="Area" value="{{0,19},{0,40},{0.188156,44},{0.053306,40}}" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="FrameEnabled" value="true" />
+                <Property name="BackgroundEnabled" value="true" />
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <Property name="VerticalScrollbar" value="true" />
+                </AutoWindow>
             </Window>
-            <Window name="Rounds_label" type="GlossySerpent/StaticText">
-                <Property name="Text" value="Rounds:" />
-                <Property name="HorzExtent" value="71" />
-                <Property name="VertExtent" value="16.2241" />
-                <Property name="FrameEnabled" value="False" />
-                <Property name="Area" value="{{0.245883,0},{0.0289259,0},{0.357395,0},{0.0838846,0}}" />
-                <Property name="BackgroundEnabled" value="False" />
+            <Window type="GlossySerpent/StaticText" name="room_name_label" >
+                <Property name="Area" value="{{0,2},{0,5},{0,82},{0,35}}" />
+                <Property name="Font" value="OpenSans-Regular-10" />
+                <Property name="Text" value="Room Name:" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="FrameEnabled" value="false" />
+                <Property name="BackgroundEnabled" value="false" />
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <Property name="VerticalScrollbar" value="true" />
+                </AutoWindow>
             </Window>
-            <Window name="Rounds_edx" type="GlossySerpent/Editbox">
-                <Property name="MaxTextLength" value="1073741823" />
-                <Property name="Area" value="{{0.346555,0},{0.0347109,0},{0.454034,0},{0.0780991,0}}" />
-                <Property name="TextParsingEnabled" value="False" />
+            <Window type="GlossySerpent/StaticText" name="room_name_text" >
+                <Property name="Area" value="{{0.0103224,82},{0,5},{0.0103224,270},{0,35}}" />
+                <Property name="Font" value="OpenSans-Regular-10" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="FrameEnabled" value="false" />
+                <Property name="BackgroundEnabled" value="false" />
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <Property name="VerticalScrollbar" value="true" />
+                </AutoWindow>
             </Window>
         </Window>
-        <Window name="MapSelection" type="GlossySerpent/FrameWindow">
+        <Window type="GlossySerpent/FrameWindow" name="MapSelection" >
+            <Property name="Area" value="{{0,0},{0,0},{0,400},{0,500}}" />
             <Property name="Text" value="Map Selection" />
-            <Property name="AlwaysOnTop" value="True" />
+            <Property name="Visible" value="false" />
+            <Property name="AlwaysOnTop" value="true" />
             <Property name="TitlebarFont" value="DejaVuSans-HD-10" />
-            <Property name="SizingEnabled" value="False" />
-            <Property name="TitlebarEnabled" value="True" />
-            <Property name="Area" value="{{0.248485,0},{0.392038,0},{0.693988,0},{0.710508,0}}" />
-            <Property name="DragMovingEnabled" value="False" />
-            <Property name="CloseButtonEnabled" value="False" />
-            <Window name="MapList_cb" type="GlossySerpent/Combobox">
-                <Property name="ReadOnly" value="True" />
-                <Property name="Area" value="{{0.0313767,0},{0.0749998,0},{0.428387,0},{0.665,0}}" />
-                <Property name="MaxEditTextLength" value="1073741823" />
-            </Window>
-            <Window name="btn_ok" type="GlossySerpent/Button">
+            <Property name="SizingEnabled" value="false" />
+            <Property name="DragMovingEnabled" value="false" />
+            <Property name="VerticalAlignment" value="Centre" />
+            <Property name="CloseButtonEnabled" value="false" />
+            <Property name="HorizontalAlignment" value="Centre" />
+            <Property name="AutoRenderingSurface" value="true" />
+            <AutoWindow namePath="__auto_titlebar__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="false" />
+                <Property name="DraggingEnabled" value="false" />
+            </AutoWindow>
+            <AutoWindow namePath="__auto_closebutton__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="true" />
+            </AutoWindow>
+            <Window type="GlossySerpent/Button" name="btn_ok" >
+                <Property name="Area" value="{{0,30},{0,-20},{0,130},{0,10}}" />
+                <Property name="Font" value="OpenSans-Regular-16" />
                 <Property name="Text" value="OK" />
-                <Property name="Area" value="{{0.0479976,0},{0.71,0},{0.282638,0},{0.92,0}}" />
+                <Property name="VerticalAlignment" value="Bottom" />
             </Window>
-            <Window name="btn_cancel" type="GlossySerpent/Button">
+            <Window type="GlossySerpent/Button" name="btn_cancel" >
+                <Property name="Area" value="{{0,200},{0,-20},{0,300},{0,10}}" />
+                <Property name="Font" value="OpenSans-Regular-16" />
                 <Property name="Text" value="Cancel" />
-                <Property name="Area" value="{{0.703593,0},{0.72,0},{0.938234,0},{0.93,0}}" />
+                <Property name="VerticalAlignment" value="Bottom" />
+            </Window>
+            <Window type="GlossySerpent/Listbox" name="map_list" >
+                <Property name="Area" value="{{0,0},{0.0370673,15},{0,378},{0,388}}" />
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <Property name="VerticalScrollbar" value="true" />
+                </AutoWindow>
+            </Window>
+            <Window type="GlossySerpent/StaticText" name="room_label" >
+                <Property name="Area" value="{{0,0},{0,5},{0,100},{0,25}}" />
+                <Property name="Font" value="OpenSans-Regular-12" />
+                <Property name="Text" value="Room Name:" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="FrameEnabled" value="false" />
+                <Property name="BackgroundEnabled" value="false" />
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <Property name="VerticalScrollbar" value="true" />
+                </AutoWindow>
+            </Window>
+            <Window type="GlossySerpent/Editbox" name="eb_room_name" >
+                <Property name="Area" value="{{0,105},{0,2},{0,375},{0,32}}" />
+                <Property name="Font" value="OpenSans-Regular-12" />
+                <Property name="Text" value="My Game" />
+            </Window>
+        </Window>
+        <Window type="GlossySerpent/FrameWindow" name="TankSelectWnd" >
+            <Property name="Area" value="{{0,0},{0,0},{0,250},{0,253}}" />
+            <Property name="Font" value="OpenSans-Regular-10" />
+            <Property name="Text" value="Select A Tank" />
+            <Property name="Visible" value="false" />
+            <Property name="AlwaysOnTop" value="true" />
+            <Property name="TitlebarFont" value="DejaVuSans-HD-10" />
+            <Property name="DragMovingEnabled" value="false" />
+            <Property name="VerticalAlignment" value="Centre" />
+            <Property name="CloseButtonEnabled" value="false" />
+            <Property name="HorizontalAlignment" value="Centre" />
+            <Property name="AutoRenderingSurface" value="true" />
+            <AutoWindow namePath="__auto_titlebar__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="false" />
+                <Property name="DraggingEnabled" value="false" />
+            </AutoWindow>
+            <AutoWindow namePath="__auto_closebutton__" >
+                <Property name="NonClient" value="true" />
+                <Property name="AlwaysOnTop" value="true" />
+            </AutoWindow>
+            <Window type="GlossySerpent/Listbox" name="list_tank" >
+                <Property name="Area" value="{{0,0},{0,0},{0,230},{0,166}}" />
+                <AutoWindow namePath="__auto_vscrollbar__" >
+                    <Property name="VerticalScrollbar" value="true" />
+                </AutoWindow>
+            </Window>
+            <Window type="GlossySerpent/Button32_4C" name="btn_ok" >
+                <Property name="Area" value="{{0,0},{0,0},{0,94},{0,38}}" />
+                <Property name="Font" value="BreeSerif-Regular-14" />
+                <Property name="Text" value="OK" />
+                <Property name="VerticalAlignment" value="Bottom" />
+            </Window>
+            <Window type="GlossySerpent/Button32_4C" name="btn_cancel" >
+                <Property name="Area" value="{{0,0},{0,0},{0,87},{0,37}}" />
+                <Property name="Font" value="BreeSerif-Regular-14" />
+                <Property name="Text" value="Cancel" />
+                <Property name="VerticalAlignment" value="Bottom" />
+                <Property name="HorizontalAlignment" value="Right" />
             </Window>
         </Window>
     </Window>

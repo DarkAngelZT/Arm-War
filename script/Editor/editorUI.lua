@@ -458,6 +458,7 @@ function map_editor.PropertyChangeSubmitted( args )
 		map_editor.UpdateSceneWindowObject(obj)
 	end
 	map_editor.UpdatePropertyWindowSingleRow(obj, key)
+	return true
 end
 
 function map_editor.PropertyItemSelected( args )

@@ -7,6 +7,7 @@
 #include"stdafx.h"
 #include "Application.h"
 #include "NeoGameLogic.h"
+#include "../network/Network.h"
 
 Application* Application::_instance = NULL;
 Application::Application()
@@ -33,6 +34,7 @@ Application::Application()
 
 void Application::CleanUp()
 {
+	NeoGame::Network::Destroy();
 	NeoGameLogic::Destroy();
 	NeoPhysics::Destroy();
 	NeoGraphics::Drop();
@@ -50,6 +52,7 @@ void Application::MainLoop()
 		NeoGraphics::getInstance()->Update();
 		NeoPhysics::getInstance()->Update(NeoGraphics::getInstance()->getDeltaTime());
 		NeoGameLogic::getInstance()->Update();
+		NeoGame::Network::getInstance()->Update();
 	}
 }
 

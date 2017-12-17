@@ -1,0 +1,66 @@
+$pfile "network/MessageIdentifiers.pkg"
+$pfile "network/RakNetTypes.pkg"
+$pfile "network/BitStream.pkg"
+$pfile "network/bitstreamHelper.pkg"
+$pfile "network/Packet.pkg"
+
+namespace NeoGame
+{
+
+	class Network
+	{
+	public:
+		static Network* getInstance();
+		static void Destroy();
+		void Init();
+		void CleanUp();
+		void Update();
+		void StartClient(const std::string& addr, int port);
+		void StartServer(int port, int max_connects=10);
+		void setMaxIncomingConnection(int max_count);
+		void KickClient(const RakNet::RakNetGUID& guid);
+		void EnableUDPBroadcastListening(int port);
+		void DisableUDPBroadcastListening();
+		void ShutDown();
+		void SendUDPLanBroadcast(RakNet::BitStream* bitstream, int port,
+				bool autoDecallocatePacket = true);
+		void SendDataToGUID(RakNet::BitStream* bitstream, int orderingChannel = 0,
+				const RakNet::RakNetGUID&guid = UNASSIGNED_RAKNET_GUID,
+				bool braodcast = true, bool autoDecallocatePacket = true);
+		void SendDataToAddress(RakNet::BitStream* bitstream, int orderingChannel = 0,
+				const RakNet::SystemAddress&addr = RakNet::UNASSIGNED_SYSTEM_ADDRESS,
+				bool braodcast = true, bool autoDecallocatePacket = true);
+		void SendDataToAll(RakNet::BitStream* bitstream, int orderingChannel = 0);
+		void Ping(const std::string&address, int port);
+		NeoGame::network::NetworkedObject* CreateNetworkedObject(const RakNet::RakNetGUID& guid);
+		NeoGame::network::NetworkedObject* CreateNetworkedObject(const std::string&guid_str);
+		/*create a empty networked object, attention this object is not registered,
+		 you have to register it with registerNetworkedObject() after set its guid*/
+		NeoGame::network::NetworkedObject* CreateNetworkedObject();
+		NeoGame::network::NetworkedObject* getNetWorkedObject(const RakNet::RakNetGUID& guid);
+		NeoGame::network::NetworkedObject* getNetWorkedObject(const std::string&guid_str);
+		void DestroyNetworkedObject(NeoGame::network::NetworkedObject*object);
+		//return whether register succeed
+		bool RegisterNetworkedObject(NeoGame::network::NetworkedObject*object);
+		void AddProtocolListener(int protocol, const std::string& luaFunction);
+		void RemoveProtocolListener(int protocol, const std::string& luaFunction);
+		void StartSynchronizeObject(NeoGame::network::NetworkedObject* object);
+		int getNetworkTimeMs();
+		const RakNet::RakNetGUID getMyGUID();
+
+		bool setReadyEvent(int id, bool ready);
+		void ForceCompleteReadyEvent(int id);
+		bool isReadyEventSet(int id);
+		bool isReadyEventCompleted(int eid);
+		bool HasReadyEvent(int id);
+		void setReadyEventSendChannel(int channel);
+		bool DeleteReadyEvent(int eventId);
+		bool ReadyEventAddToRemoteWaitingList(int eid, RakNet::RakNetGUID guid);
+		bool ReadyEventRemoveFromRemoteList(int eid, RakNet::RakNetGUID guid);
+
+		std::string BaseProtocolIDToString(int p);
+
+		bool isServer() const;
+	};
+
+} /* namespace NeoGame */

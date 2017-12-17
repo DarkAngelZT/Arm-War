@@ -11,7 +11,6 @@
 #include "animators/CSceneNodeAnimatorTextureMove.h"
 #include "animators/CSceneNodeAnimatorCamera3rdPerson.h"
 #include <IrrlichtML/CGUITTFont.h>
-#include <locale>
 
 NeoGraphics* NeoGraphics::_instance = NULL;
 using namespace irr;

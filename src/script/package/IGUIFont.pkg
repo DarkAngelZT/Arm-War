@@ -3,7 +3,7 @@ namespace irr
 namespace gui
 {
 //! Font interface.
-class IGUIFont : public virtual IReferenceCounted
+class IGUIFont : public virtual irr::IReferenceCounted
 {
 
 };

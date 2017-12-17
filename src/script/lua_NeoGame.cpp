@@ -1,6 +1,6 @@
 /*
 ** Lua binding: NeoGame
-** Generated automatically by tolua++-1.0.93 on Sun Oct 29 01:27:56 2017.
+** Generated automatically by tolua++-1.0.93 on Sun Dec 17 04:12:49 2017.
 */
 
 #ifndef __cplusplus
@@ -91,6 +91,13 @@ static int tolua_collect_NeoData (lua_State* tolua_S)
 static int tolua_collect_std__vector_float_ (lua_State* tolua_S)
 {
  std::vector<float>* self = (std::vector<float>*) tolua_tousertype(tolua_S,1,0);
+	Mtolua_delete(self);
+	return 0;
+}
+
+static int tolua_collect_RakNet__RakNetGUID (lua_State* tolua_S)
+{
+ RakNet::RakNetGUID* self = (RakNet::RakNetGUID*) tolua_tousertype(tolua_S,1,0);
 	Mtolua_delete(self);
 	return 0;
 }
@@ -203,14 +210,16 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"irr::scene::IAnimatedMesh");
  tolua_usertype(tolua_S,"GhostObject");
  tolua_usertype(tolua_S,"Component");
+ tolua_usertype(tolua_S,"RakNet::SystemAddress");
  tolua_usertype(tolua_S,"irr::core::aabbox3d<float>");
  tolua_usertype(tolua_S,"irr::core::quaternion");
  tolua_usertype(tolua_S,"irr::scene::IParticleRotationAffector");
+ tolua_usertype(tolua_S,"virtual irr::IReferenceCounted");
  tolua_usertype(tolua_S,"irr::scene::IParticleCylinderEmitter");
  tolua_usertype(tolua_S,"std::vector<std::string>");
  tolua_usertype(tolua_S,"irr::core::vector2d<float>");
  tolua_usertype(tolua_S,"BillboardAnimationEffectorParams");
- tolua_usertype(tolua_S,"virtual IReferenceCounted");
+ tolua_usertype(tolua_S,"LuaHelper");
  tolua_usertype(tolua_S,"irr::core::dimension2d<unsigned int>");
  tolua_usertype(tolua_S,"irr::scene::I3rdPersonCamera");
  tolua_usertype(tolua_S,"irr::IReferenceCounted");
@@ -228,45 +237,50 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"irr::video::SLight");
  tolua_usertype(tolua_S,"irr::scene::ITextSceneNode");
  tolua_usertype(tolua_S,"irr::scene::IShadowVolumeSceneNode");
+ tolua_usertype(tolua_S,"RakNet::PublicKey");
+ tolua_usertype(tolua_S,"RakNet::BitStream");
  tolua_usertype(tolua_S,"std::vector<int>");
  tolua_usertype(tolua_S,"irr::scene::IAnimatedMeshSceneNode");
  tolua_usertype(tolua_S,"irr::video::SColor");
  tolua_usertype(tolua_S,"NeoEditor");
  tolua_usertype(tolua_S,"irr::scene::ISceneNode");
  tolua_usertype(tolua_S,"irr::scene::IParticleAnimatedMeshSceneNodeEmitter");
+ tolua_usertype(tolua_S,"SimpleTankTrackObject");
+ tolua_usertype(tolua_S,"Explosion");
  tolua_usertype(tolua_S,"irr::scene::IParticleBoxEmitter");
  tolua_usertype(tolua_S,"irr::core::vector3d<int>");
  tolua_usertype(tolua_S,"Application");
  tolua_usertype(tolua_S,"irr::core::dimension2d<int>");
+ tolua_usertype(tolua_S,"irr::video::ITexture");
  tolua_usertype(tolua_S,"irr::scene::ISceneNodeAnimator");
  tolua_usertype(tolua_S,"irr::scene::IParticleRingEmitter");
- tolua_usertype(tolua_S,"SimpleTankTrackObject");
+ tolua_usertype(tolua_S,"NeoGame::network::Packet");
  tolua_usertype(tolua_S,"NeoScene");
+ tolua_usertype(tolua_S,"RakNet::RakNetGUID");
  tolua_usertype(tolua_S,"BasicExplosionEffectParams");
  tolua_usertype(tolua_S,"SfxManager");
- tolua_usertype(tolua_S,"LuaHelper");
  tolua_usertype(tolua_S,"irr::scene::IParticleSystemSceneNode");
  tolua_usertype(tolua_S,"irr::scene::IMeshSceneNode");
+ tolua_usertype(tolua_S,"CollisionObject");
  tolua_usertype(tolua_S,"NeoPhysics");
  tolua_usertype(tolua_S,"NeoGraphics");
- tolua_usertype(tolua_S,"StandardTankBodyObject");
  tolua_usertype(tolua_S,"irr::core::vector2d<unsigned>");
- tolua_usertype(tolua_S,"GameObject");
+ tolua_usertype(tolua_S,"StandardTankBodyObject");
  tolua_usertype(tolua_S,"irr::scene::IParticleFadeOutAffector");
- tolua_usertype(tolua_S,"irr::scene::IParticleGravityAffector");
+ tolua_usertype(tolua_S,"GameObject");
  tolua_usertype(tolua_S,"irr::core::aabbox3d<int>");
  tolua_usertype(tolua_S,"irr::core::dimension2d<float>");
  tolua_usertype(tolua_S,"irr::gui::IGUIFont");
- tolua_usertype(tolua_S,"irr::core::dimension2d<unsigned>");
+ tolua_usertype(tolua_S,"irr::scene::IParticleGravityAffector");
  tolua_usertype(tolua_S,"irr::scene::ICameraSceneNode");
  tolua_usertype(tolua_S,"std::vector<float>");
+ tolua_usertype(tolua_S,"irr::core::dimension2d<unsigned>");
  tolua_usertype(tolua_S,"NeoEvent");
- tolua_usertype(tolua_S,"Explosion");
- tolua_usertype(tolua_S,"irr::video::ITexture");
+ tolua_usertype(tolua_S,"NeoGame::network::NetworkedObject");
  tolua_usertype(tolua_S,"irr::video::SColorHSL");
- tolua_usertype(tolua_S,"RigidBody");
+ tolua_usertype(tolua_S,"NeoGame::Network");
  tolua_usertype(tolua_S,"irr::scene::ILightSceneNode");
- tolua_usertype(tolua_S,"CollisionObject");
+ tolua_usertype(tolua_S,"RigidBody");
  tolua_usertype(tolua_S,"NeoPhysics::RaycastResult");
  tolua_usertype(tolua_S,"irr::scene::IParticleAffector");
  tolua_usertype(tolua_S,"irr::scene::IParticleSphereEmitter");
@@ -39843,6 +39857,3085 @@ static int tolua_NeoGame_NeoScene_RemoveEffector00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* get function: publicKeyMode of class  RakNet::PublicKey */
+#ifndef TOLUA_DISABLE_tolua_get_RakNet__PublicKey_publicKeyMode
+static int tolua_get_RakNet__PublicKey_publicKeyMode(lua_State* tolua_S)
+{
+  RakNet::PublicKey* self = (RakNet::PublicKey*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'publicKeyMode'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->publicKeyMode);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: publicKeyMode of class  RakNet::PublicKey */
+#ifndef TOLUA_DISABLE_tolua_set_RakNet__PublicKey_publicKeyMode
+static int tolua_set_RakNet__PublicKey_publicKeyMode(lua_State* tolua_S)
+{
+  RakNet::PublicKey* self = (RakNet::PublicKey*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'publicKeyMode'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->publicKeyMode = ((RakNet::PublicKeyMode) (int)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: remoteServerPublicKey of class  RakNet::PublicKey */
+#ifndef TOLUA_DISABLE_tolua_get_RakNet__PublicKey_remoteServerPublicKey
+static int tolua_get_RakNet__PublicKey_remoteServerPublicKey(lua_State* tolua_S)
+{
+  RakNet::PublicKey* self = (RakNet::PublicKey*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'remoteServerPublicKey'",NULL);
+#endif
+  tolua_pushstring(tolua_S,(const char*)self->remoteServerPublicKey);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: remoteServerPublicKey of class  RakNet::PublicKey */
+#ifndef TOLUA_DISABLE_tolua_set_RakNet__PublicKey_remoteServerPublicKey
+static int tolua_set_RakNet__PublicKey_remoteServerPublicKey(lua_State* tolua_S)
+{
+  RakNet::PublicKey* self = (RakNet::PublicKey*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'remoteServerPublicKey'",NULL);
+  if (!tolua_isstring(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->remoteServerPublicKey = ((char*)  tolua_tostring(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: myPublicKey of class  RakNet::PublicKey */
+#ifndef TOLUA_DISABLE_tolua_get_RakNet__PublicKey_myPublicKey
+static int tolua_get_RakNet__PublicKey_myPublicKey(lua_State* tolua_S)
+{
+  RakNet::PublicKey* self = (RakNet::PublicKey*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'myPublicKey'",NULL);
+#endif
+  tolua_pushstring(tolua_S,(const char*)self->myPublicKey);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: myPublicKey of class  RakNet::PublicKey */
+#ifndef TOLUA_DISABLE_tolua_set_RakNet__PublicKey_myPublicKey
+static int tolua_set_RakNet__PublicKey_myPublicKey(lua_State* tolua_S)
+{
+  RakNet::PublicKey* self = (RakNet::PublicKey*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'myPublicKey'",NULL);
+  if (!tolua_isstring(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->myPublicKey = ((char*)  tolua_tostring(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: myPrivateKey of class  RakNet::PublicKey */
+#ifndef TOLUA_DISABLE_tolua_get_RakNet__PublicKey_myPrivateKey
+static int tolua_get_RakNet__PublicKey_myPrivateKey(lua_State* tolua_S)
+{
+  RakNet::PublicKey* self = (RakNet::PublicKey*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'myPrivateKey'",NULL);
+#endif
+  tolua_pushstring(tolua_S,(const char*)self->myPrivateKey);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: myPrivateKey of class  RakNet::PublicKey */
+#ifndef TOLUA_DISABLE_tolua_set_RakNet__PublicKey_myPrivateKey
+static int tolua_set_RakNet__PublicKey_myPrivateKey(lua_State* tolua_S)
+{
+  RakNet::PublicKey* self = (RakNet::PublicKey*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'myPrivateKey'",NULL);
+  if (!tolua_isstring(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->myPrivateKey = ((char*)  tolua_tostring(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: SetToLoopback of class  RakNet::SystemAddress */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_SystemAddress_SetToLoopback00
+static int tolua_NeoGame_RakNet_SystemAddress_SetToLoopback00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::SystemAddress",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::SystemAddress* self = (RakNet::SystemAddress*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'SetToLoopback'", NULL);
+#endif
+  {
+   self->SetToLoopback();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'SetToLoopback'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: IsLoopback of class  RakNet::SystemAddress */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_SystemAddress_IsLoopback00
+static int tolua_NeoGame_RakNet_SystemAddress_IsLoopback00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const RakNet::SystemAddress",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const RakNet::SystemAddress* self = (const RakNet::SystemAddress*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'IsLoopback'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->IsLoopback();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'IsLoopback'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: ToString of class  RakNet::SystemAddress */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_SystemAddress_ToString00
+static int tolua_NeoGame_RakNet_SystemAddress_ToString00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const RakNet::SystemAddress",0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,2,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const RakNet::SystemAddress* self = (const RakNet::SystemAddress*)  tolua_tousertype(tolua_S,1,0);
+  bool writePort = ((bool)  tolua_toboolean(tolua_S,2,true));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'ToString'", NULL);
+#endif
+  {
+   const char* tolua_ret = (const char*)  self->ToString(writePort);
+   tolua_pushstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'ToString'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: ToString of class  RakNet::SystemAddress */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_SystemAddress_ToString01
+static int tolua_NeoGame_RakNet_SystemAddress_ToString01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const RakNet::SystemAddress",0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  const RakNet::SystemAddress* self = (const RakNet::SystemAddress*)  tolua_tousertype(tolua_S,1,0);
+  bool writePort = ((bool)  tolua_toboolean(tolua_S,2,0));
+  char portDelineator = ((char)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'ToString'", NULL);
+#endif
+  {
+   const char* tolua_ret = (const char*)  self->ToString(writePort,portDelineator);
+   tolua_pushstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_NeoGame_RakNet_SystemAddress_ToString00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: FromString of class  RakNet::SystemAddress */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_SystemAddress_FromString00
+static int tolua_NeoGame_RakNet_SystemAddress_FromString00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::SystemAddress",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::SystemAddress* self = (RakNet::SystemAddress*)  tolua_tousertype(tolua_S,1,0);
+  const char* str = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'FromString'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->FromString(str);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'FromString'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: FromString of class  RakNet::SystemAddress */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_SystemAddress_FromString01
+static int tolua_NeoGame_RakNet_SystemAddress_FromString01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::SystemAddress",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  RakNet::SystemAddress* self = (RakNet::SystemAddress*)  tolua_tousertype(tolua_S,1,0);
+  const char* str = ((const char*)  tolua_tostring(tolua_S,2,0));
+  char portDelineator = ((char)  tolua_tonumber(tolua_S,3,0));
+  int ipVersion = ((int)  tolua_tonumber(tolua_S,4,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'FromString'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->FromString(str,portDelineator,ipVersion);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_NeoGame_RakNet_SystemAddress_FromString00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CopyPort of class  RakNet::SystemAddress */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_SystemAddress_CopyPort00
+static int tolua_NeoGame_RakNet_SystemAddress_CopyPort00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::SystemAddress",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const RakNet::SystemAddress",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::SystemAddress* self = (RakNet::SystemAddress*)  tolua_tousertype(tolua_S,1,0);
+  const RakNet::SystemAddress* right = ((const RakNet::SystemAddress*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CopyPort'", NULL);
+#endif
+  {
+   self->CopyPort(*right);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'CopyPort'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: GetPort of class  RakNet::SystemAddress */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_SystemAddress_GetPort00
+static int tolua_NeoGame_RakNet_SystemAddress_GetPort00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const RakNet::SystemAddress",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const RakNet::SystemAddress* self = (const RakNet::SystemAddress*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'GetPort'", NULL);
+#endif
+  {
+   unsigned short tolua_ret = (unsigned short)  self->GetPort();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'GetPort'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: FixForIPVersion of class  RakNet::SystemAddress */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_SystemAddress_FixForIPVersion00
+static int tolua_NeoGame_RakNet_SystemAddress_FixForIPVersion00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::SystemAddress",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const RakNet::SystemAddress",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::SystemAddress* self = (RakNet::SystemAddress*)  tolua_tousertype(tolua_S,1,0);
+  const RakNet::SystemAddress* boundAddressToSocket = ((const RakNet::SystemAddress*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'FixForIPVersion'", NULL);
+#endif
+  {
+   self->FixForIPVersion(*boundAddressToSocket);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'FixForIPVersion'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: IsLANAddress of class  RakNet::SystemAddress */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_SystemAddress_IsLANAddress00
+static int tolua_NeoGame_RakNet_SystemAddress_IsLANAddress00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::SystemAddress",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::SystemAddress* self = (RakNet::SystemAddress*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'IsLANAddress'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->IsLANAddress();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'IsLANAddress'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: operator== of class  RakNet::SystemAddress */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_SystemAddress__eq00
+static int tolua_NeoGame_RakNet_SystemAddress__eq00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const RakNet::SystemAddress",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const RakNet::SystemAddress",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const RakNet::SystemAddress* self = (const RakNet::SystemAddress*)  tolua_tousertype(tolua_S,1,0);
+  const RakNet::SystemAddress* right = ((const RakNet::SystemAddress*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'operator=='", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->operator==(*right);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function '.eq'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: operator< of class  RakNet::SystemAddress */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_SystemAddress__lt00
+static int tolua_NeoGame_RakNet_SystemAddress__lt00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const RakNet::SystemAddress",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const RakNet::SystemAddress",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const RakNet::SystemAddress* self = (const RakNet::SystemAddress*)  tolua_tousertype(tolua_S,1,0);
+  const RakNet::SystemAddress* right = ((const RakNet::SystemAddress*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'operator<'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->operator<(*right);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function '.lt'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: new of class  RakNet::RakNetGUID */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_RakNetGUID_new00
+static int tolua_NeoGame_RakNet_RakNetGUID_new00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"RakNet::RakNetGUID",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   RakNet::RakNetGUID* tolua_ret = (RakNet::RakNetGUID*)  Mtolua_new((RakNet::RakNetGUID)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"RakNet::RakNetGUID");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: new_local of class  RakNet::RakNetGUID */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_RakNetGUID_new00_local
+static int tolua_NeoGame_RakNet_RakNetGUID_new00_local(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"RakNet::RakNetGUID",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   RakNet::RakNetGUID* tolua_ret = (RakNet::RakNetGUID*)  Mtolua_new((RakNet::RakNetGUID)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"RakNet::RakNetGUID");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: ToString of class  RakNet::RakNetGUID */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_RakNetGUID_ToString00
+static int tolua_NeoGame_RakNet_RakNetGUID_ToString00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const RakNet::RakNetGUID",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const RakNet::RakNetGUID* self = (const RakNet::RakNetGUID*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'ToString'", NULL);
+#endif
+  {
+   const char* tolua_ret = (const char*)  self->ToString();
+   tolua_pushstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'ToString'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: FromString of class  RakNet::RakNetGUID */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_RakNetGUID_FromString00
+static int tolua_NeoGame_RakNet_RakNetGUID_FromString00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::RakNetGUID",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::RakNetGUID* self = (RakNet::RakNetGUID*)  tolua_tousertype(tolua_S,1,0);
+  const char* source = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'FromString'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->FromString(source);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'FromString'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: operator== of class  RakNet::RakNetGUID */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_RakNetGUID__eq00
+static int tolua_NeoGame_RakNet_RakNetGUID__eq00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const RakNet::RakNetGUID",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const RakNet::RakNetGUID",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const RakNet::RakNetGUID* self = (const RakNet::RakNetGUID*)  tolua_tousertype(tolua_S,1,0);
+  const RakNet::RakNetGUID* right = ((const RakNet::RakNetGUID*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'operator=='", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->operator==(*right);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function '.eq'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: operator< of class  RakNet::RakNetGUID */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_RakNetGUID__lt00
+static int tolua_NeoGame_RakNet_RakNetGUID__lt00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const RakNet::RakNetGUID",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const RakNet::RakNetGUID",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const RakNet::RakNetGUID* self = (const RakNet::RakNetGUID*)  tolua_tousertype(tolua_S,1,0);
+  const RakNet::RakNetGUID* right = ((const RakNet::RakNetGUID*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'operator<'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->operator<(*right);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function '.lt'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: Reset of class  RakNet::BitStream */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_BitStream_Reset00
+static int tolua_NeoGame_RakNet_BitStream_Reset00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* self = (RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'Reset'", NULL);
+#endif
+  {
+   self->Reset();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'Reset'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: ResetReadPointer of class  RakNet::BitStream */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_BitStream_ResetReadPointer00
+static int tolua_NeoGame_RakNet_BitStream_ResetReadPointer00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* self = (RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'ResetReadPointer'", NULL);
+#endif
+  {
+   self->ResetReadPointer();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'ResetReadPointer'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: ResetWritePointer of class  RakNet::BitStream */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_BitStream_ResetWritePointer00
+static int tolua_NeoGame_RakNet_BitStream_ResetWritePointer00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* self = (RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'ResetWritePointer'", NULL);
+#endif
+  {
+   self->ResetWritePointer();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'ResetWritePointer'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: AssertStreamEmpty of class  RakNet::BitStream */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_BitStream_AssertStreamEmpty00
+static int tolua_NeoGame_RakNet_BitStream_AssertStreamEmpty00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* self = (RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'AssertStreamEmpty'", NULL);
+#endif
+  {
+   self->AssertStreamEmpty();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'AssertStreamEmpty'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: IgnoreBytes of class  RakNet::BitStream */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_BitStream_IgnoreBytes00
+static int tolua_NeoGame_RakNet_BitStream_IgnoreBytes00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* self = (RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0);
+  unsigned const int numberOfBytes = ((unsigned const int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'IgnoreBytes'", NULL);
+#endif
+  {
+   self->IgnoreBytes(numberOfBytes);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'IgnoreBytes'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: Write0 of class  RakNet::BitStream */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_BitStream_Write000
+static int tolua_NeoGame_RakNet_BitStream_Write000(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* self = (RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'Write0'", NULL);
+#endif
+  {
+   self->Write0();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'Write0'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: Write1 of class  RakNet::BitStream */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_BitStream_Write100
+static int tolua_NeoGame_RakNet_BitStream_Write100(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* self = (RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'Write1'", NULL);
+#endif
+  {
+   self->Write1();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'Write1'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: ReadBit of class  RakNet::BitStream */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_RakNet_BitStream_ReadBit00
+static int tolua_NeoGame_RakNet_BitStream_ReadBit00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* self = (RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'ReadBit'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->ReadBit();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'ReadBit'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: NeoGame::network::CreateBitStream */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_CreateBitStream00
+static int tolua_NeoGame_NeoGame_network_CreateBitStream00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isnoobj(tolua_S,1,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   RakNet::BitStream* tolua_ret = (RakNet::BitStream*)  NeoGame::network::CreateBitStream();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"RakNet::BitStream");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'CreateBitStream'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: NeoGame::network::DestroyBitStream */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_DestroyBitStream00
+static int tolua_NeoGame_NeoGame_network_DestroyBitStream00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* stream = ((RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0));
+  {
+   NeoGame::network::DestroyBitStream(stream);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'DestroyBitStream'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: NeoGame::network::SerializeVector3 */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_SerializeVector300
+static int tolua_NeoGame_NeoGame_network_SerializeVector300(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::vector3d<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* bitStream = ((RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0));
+  const irr::core::vector3d<float>* vector3 = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
+  {
+   NeoGame::network::SerializeVector3(bitStream,*vector3);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'SerializeVector3'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: NeoGame::network::SerializeFloat */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_SerializeFloat00
+static int tolua_NeoGame_NeoGame_network_SerializeFloat00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* bitStream = ((RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0));
+  const float f = ((const float)  tolua_tonumber(tolua_S,2,0));
+  {
+   NeoGame::network::SerializeFloat(bitStream,f);
+   tolua_pushnumber(tolua_S,(lua_Number)f);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'SerializeFloat'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: NeoGame::network::SerializeInt */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_SerializeInt00
+static int tolua_NeoGame_NeoGame_network_SerializeInt00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* bitStream = ((RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0));
+  const int i = ((const int)  tolua_tonumber(tolua_S,2,0));
+  {
+   NeoGame::network::SerializeInt(bitStream,i);
+   tolua_pushnumber(tolua_S,(lua_Number)i);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'SerializeInt'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: NeoGame::network::SerializeBool */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_SerializeBool00
+static int tolua_NeoGame_NeoGame_network_SerializeBool00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* bitStream = ((RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0));
+  const bool b = ((const bool)  tolua_toboolean(tolua_S,2,0));
+  {
+   NeoGame::network::SerializeBool(bitStream,b);
+   tolua_pushboolean(tolua_S,(bool)b);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'SerializeBool'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: NeoGame::network::SerializeAsProtocolID */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_SerializeAsProtocolID00
+static int tolua_NeoGame_NeoGame_network_SerializeAsProtocolID00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* bitStream = ((RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0));
+  const int p = ((const int)  tolua_tonumber(tolua_S,2,0));
+  {
+   NeoGame::network::SerializeAsProtocolID(bitStream,p);
+   tolua_pushnumber(tolua_S,(lua_Number)p);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'SerializeAsProtocolID'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: NeoGame::network::SerializeAsByte */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_SerializeAsByte00
+static int tolua_NeoGame_NeoGame_network_SerializeAsByte00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* bitStream = ((RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0));
+  const int i = ((const int)  tolua_tonumber(tolua_S,2,0));
+  {
+   NeoGame::network::SerializeAsByte(bitStream,i);
+   tolua_pushnumber(tolua_S,(lua_Number)i);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'SerializeAsByte'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: NeoGame::network::SerializeString */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_SerializeString00
+static int tolua_NeoGame_NeoGame_network_SerializeString00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* bitStream = ((RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0));
+  const std::string str = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  {
+   NeoGame::network::SerializeString(bitStream,str);
+   tolua_pushcppstring(tolua_S,(const char*)str);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'SerializeString'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: NeoGame::network::SerializeGUID */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_SerializeGUID00
+static int tolua_NeoGame_NeoGame_network_SerializeGUID00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const RakNet::RakNetGUID",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* bitStream = ((RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0));
+  const RakNet::RakNetGUID* guid = ((const RakNet::RakNetGUID*)  tolua_tousertype(tolua_S,2,0));
+  {
+   NeoGame::network::SerializeGUID(bitStream,*guid);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'SerializeGUID'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: NeoGame::network::DeserializeVector3 */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_DeserializeVector300
+static int tolua_NeoGame_NeoGame_network_DeserializeVector300(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::core::vector3d<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* bitStream = ((RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0));
+  irr::core::vector3d<float>* out_vector3 = ((irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
+  {
+   NeoGame::network::DeserializeVector3(bitStream,*out_vector3);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'DeserializeVector3'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: NeoGame::network::DeserializeFloat */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_DeserializeFloat00
+static int tolua_NeoGame_NeoGame_network_DeserializeFloat00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* bitStream = ((RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0));
+  float f = ((float)  tolua_tonumber(tolua_S,2,0));
+  {
+   NeoGame::network::DeserializeFloat(bitStream,f);
+   tolua_pushnumber(tolua_S,(lua_Number)f);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'DeserializeFloat'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: NeoGame::network::DeserializeInt */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_DeserializeInt00
+static int tolua_NeoGame_NeoGame_network_DeserializeInt00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* bitStream = ((RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0));
+  int i = ((int)  tolua_tonumber(tolua_S,2,0));
+  {
+   NeoGame::network::DeserializeInt(bitStream,i);
+   tolua_pushnumber(tolua_S,(lua_Number)i);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'DeserializeInt'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: NeoGame::network::DeserializeBool */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_DeserializeBool00
+static int tolua_NeoGame_NeoGame_network_DeserializeBool00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* bitStream = ((RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0));
+  bool b = ((bool)  tolua_toboolean(tolua_S,2,0));
+  {
+   NeoGame::network::DeserializeBool(bitStream,b);
+   tolua_pushboolean(tolua_S,(bool)b);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'DeserializeBool'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: NeoGame::network::DeserializeProtocolID */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_DeserializeProtocolID00
+static int tolua_NeoGame_NeoGame_network_DeserializeProtocolID00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* bitStream = ((RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0));
+  int p = ((int)  tolua_tonumber(tolua_S,2,0));
+  {
+   NeoGame::network::DeserializeProtocolID(bitStream,p);
+   tolua_pushnumber(tolua_S,(lua_Number)p);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'DeserializeProtocolID'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: NeoGame::network::DeserializeByte */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_DeserializeByte00
+static int tolua_NeoGame_NeoGame_network_DeserializeByte00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* bitStream = ((RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0));
+  int i = ((int)  tolua_tonumber(tolua_S,2,0));
+  {
+   NeoGame::network::DeserializeByte(bitStream,i);
+   tolua_pushnumber(tolua_S,(lua_Number)i);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'DeserializeByte'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: NeoGame::network::DeserializeString */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_DeserializeString00
+static int tolua_NeoGame_NeoGame_network_DeserializeString00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* bitStream = ((RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0));
+  std::string str = ((std::string)  tolua_tocppstring(tolua_S,2,0));
+  {
+   NeoGame::network::DeserializeString(bitStream,str);
+   tolua_pushcppstring(tolua_S,(const char*)str);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'DeserializeString'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: NeoGame::network::DeserializeGUID */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_DeserializeGUID00
+static int tolua_NeoGame_NeoGame_network_DeserializeGUID00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"RakNet::BitStream",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"RakNet::RakNetGUID",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  RakNet::BitStream* bitStream = ((RakNet::BitStream*)  tolua_tousertype(tolua_S,1,0));
+  RakNet::RakNetGUID* guid = ((RakNet::RakNetGUID*)  tolua_tousertype(tolua_S,2,0));
+  {
+   NeoGame::network::DeserializeGUID(bitStream,*guid);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'DeserializeGUID'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getSenderIPAddress of class  NeoGame::network::Packet */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_Packet_getSenderIPAddress00
+static int tolua_NeoGame_NeoGame_network_Packet_getSenderIPAddress00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::network::Packet",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::network::Packet* self = (NeoGame::network::Packet*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getSenderIPAddress'", NULL);
+#endif
+  {
+   std::string tolua_ret = (std::string)  self->getSenderIPAddress();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getSenderIPAddress'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getSenderPort of class  NeoGame::network::Packet */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_Packet_getSenderPort00
+static int tolua_NeoGame_NeoGame_network_Packet_getSenderPort00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::network::Packet",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::network::Packet* self = (NeoGame::network::Packet*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getSenderPort'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getSenderPort();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getSenderPort'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getGUIDString of class  NeoGame::network::Packet */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_Packet_getGUIDString00
+static int tolua_NeoGame_NeoGame_network_Packet_getGUIDString00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::network::Packet",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::network::Packet* self = (NeoGame::network::Packet*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getGUIDString'", NULL);
+#endif
+  {
+   std::string tolua_ret = (std::string)  self->getGUIDString();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getGUIDString'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getGUID of class  NeoGame::network::Packet */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_Packet_getGUID00
+static int tolua_NeoGame_NeoGame_network_Packet_getGUID00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::network::Packet",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::network::Packet* self = (NeoGame::network::Packet*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getGUID'", NULL);
+#endif
+  {
+   RakNet::RakNetGUID tolua_ret = (RakNet::RakNetGUID)  self->getGUID();
+   {
+#ifdef __cplusplus
+    void* tolua_obj = Mtolua_new((RakNet::RakNetGUID)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"RakNet::RakNetGUID");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#else
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(RakNet::RakNetGUID));
+     tolua_pushusertype(tolua_S,tolua_obj,"RakNet::RakNetGUID");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#endif
+   }
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getGUID'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getBitStream of class  NeoGame::network::Packet */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_Packet_getBitStream00
+static int tolua_NeoGame_NeoGame_network_Packet_getBitStream00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::network::Packet",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::network::Packet* self = (NeoGame::network::Packet*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getBitStream'", NULL);
+#endif
+  {
+   RakNet::BitStream& tolua_ret = (RakNet::BitStream&)  self->getBitStream();
+    tolua_pushusertype(tolua_S,(void*)&tolua_ret,"RakNet::BitStream");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getBitStream'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getInstance of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_getInstance00
+static int tolua_NeoGame_NeoGame_Network_getInstance00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   NeoGame::Network* tolua_ret = (NeoGame::Network*)  NeoGame::Network::getInstance();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"NeoGame::Network");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getInstance'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: Destroy of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_Destroy00
+static int tolua_NeoGame_NeoGame_Network_Destroy00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   NeoGame::Network::Destroy();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'Destroy'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: Init of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_Init00
+static int tolua_NeoGame_NeoGame_Network_Init00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'Init'", NULL);
+#endif
+  {
+   self->Init();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'Init'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CleanUp of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_CleanUp00
+static int tolua_NeoGame_NeoGame_Network_CleanUp00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CleanUp'", NULL);
+#endif
+  {
+   self->CleanUp();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'CleanUp'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: Update of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_Update00
+static int tolua_NeoGame_NeoGame_Network_Update00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'Update'", NULL);
+#endif
+  {
+   self->Update();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'Update'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: StartClient of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_StartClient00
+static int tolua_NeoGame_NeoGame_Network_StartClient00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  const std::string addr = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  int port = ((int)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'StartClient'", NULL);
+#endif
+  {
+   self->StartClient(addr,port);
+   tolua_pushcppstring(tolua_S,(const char*)addr);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'StartClient'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: StartServer of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_StartServer00
+static int tolua_NeoGame_NeoGame_Network_StartServer00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  int port = ((int)  tolua_tonumber(tolua_S,2,0));
+  int max_connects = ((int)  tolua_tonumber(tolua_S,3,10));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'StartServer'", NULL);
+#endif
+  {
+   self->StartServer(port,max_connects);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'StartServer'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setMaxIncomingConnection of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_setMaxIncomingConnection00
+static int tolua_NeoGame_NeoGame_Network_setMaxIncomingConnection00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  int max_count = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setMaxIncomingConnection'", NULL);
+#endif
+  {
+   self->setMaxIncomingConnection(max_count);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setMaxIncomingConnection'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: KickClient of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_KickClient00
+static int tolua_NeoGame_NeoGame_Network_KickClient00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const RakNet::RakNetGUID",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  const RakNet::RakNetGUID* guid = ((const RakNet::RakNetGUID*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'KickClient'", NULL);
+#endif
+  {
+   self->KickClient(*guid);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'KickClient'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: EnableUDPBroadcastListening of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_EnableUDPBroadcastListening00
+static int tolua_NeoGame_NeoGame_Network_EnableUDPBroadcastListening00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  int port = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'EnableUDPBroadcastListening'", NULL);
+#endif
+  {
+   self->EnableUDPBroadcastListening(port);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'EnableUDPBroadcastListening'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: DisableUDPBroadcastListening of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_DisableUDPBroadcastListening00
+static int tolua_NeoGame_NeoGame_Network_DisableUDPBroadcastListening00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'DisableUDPBroadcastListening'", NULL);
+#endif
+  {
+   self->DisableUDPBroadcastListening();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'DisableUDPBroadcastListening'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: ShutDown of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_ShutDown00
+static int tolua_NeoGame_NeoGame_Network_ShutDown00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'ShutDown'", NULL);
+#endif
+  {
+   self->ShutDown();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'ShutDown'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: SendUDPLanBroadcast of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_SendUDPLanBroadcast00
+static int tolua_NeoGame_NeoGame_Network_SendUDPLanBroadcast00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,4,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  RakNet::BitStream* bitstream = ((RakNet::BitStream*)  tolua_tousertype(tolua_S,2,0));
+  int port = ((int)  tolua_tonumber(tolua_S,3,0));
+  bool autoDecallocatePacket = ((bool)  tolua_toboolean(tolua_S,4,true));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'SendUDPLanBroadcast'", NULL);
+#endif
+  {
+   self->SendUDPLanBroadcast(bitstream,port,autoDecallocatePacket);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'SendUDPLanBroadcast'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: SendDataToGUID of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_SendDataToGUID00
+static int tolua_NeoGame_NeoGame_Network_SendDataToGUID00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  RakNet::BitStream* bitstream = ((RakNet::BitStream*)  tolua_tousertype(tolua_S,2,0));
+  int orderingChannel = ((int)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'SendDataToGUID'", NULL);
+#endif
+  {
+   self->SendDataToGUID(bitstream,orderingChannel);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'SendDataToGUID'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: SendDataToGUID of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_SendDataToGUID01
+static int tolua_NeoGame_NeoGame_Network_SendDataToGUID01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"const RakNet::RakNetGUID",0,&tolua_err)) ||
+     !tolua_isboolean(tolua_S,5,1,&tolua_err) ||
+     !tolua_isboolean(tolua_S,6,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,7,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  RakNet::BitStream* bitstream = ((RakNet::BitStream*)  tolua_tousertype(tolua_S,2,0));
+  int orderingChannel = ((int)  tolua_tonumber(tolua_S,3,0));
+  const RakNet::RakNetGUID* guid = ((const RakNet::RakNetGUID*)  tolua_tousertype(tolua_S,4,0));
+  bool braodcast = ((bool)  tolua_toboolean(tolua_S,5,true));
+  bool autoDecallocatePacket = ((bool)  tolua_toboolean(tolua_S,6,true));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'SendDataToGUID'", NULL);
+#endif
+  {
+   self->SendDataToGUID(bitstream,orderingChannel,*guid,braodcast,autoDecallocatePacket);
+  }
+ }
+ return 0;
+tolua_lerror:
+ return tolua_NeoGame_NeoGame_Network_SendDataToGUID00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: SendDataToAddress of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_SendDataToAddress00
+static int tolua_NeoGame_NeoGame_Network_SendDataToAddress00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  RakNet::BitStream* bitstream = ((RakNet::BitStream*)  tolua_tousertype(tolua_S,2,0));
+  int orderingChannel = ((int)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'SendDataToAddress'", NULL);
+#endif
+  {
+   self->SendDataToAddress(bitstream,orderingChannel);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'SendDataToAddress'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: SendDataToAddress of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_SendDataToAddress01
+static int tolua_NeoGame_NeoGame_Network_SendDataToAddress01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"const RakNet::SystemAddress",0,&tolua_err)) ||
+     !tolua_isboolean(tolua_S,5,1,&tolua_err) ||
+     !tolua_isboolean(tolua_S,6,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,7,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  RakNet::BitStream* bitstream = ((RakNet::BitStream*)  tolua_tousertype(tolua_S,2,0));
+  int orderingChannel = ((int)  tolua_tonumber(tolua_S,3,0));
+  const RakNet::SystemAddress* addr = ((const RakNet::SystemAddress*)  tolua_tousertype(tolua_S,4,0));
+  bool braodcast = ((bool)  tolua_toboolean(tolua_S,5,true));
+  bool autoDecallocatePacket = ((bool)  tolua_toboolean(tolua_S,6,true));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'SendDataToAddress'", NULL);
+#endif
+  {
+   self->SendDataToAddress(bitstream,orderingChannel,*addr,braodcast,autoDecallocatePacket);
+  }
+ }
+ return 0;
+tolua_lerror:
+ return tolua_NeoGame_NeoGame_Network_SendDataToAddress00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: SendDataToAll of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_SendDataToAll00
+static int tolua_NeoGame_NeoGame_Network_SendDataToAll00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"RakNet::BitStream",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  RakNet::BitStream* bitstream = ((RakNet::BitStream*)  tolua_tousertype(tolua_S,2,0));
+  int orderingChannel = ((int)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'SendDataToAll'", NULL);
+#endif
+  {
+   self->SendDataToAll(bitstream,orderingChannel);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'SendDataToAll'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: Ping of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_Ping00
+static int tolua_NeoGame_NeoGame_Network_Ping00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  const std::string address = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  int port = ((int)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'Ping'", NULL);
+#endif
+  {
+   self->Ping(address,port);
+   tolua_pushcppstring(tolua_S,(const char*)address);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'Ping'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateNetworkedObject of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_CreateNetworkedObject00
+static int tolua_NeoGame_NeoGame_Network_CreateNetworkedObject00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const RakNet::RakNetGUID",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  const RakNet::RakNetGUID* guid = ((const RakNet::RakNetGUID*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateNetworkedObject'", NULL);
+#endif
+  {
+   NeoGame::network::NetworkedObject* tolua_ret = (NeoGame::network::NetworkedObject*)  self->CreateNetworkedObject(*guid);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"NeoGame::network::NetworkedObject");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'CreateNetworkedObject'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateNetworkedObject of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_CreateNetworkedObject01
+static int tolua_NeoGame_NeoGame_Network_CreateNetworkedObject01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  const std::string guid_str = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateNetworkedObject'", NULL);
+#endif
+  {
+   NeoGame::network::NetworkedObject* tolua_ret = (NeoGame::network::NetworkedObject*)  self->CreateNetworkedObject(guid_str);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"NeoGame::network::NetworkedObject");
+   tolua_pushcppstring(tolua_S,(const char*)guid_str);
+  }
+ }
+ return 2;
+tolua_lerror:
+ return tolua_NeoGame_NeoGame_Network_CreateNetworkedObject00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateNetworkedObject of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_CreateNetworkedObject02
+static int tolua_NeoGame_NeoGame_Network_CreateNetworkedObject02(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateNetworkedObject'", NULL);
+#endif
+  {
+   NeoGame::network::NetworkedObject* tolua_ret = (NeoGame::network::NetworkedObject*)  self->CreateNetworkedObject();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"NeoGame::network::NetworkedObject");
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_NeoGame_NeoGame_Network_CreateNetworkedObject01(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getNetWorkedObject of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_getNetWorkedObject00
+static int tolua_NeoGame_NeoGame_Network_getNetWorkedObject00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const RakNet::RakNetGUID",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  const RakNet::RakNetGUID* guid = ((const RakNet::RakNetGUID*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getNetWorkedObject'", NULL);
+#endif
+  {
+   NeoGame::network::NetworkedObject* tolua_ret = (NeoGame::network::NetworkedObject*)  self->getNetWorkedObject(*guid);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"NeoGame::network::NetworkedObject");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getNetWorkedObject'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getNetWorkedObject of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_getNetWorkedObject01
+static int tolua_NeoGame_NeoGame_Network_getNetWorkedObject01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  const std::string guid_str = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getNetWorkedObject'", NULL);
+#endif
+  {
+   NeoGame::network::NetworkedObject* tolua_ret = (NeoGame::network::NetworkedObject*)  self->getNetWorkedObject(guid_str);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"NeoGame::network::NetworkedObject");
+   tolua_pushcppstring(tolua_S,(const char*)guid_str);
+  }
+ }
+ return 2;
+tolua_lerror:
+ return tolua_NeoGame_NeoGame_Network_getNetWorkedObject00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: DestroyNetworkedObject of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_DestroyNetworkedObject00
+static int tolua_NeoGame_NeoGame_Network_DestroyNetworkedObject00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"NeoGame::network::NetworkedObject",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  NeoGame::network::NetworkedObject* object = ((NeoGame::network::NetworkedObject*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'DestroyNetworkedObject'", NULL);
+#endif
+  {
+   self->DestroyNetworkedObject(object);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'DestroyNetworkedObject'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: RegisterNetworkedObject of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_RegisterNetworkedObject00
+static int tolua_NeoGame_NeoGame_Network_RegisterNetworkedObject00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"NeoGame::network::NetworkedObject",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  NeoGame::network::NetworkedObject* object = ((NeoGame::network::NetworkedObject*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'RegisterNetworkedObject'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->RegisterNetworkedObject(object);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'RegisterNetworkedObject'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: AddProtocolListener of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_AddProtocolListener00
+static int tolua_NeoGame_NeoGame_Network_AddProtocolListener00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  int protocol = ((int)  tolua_tonumber(tolua_S,2,0));
+  const std::string luaFunction = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'AddProtocolListener'", NULL);
+#endif
+  {
+   self->AddProtocolListener(protocol,luaFunction);
+   tolua_pushcppstring(tolua_S,(const char*)luaFunction);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'AddProtocolListener'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: RemoveProtocolListener of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_RemoveProtocolListener00
+static int tolua_NeoGame_NeoGame_Network_RemoveProtocolListener00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  int protocol = ((int)  tolua_tonumber(tolua_S,2,0));
+  const std::string luaFunction = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'RemoveProtocolListener'", NULL);
+#endif
+  {
+   self->RemoveProtocolListener(protocol,luaFunction);
+   tolua_pushcppstring(tolua_S,(const char*)luaFunction);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'RemoveProtocolListener'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: StartSynchronizeObject of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_StartSynchronizeObject00
+static int tolua_NeoGame_NeoGame_Network_StartSynchronizeObject00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"NeoGame::network::NetworkedObject",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  NeoGame::network::NetworkedObject* object = ((NeoGame::network::NetworkedObject*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'StartSynchronizeObject'", NULL);
+#endif
+  {
+   self->StartSynchronizeObject(object);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'StartSynchronizeObject'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getNetworkTimeMs of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_getNetworkTimeMs00
+static int tolua_NeoGame_NeoGame_Network_getNetworkTimeMs00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getNetworkTimeMs'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getNetworkTimeMs();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getNetworkTimeMs'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getMyGUID of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_getMyGUID00
+static int tolua_NeoGame_NeoGame_Network_getMyGUID00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getMyGUID'", NULL);
+#endif
+  {
+   const RakNet::RakNetGUID tolua_ret = (const RakNet::RakNetGUID)  self->getMyGUID();
+   {
+#ifdef __cplusplus
+    void* tolua_obj = Mtolua_new((RakNet::RakNetGUID)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"const RakNet::RakNetGUID");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#else
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(const RakNet::RakNetGUID));
+     tolua_pushusertype(tolua_S,tolua_obj,"const RakNet::RakNetGUID");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#endif
+   }
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getMyGUID'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setReadyEvent of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_setReadyEvent00
+static int tolua_NeoGame_NeoGame_Network_setReadyEvent00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  int id = ((int)  tolua_tonumber(tolua_S,2,0));
+  bool ready = ((bool)  tolua_toboolean(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setReadyEvent'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->setReadyEvent(id,ready);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setReadyEvent'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: ForceCompleteReadyEvent of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_ForceCompleteReadyEvent00
+static int tolua_NeoGame_NeoGame_Network_ForceCompleteReadyEvent00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  int id = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'ForceCompleteReadyEvent'", NULL);
+#endif
+  {
+   self->ForceCompleteReadyEvent(id);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'ForceCompleteReadyEvent'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: isReadyEventSet of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_isReadyEventSet00
+static int tolua_NeoGame_NeoGame_Network_isReadyEventSet00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  int id = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isReadyEventSet'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->isReadyEventSet(id);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'isReadyEventSet'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: isReadyEventCompleted of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_isReadyEventCompleted00
+static int tolua_NeoGame_NeoGame_Network_isReadyEventCompleted00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  int eid = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isReadyEventCompleted'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->isReadyEventCompleted(eid);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'isReadyEventCompleted'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: HasReadyEvent of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_HasReadyEvent00
+static int tolua_NeoGame_NeoGame_Network_HasReadyEvent00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  int id = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'HasReadyEvent'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->HasReadyEvent(id);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'HasReadyEvent'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setReadyEventSendChannel of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_setReadyEventSendChannel00
+static int tolua_NeoGame_NeoGame_Network_setReadyEventSendChannel00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  int channel = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setReadyEventSendChannel'", NULL);
+#endif
+  {
+   self->setReadyEventSendChannel(channel);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setReadyEventSendChannel'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: DeleteReadyEvent of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_DeleteReadyEvent00
+static int tolua_NeoGame_NeoGame_Network_DeleteReadyEvent00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  int eventId = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'DeleteReadyEvent'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->DeleteReadyEvent(eventId);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'DeleteReadyEvent'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: ReadyEventAddToRemoteWaitingList of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_ReadyEventAddToRemoteWaitingList00
+static int tolua_NeoGame_NeoGame_Network_ReadyEventAddToRemoteWaitingList00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"RakNet::RakNetGUID",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  int eid = ((int)  tolua_tonumber(tolua_S,2,0));
+  RakNet::RakNetGUID guid = *((RakNet::RakNetGUID*)  tolua_tousertype(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'ReadyEventAddToRemoteWaitingList'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->ReadyEventAddToRemoteWaitingList(eid,guid);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'ReadyEventAddToRemoteWaitingList'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: ReadyEventRemoveFromRemoteList of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_ReadyEventRemoveFromRemoteList00
+static int tolua_NeoGame_NeoGame_Network_ReadyEventRemoveFromRemoteList00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"RakNet::RakNetGUID",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  int eid = ((int)  tolua_tonumber(tolua_S,2,0));
+  RakNet::RakNetGUID guid = *((RakNet::RakNetGUID*)  tolua_tousertype(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'ReadyEventRemoveFromRemoteList'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->ReadyEventRemoveFromRemoteList(eid,guid);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'ReadyEventRemoveFromRemoteList'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: BaseProtocolIDToString of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_BaseProtocolIDToString00
+static int tolua_NeoGame_NeoGame_Network_BaseProtocolIDToString00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  int p = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'BaseProtocolIDToString'", NULL);
+#endif
+  {
+   std::string tolua_ret = (std::string)  self->BaseProtocolIDToString(p);
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'BaseProtocolIDToString'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: isServer of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_isServer00
+static int tolua_NeoGame_NeoGame_Network_isServer00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoGame::Network* self = (const NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isServer'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->isServer();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'isServer'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: getSpeed of class  SimpleTankTrackObject */
 #ifndef TOLUA_DISABLE_tolua_NeoGame_SimpleTankTrackObject_getSpeed00
 static int tolua_NeoGame_SimpleTankTrackObject_getSpeed00(lua_State* tolua_S)
@@ -40421,7 +43514,7 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
   tolua_beginmodule(tolua_S,"irr");
    tolua_module(tolua_S,"gui",0);
    tolua_beginmodule(tolua_S,"gui");
-    tolua_cclass(tolua_S,"IGUIFont","irr::gui::IGUIFont","virtual IReferenceCounted",NULL);
+    tolua_cclass(tolua_S,"IGUIFont","irr::gui::IGUIFont","virtual irr::IReferenceCounted",NULL);
     tolua_beginmodule(tolua_S,"IGUIFont");
     tolua_endmodule(tolua_S);
    tolua_endmodule(tolua_S);
@@ -42117,6 +45210,321 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"CreateExplosion",tolua_NeoGame_NeoScene_CreateExplosion00);
    tolua_function(tolua_S,"addSpriteAnimationEffector",tolua_NeoGame_NeoScene_addSpriteAnimationEffector00);
    tolua_function(tolua_S,"RemoveEffector",tolua_NeoGame_NeoScene_RemoveEffector00);
+  tolua_endmodule(tolua_S);
+  tolua_constant(tolua_S,"ID_NAT_ESTABLISH_UNIDIRECTIONAL",ID_NAT_ESTABLISH_UNIDIRECTIONAL);
+  tolua_constant(tolua_S,"ID_NAT_ESTABLISH_BIDIRECTIONAL",ID_NAT_ESTABLISH_BIDIRECTIONAL);
+  tolua_constant(tolua_S,"ID_NAT_TYPE_DETECT",ID_NAT_TYPE_DETECT);
+  tolua_constant(tolua_S,"ID_ROUTER_2_REPLY_TO_SENDER_PORT",ID_ROUTER_2_REPLY_TO_SENDER_PORT);
+  tolua_constant(tolua_S,"ID_ROUTER_2_REPLY_TO_SPECIFIED_PORT",ID_ROUTER_2_REPLY_TO_SPECIFIED_PORT);
+  tolua_constant(tolua_S,"ID_ROUTER_2_MINI_PUNCH_REPLY",ID_ROUTER_2_MINI_PUNCH_REPLY);
+  tolua_constant(tolua_S,"ID_ROUTER_2_MINI_PUNCH_REPLY_BOUNCE",ID_ROUTER_2_MINI_PUNCH_REPLY_BOUNCE);
+  tolua_constant(tolua_S,"ID_XBOX_360_VOICE",ID_XBOX_360_VOICE);
+  tolua_constant(tolua_S,"ID_XBOX_360_GET_NETWORK_ROOM",ID_XBOX_360_GET_NETWORK_ROOM);
+  tolua_constant(tolua_S,"ID_XBOX_360_RETURN_NETWORK_ROOM",ID_XBOX_360_RETURN_NETWORK_ROOM);
+  tolua_constant(tolua_S,"ID_NAT_PING",ID_NAT_PING);
+  tolua_constant(tolua_S,"ID_NAT_PONG",ID_NAT_PONG);
+  tolua_constant(tolua_S,"ID_CONNECTED_PING",ID_CONNECTED_PING);
+  tolua_constant(tolua_S,"ID_UNCONNECTED_PING",ID_UNCONNECTED_PING);
+  tolua_constant(tolua_S,"ID_UNCONNECTED_PING_OPEN_CONNECTIONS",ID_UNCONNECTED_PING_OPEN_CONNECTIONS);
+  tolua_constant(tolua_S,"ID_CONNECTED_PONG",ID_CONNECTED_PONG);
+  tolua_constant(tolua_S,"ID_DETECT_LOST_CONNECTIONS",ID_DETECT_LOST_CONNECTIONS);
+  tolua_constant(tolua_S,"ID_OPEN_CONNECTION_REQUEST_1",ID_OPEN_CONNECTION_REQUEST_1);
+  tolua_constant(tolua_S,"ID_OPEN_CONNECTION_REPLY_1",ID_OPEN_CONNECTION_REPLY_1);
+  tolua_constant(tolua_S,"ID_OPEN_CONNECTION_REQUEST_2",ID_OPEN_CONNECTION_REQUEST_2);
+  tolua_constant(tolua_S,"ID_OPEN_CONNECTION_REPLY_2",ID_OPEN_CONNECTION_REPLY_2);
+  tolua_constant(tolua_S,"ID_CONNECTION_REQUEST",ID_CONNECTION_REQUEST);
+  tolua_constant(tolua_S,"ID_REMOTE_SYSTEM_REQUIRES_PUBLIC_KEY",ID_REMOTE_SYSTEM_REQUIRES_PUBLIC_KEY);
+  tolua_constant(tolua_S,"ID_OUR_SYSTEM_REQUIRES_SECURITY",ID_OUR_SYSTEM_REQUIRES_SECURITY);
+  tolua_constant(tolua_S,"ID_PUBLIC_KEY_MISMATCH",ID_PUBLIC_KEY_MISMATCH);
+  tolua_constant(tolua_S,"ID_OUT_OF_BAND_INTERNAL",ID_OUT_OF_BAND_INTERNAL);
+  tolua_constant(tolua_S,"ID_SND_RECEIPT_ACKED",ID_SND_RECEIPT_ACKED);
+  tolua_constant(tolua_S,"ID_SND_RECEIPT_LOSS",ID_SND_RECEIPT_LOSS);
+  tolua_constant(tolua_S,"ID_CONNECTION_REQUEST_ACCEPTED",ID_CONNECTION_REQUEST_ACCEPTED);
+  tolua_constant(tolua_S,"ID_CONNECTION_ATTEMPT_FAILED",ID_CONNECTION_ATTEMPT_FAILED);
+  tolua_constant(tolua_S,"ID_ALREADY_CONNECTED",ID_ALREADY_CONNECTED);
+  tolua_constant(tolua_S,"ID_NEW_INCOMING_CONNECTION",ID_NEW_INCOMING_CONNECTION);
+  tolua_constant(tolua_S,"ID_NO_FREE_INCOMING_CONNECTIONS",ID_NO_FREE_INCOMING_CONNECTIONS);
+  tolua_constant(tolua_S,"ID_DISCONNECTION_NOTIFICATION",ID_DISCONNECTION_NOTIFICATION);
+  tolua_constant(tolua_S,"ID_CONNECTION_LOST",ID_CONNECTION_LOST);
+  tolua_constant(tolua_S,"ID_CONNECTION_BANNED",ID_CONNECTION_BANNED);
+  tolua_constant(tolua_S,"ID_INVALID_PASSWORD",ID_INVALID_PASSWORD);
+  tolua_constant(tolua_S,"ID_INCOMPATIBLE_PROTOCOL_VERSION",ID_INCOMPATIBLE_PROTOCOL_VERSION);
+  tolua_constant(tolua_S,"ID_IP_RECENTLY_CONNECTED",ID_IP_RECENTLY_CONNECTED);
+  tolua_constant(tolua_S,"ID_TIMESTAMP",ID_TIMESTAMP);
+  tolua_constant(tolua_S,"ID_UNCONNECTED_PONG",ID_UNCONNECTED_PONG);
+  tolua_constant(tolua_S,"ID_ADVERTISE_SYSTEM",ID_ADVERTISE_SYSTEM);
+  tolua_constant(tolua_S,"ID_DOWNLOAD_PROGRESS",ID_DOWNLOAD_PROGRESS);
+  tolua_constant(tolua_S,"ID_REMOTE_DISCONNECTION_NOTIFICATION",ID_REMOTE_DISCONNECTION_NOTIFICATION);
+  tolua_constant(tolua_S,"ID_REMOTE_CONNECTION_LOST",ID_REMOTE_CONNECTION_LOST);
+  tolua_constant(tolua_S,"ID_REMOTE_NEW_INCOMING_CONNECTION",ID_REMOTE_NEW_INCOMING_CONNECTION);
+  tolua_constant(tolua_S,"ID_FILE_LIST_TRANSFER_HEADER",ID_FILE_LIST_TRANSFER_HEADER);
+  tolua_constant(tolua_S,"ID_FILE_LIST_TRANSFER_FILE",ID_FILE_LIST_TRANSFER_FILE);
+  tolua_constant(tolua_S,"ID_FILE_LIST_REFERENCE_PUSH_ACK",ID_FILE_LIST_REFERENCE_PUSH_ACK);
+  tolua_constant(tolua_S,"ID_DDT_DOWNLOAD_REQUEST",ID_DDT_DOWNLOAD_REQUEST);
+  tolua_constant(tolua_S,"ID_TRANSPORT_STRING",ID_TRANSPORT_STRING);
+  tolua_constant(tolua_S,"ID_REPLICA_MANAGER_CONSTRUCTION",ID_REPLICA_MANAGER_CONSTRUCTION);
+  tolua_constant(tolua_S,"ID_REPLICA_MANAGER_SCOPE_CHANGE",ID_REPLICA_MANAGER_SCOPE_CHANGE);
+  tolua_constant(tolua_S,"ID_REPLICA_MANAGER_SERIALIZE",ID_REPLICA_MANAGER_SERIALIZE);
+  tolua_constant(tolua_S,"ID_REPLICA_MANAGER_DOWNLOAD_STARTED",ID_REPLICA_MANAGER_DOWNLOAD_STARTED);
+  tolua_constant(tolua_S,"ID_REPLICA_MANAGER_DOWNLOAD_COMPLETE",ID_REPLICA_MANAGER_DOWNLOAD_COMPLETE);
+  tolua_constant(tolua_S,"ID_RAKVOICE_OPEN_CHANNEL_REQUEST",ID_RAKVOICE_OPEN_CHANNEL_REQUEST);
+  tolua_constant(tolua_S,"ID_RAKVOICE_OPEN_CHANNEL_REPLY",ID_RAKVOICE_OPEN_CHANNEL_REPLY);
+  tolua_constant(tolua_S,"ID_RAKVOICE_CLOSE_CHANNEL",ID_RAKVOICE_CLOSE_CHANNEL);
+  tolua_constant(tolua_S,"ID_RAKVOICE_DATA",ID_RAKVOICE_DATA);
+  tolua_constant(tolua_S,"ID_AUTOPATCHER_GET_CHANGELIST_SINCE_DATE",ID_AUTOPATCHER_GET_CHANGELIST_SINCE_DATE);
+  tolua_constant(tolua_S,"ID_AUTOPATCHER_CREATION_LIST",ID_AUTOPATCHER_CREATION_LIST);
+  tolua_constant(tolua_S,"ID_AUTOPATCHER_DELETION_LIST",ID_AUTOPATCHER_DELETION_LIST);
+  tolua_constant(tolua_S,"ID_AUTOPATCHER_GET_PATCH",ID_AUTOPATCHER_GET_PATCH);
+  tolua_constant(tolua_S,"ID_AUTOPATCHER_PATCH_LIST",ID_AUTOPATCHER_PATCH_LIST);
+  tolua_constant(tolua_S,"ID_AUTOPATCHER_REPOSITORY_FATAL_ERROR",ID_AUTOPATCHER_REPOSITORY_FATAL_ERROR);
+  tolua_constant(tolua_S,"ID_AUTOPATCHER_CANNOT_DOWNLOAD_ORIGINAL_UNMODIFIED_FILES",ID_AUTOPATCHER_CANNOT_DOWNLOAD_ORIGINAL_UNMODIFIED_FILES);
+  tolua_constant(tolua_S,"ID_AUTOPATCHER_FINISHED_INTERNAL",ID_AUTOPATCHER_FINISHED_INTERNAL);
+  tolua_constant(tolua_S,"ID_AUTOPATCHER_FINISHED",ID_AUTOPATCHER_FINISHED);
+  tolua_constant(tolua_S,"ID_AUTOPATCHER_RESTART_APPLICATION",ID_AUTOPATCHER_RESTART_APPLICATION);
+  tolua_constant(tolua_S,"ID_NAT_PUNCHTHROUGH_REQUEST",ID_NAT_PUNCHTHROUGH_REQUEST);
+  tolua_constant(tolua_S,"ID_NAT_CONNECT_AT_TIME",ID_NAT_CONNECT_AT_TIME);
+  tolua_constant(tolua_S,"ID_NAT_GET_MOST_RECENT_PORT",ID_NAT_GET_MOST_RECENT_PORT);
+  tolua_constant(tolua_S,"ID_NAT_CLIENT_READY",ID_NAT_CLIENT_READY);
+  tolua_constant(tolua_S,"ID_NAT_TARGET_NOT_CONNECTED",ID_NAT_TARGET_NOT_CONNECTED);
+  tolua_constant(tolua_S,"ID_NAT_TARGET_UNRESPONSIVE",ID_NAT_TARGET_UNRESPONSIVE);
+  tolua_constant(tolua_S,"ID_NAT_CONNECTION_TO_TARGET_LOST",ID_NAT_CONNECTION_TO_TARGET_LOST);
+  tolua_constant(tolua_S,"ID_NAT_ALREADY_IN_PROGRESS",ID_NAT_ALREADY_IN_PROGRESS);
+  tolua_constant(tolua_S,"ID_NAT_PUNCHTHROUGH_FAILED",ID_NAT_PUNCHTHROUGH_FAILED);
+  tolua_constant(tolua_S,"ID_NAT_PUNCHTHROUGH_SUCCEEDED",ID_NAT_PUNCHTHROUGH_SUCCEEDED);
+  tolua_constant(tolua_S,"ID_READY_EVENT_SET",ID_READY_EVENT_SET);
+  tolua_constant(tolua_S,"ID_READY_EVENT_UNSET",ID_READY_EVENT_UNSET);
+  tolua_constant(tolua_S,"ID_READY_EVENT_ALL_SET",ID_READY_EVENT_ALL_SET);
+  tolua_constant(tolua_S,"ID_READY_EVENT_QUERY",ID_READY_EVENT_QUERY);
+  tolua_constant(tolua_S,"ID_LOBBY_GENERAL",ID_LOBBY_GENERAL);
+  tolua_constant(tolua_S,"ID_RPC_REMOTE_ERROR",ID_RPC_REMOTE_ERROR);
+  tolua_constant(tolua_S,"ID_RPC_PLUGIN",ID_RPC_PLUGIN);
+  tolua_constant(tolua_S,"ID_FILE_LIST_REFERENCE_PUSH",ID_FILE_LIST_REFERENCE_PUSH);
+  tolua_constant(tolua_S,"ID_READY_EVENT_FORCE_ALL_SET",ID_READY_EVENT_FORCE_ALL_SET);
+  tolua_constant(tolua_S,"ID_ROOMS_EXECUTE_FUNC",ID_ROOMS_EXECUTE_FUNC);
+  tolua_constant(tolua_S,"ID_ROOMS_LOGON_STATUS",ID_ROOMS_LOGON_STATUS);
+  tolua_constant(tolua_S,"ID_ROOMS_HANDLE_CHANGE",ID_ROOMS_HANDLE_CHANGE);
+  tolua_constant(tolua_S,"ID_LOBBY2_SEND_MESSAGE",ID_LOBBY2_SEND_MESSAGE);
+  tolua_constant(tolua_S,"ID_LOBBY2_SERVER_ERROR",ID_LOBBY2_SERVER_ERROR);
+  tolua_constant(tolua_S,"ID_FCM2_NEW_HOST",ID_FCM2_NEW_HOST);
+  tolua_constant(tolua_S,"ID_FCM2_REQUEST_FCMGUID",ID_FCM2_REQUEST_FCMGUID);
+  tolua_constant(tolua_S,"ID_FCM2_RESPOND_CONNECTION_COUNT",ID_FCM2_RESPOND_CONNECTION_COUNT);
+  tolua_constant(tolua_S,"ID_FCM2_INFORM_FCMGUID",ID_FCM2_INFORM_FCMGUID);
+  tolua_constant(tolua_S,"ID_FCM2_UPDATE_MIN_TOTAL_CONNECTION_COUNT",ID_FCM2_UPDATE_MIN_TOTAL_CONNECTION_COUNT);
+  tolua_constant(tolua_S,"ID_FCM2_VERIFIED_JOIN_START",ID_FCM2_VERIFIED_JOIN_START);
+  tolua_constant(tolua_S,"ID_FCM2_VERIFIED_JOIN_CAPABLE",ID_FCM2_VERIFIED_JOIN_CAPABLE);
+  tolua_constant(tolua_S,"ID_FCM2_VERIFIED_JOIN_FAILED",ID_FCM2_VERIFIED_JOIN_FAILED);
+  tolua_constant(tolua_S,"ID_FCM2_VERIFIED_JOIN_ACCEPTED",ID_FCM2_VERIFIED_JOIN_ACCEPTED);
+  tolua_constant(tolua_S,"ID_FCM2_VERIFIED_JOIN_REJECTED",ID_FCM2_VERIFIED_JOIN_REJECTED);
+  tolua_constant(tolua_S,"ID_UDP_PROXY_GENERAL",ID_UDP_PROXY_GENERAL);
+  tolua_constant(tolua_S,"ID_SQLite3_EXEC",ID_SQLite3_EXEC);
+  tolua_constant(tolua_S,"ID_SQLite3_UNKNOWN_DB",ID_SQLite3_UNKNOWN_DB);
+  tolua_constant(tolua_S,"ID_SQLLITE_LOGGER",ID_SQLLITE_LOGGER);
+  tolua_constant(tolua_S,"ID_NAT_TYPE_DETECTION_REQUEST",ID_NAT_TYPE_DETECTION_REQUEST);
+  tolua_constant(tolua_S,"ID_NAT_TYPE_DETECTION_RESULT",ID_NAT_TYPE_DETECTION_RESULT);
+  tolua_constant(tolua_S,"ID_ROUTER_2_INTERNAL",ID_ROUTER_2_INTERNAL);
+  tolua_constant(tolua_S,"ID_ROUTER_2_FORWARDING_NO_PATH",ID_ROUTER_2_FORWARDING_NO_PATH);
+  tolua_constant(tolua_S,"ID_ROUTER_2_FORWARDING_ESTABLISHED",ID_ROUTER_2_FORWARDING_ESTABLISHED);
+  tolua_constant(tolua_S,"ID_ROUTER_2_REROUTED",ID_ROUTER_2_REROUTED);
+  tolua_constant(tolua_S,"ID_TEAM_BALANCER_INTERNAL",ID_TEAM_BALANCER_INTERNAL);
+  tolua_constant(tolua_S,"ID_TEAM_BALANCER_REQUESTED_TEAM_FULL",ID_TEAM_BALANCER_REQUESTED_TEAM_FULL);
+  tolua_constant(tolua_S,"ID_TEAM_BALANCER_REQUESTED_TEAM_LOCKED",ID_TEAM_BALANCER_REQUESTED_TEAM_LOCKED);
+  tolua_constant(tolua_S,"ID_TEAM_BALANCER_TEAM_REQUESTED_CANCELLED",ID_TEAM_BALANCER_TEAM_REQUESTED_CANCELLED);
+  tolua_constant(tolua_S,"ID_TEAM_BALANCER_TEAM_ASSIGNED",ID_TEAM_BALANCER_TEAM_ASSIGNED);
+  tolua_constant(tolua_S,"ID_LIGHTSPEED_INTEGRATION",ID_LIGHTSPEED_INTEGRATION);
+  tolua_constant(tolua_S,"ID_XBOX_LOBBY",ID_XBOX_LOBBY);
+  tolua_constant(tolua_S,"ID_TWO_WAY_AUTHENTICATION_INCOMING_CHALLENGE_SUCCESS",ID_TWO_WAY_AUTHENTICATION_INCOMING_CHALLENGE_SUCCESS);
+  tolua_constant(tolua_S,"ID_TWO_WAY_AUTHENTICATION_OUTGOING_CHALLENGE_SUCCESS",ID_TWO_WAY_AUTHENTICATION_OUTGOING_CHALLENGE_SUCCESS);
+  tolua_constant(tolua_S,"ID_TWO_WAY_AUTHENTICATION_INCOMING_CHALLENGE_FAILURE",ID_TWO_WAY_AUTHENTICATION_INCOMING_CHALLENGE_FAILURE);
+  tolua_constant(tolua_S,"ID_TWO_WAY_AUTHENTICATION_OUTGOING_CHALLENGE_FAILURE",ID_TWO_WAY_AUTHENTICATION_OUTGOING_CHALLENGE_FAILURE);
+  tolua_constant(tolua_S,"ID_TWO_WAY_AUTHENTICATION_OUTGOING_CHALLENGE_TIMEOUT",ID_TWO_WAY_AUTHENTICATION_OUTGOING_CHALLENGE_TIMEOUT);
+  tolua_constant(tolua_S,"ID_TWO_WAY_AUTHENTICATION_NEGOTIATION",ID_TWO_WAY_AUTHENTICATION_NEGOTIATION);
+  tolua_constant(tolua_S,"ID_CLOUD_POST_REQUEST",ID_CLOUD_POST_REQUEST);
+  tolua_constant(tolua_S,"ID_CLOUD_RELEASE_REQUEST",ID_CLOUD_RELEASE_REQUEST);
+  tolua_constant(tolua_S,"ID_CLOUD_GET_REQUEST",ID_CLOUD_GET_REQUEST);
+  tolua_constant(tolua_S,"ID_CLOUD_GET_RESPONSE",ID_CLOUD_GET_RESPONSE);
+  tolua_constant(tolua_S,"ID_CLOUD_UNSUBSCRIBE_REQUEST",ID_CLOUD_UNSUBSCRIBE_REQUEST);
+  tolua_constant(tolua_S,"ID_CLOUD_SERVER_TO_SERVER_COMMAND",ID_CLOUD_SERVER_TO_SERVER_COMMAND);
+  tolua_constant(tolua_S,"ID_CLOUD_SUBSCRIPTION_NOTIFICATION",ID_CLOUD_SUBSCRIPTION_NOTIFICATION);
+  tolua_constant(tolua_S,"ID_LIB_VOICE",ID_LIB_VOICE);
+  tolua_constant(tolua_S,"ID_RELAY_PLUGIN",ID_RELAY_PLUGIN);
+  tolua_constant(tolua_S,"ID_NAT_REQUEST_BOUND_ADDRESSES",ID_NAT_REQUEST_BOUND_ADDRESSES);
+  tolua_constant(tolua_S,"ID_NAT_RESPOND_BOUND_ADDRESSES",ID_NAT_RESPOND_BOUND_ADDRESSES);
+  tolua_constant(tolua_S,"ID_FCM2_UPDATE_USER_CONTEXT",ID_FCM2_UPDATE_USER_CONTEXT);
+  tolua_constant(tolua_S,"ID_RESERVED_3",ID_RESERVED_3);
+  tolua_constant(tolua_S,"ID_RESERVED_4",ID_RESERVED_4);
+  tolua_constant(tolua_S,"ID_RESERVED_5",ID_RESERVED_5);
+  tolua_constant(tolua_S,"ID_RESERVED_6",ID_RESERVED_6);
+  tolua_constant(tolua_S,"ID_RESERVED_7",ID_RESERVED_7);
+  tolua_constant(tolua_S,"ID_RESERVED_8",ID_RESERVED_8);
+  tolua_constant(tolua_S,"ID_RESERVED_9",ID_RESERVED_9);
+  tolua_constant(tolua_S,"ID_USER_PACKET_ENUM",ID_USER_PACKET_ENUM);
+  tolua_module(tolua_S,"RakNet",0);
+  tolua_beginmodule(tolua_S,"RakNet");
+   tolua_constant(tolua_S,"RAKNET_STARTED",RakNet::RAKNET_STARTED);
+   tolua_constant(tolua_S,"RAKNET_ALREADY_STARTED",RakNet::RAKNET_ALREADY_STARTED);
+   tolua_constant(tolua_S,"INVALID_SOCKET_DESCRIPTORS",RakNet::INVALID_SOCKET_DESCRIPTORS);
+   tolua_constant(tolua_S,"INVALID_MAX_CONNECTIONS",RakNet::INVALID_MAX_CONNECTIONS);
+   tolua_constant(tolua_S,"SOCKET_FAMILY_NOT_SUPPORTED",RakNet::SOCKET_FAMILY_NOT_SUPPORTED);
+   tolua_constant(tolua_S,"SOCKET_PORT_ALREADY_IN_USE",RakNet::SOCKET_PORT_ALREADY_IN_USE);
+   tolua_constant(tolua_S,"SOCKET_FAILED_TO_BIND",RakNet::SOCKET_FAILED_TO_BIND);
+   tolua_constant(tolua_S,"SOCKET_FAILED_TEST_SEND",RakNet::SOCKET_FAILED_TEST_SEND);
+   tolua_constant(tolua_S,"PORT_CANNOT_BE_ZERO",RakNet::PORT_CANNOT_BE_ZERO);
+   tolua_constant(tolua_S,"FAILED_TO_CREATE_NETWORK_THREAD",RakNet::FAILED_TO_CREATE_NETWORK_THREAD);
+   tolua_constant(tolua_S,"COULD_NOT_GENERATE_GUID",RakNet::COULD_NOT_GENERATE_GUID);
+   tolua_constant(tolua_S,"STARTUP_OTHER_FAILURE",RakNet::STARTUP_OTHER_FAILURE);
+   tolua_constant(tolua_S,"CONNECTION_ATTEMPT_STARTED",RakNet::CONNECTION_ATTEMPT_STARTED);
+   tolua_constant(tolua_S,"INVALID_PARAMETER",RakNet::INVALID_PARAMETER);
+   tolua_constant(tolua_S,"CANNOT_RESOLVE_DOMAIN_NAME",RakNet::CANNOT_RESOLVE_DOMAIN_NAME);
+   tolua_constant(tolua_S,"ALREADY_CONNECTED_TO_ENDPOINT",RakNet::ALREADY_CONNECTED_TO_ENDPOINT);
+   tolua_constant(tolua_S,"CONNECTION_ATTEMPT_ALREADY_IN_PROGRESS",RakNet::CONNECTION_ATTEMPT_ALREADY_IN_PROGRESS);
+   tolua_constant(tolua_S,"SECURITY_INITIALIZATION_FAILED",RakNet::SECURITY_INITIALIZATION_FAILED);
+   tolua_constant(tolua_S,"IS_PENDING",RakNet::IS_PENDING);
+   tolua_constant(tolua_S,"IS_CONNECTING",RakNet::IS_CONNECTING);
+   tolua_constant(tolua_S,"IS_CONNECTED",RakNet::IS_CONNECTED);
+   tolua_constant(tolua_S,"IS_DISCONNECTING",RakNet::IS_DISCONNECTING);
+   tolua_constant(tolua_S,"IS_SILENTLY_DISCONNECTING",RakNet::IS_SILENTLY_DISCONNECTING);
+   tolua_constant(tolua_S,"IS_DISCONNECTED",RakNet::IS_DISCONNECTED);
+   tolua_constant(tolua_S,"IS_NOT_CONNECTED",RakNet::IS_NOT_CONNECTED);
+   tolua_constant(tolua_S,"PKM_INSECURE_CONNECTION",RakNet::PKM_INSECURE_CONNECTION);
+   tolua_constant(tolua_S,"PKM_ACCEPT_ANY_PUBLIC_KEY",RakNet::PKM_ACCEPT_ANY_PUBLIC_KEY);
+   tolua_constant(tolua_S,"PKM_USE_KNOWN_PUBLIC_KEY",RakNet::PKM_USE_KNOWN_PUBLIC_KEY);
+   tolua_constant(tolua_S,"PKM_USE_TWO_WAY_AUTHENTICATION",RakNet::PKM_USE_TWO_WAY_AUTHENTICATION);
+   tolua_cclass(tolua_S,"PublicKey","RakNet::PublicKey","",NULL);
+   tolua_beginmodule(tolua_S,"PublicKey");
+    tolua_variable(tolua_S,"publicKeyMode",tolua_get_RakNet__PublicKey_publicKeyMode,tolua_set_RakNet__PublicKey_publicKeyMode);
+    tolua_variable(tolua_S,"remoteServerPublicKey",tolua_get_RakNet__PublicKey_remoteServerPublicKey,tolua_set_RakNet__PublicKey_remoteServerPublicKey);
+    tolua_variable(tolua_S,"myPublicKey",tolua_get_RakNet__PublicKey_myPublicKey,tolua_set_RakNet__PublicKey_myPublicKey);
+    tolua_variable(tolua_S,"myPrivateKey",tolua_get_RakNet__PublicKey_myPrivateKey,tolua_set_RakNet__PublicKey_myPrivateKey);
+   tolua_endmodule(tolua_S);
+   tolua_cclass(tolua_S,"SystemAddress","RakNet::SystemAddress","",NULL);
+   tolua_beginmodule(tolua_S,"SystemAddress");
+    tolua_function(tolua_S,"SetToLoopback",tolua_NeoGame_RakNet_SystemAddress_SetToLoopback00);
+    tolua_function(tolua_S,"IsLoopback",tolua_NeoGame_RakNet_SystemAddress_IsLoopback00);
+    tolua_function(tolua_S,"ToString",tolua_NeoGame_RakNet_SystemAddress_ToString00);
+    tolua_function(tolua_S,"ToString",tolua_NeoGame_RakNet_SystemAddress_ToString01);
+    tolua_function(tolua_S,"FromString",tolua_NeoGame_RakNet_SystemAddress_FromString00);
+    tolua_function(tolua_S,"FromString",tolua_NeoGame_RakNet_SystemAddress_FromString01);
+    tolua_function(tolua_S,"CopyPort",tolua_NeoGame_RakNet_SystemAddress_CopyPort00);
+    tolua_function(tolua_S,"GetPort",tolua_NeoGame_RakNet_SystemAddress_GetPort00);
+    tolua_function(tolua_S,"FixForIPVersion",tolua_NeoGame_RakNet_SystemAddress_FixForIPVersion00);
+    tolua_function(tolua_S,"IsLANAddress",tolua_NeoGame_RakNet_SystemAddress_IsLANAddress00);
+    tolua_function(tolua_S,".eq",tolua_NeoGame_RakNet_SystemAddress__eq00);
+    tolua_function(tolua_S,".lt",tolua_NeoGame_RakNet_SystemAddress__lt00);
+   tolua_endmodule(tolua_S);
+   #ifdef __cplusplus
+   tolua_cclass(tolua_S,"RakNetGUID","RakNet::RakNetGUID","",tolua_collect_RakNet__RakNetGUID);
+   #else
+   tolua_cclass(tolua_S,"RakNetGUID","RakNet::RakNetGUID","",NULL);
+   #endif
+   tolua_beginmodule(tolua_S,"RakNetGUID");
+    tolua_function(tolua_S,"new",tolua_NeoGame_RakNet_RakNetGUID_new00);
+    tolua_function(tolua_S,"new_local",tolua_NeoGame_RakNet_RakNetGUID_new00_local);
+    tolua_function(tolua_S,".call",tolua_NeoGame_RakNet_RakNetGUID_new00_local);
+    tolua_function(tolua_S,"ToString",tolua_NeoGame_RakNet_RakNetGUID_ToString00);
+    tolua_function(tolua_S,"FromString",tolua_NeoGame_RakNet_RakNetGUID_FromString00);
+    tolua_function(tolua_S,".eq",tolua_NeoGame_RakNet_RakNetGUID__eq00);
+    tolua_function(tolua_S,".lt",tolua_NeoGame_RakNet_RakNetGUID__lt00);
+   tolua_endmodule(tolua_S);
+  tolua_endmodule(tolua_S);
+  tolua_module(tolua_S,"RakNet",0);
+  tolua_beginmodule(tolua_S,"RakNet");
+   tolua_cclass(tolua_S,"BitStream","RakNet::BitStream","",NULL);
+   tolua_beginmodule(tolua_S,"BitStream");
+    tolua_function(tolua_S,"Reset",tolua_NeoGame_RakNet_BitStream_Reset00);
+    tolua_function(tolua_S,"ResetReadPointer",tolua_NeoGame_RakNet_BitStream_ResetReadPointer00);
+    tolua_function(tolua_S,"ResetWritePointer",tolua_NeoGame_RakNet_BitStream_ResetWritePointer00);
+    tolua_function(tolua_S,"AssertStreamEmpty",tolua_NeoGame_RakNet_BitStream_AssertStreamEmpty00);
+    tolua_function(tolua_S,"IgnoreBytes",tolua_NeoGame_RakNet_BitStream_IgnoreBytes00);
+    tolua_function(tolua_S,"Write0",tolua_NeoGame_RakNet_BitStream_Write000);
+    tolua_function(tolua_S,"Write1",tolua_NeoGame_RakNet_BitStream_Write100);
+    tolua_function(tolua_S,"ReadBit",tolua_NeoGame_RakNet_BitStream_ReadBit00);
+   tolua_endmodule(tolua_S);
+  tolua_endmodule(tolua_S);
+  tolua_module(tolua_S,"NeoGame",0);
+  tolua_beginmodule(tolua_S,"NeoGame");
+   tolua_module(tolua_S,"network",0);
+   tolua_beginmodule(tolua_S,"network");
+    tolua_function(tolua_S,"CreateBitStream",tolua_NeoGame_NeoGame_network_CreateBitStream00);
+    tolua_function(tolua_S,"DestroyBitStream",tolua_NeoGame_NeoGame_network_DestroyBitStream00);
+    tolua_function(tolua_S,"SerializeVector3",tolua_NeoGame_NeoGame_network_SerializeVector300);
+    tolua_function(tolua_S,"SerializeFloat",tolua_NeoGame_NeoGame_network_SerializeFloat00);
+    tolua_function(tolua_S,"SerializeInt",tolua_NeoGame_NeoGame_network_SerializeInt00);
+    tolua_function(tolua_S,"SerializeBool",tolua_NeoGame_NeoGame_network_SerializeBool00);
+    tolua_function(tolua_S,"SerializeAsProtocolID",tolua_NeoGame_NeoGame_network_SerializeAsProtocolID00);
+    tolua_function(tolua_S,"SerializeAsByte",tolua_NeoGame_NeoGame_network_SerializeAsByte00);
+    tolua_function(tolua_S,"SerializeString",tolua_NeoGame_NeoGame_network_SerializeString00);
+    tolua_function(tolua_S,"SerializeGUID",tolua_NeoGame_NeoGame_network_SerializeGUID00);
+    tolua_function(tolua_S,"DeserializeVector3",tolua_NeoGame_NeoGame_network_DeserializeVector300);
+    tolua_function(tolua_S,"DeserializeFloat",tolua_NeoGame_NeoGame_network_DeserializeFloat00);
+    tolua_function(tolua_S,"DeserializeInt",tolua_NeoGame_NeoGame_network_DeserializeInt00);
+    tolua_function(tolua_S,"DeserializeBool",tolua_NeoGame_NeoGame_network_DeserializeBool00);
+    tolua_function(tolua_S,"DeserializeProtocolID",tolua_NeoGame_NeoGame_network_DeserializeProtocolID00);
+    tolua_function(tolua_S,"DeserializeByte",tolua_NeoGame_NeoGame_network_DeserializeByte00);
+    tolua_function(tolua_S,"DeserializeString",tolua_NeoGame_NeoGame_network_DeserializeString00);
+    tolua_function(tolua_S,"DeserializeGUID",tolua_NeoGame_NeoGame_network_DeserializeGUID00);
+   tolua_endmodule(tolua_S);
+  tolua_endmodule(tolua_S);
+  tolua_module(tolua_S,"NeoGame",0);
+  tolua_beginmodule(tolua_S,"NeoGame");
+   tolua_module(tolua_S,"network",0);
+   tolua_beginmodule(tolua_S,"network");
+    tolua_cclass(tolua_S,"Packet","NeoGame::network::Packet","",NULL);
+    tolua_beginmodule(tolua_S,"Packet");
+     tolua_function(tolua_S,"getSenderIPAddress",tolua_NeoGame_NeoGame_network_Packet_getSenderIPAddress00);
+     tolua_function(tolua_S,"getSenderPort",tolua_NeoGame_NeoGame_network_Packet_getSenderPort00);
+     tolua_function(tolua_S,"getGUIDString",tolua_NeoGame_NeoGame_network_Packet_getGUIDString00);
+     tolua_function(tolua_S,"getGUID",tolua_NeoGame_NeoGame_network_Packet_getGUID00);
+     tolua_function(tolua_S,"getBitStream",tolua_NeoGame_NeoGame_network_Packet_getBitStream00);
+    tolua_endmodule(tolua_S);
+   tolua_endmodule(tolua_S);
+  tolua_endmodule(tolua_S);
+  tolua_module(tolua_S,"NeoGame",0);
+  tolua_beginmodule(tolua_S,"NeoGame");
+   tolua_cclass(tolua_S,"Network","NeoGame::Network","",NULL);
+   tolua_beginmodule(tolua_S,"Network");
+    tolua_function(tolua_S,"getInstance",tolua_NeoGame_NeoGame_Network_getInstance00);
+    tolua_function(tolua_S,"Destroy",tolua_NeoGame_NeoGame_Network_Destroy00);
+    tolua_function(tolua_S,"Init",tolua_NeoGame_NeoGame_Network_Init00);
+    tolua_function(tolua_S,"CleanUp",tolua_NeoGame_NeoGame_Network_CleanUp00);
+    tolua_function(tolua_S,"Update",tolua_NeoGame_NeoGame_Network_Update00);
+    tolua_function(tolua_S,"StartClient",tolua_NeoGame_NeoGame_Network_StartClient00);
+    tolua_function(tolua_S,"StartServer",tolua_NeoGame_NeoGame_Network_StartServer00);
+    tolua_function(tolua_S,"setMaxIncomingConnection",tolua_NeoGame_NeoGame_Network_setMaxIncomingConnection00);
+    tolua_function(tolua_S,"KickClient",tolua_NeoGame_NeoGame_Network_KickClient00);
+    tolua_function(tolua_S,"EnableUDPBroadcastListening",tolua_NeoGame_NeoGame_Network_EnableUDPBroadcastListening00);
+    tolua_function(tolua_S,"DisableUDPBroadcastListening",tolua_NeoGame_NeoGame_Network_DisableUDPBroadcastListening00);
+    tolua_function(tolua_S,"ShutDown",tolua_NeoGame_NeoGame_Network_ShutDown00);
+    tolua_function(tolua_S,"SendUDPLanBroadcast",tolua_NeoGame_NeoGame_Network_SendUDPLanBroadcast00);
+    tolua_function(tolua_S,"SendDataToGUID",tolua_NeoGame_NeoGame_Network_SendDataToGUID00);
+    tolua_function(tolua_S,"SendDataToGUID",tolua_NeoGame_NeoGame_Network_SendDataToGUID01);
+    tolua_function(tolua_S,"SendDataToAddress",tolua_NeoGame_NeoGame_Network_SendDataToAddress00);
+    tolua_function(tolua_S,"SendDataToAddress",tolua_NeoGame_NeoGame_Network_SendDataToAddress01);
+    tolua_function(tolua_S,"SendDataToAll",tolua_NeoGame_NeoGame_Network_SendDataToAll00);
+    tolua_function(tolua_S,"Ping",tolua_NeoGame_NeoGame_Network_Ping00);
+    tolua_function(tolua_S,"CreateNetworkedObject",tolua_NeoGame_NeoGame_Network_CreateNetworkedObject00);
+    tolua_function(tolua_S,"CreateNetworkedObject",tolua_NeoGame_NeoGame_Network_CreateNetworkedObject01);
+    tolua_function(tolua_S,"CreateNetworkedObject",tolua_NeoGame_NeoGame_Network_CreateNetworkedObject02);
+    tolua_function(tolua_S,"getNetWorkedObject",tolua_NeoGame_NeoGame_Network_getNetWorkedObject00);
+    tolua_function(tolua_S,"getNetWorkedObject",tolua_NeoGame_NeoGame_Network_getNetWorkedObject01);
+    tolua_function(tolua_S,"DestroyNetworkedObject",tolua_NeoGame_NeoGame_Network_DestroyNetworkedObject00);
+    tolua_function(tolua_S,"RegisterNetworkedObject",tolua_NeoGame_NeoGame_Network_RegisterNetworkedObject00);
+    tolua_function(tolua_S,"AddProtocolListener",tolua_NeoGame_NeoGame_Network_AddProtocolListener00);
+    tolua_function(tolua_S,"RemoveProtocolListener",tolua_NeoGame_NeoGame_Network_RemoveProtocolListener00);
+    tolua_function(tolua_S,"StartSynchronizeObject",tolua_NeoGame_NeoGame_Network_StartSynchronizeObject00);
+    tolua_function(tolua_S,"getNetworkTimeMs",tolua_NeoGame_NeoGame_Network_getNetworkTimeMs00);
+    tolua_function(tolua_S,"getMyGUID",tolua_NeoGame_NeoGame_Network_getMyGUID00);
+    tolua_function(tolua_S,"setReadyEvent",tolua_NeoGame_NeoGame_Network_setReadyEvent00);
+    tolua_function(tolua_S,"ForceCompleteReadyEvent",tolua_NeoGame_NeoGame_Network_ForceCompleteReadyEvent00);
+    tolua_function(tolua_S,"isReadyEventSet",tolua_NeoGame_NeoGame_Network_isReadyEventSet00);
+    tolua_function(tolua_S,"isReadyEventCompleted",tolua_NeoGame_NeoGame_Network_isReadyEventCompleted00);
+    tolua_function(tolua_S,"HasReadyEvent",tolua_NeoGame_NeoGame_Network_HasReadyEvent00);
+    tolua_function(tolua_S,"setReadyEventSendChannel",tolua_NeoGame_NeoGame_Network_setReadyEventSendChannel00);
+    tolua_function(tolua_S,"DeleteReadyEvent",tolua_NeoGame_NeoGame_Network_DeleteReadyEvent00);
+    tolua_function(tolua_S,"ReadyEventAddToRemoteWaitingList",tolua_NeoGame_NeoGame_Network_ReadyEventAddToRemoteWaitingList00);
+    tolua_function(tolua_S,"ReadyEventRemoveFromRemoteList",tolua_NeoGame_NeoGame_Network_ReadyEventRemoveFromRemoteList00);
+    tolua_function(tolua_S,"BaseProtocolIDToString",tolua_NeoGame_NeoGame_Network_BaseProtocolIDToString00);
+    tolua_function(tolua_S,"isServer",tolua_NeoGame_NeoGame_Network_isServer00);
+   tolua_endmodule(tolua_S);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"SimpleTankTrackObject","SimpleTankTrackObject","GameObject",NULL);
   tolua_beginmodule(tolua_S,"SimpleTankTrackObject");

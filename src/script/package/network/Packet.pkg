@@ -1,0 +1,18 @@
+namespace NeoGame
+{
+namespace network
+{
+
+class Packet
+{
+public:
+	std::string getSenderIPAddress();
+	int getSenderPort();
+	std::string getGUIDString();
+	RakNet::RakNetGUID getGUID();
+
+	RakNet::BitStream& getBitStream();
+};
+
+} /* namespace network */
+} /* namespace NeoGame */

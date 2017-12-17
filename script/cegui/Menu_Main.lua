@@ -16,6 +16,9 @@ function main_menu.btn_callback( args )
 	if btnName == "SinglePlayer" then
 		g_ui_table.switchto("single_menu")
 		SingleMenu:Init()
+	elseif btnName == "MultiPlayer" then
+		g_ui_table.switchto("multi_menu")
+		MultiMenu:Init()
 	elseif btnName == "MapEditor" then
 		g_ui_table.switchto("editor")
 		--编辑器界面初始化
@@ -38,6 +41,7 @@ g_ui_table["main"]=root
 
 -- subscribe required events
 root:getChild("mainwindow/SinglePlayer"):subscribeEvent("Clicked","main_menu.btn_callback")
+root:getChild("mainwindow/MultiPlayer"):subscribeEvent("Clicked","main_menu.btn_callback")
 root:getChild("mainwindow/MapEditor"):subscribeEvent("Clicked","main_menu.btn_callback")
 root:getChild("mainwindow/Settings"):subscribeEvent("Clicked","main_menu.btn_callback")
 -- root:getChild("mainwindow/Factory"):subscribeEvent("Clicked","main_menu.btn_callback")
