@@ -21,9 +21,9 @@ NetworkedObject::NetworkedObject() :
 
 }
 
-NeoGame::network::NetworkedObject::NetworkedObject(
-		const RakNet::RakNetGUID& guid) :
-		m_guid(guid), m_static(false)
+NeoGame::network::NetworkedObject::NetworkedObject(const std::string& id,
+		const std::string&type) :
+		luaIdentifier(id), obj_type(type), m_static(false)
 {
 }
 
@@ -58,20 +58,28 @@ void NetworkedObject::setStatic(bool _static)
 	}
 }
 
-RakNet::RakNetGUID& NeoGame::network::NetworkedObject::getGuid()
+std::string& NetworkedObject::getObjType()
 {
-	return m_guid;
+	return obj_type;
 }
 
-void NeoGame::network::NetworkedObject::setGuid(const RakNet::RakNetGUID& guid)
+void NetworkedObject::setObjType(const std::string& objType)
 {
-	this->m_guid = guid;
+	obj_type = objType;
+}
+
+void NeoGame::network::NetworkedObject::setInternalNetworkID(long id)
+{
+	SetNetworkID(id);
 }
 
 void NeoGame::network::NetworkedObject::WriteAllocationID(
 		RakNet::Connection_RM3* destConnection,
 		RakNet::BitStream* allocationIdBitstream) const
 {
+	RakNet::RakString id(luaIdentifier.data()), t(obj_type.data());
+	allocationIdBitstream->Write(id);
+	allocationIdBitstream->Write(t);
 }
 
 void NeoGame::network::NetworkedObject::DeallocReplica(
@@ -180,3 +188,4 @@ void NeoGame::network::NetworkedObject::PostDeserializeConstruction(
 
 } /* namespace network */
 } /* namespace NeoGame */
+

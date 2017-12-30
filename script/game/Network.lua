@@ -1,4 +1,6 @@
 require(DIR_SCRIPT.."game/network/ArmWarProtocolListener")
+require(DIR_SCRIPT.."game/network/SynchronizedObject")
+require(DIR_SCRIPT.."game/network/SynchronizedPlayer")
 
 Network={
 	protocolListener=AWProtocolListener,
@@ -52,30 +54,50 @@ end
 
 --销毁对象回调
 function Network.OnDestroy( id )
-	-- body
+	if Synchronizer.m_enable_sync and Synchronizer.objects[id] then
+		Synchronizer.objects[id]:OnDestroy()
+	end
+end
+
+--接收远程主机信息，下载并创建对象
+function Network.OnRemoteConstruct( id,obj_type )
+	if obj_type == "common" then
+		SynchronizedObject.new(id)
+	elseif obj_type == "player" then
+		SynchronizedPlayer.new(id)
+	end
 end
 
 --同步数据上传回调
 function Network.OnSerialize( id, bitstream )
-	-- body
+	if Synchronizer.m_enable_sync and Synchronizer.objects[id] then
+		Synchronizer.objects[id]:OnSerialize(bitstream)
+	end
 end
 
 --同步数据处理回调
 function Network.OnDeserialize( id, bitstream )
+	if Synchronizer.m_enable_sync and Synchronizer.objects[id] then
+		Synchronizer.objects[id]:OnDeserialize(bitstream)
+	end
 end
 
 --同步对象创建回调
 function Network.OnSerializeConstruct( id, bitstream )
-	-- body
+	if Synchronizer.objects[id] then
+		Synchronizer.objects[id]:OnSerializeConstruct(bitstream)
+	end
 end
 
 --the callback after deserilizeConstruct
-function Network.DeserializeConstruction( id, bitstream )
-	-- body
+function Network.OnDeserializeConstruction( id, bitstream )
+	if Synchronizer.objects[id] then
+		Synchronizer.objects[id]:OnDeserializeConstruction(bitstream)
+	end
 end
 --the callback after deserilizeConstruct
 function Network.OnPostDeserializeConstruct( id, bitstream )
-	-- body
+	if Synchronizer.objects[id] then
+		Synchronizer.objects[id]:OnPostDeserializeConstruct(bitstream)
+	end
 end
-
-Network.protocolListener:Init()

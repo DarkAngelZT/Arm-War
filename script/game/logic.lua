@@ -1,6 +1,7 @@
 require(DIR_SCRIPT.."game/actor")
 require(DIR_SCRIPT.."game/command/command")
 require(DIR_SCRIPT.."game/singleModeInputHandler")
+require(DIR_SCRIPT.."game/multiModeInputHandler")
 
 Logic={}
 Logic.actors={}
@@ -32,6 +33,7 @@ function Logic:setGameMode( mode )
 		gamehud.death_menu=SingleModeDeathMenu
 	else
 		gamehud.pause_menu=PauseMenuMultiPlayer
+		gamehud.death_menu=MultiModeDeathMenu
 	end
 end
 
@@ -108,6 +110,18 @@ function Logic:RespawnPlayer_SingleMode( player )
 	end
 end
 
+function Logic:RespawnPlayer_MultiMode( player )
+	local pos,rot=self:PickPlayerRespawnPosition(player)
+
+	if pos and rot then
+		-- send msg
+		Synchronizer:OnPlayerOperation(ID_PLAYER_OP_RESPAWN,{
+			playerId=player.id, position=pos ,rotation=rot })
+		-- respawn
+		self:RespawnActor(player,pos,rot)
+	end
+end
+
 function Logic:AddTimer( t )
 	table.insert(self.timers,t)
 end
@@ -163,7 +177,6 @@ function Logic:Init()
 		trigger:addTriggerCondition(v)
 	end
 	NeoGameLogic:getInstance():RegisterTrigger(trigger)
-
 	if self.actor_me then
 		gamehud:Init(self.actor_me)
 		gamehud:setCanonCursorEnabled(true)
@@ -174,6 +187,7 @@ function Logic:Init()
 	--set random seed
 	math.randomseed( os.time() )
 	self:ResumeGame()
+	self.in_game=true
 end
 
 function Logic:Clear()

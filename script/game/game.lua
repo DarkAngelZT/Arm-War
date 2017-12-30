@@ -13,4 +13,16 @@ function game:Clear()
 	print("NeoPhysics cleared")
 	NeoGraphics:getInstance():CleanUp()
 	print("NeoGraphics cleared")
+	print("Game clear done")
+end
+
+function game:ShutdownMultiPlayerGame()
+	-- shut down multiplayer synchronizer
+	print("Shut down network")
+	Lobby:ShutDown()
+	print("Clear synchronizer")
+	Synchronizer:Reset()
+	print("Release game resources...")
+	-- normal game clear
+	self:Clear()
 end

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: NeoGame
-** Generated automatically by tolua++-1.0.93 on Sun Dec 17 04:12:49 2017.
+** Generated automatically by tolua++-1.0.93 on Fri Dec 29 17:07:21 2017.
 */
 
 #ifndef __cplusplus
@@ -246,12 +246,12 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"irr::scene::ISceneNode");
  tolua_usertype(tolua_S,"irr::scene::IParticleAnimatedMeshSceneNodeEmitter");
  tolua_usertype(tolua_S,"SimpleTankTrackObject");
- tolua_usertype(tolua_S,"Explosion");
+ tolua_usertype(tolua_S,"irr::video::ITexture");
  tolua_usertype(tolua_S,"irr::scene::IParticleBoxEmitter");
  tolua_usertype(tolua_S,"irr::core::vector3d<int>");
  tolua_usertype(tolua_S,"Application");
  tolua_usertype(tolua_S,"irr::core::dimension2d<int>");
- tolua_usertype(tolua_S,"irr::video::ITexture");
+ tolua_usertype(tolua_S,"Explosion");
  tolua_usertype(tolua_S,"irr::scene::ISceneNodeAnimator");
  tolua_usertype(tolua_S,"irr::scene::IParticleRingEmitter");
  tolua_usertype(tolua_S,"NeoGame::network::Packet");
@@ -28393,6 +28393,38 @@ static int tolua_NeoGame_CollisionObject_getFriction00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: isSimulationActive of class  CollisionObject */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_CollisionObject_isSimulationActive00
+static int tolua_NeoGame_CollisionObject_isSimulationActive00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CollisionObject",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CollisionObject* self = (CollisionObject*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isSimulationActive'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->isSimulationActive();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'isSimulationActive'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: applyGravity of class  RigidBody */
 #ifndef TOLUA_DISABLE_tolua_NeoGame_RigidBody_applyGravity00
 static int tolua_NeoGame_RigidBody_applyGravity00(lua_State* tolua_S)
@@ -41529,6 +41561,236 @@ static int tolua_NeoGame_NeoGame_network_Packet_getBitStream00(lua_State* tolua_
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: getLuaIdentifier of class  NeoGame::network::NetworkedObject */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_NetworkedObject_getLuaIdentifier00
+static int tolua_NeoGame_NeoGame_network_NetworkedObject_getLuaIdentifier00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::network::NetworkedObject",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::network::NetworkedObject* self = (NeoGame::network::NetworkedObject*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getLuaIdentifier'", NULL);
+#endif
+  {
+   const std::string tolua_ret = (const std::string)  self->getLuaIdentifier();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getLuaIdentifier'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setLuaIdentifier of class  NeoGame::network::NetworkedObject */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_NetworkedObject_setLuaIdentifier00
+static int tolua_NeoGame_NeoGame_network_NetworkedObject_setLuaIdentifier00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::network::NetworkedObject",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::network::NetworkedObject* self = (NeoGame::network::NetworkedObject*)  tolua_tousertype(tolua_S,1,0);
+  const std::string luaIdentifier = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setLuaIdentifier'", NULL);
+#endif
+  {
+   self->setLuaIdentifier(luaIdentifier);
+   tolua_pushcppstring(tolua_S,(const char*)luaIdentifier);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setLuaIdentifier'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setInternalNetworkID of class  NeoGame::network::NetworkedObject */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_NetworkedObject_setInternalNetworkID00
+static int tolua_NeoGame_NeoGame_network_NetworkedObject_setInternalNetworkID00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::network::NetworkedObject",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::network::NetworkedObject* self = (NeoGame::network::NetworkedObject*)  tolua_tousertype(tolua_S,1,0);
+  long id = ((long)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setInternalNetworkID'", NULL);
+#endif
+  {
+   self->setInternalNetworkID(id);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setInternalNetworkID'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: isStatic of class  NeoGame::network::NetworkedObject */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_NetworkedObject_isStatic00
+static int tolua_NeoGame_NeoGame_network_NetworkedObject_isStatic00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoGame::network::NetworkedObject",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoGame::network::NetworkedObject* self = (const NeoGame::network::NetworkedObject*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isStatic'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->isStatic();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'isStatic'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setStatic of class  NeoGame::network::NetworkedObject */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_NetworkedObject_setStatic00
+static int tolua_NeoGame_NeoGame_network_NetworkedObject_setStatic00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::network::NetworkedObject",0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::network::NetworkedObject* self = (NeoGame::network::NetworkedObject*)  tolua_tousertype(tolua_S,1,0);
+  bool _static = ((bool)  tolua_toboolean(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setStatic'", NULL);
+#endif
+  {
+   self->setStatic(_static);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setStatic'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getObjType of class  NeoGame::network::NetworkedObject */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_NetworkedObject_getObjType00
+static int tolua_NeoGame_NeoGame_network_NetworkedObject_getObjType00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::network::NetworkedObject",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::network::NetworkedObject* self = (NeoGame::network::NetworkedObject*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getObjType'", NULL);
+#endif
+  {
+   std::string tolua_ret = (std::string)  self->getObjType();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getObjType'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setObjType of class  NeoGame::network::NetworkedObject */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_network_NetworkedObject_setObjType00
+static int tolua_NeoGame_NeoGame_network_NetworkedObject_setObjType00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::network::NetworkedObject",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::network::NetworkedObject* self = (NeoGame::network::NetworkedObject*)  tolua_tousertype(tolua_S,1,0);
+  const std::string objType = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setObjType'", NULL);
+#endif
+  {
+   self->setObjType(objType);
+   tolua_pushcppstring(tolua_S,(const char*)objType);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setObjType'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: getInstance of class  NeoGame::Network */
 #ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_getInstance00
 static int tolua_NeoGame_NeoGame_Network_getInstance00(lua_State* tolua_S)
@@ -41700,11 +41962,12 @@ static int tolua_NeoGame_NeoGame_Network_StartClient00(lua_State* tolua_S)
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'StartClient'", NULL);
 #endif
   {
-   self->StartClient(addr,port);
+   bool tolua_ret = (bool)  self->StartClient(addr,port);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
    tolua_pushcppstring(tolua_S,(const char*)addr);
   }
  }
- return 1;
+ return 2;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'StartClient'.",&tolua_err);
@@ -41736,10 +41999,11 @@ static int tolua_NeoGame_NeoGame_Network_StartServer00(lua_State* tolua_S)
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'StartServer'", NULL);
 #endif
   {
-   self->StartServer(port,max_connects);
+   bool tolua_ret = (bool)  self->StartServer(port,max_connects);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
   }
  }
- return 0;
+ return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'StartServer'.",&tolua_err);
@@ -42167,7 +42431,7 @@ static int tolua_NeoGame_NeoGame_Network_CreateNetworkedObject00(lua_State* tolu
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const RakNet::RakNetGUID",0,&tolua_err)) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -42175,16 +42439,17 @@ static int tolua_NeoGame_NeoGame_Network_CreateNetworkedObject00(lua_State* tolu
 #endif
  {
   NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
-  const RakNet::RakNetGUID* guid = ((const RakNet::RakNetGUID*)  tolua_tousertype(tolua_S,2,0));
+  const std::string id = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateNetworkedObject'", NULL);
 #endif
   {
-   NeoGame::network::NetworkedObject* tolua_ret = (NeoGame::network::NetworkedObject*)  self->CreateNetworkedObject(*guid);
+   NeoGame::network::NetworkedObject* tolua_ret = (NeoGame::network::NetworkedObject*)  self->CreateNetworkedObject(id);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"NeoGame::network::NetworkedObject");
+   tolua_pushcppstring(tolua_S,(const char*)id);
   }
  }
- return 1;
+ return 2;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'CreateNetworkedObject'.",&tolua_err);
@@ -42201,23 +42466,26 @@ static int tolua_NeoGame_NeoGame_Network_CreateNetworkedObject01(lua_State* tolu
  if (
      !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
      !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
  else
  {
   NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
-  const std::string guid_str = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string id = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string oby_type = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateNetworkedObject'", NULL);
 #endif
   {
-   NeoGame::network::NetworkedObject* tolua_ret = (NeoGame::network::NetworkedObject*)  self->CreateNetworkedObject(guid_str);
+   NeoGame::network::NetworkedObject* tolua_ret = (NeoGame::network::NetworkedObject*)  self->CreateNetworkedObject(id,oby_type);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"NeoGame::network::NetworkedObject");
-   tolua_pushcppstring(tolua_S,(const char*)guid_str);
+   tolua_pushcppstring(tolua_S,(const char*)id);
+   tolua_pushcppstring(tolua_S,(const char*)oby_type);
   }
  }
- return 2;
+ return 3;
 tolua_lerror:
  return tolua_NeoGame_NeoGame_Network_CreateNetworkedObject00(tolua_S);
 }
@@ -42258,59 +42526,30 @@ static int tolua_NeoGame_NeoGame_Network_getNetWorkedObject00(lua_State* tolua_S
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const RakNet::RakNetGUID",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
-  const RakNet::RakNetGUID* guid = ((const RakNet::RakNetGUID*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getNetWorkedObject'", NULL);
-#endif
-  {
-   NeoGame::network::NetworkedObject* tolua_ret = (NeoGame::network::NetworkedObject*)  self->getNetWorkedObject(*guid);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"NeoGame::network::NetworkedObject");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getNetWorkedObject'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getNetWorkedObject of class  NeoGame::Network */
-#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_getNetWorkedObject01
-static int tolua_NeoGame_NeoGame_Network_getNetWorkedObject01(lua_State* tolua_S)
-{
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
      !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
  else
+#endif
  {
   NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
-  const std::string guid_str = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string id = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getNetWorkedObject'", NULL);
 #endif
   {
-   NeoGame::network::NetworkedObject* tolua_ret = (NeoGame::network::NetworkedObject*)  self->getNetWorkedObject(guid_str);
+   NeoGame::network::NetworkedObject* tolua_ret = (NeoGame::network::NetworkedObject*)  self->getNetWorkedObject(id);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"NeoGame::network::NetworkedObject");
-   tolua_pushcppstring(tolua_S,(const char*)guid_str);
+   tolua_pushcppstring(tolua_S,(const char*)id);
   }
  }
  return 2;
-tolua_lerror:
- return tolua_NeoGame_NeoGame_Network_getNetWorkedObject00(tolua_S);
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getNetWorkedObject'.",&tolua_err);
+ return 0;
+#endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -42513,6 +42752,39 @@ static int tolua_NeoGame_NeoGame_Network_getNetworkTimeMs00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'getNetworkTimeMs'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setSynchronizeInterval of class  NeoGame::Network */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Network_setSynchronizeInterval00
+static int tolua_NeoGame_NeoGame_Network_setSynchronizeInterval00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Network",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Network* self = (NeoGame::Network*)  tolua_tousertype(tolua_S,1,0);
+  int timeMs = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setSynchronizeInterval'", NULL);
+#endif
+  {
+   self->setSynchronizeInterval(timeMs);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setSynchronizeInterval'.",&tolua_err);
  return 0;
 #endif
 }
@@ -44697,6 +44969,7 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"EnableContinuousCollisionDetection",tolua_NeoGame_CollisionObject_EnableContinuousCollisionDetection00);
    tolua_function(tolua_S,"setFriction",tolua_NeoGame_CollisionObject_setFriction00);
    tolua_function(tolua_S,"getFriction",tolua_NeoGame_CollisionObject_getFriction00);
+   tolua_function(tolua_S,"isSimulationActive",tolua_NeoGame_CollisionObject_isSimulationActive00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"RigidBody","RigidBody","CollisionObject",NULL);
   tolua_beginmodule(tolua_S,"RigidBody");
@@ -45480,6 +45753,22 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
   tolua_endmodule(tolua_S);
   tolua_module(tolua_S,"NeoGame",0);
   tolua_beginmodule(tolua_S,"NeoGame");
+   tolua_module(tolua_S,"network",0);
+   tolua_beginmodule(tolua_S,"network");
+    tolua_cclass(tolua_S,"NetworkedObject","NeoGame::network::NetworkedObject","",NULL);
+    tolua_beginmodule(tolua_S,"NetworkedObject");
+     tolua_function(tolua_S,"getLuaIdentifier",tolua_NeoGame_NeoGame_network_NetworkedObject_getLuaIdentifier00);
+     tolua_function(tolua_S,"setLuaIdentifier",tolua_NeoGame_NeoGame_network_NetworkedObject_setLuaIdentifier00);
+     tolua_function(tolua_S,"setInternalNetworkID",tolua_NeoGame_NeoGame_network_NetworkedObject_setInternalNetworkID00);
+     tolua_function(tolua_S,"isStatic",tolua_NeoGame_NeoGame_network_NetworkedObject_isStatic00);
+     tolua_function(tolua_S,"setStatic",tolua_NeoGame_NeoGame_network_NetworkedObject_setStatic00);
+     tolua_function(tolua_S,"getObjType",tolua_NeoGame_NeoGame_network_NetworkedObject_getObjType00);
+     tolua_function(tolua_S,"setObjType",tolua_NeoGame_NeoGame_network_NetworkedObject_setObjType00);
+    tolua_endmodule(tolua_S);
+   tolua_endmodule(tolua_S);
+  tolua_endmodule(tolua_S);
+  tolua_module(tolua_S,"NeoGame",0);
+  tolua_beginmodule(tolua_S,"NeoGame");
    tolua_cclass(tolua_S,"Network","NeoGame::Network","",NULL);
    tolua_beginmodule(tolua_S,"Network");
     tolua_function(tolua_S,"getInstance",tolua_NeoGame_NeoGame_Network_getInstance00);
@@ -45505,13 +45794,13 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
     tolua_function(tolua_S,"CreateNetworkedObject",tolua_NeoGame_NeoGame_Network_CreateNetworkedObject01);
     tolua_function(tolua_S,"CreateNetworkedObject",tolua_NeoGame_NeoGame_Network_CreateNetworkedObject02);
     tolua_function(tolua_S,"getNetWorkedObject",tolua_NeoGame_NeoGame_Network_getNetWorkedObject00);
-    tolua_function(tolua_S,"getNetWorkedObject",tolua_NeoGame_NeoGame_Network_getNetWorkedObject01);
     tolua_function(tolua_S,"DestroyNetworkedObject",tolua_NeoGame_NeoGame_Network_DestroyNetworkedObject00);
     tolua_function(tolua_S,"RegisterNetworkedObject",tolua_NeoGame_NeoGame_Network_RegisterNetworkedObject00);
     tolua_function(tolua_S,"AddProtocolListener",tolua_NeoGame_NeoGame_Network_AddProtocolListener00);
     tolua_function(tolua_S,"RemoveProtocolListener",tolua_NeoGame_NeoGame_Network_RemoveProtocolListener00);
     tolua_function(tolua_S,"StartSynchronizeObject",tolua_NeoGame_NeoGame_Network_StartSynchronizeObject00);
     tolua_function(tolua_S,"getNetworkTimeMs",tolua_NeoGame_NeoGame_Network_getNetworkTimeMs00);
+    tolua_function(tolua_S,"setSynchronizeInterval",tolua_NeoGame_NeoGame_Network_setSynchronizeInterval00);
     tolua_function(tolua_S,"getMyGUID",tolua_NeoGame_NeoGame_Network_getMyGUID00);
     tolua_function(tolua_S,"setReadyEvent",tolua_NeoGame_NeoGame_Network_setReadyEvent00);
     tolua_function(tolua_S,"ForceCompleteReadyEvent",tolua_NeoGame_NeoGame_Network_ForceCompleteReadyEvent00);

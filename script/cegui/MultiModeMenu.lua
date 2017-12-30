@@ -41,6 +41,7 @@ function MultiMenu.OnHostListButtonClick(args)
 		Lobby:UpdatePlayerName()
 		if Lobby:ConnectHostByIP(addr) then
 			MultiMenu:ShowUI(MultiMenu.ui.prepare_wnd)
+			MultiMenu.ui.prepare_wnd.btn_start:setText("Ready")
 		end
 	elseif btnName=="Refresh_btn" then
 		MultiMenu:HostListClear()
@@ -50,6 +51,7 @@ function MultiMenu.OnHostListButtonClick(args)
 			Lobby:UpdatePlayerName()
 			if Lobby:ConnectHost(MultiMenu.current_selected_host_id) then
 				MultiMenu:ShowUI(MultiMenu.ui.prepare_wnd)
+				MultiMenu.ui.prepare_wnd.btn_start:setText("Ready")
 			end
 		end
 	elseif btnName=="Create_btn" then
@@ -68,9 +70,11 @@ function MultiMenu.OnMapListButtonClick( args )
 		if MultiMenu.map_selection_selected == "" then
 			return
 		end
-		Lobby:HostGame(MultiMenu.ui.map_select.eb_room_name:getText(), MultiMenu.map_selection_selected)	
-		MultiMenu:ShowUI(MultiMenu.ui.prepare_wnd)
-		MultiMenu:PrepareWndClearChatLog()
+		if Lobby:HostGame(MultiMenu.ui.map_select.eb_room_name:getText(), MultiMenu.map_selection_selected)	then
+			MultiMenu.ui.prepare_wnd.btn_start:setText("Start")
+			MultiMenu:ShowUI(MultiMenu.ui.prepare_wnd)
+			MultiMenu:PrepareWndClearChatLog()
+		end
 	end
 end
 
@@ -137,6 +141,12 @@ function MultiMenu:PushUIToStack( ui )
 	self.panel_stack[#self.panel_stack+1]=ui
 end
 
+function MultiMenu:ClearUIStack()
+	for i,_ in ipairs(self.panel_stack) do
+		self.panel_stack[i]=nil
+	end
+end
+
 function MultiMenu:PopUIFromStack( )
 	if #self.panel_stack>0 then
 		local ui = self.panel_stack[#self.panel_stack]
@@ -166,6 +176,15 @@ function MultiMenu:BackToPreviousUI( )
 	else
 		self:Exit()
 	end
+end
+
+function MultiMenu:ForceQuitToHostList()
+	self:ClearUIStack()
+	self.ui.map_select:show(false)
+	self.ui.prepare_wnd:show(false)
+	self.ui.tank_select:show(false)
+	self.current_ui = self.ui.host_list
+	self.ui.host_list:show()
 end
 -------------------------------------
 -- host list functions
@@ -506,6 +525,7 @@ MultiMenu.ui={
 				visible=true
 			end
 			self.wnd_root:setVisible(visible)
+			self.btn_start:enable()
 		end,
 		DiableAllButtons=function( self )
 			self.btn_start:disable()

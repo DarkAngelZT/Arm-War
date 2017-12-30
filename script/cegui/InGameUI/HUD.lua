@@ -61,6 +61,7 @@ function gamehud:Init( actor )
 	end
 	if self.death_menu then
 		Scene:addInternalObserver(self.death_menu)
+		self.death_menu:Init()
 	end
 	-- add timer for message display
 	Logic:AddTimer(self.message_fadeout_timer)
@@ -180,7 +181,7 @@ function gamehud:notify( invoker, event )
 		if event.attacker ~= Logic.actor_me then
 			return
 		end
-		if event.pirece then
+		if event.pierce then
 			self:ShowMessage("[colour='FFFF7F00']Hit - PIERCED")
 		elseif event.ricochet then
 			self:ShowMessage("Ricocheted")
@@ -206,7 +207,12 @@ function gamehud.OnKeyUp( args )
 	if keycode.scancode == CEGUI.Key.Escape then
 		if not gamehud.pause_menu:isVisible() then
 			gamehud.pause_menu:Show()
-			Logic:PauseGame()
+			if Logic.game_mode == Logic.GAME_MODE.SINGLE then
+				Logic:PauseGame()
+			elseif Logic.game_mode == Logic.GAME_MODE.MULTIPLE then
+				Scene.cameras.third_person:setEnabled(false)
+				Logic.in_game=false
+			end
 		end
 	end
 end

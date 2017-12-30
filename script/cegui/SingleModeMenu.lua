@@ -222,6 +222,7 @@ function SingleMenu.LoadGame()
 
 	g_ui_table.switchto("loading")
 	LoadingScreen.Init()
+	Scene.load=SceneLoaderGeneric
 	Scene.Init(self.map_root..self.map_name,self.players)
 end
 

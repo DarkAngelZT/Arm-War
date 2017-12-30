@@ -11,7 +11,8 @@
             <Property name="BackgroundEnabled" value="false" />
         </Window>
         <Window type="GlossySerpent/StaticText" name="percentText" >
-            <Property name="Area" value="{{0,0},{0,-102},{0,100},{0,-60}}" />
+            <Property name="Area" value="{{0,0},{0,-102},{0,256},{0,-68}}" />
+            <Property name="Font" value="OpenSans-Regular-12" />
             <Property name="Text" value="loading..." />
             <Property name="MaxSize" value="{{1,0},{1,0}}" />
             <Property name="AlwaysOnTop" value="true" />

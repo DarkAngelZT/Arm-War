@@ -28,8 +28,8 @@ public:
 	void Init();
 	void CleanUp();
 	void Update();
-	void StartClient(const std::string& addr, int port);
-	void StartServer(int port, int max_connects = 10);
+	bool StartClient(const std::string& addr, int port);
+	bool StartServer(int port, int max_connects = 10);
 	void setMaxIncomingConnection(int max_count);
 	//enable to receive udp broadcast msg from port
 	//(only one port is allowed at a time, call this again will override elder one)
@@ -49,14 +49,12 @@ public:
 	void SendDataToAll(RakNet::BitStream* bitstream, int orderingChannel = 0);
 	void Ping(const std::string&address, int port);
 	network::NetworkedObject* CreateNetworkedObject(
-			const RakNet::RakNetGUID& guid);
-	network::NetworkedObject* CreateNetworkedObject(const std::string&guid_str);
+			const std::string& id,const std::string& obj_type="common");
 	/*create a empty networked object, attention this object is not registered,
-	 you have to register it with registerNetworkedObject() after set its guid*/
+	 you have to register it with registerNetworkedObject() after set its lua id*/
 	network::NetworkedObject* CreateNetworkedObject();
 	network::NetworkedObject* getNetWorkedObject(
-			const RakNet::RakNetGUID& guid);
-	network::NetworkedObject* getNetWorkedObject(const std::string&guid_str);
+			const std::string& guid);
 	void DestroyNetworkedObject(network::NetworkedObject*object);
 	//return whether register succeed
 	bool RegisterNetworkedObject(network::NetworkedObject*object);
@@ -64,6 +62,7 @@ public:
 	void RemoveProtocolListener(int protocol, const std::string& luaFunction);
 	void StartSynchronizeObject(network::NetworkedObject* object);
 	int getNetworkTimeMs();
+	void setSynchronizeInterval(int timeMs);
 	const RakNetGUID getMyGUID();
 
 	bool setReadyEvent(int id, bool ready);
@@ -98,12 +97,13 @@ protected:
 		}
 	};
 	bool ReceivePacket(RakNet::RakPeerInterface* peer);
+	std::string StartupResultToString(RakNet::StartupResult);
 	RakPeerInterface* m_rakPeer;
 	RakPeerInterface* m_broadcast_listener;
 	NetworkIDManager* m_networkIDManager;
 	ReplicaManager3* m_replicaManager;
 	std::unordered_map<int, std::list<std::string>> m_protocol_listeners;
-	std::unordered_map<RakNet::RakNetGUID, network::NetworkedObject*, GuidHasher> m_networkedObjects;
+	std::unordered_map<std::string , network::NetworkedObject*> m_networkedObjects;
 	ReadyEvent* m_readyEvent;
 	bool m_server;
 };

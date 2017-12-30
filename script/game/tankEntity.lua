@@ -31,8 +31,8 @@ end
 function StandardTankEntity:setTransform(transform)
 	local body = self.components.body
 	local trans = irr.core.matrix4:new_local(
-		self.components.body.object:getTankBodyNode():getAbsoluteTransformation())
-	trans:makeInverse()
+		self.components.body.object:getTankBodyNode():getAbsoluteTransformation(),
+		irr.core.matrix4.EM4CONST_INVERSE)
 	--转换坐标
 	local turret = self.components.turret
 	local canon = self.components.canon
@@ -63,6 +63,56 @@ function StandardTankEntity:setTransform(transform)
 
 	right_track.object:setPosition(right_track_trans:getTranslation())
 	right_track.object:setRotation(right_track_trans:getRotationDegrees())
+end
+-- this function is for network synchronize
+-- @sync_data:{turret_rotation,canon_rotation}
+function StandardTankEntity:SynchronizeTransform( transform, sync_data )
+	local body = self.components.body
+	local turret = self.components.turret
+	local canon = self.components.canon
+	local left_track = self.components.left_track
+	local right_track = self.components.right_track
+	
+	if not turret.offset then
+		local trans = irr.core.matrix4:new_local(
+			self.components.body.object:getTankBodyNode():getAbsoluteTransformation(),
+			irr.core.matrix4.EM4CONST_INVERSE)
+		local turret_inverse_trans = irr.core.matrix4:new_local(
+			self.components.turret.object:GetSceneNode():getAbsoluteTransformation(),
+			irr.core.matrix4.EM4CONST_INVERSE)
+		local turret_trans = trans*turret.object:GetSceneNode():getAbsoluteTransformation()
+		local canon_trans = turret_inverse_trans*canon.object:GetSceneNode():getAbsoluteTransformation()
+		local left_track_trans = trans*left_track.object:getRigidBody():getCenterOfMassTransform()
+		local right_track_trans = trans*right_track.object:getRigidBody():getCenterOfMassTransform()
+		turret.offset=turret_trans:getTranslation()
+		canon.offset=canon_trans:getTranslation()
+		left_track.offset=left_track_trans:getTranslation()
+		right_track.offset=right_track_trans:getTranslation()
+	end
+
+	local turret_pos = irr.core.vector3df:new_local()
+	local canon_pos = irr.core.vector3df:new_local()
+	local left_track_pos = irr.core.vector3df:new_local()
+	local right_track_pos = irr.core.vector3df:new_local()
+	transform:transformVect(turret_pos,turret.offset)
+	
+	transform:transformVect(left_track_pos,left_track.offset)
+	transform:transformVect(right_track_pos,right_track.offset)
+
+	body.object:setPosition(transform:getTranslation())
+	body.object:setRotation(transform:getRotationDegrees())
+
+	turret.object:setPosition(turret_pos)
+	turret.object:setRotation(sync_data.turret_rotation)
+
+	turret.object:GetSceneNode():updateAbsolutePosition()
+	turret.object:GetSceneNode():getAbsoluteTransformation():transformVect(canon_pos,canon.offset)
+	canon.object:setPosition(canon_pos)
+	canon.object:setRotation(sync_data.canon_rotation)
+
+	left_track.object:setPosition(left_track_pos)
+
+	right_track.object:setPosition(right_track_pos)
 end
 
 function StandardTankEntity:setTurretAngle( angle_degree )
@@ -460,7 +510,8 @@ function StandardTankEntity.RegisterSingleModeEventHandler( )
 end
 
 function StandardTankEntity.RegisterMultiModeEventHandler( )
-
+	Logic:RegisterEventHandler(
+		Logic.EVENT.SHELL_HIT,"StandardTankEntity",StandardTankEntity.MultiModeOnShellHit)
 end
 
 --event:NeoEvent 结构
@@ -472,6 +523,15 @@ function StandardTankEntity.OnShellHit( event )
 	local shell=Scene.entities[shell_id]
 
 	actor:OnShellHit(shell)
+end
+function StandardTankEntity.MultiModeOnShellHit( event )
+	local actor_id = event:getData(0)
+	local shell_id = event:getData(1)
+
+	local actor = Logic.actors[actor_id]
+	local shell=Scene.entities[shell_id]
+
+	actor:MultiModeOnShellHit(shell)
 end
 
 -----------------
@@ -531,7 +591,6 @@ function StandardTankEntity:Attack( shell_type )
 	local data = {
 		owner=self.actor
 	}
-
 	--炮弹
 	Scene:ShootShell(shell_prop,impulse,data)
 	--炮火特效
@@ -544,10 +603,10 @@ function StandardTankEntity:Attack( shell_type )
 	StandardTankEntity.setAnimation(self.components.canon,"fire")
 end
 
-function StandardTankEntity:CreateDestroyedObject()
+function StandardTankEntity:CreateDestroyedObject(id)
 	local remain = CommonObjectEntity.new()
 	remain.gameobject = NeoScene:getInstance():CreateGameObject()
-	remain.id="remain"..self.actor.id..os.time()
+	remain.id = id or "co"..self.actor.id..os.time()
 	remain.gameobject:setLuaIdentifier(remain.id)
 	Scene.entities[remain.id]=remain
 	--加入被摧毁的模型
@@ -591,8 +650,9 @@ function StandardTankEntity:CreateDestroyedObject()
 	return remain
 end
 
-function StandardTankEntity:Die()
-	local entity = self:CreateDestroyedObject()
+function StandardTankEntity:Die(id)
+	local entity = self:CreateDestroyedObject(id)
+	Scene:OnTankCorpseCreated(entity)
 	self:RemoveFromScene()
 	if self.actor == Logic.actor_me then
 		Scene.cameras.third_person:setTarget(entity.gameobject:GetSceneNode())

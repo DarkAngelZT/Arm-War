@@ -11,11 +11,14 @@ Lobby={
 	hosting=false,
 	broadcast_port=7220,
 	host_port=7201,
+	in_game=false
 }
 
 function Lobby:Init( )
 	self.network:Init()
+	Network.protocolListener:Init()
 	self.network:EnableUDPBroadcastListening(self.broadcast_port)
+	self.network:setSynchronizeInterval(50);
 	for k,_ in pairs(self.host_list) do
 		self.host_list[k]=nil
 	end
@@ -33,6 +36,17 @@ end
 
 function Lobby:Close()
 	Network:RemovePostUpdateObj(self)
+	MultiMenu:HostListClear()
+end
+
+function Lobby:OnGameEnd()
+	Network:EnablePostUpdateFunction(self,true)
+	if self.in_game then
+		g_ui_table.switchto("multi_menu")
+		CEGUI.System:getSingleton():getDefaultGUIContext():getMouseCursor():show()
+		MultiMenu:ForceQuitToHostList()
+		self.in_game=false
+	end
 end
 
 function Lobby:ResetPlayers()
@@ -105,8 +119,7 @@ end
 function Lobby:ConnectHost( host_id )
 	self:ResetPlayers()
 	if self.host_list[host_id] then
-		self:JoinGame(self.host_list[host_id].ip)
-		return true
+		return self:JoinGame(self.host_list[host_id].ip)
 	else
 		return false
 	end
@@ -115,8 +128,7 @@ end
 function Lobby:ConnectHostByIP( ip )
 	self:ResetPlayers()
 	if ip ~= "" then
-		self:JoinGame(ip)
-		return true
+		return self:JoinGame(ip)
 	end
 	return false
 end
@@ -126,7 +138,10 @@ function Lobby:HostGame( room_name, map_name )
 	self.network:DisableUDPBroadcastListening()
 	self:ReadMapData(map_name)
 	local max_player = self.current_map_config.max_player
-	self.network:StartServer(self.host_port,max_player-1)
+	local startup_result = self.network:StartServer(self.host_port,max_player-1)
+	if not startup_result then
+		return false
+	end
 	for i=1,max_player do
 		self.players[i]={}
 		self.players[i].data={
@@ -165,13 +180,18 @@ function Lobby:HostGame( room_name, map_name )
 
 	self.network:DeleteReadyEvent(0)
 	self.network:setReadyEvent(0,true)
+	return true
 end
 
 function Lobby:JoinGame( ip )
-	self.network:setReadyEvent(0,false)
-	self.network:StartClient(ip,self.host_port)
-	self.network:DisableUDPBroadcastListening()
-	self.in_host_list=false
+	if self.network:StartClient(ip,self.host_port) then
+		self.network:setReadyEvent(0,false)
+		self.network:DisableUDPBroadcastListening()
+		self.in_host_list=false
+		return true
+	else
+		return false
+	end
 end
 
 function Lobby:ReadMapData( map_name )
@@ -326,7 +346,12 @@ function Lobby:OnDisconnect(guid_str)
 			self:OnPlayerLeave(guid_str)
 		end
 	else
-		MultiMenu:BackToPreviousUI()
+		if self.in_game then
+			game:ShutdownMultiPlayerGame()
+			self:OnGameEnd()
+		else
+			MultiMenu:BackToPreviousUI()
+		end
 	end
 end
 
@@ -489,5 +514,29 @@ function Lobby:OnPlayerReady( guid )
 end
 
 function Lobby:StartGame( )
-	print("start loading game")
+	Network:EnablePostUpdateFunction(self,false)
+	if self.hosting then
+		-- broadcast cmd
+		local stream = BitStreamHelper.CreateBitStream()
+		BitStreamHelper.SerializeAsProtocolID(stream,AWProtocolListener.CustomProtocol.LOBBY_START)
+		self.network:SendDataToAll(stream)
+	end
+	local player_data = {}
+	for k,v in pairs(self.players) do
+		if v.data.connected then
+			local idx = #player_data+1
+			player_data[idx]=v.data
+		end
+	end
+	-- switch ui
+	g_ui_table.switchto("loading")
+	-- load game
+	LoadingScreen.Init()
+	Scene.load=MultiPlayerSceneLoader
+	Scene.Init(MultiMenu.map_root..self.map_name,player_data)
+	self.in_game=true
+end
+-- in multiplayer game, when a player finish loading game
+function Lobby:OnPlayerLoaded()
+	Synchronizer.loaded_player_count=Synchronizer.loaded_player_count+1
 end

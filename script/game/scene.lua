@@ -233,6 +233,22 @@ function Scene.LoadEntity( data )
 end
 
 function Scene:ShootShell( property, impulse, data )
+	if Logic.game_mode == Logic.GAME_MODE.SINGLE then
+		self:AddShellToScene( property, impulse, data )
+	elseif Logic.game_mode == Logic.GAME_MODE.MULTIPLE then
+		local network = NeoGame.Network:getInstance()
+		if network:isServer() then
+			self:AddShellToScene( property, impulse, data )
+			-- send data
+			Synchronizer:OnGameEvent( ID_GAME_EVENT_SHOOT_BULLET, {
+				shell_type=property.shell_type, ownerId=data.owner.id, 
+				impulse=impulse, position=property.position, rotation=property.rotation
+				} )
+		end
+	end
+end
+
+function Scene:AddShellToScene( property, impulse, data )
 	if property.shell_type and self.shell_pool[property.shell_type] then
 		local shell = self.shell_pool[property.shell_type]:create(property)
 		local rbody = shell.gameobject:getRigidBody()
@@ -271,12 +287,13 @@ function Scene.LoadUpdate()
 			g_ui_table.switchto("hud")
 		else
 			local state
+			local msg
 			if Scene.loading_percent<0 then
 				--初始化加载
-				state,Scene.loading_percent=
+				state,Scene.loading_percent,msg=
 					coroutine.resume(Scene.loading_controller,Scene.map_info,Scene.player_info)
 			else 
-				state,Scene.loading_percent=coroutine.resume(Scene.loading_controller)
+				state,Scene.loading_percent,msg=coroutine.resume(Scene.loading_controller)
 			end
 			if(not state)then
 				local error_str = "Error while loading map: "..Scene.loading_percent
@@ -287,7 +304,7 @@ function Scene.LoadUpdate()
 			end
 			--update ui progress bar
 			LoadingScreen.setProgressPercent(Scene.loading_percent)
-			LoadingScreen.setMessage("loading..."..Scene.loading_percent.."%")
+			LoadingScreen.setMessage(msg)
 			return
 		end
 	end
@@ -339,6 +356,17 @@ function Scene:TriggerExplosion(type, event_id,
 		range=range, impulse=impulse, attenuate = attenuate
 	}
 	self:notify(invoker,event)
+end
+
+function Scene:OnTankCorpseCreated(corpse_entity)
+	if Logic.game_mode == Logic.GAME_MODE.MULTIPLE then
+		if Synchronizer.network:isServer() then
+			local obj,networked_object = 
+					Synchronizer:CreateSynchronizedObject(SynchronizedObject,corpse_entity.id)
+			obj:PostConstruct()
+			Synchronizer.network:StartSynchronizeObject(networked_object)
+		end
+	end
 end
 --------------------------
 -- internal lua event

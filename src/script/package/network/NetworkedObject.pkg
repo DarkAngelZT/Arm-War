@@ -1,0 +1,21 @@
+namespace NeoGame
+{
+namespace network
+{
+
+class NetworkedObject
+{
+public:
+	const std::string& getLuaIdentifier();
+	void setLuaIdentifier(const std::string& luaIdentifier);
+	void setInternalNetworkID(long id);
+//---------
+	bool isStatic() const;
+	void setStatic(bool _static);
+	std::string& getObjType();
+	void setObjType(const std::string& objType);
+};
+
+} /* namespace network */
+} /* namespace NeoGame */
+

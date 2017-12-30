@@ -45,12 +45,13 @@ end
 -- dead
 ---------------------------
 ActorDestroyedCommand=class(Command)
-function ActorDestroyedCommand:onCreate(reciever,event)
+function ActorDestroyedCommand:onCreate(reciever,event, corpse_id)
 	self.event=event
+	self.corpse_id=corpse_id
 end
 function ActorDestroyedCommand:Execute()
 	self.executed=true
-	self.reciever:Die()
+	self.reciever:Die(self.corpse_id)
 	if self.event then
 		Scene:notify(self.reciever,self.event)
 	end

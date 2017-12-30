@@ -20,12 +20,11 @@ class NetworkedObject: public RakNet::Replica3
 {
 public:
 	NetworkedObject();
-	NetworkedObject(const RakNet::RakNetGUID&guid);
+	NetworkedObject(const std::string&id,const std::string&type="common");
 	virtual ~NetworkedObject();
 	const std::string& getLuaIdentifier();
 	void setLuaIdentifier(const std::string& luaIdentifier);
-	RakNet::RakNetGUID& getGuid();
-	void setGuid(const RakNet::RakNetGUID& guid);
+	void setInternalNetworkID(long id);
 	//实现父类虚函数
 	virtual void WriteAllocationID(RakNet::Connection_RM3*destConnection,
 			RakNet::BitStream *allocationIdBitstream) const;
@@ -58,10 +57,12 @@ public:
 //---------
 	bool isStatic() const;
 	void setStatic(bool _static);
+	std::string& getObjType();
+	void setObjType(const std::string& objType);
 
 private:
 	std::string luaIdentifier;
-	RakNet::RakNetGUID m_guid;
+	std::string obj_type;
 	bool m_static;
 };
 

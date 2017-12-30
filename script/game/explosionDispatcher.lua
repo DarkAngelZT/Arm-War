@@ -5,7 +5,7 @@ ExplosionTypes=
 }
 SingleModeExplosionDispatcher={}
 function SingleModeExplosionDispatcher:notify( invoker, event )
-	-- type, event_id, actor, damage, position, range, impulse, attenuate
+	-- type, event_id, damage, position, range, impulse, attenuate
 	if event.event_id ~= Scene.EVENT.EXPLOSION then
 		return
 	end
@@ -38,13 +38,46 @@ end
 -----------------------------------
 -----------------------------------
 MultiModeExplosionDispatcher={}
-function MultiModeExplosionDispatcher.notify( entity, event )
-	-- type, event_id, actor, damage, position, range, impulse, attenuate
+function MultiModeExplosionDispatcher:DoExplosion( explosion_type, data )
+	--data = { invokerId, damage, position, range, impulse, attenuate }
+	local params=ExplosionTypes[explosion_type]
+	if not params then
+		return
+	end
+	local effect_param = BasicExplosionEffectParams:new_local()
+	effect_param.fRadius = 2
+	effect_param.origin = data.position
+	effect_param.material_name_high_speed = "explosion01.png";
+	effect_param.material_name_low_speed = "explosion02.png";
+	effect_param.start_color_high_speed = params.effector_param.start_color_high_speed
+	effect_param.end_color_high_speed = params.effector_param.end_color_high_speed
+	effect_param.start_color_low_speed = params.effector_param.start_color_low_speed
+	effect_param.end_color_low_speed = params.effector_param.end_color_low_speed
+	effect_param.shock_wave_color = params.effector_param.shock_wave_color
+	local physics_param = BasicExplosionParams:new_local()
+	physics_param.nEventID=Logic.EVENT.EXPLOSION
+	physics_param.fRange = data.range
+	physics_param.fImpulse = data.impulse
+	physics_param.bAttenuateByRange = data.attenuate
+	physics_param.origin = data.position
+	physics_param:PushScriptValue(tostring(data.invokerId))
+	physics_param:PushScriptValue(tostring(data.damage))
+	local explosion = NeoScene:getInstance():CreateExplosion(
+		params.explosion_type_internal,effect_param,physics_param)
+	explosion:Play()
+end
+function MultiModeExplosionDispatcher:notify( invoker, event )
+	-- type, event_id, damage, position, range, impulse, attenuate
 	if event.event_id ~= Scene.EVENT.EXPLOSION then
 		return
 	end
-	local params=ExplosionTypes[event.type]
-	if not params then
-		return
+	if Synchronizer.network:isServer() then
+		--broadcast
+		Synchronizer:OnGameEvent(ID_GAME_EVENT_EXPLOSION,{
+			explosion_type=event.type, invokerId=invoker.id, damage=event.damage, 
+			position=event.position, range=event.range, impulse=event.impulse, attenuate=event.attenuate })
+		--execute
+		self:DoExplosion(event.type,{
+			invokerId=invoker.id,damage=event.damage, position=event.position, range=event.range, impulse=event.impulse, attenuate=event.attenuate })
 	end
 end

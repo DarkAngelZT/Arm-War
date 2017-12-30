@@ -2,7 +2,6 @@ AWProtocolListener=
 {
 	Init=function( self )
 		self.network=NeoGame.Network:getInstance()
-		self.network:CleanUp()
 		for k,v in pairs(self.protocol_mapping) do
 			self.network:AddProtocolListener(k,v)
 		end
@@ -17,8 +16,13 @@ AWProtocolListener=
 		LOBBY_PLAYER_UPDATE=ID_USER_PACKET_ENUM+6,
 		LOBBY_PLAYER_SLOT_CHANGE=ID_USER_PACKET_ENUM+7,
 		Lobby_PLAYER_READY=ID_USER_PACKET_ENUM+8,
+		GAME_EVENT=ID_USER_PACKET_ENUM+9,
+		GAME_PLAYER_OPERATION=ID_USER_PACKET_ENUM+10,
 	},
 }
+
+EVENT_PLAYER_READY=0
+EVENT_PLAYER_LOADED=1
 
 function skipProtocolID( packet )
 	local bitstream = packet:getBitStream()
@@ -56,7 +60,8 @@ function AWProtocolListener.OnDisconnect( packet )
 	print("Disconneted")
 	local guid = packet:getGUIDString()
 	Lobby:OnDisconnect(guid)
-	AWProtocolListener.network:ReadyEventRemoveFromRemoteList(0,packet:getGUID())
+	AWProtocolListener.network:ReadyEventRemoveFromRemoteList(EVENT_PLAYER_READY,packet:getGUID())
+	AWProtocolListener.network:ReadyEventRemoveFromRemoteList(EVENT_PLAYER_LOADED,packet:getGUID())
 	--server广播
 	if AWProtocolListener.network:isServer() then
 		local stream = BitStreamHelper.CreateBitStream()
@@ -109,7 +114,8 @@ function AWProtocolListener.OnQueryRoomInfo( packet )
 	local name = ""
 	name = BitStreamHelper.DeserializeString(bitstream,name)
 	Lobby:OnPlayerConnected( {guid=packet:getGUID(),name=name,type="t34",team=1} )
-	AWProtocolListener.network:ReadyEventAddToRemoteWaitingList(0,packet:getGUID())
+	AWProtocolListener.network:ReadyEventAddToRemoteWaitingList(EVENT_PLAYER_READY,packet:getGUID())
+	AWProtocolListener.network:ReadyEventAddToRemoteWaitingList(EVENT_PLAYER_LOADED,packet:getGUID())
 end
 
 function AWProtocolListener.OnReceiveRoomInfo( packet )
@@ -121,7 +127,8 @@ function AWProtocolListener.OnReceiveRoomInfo( packet )
 	-- update system
 	Lobby:OnReceiveRoomInfo(data)
 	Lobby.join_request_timer=-1
-	AWProtocolListener.network:ReadyEventAddToRemoteWaitingList(0,packet:getGUID())
+	AWProtocolListener.network:ReadyEventAddToRemoteWaitingList(EVENT_PLAYER_READY,packet:getGUID())
+	AWProtocolListener.network:ReadyEventAddToRemoteWaitingList(EVENT_PLAYER_LOADED,packet:getGUID())
 end
 
 function AWProtocolListener.OnLobbyJoin( packet )
@@ -163,13 +170,37 @@ end
 ----------------------------------------
 
 function AWProtocolListener.OnPlayerAllReady( packet )
-	local packet=toPacket(packet)
-	if AWProtocolListener.network:isServer() then
-		Lobby:OnPlayerReady( packet:getGUIDString() )
-		local bitstream = BitStreamHelper.CreateBitStream()
-		BitStreamHelper.SerializeAsProtocolID(bitstream,AWProtocolListener.CustomProtocol.Lobby_PLAYER_READY)
-		BitStreamHelper.SerializeString(bitstream,packet:getGUIDString())
-		AWProtocolListener.network:SendDataToAll(bitstream)
+	local packet,stream=toPacket(packet)
+	local event_id = 0
+	event_id = BitStreamHelper.DeserializeInt(stream,event_id)
+	if event_id == EVENT_PLAYER_READY then
+		if AWProtocolListener.network:isServer() then
+			Lobby:OnPlayerReady( packet:getGUIDString() )
+			local bitstream = BitStreamHelper.CreateBitStream()
+			BitStreamHelper.SerializeAsProtocolID(bitstream,AWProtocolListener.CustomProtocol.Lobby_PLAYER_READY)
+			BitStreamHelper.SerializeString(bitstream,packet:getGUIDString())
+			AWProtocolListener.network:SendDataToAll(bitstream)
+		end
+	elseif event_id == EVENT_PLAYER_LOADED then
+		if AWProtocolListener.network:isServer() then
+			Lobby:OnPlayerLoaded()
+			if Synchronizer.loaded_player_count == Synchronizer.max_player_count then
+				Synchronizer.game_ready=true
+			end
+		else
+			Lobby:OnPlayerLoaded()
+			Synchronizer.game_ready=true
+		end
+	end
+end
+-- in a client/server architecture, only client will receive this
+-- 当一个玩家载入完成后，其他玩家会收到这个消息
+function AWProtocolListener.OnPlayerLoaded( packet )
+	local packet,stream=toPacket(packet)
+	local event_id = 0
+	event_id = BitStreamHelper.DeserializeInt(stream,event_id)
+	if event_id == EVENT_PLAYER_LOADED and (not AWProtocolListener.network:isServer()) then
+		Lobby:OnPlayerLoaded()
 	end
 end
 
@@ -177,8 +208,32 @@ function AWProtocolListener.OnPlayerReady( packet )
 	local packet,bitstream = toPacket(packet)
 	local guid_str = ""
 	guid_str = BitStreamHelper.DeserializeString(bitstream,guid_str)
-	print(guid_str)
 	Lobby:OnPlayerReady(guid_str)
+end
+------------------------------------------
+-- start game
+------------------------------------------
+function AWProtocolListener.OnGameStart( packet )
+	local packet,bitstream = toPacket(packet)
+	Lobby:StartGame()
+end
+------------------------------------------
+-- game event
+------------------------------------------
+-- only client will receive this
+function AWProtocolListener.OnGameEvent( packet )
+	local packet,bitstream = toPacket(packet)
+	Synchronizer:OnReceiveGameEvent( bitstream )
+end
+-- both client and server handle this
+function AWProtocolListener.OnPlayerOperation( packet )
+	local packet,bitstream = toPacket(packet)
+	-- server broadcast
+	if AWProtocolListener.network:isServer() then
+		AWProtocolListener.network:SendDataToGUID(bitstream,0,packet:getGUID(),true,false)
+	end
+	-- handle input
+	Synchronizer:OnReceivePlayerOperation( bitstream )
 end
 ----------------------------------------
 AWProtocolListener.protocol_mapping={
@@ -195,6 +250,7 @@ AWProtocolListener.protocol_mapping={
 	[ID_INCOMPATIBLE_PROTOCOL_VERSION]="AWProtocolListener.OnConnectionFailed",
 
 	[ID_READY_EVENT_ALL_SET]="AWProtocolListener.OnPlayerAllReady",
+	[ID_READY_EVENT_SET]="AWProtocolListener.OnPlayerLoaded",
 
 	[AWProtocolListener.CustomProtocol.LOBBY_CHAT]="AWProtocolListener.OnLobbyChat",
 	[AWProtocolListener.CustomProtocol.LOBBY_QUERY_ROOM]="AWProtocolListener.OnQueryRoomInfo",
@@ -204,4 +260,8 @@ AWProtocolListener.protocol_mapping={
 	[AWProtocolListener.CustomProtocol.LOBBY_PLAYER_UPDATE]="AWProtocolListener.OnLobbyPlayerUpdate",
 	[AWProtocolListener.CustomProtocol.LOBBY_PLAYER_SLOT_CHANGE]="AWProtocolListener.OnLobbyPlayerSlotChange",
 	[AWProtocolListener.CustomProtocol.Lobby_PLAYER_READY]="AWProtocolListener.OnPlayerReady",
+	[AWProtocolListener.CustomProtocol.LOBBY_START]="AWProtocolListener.OnGameStart",
+
+	[AWProtocolListener.CustomProtocol.GAME_EVENT]="AWProtocolListener.OnGameEvent",
+	[AWProtocolListener.CustomProtocol.GAME_PLAYER_OPERATION]="AWProtocolListener.OnPlayerOperation"
 }

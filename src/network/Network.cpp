@@ -73,7 +73,7 @@ void Network::CleanUp()
 	m_server = false;
 	if (m_broadcast_listener)
 	{
-		m_broadcast_listener->Shutdown(0, 0);
+		m_broadcast_listener->Shutdown(100, 0);
 		RakNet::RakPeerInterface::DestroyInstance(m_broadcast_listener);
 		m_broadcast_listener = NULL;
 	}
@@ -298,11 +298,11 @@ void Network::SendDataToAll(RakNet::BitStream* bitstream, int orderingChannel)
 
 bool Network::RegisterNetworkedObject(network::NetworkedObject* object)
 {
-	if (m_networkedObjects.count(object->getGuid()) > 0)
+	if (m_networkedObjects.count(object->getLuaIdentifier()) > 0)
 		return false;
 	else
 	{
-		m_networkedObjects[object->getGuid()] = object;
+		m_networkedObjects[object->getLuaIdentifier()] = object;
 		return true;
 	}
 }
@@ -311,31 +311,44 @@ void Network::DestroyNetworkedObject(network::NetworkedObject* object)
 {
 	if (!object)
 		return;
-	if (m_networkedObjects.count(object->getGuid()) > 0)
+	if (m_networkedObjects.count(object->getLuaIdentifier()) > 0)
 	{
-		m_networkedObjects.erase(object->getGuid());
+		m_networkedObjects.erase(object->getLuaIdentifier());
 	}
 	delete object;
 }
 
-void Network::StartClient(const std::string& addr, int port)
+bool Network::StartClient(const std::string& addr, int port)
 {
 	m_server = false;
 	RakNet::SocketDescriptor sd;
 	sd.socketFamily = AF_INET;
-	m_rakPeer->Startup(1, &sd, 1);
+	StartupResult result = m_rakPeer->Startup(1, &sd, 1);
 	m_rakPeer->Connect(addr.data(), static_cast<unsigned short>(port), 0, 0);
+	if (result != RakNet::RAKNET_STARTED)
+	{
+		printf("Client set up failed: %s\n",
+				StartupResultToString(result).c_str());
+	}
+	return (result == RakNet::RAKNET_STARTED);
 }
 
-void Network::StartServer(int port, int max_connects)
+bool Network::StartServer(int port, int max_connects)
 {
 	m_server = true;
 
 	RakNet::SocketDescriptor sd(static_cast<unsigned short>(port), 0);
 	sd.socketFamily = AF_INET;
-	m_rakPeer->Startup(static_cast<unsigned int>(max_connects), &sd, 1);
+	StartupResult result = m_rakPeer->Startup(
+			static_cast<unsigned int>(max_connects), &sd, 1);
 	m_rakPeer->SetMaximumIncomingConnections(
 			static_cast<unsigned int>(max_connects));
+	if (result != RakNet::RAKNET_STARTED)
+	{
+		printf("Server set up failed: %s\n",
+				StartupResultToString(result).c_str());
+	}
+	return (result == RakNet::RAKNET_STARTED);
 }
 
 void Network::ShutDown()
@@ -345,6 +358,13 @@ void Network::ShutDown()
 		m_rakPeer->Shutdown(100);
 		m_replicaManager->Clear();
 		m_networkIDManager->Clear();
+		for (std::unordered_map<std::string, network::NetworkedObject*>::iterator it =
+				m_networkedObjects.begin(); it != m_networkedObjects.end();
+				++it)
+		{
+			delete it->second;
+		}
+		m_networkedObjects.clear();
 	}
 }
 
@@ -353,6 +373,14 @@ void Network::StartSynchronizeObject(network::NetworkedObject* object)
 	if (m_replicaManager)
 	{
 		m_replicaManager->Reference(object);
+	}
+}
+
+void Network::setSynchronizeInterval(int timeMs)
+{
+	if (m_replicaManager)
+	{
+		m_replicaManager->SetAutoSerializeInterval(timeMs);
 	}
 }
 
@@ -390,17 +418,24 @@ void Network::EnableUDPBroadcastListening(int port)
 	{
 		m_broadcast_listener = RakNet::RakPeerInterface::GetInstance();
 	}
-	m_broadcast_listener->Shutdown(0, 0);
+	m_broadcast_listener->Shutdown(0);
 	RakNet::SocketDescriptor sd(static_cast<unsigned short>(port), 0);
 	sd.socketFamily = AF_INET;
-	m_broadcast_listener->Startup(static_cast<unsigned int>(1), &sd, 1);
+	RakNet::StartupResult result = m_broadcast_listener->Startup(
+			static_cast<unsigned int>(1), &sd, 1);
+	if (result != RakNet::RAKNET_STARTED)
+	{
+		printf("UDP game search launch failed: %s\n",
+				StartupResultToString(result).c_str());
+	}
 }
 
 void Network::DisableUDPBroadcastListening()
 {
 	if (m_broadcast_listener)
 	{
-		m_broadcast_listener->Shutdown(0, 0);
+		m_broadcast_listener->Shutdown(0);
+		m_broadcast_listener = NULL;
 	}
 }
 
@@ -408,24 +443,17 @@ Network::~Network()
 {
 	CleanUp();
 }
-network::NetworkedObject* Network::CreateNetworkedObject(
-		const RakNet::RakNetGUID& guid)
+network::NetworkedObject* Network::CreateNetworkedObject(const std::string& id,
+		const std::string& obj_type)
 {
-	if (m_networkedObjects.count(guid) == 0)
+	if (m_networkedObjects.count(id) == 0)
 	{
-		network::NetworkedObject* object = new network::NetworkedObject(guid);
-		m_networkedObjects[guid] = object;
+		network::NetworkedObject* object = new network::NetworkedObject(id,
+				obj_type);
+		m_networkedObjects[id] = object;
 		return object;
 	}
 	return NULL;
-}
-
-network::NetworkedObject* Network::CreateNetworkedObject(
-		const std::string& guid_str)
-{
-	RakNet::RakNetGUID guid;
-	guid.FromString(guid_str.data());
-	return CreateNetworkedObject(guid);
 }
 
 network::NetworkedObject* Network::CreateNetworkedObject()
@@ -433,24 +461,47 @@ network::NetworkedObject* Network::CreateNetworkedObject()
 	return new network::NetworkedObject();
 }
 
-network::NetworkedObject* Network::getNetWorkedObject(
-		const RakNet::RakNetGUID& guid)
+network::NetworkedObject* Network::getNetWorkedObject(const std::string& id)
 {
-	if (m_networkedObjects.count(guid) > 0)
+	if (m_networkedObjects.count(id) > 0)
 	{
-		return m_networkedObjects[guid];
+		return m_networkedObjects[id];
 	}
 	else
 		return NULL;
 }
 
-network::NetworkedObject* Network::getNetWorkedObject(
-		const std::string& guid_str)
+std::string Network::StartupResultToString(RakNet::StartupResult startupResult)
 {
-	RakNet::RakNetGUID guid;
-	guid.FromString(guid_str.data());
-	return getNetWorkedObject(guid);
+	switch (startupResult)
+	{
+	case RAKNET_STARTED:
+		return "Startup success";
+	case RAKNET_ALREADY_STARTED:
+		return "RakNet already started";
+	case INVALID_SOCKET_DESCRIPTORS:
+		return "Invalid socket descriptors";
+	case INVALID_MAX_CONNECTIONS:
+		return "Invalid max connections";
+	case SOCKET_FAMILY_NOT_SUPPORTED:
+		return "Socket family not supported";
+	case SOCKET_PORT_ALREADY_IN_USE:
+		return "Socket port already in use";
+	case SOCKET_FAILED_TO_BIND:
+		return "Socket failed to bind";
+	case SOCKET_FAILED_TEST_SEND:
+		return "Socket failed test send";
+	case PORT_CANNOT_BE_ZERO:
+		return "Port cannot be zero";
+	case FAILED_TO_CREATE_NETWORK_THREAD:
+		return "Failed to create network thread";
+	case COULD_NOT_GENERATE_GUID:
+		return "Could not generate guid";
+	case STARTUP_OTHER_FAILURE:
+		return "Startup other failure";
+	default:
+		return "Unknown startup result";
+	}
 }
 
 } /* namespace NeoGame */
-

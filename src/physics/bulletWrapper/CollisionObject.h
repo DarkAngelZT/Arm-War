@@ -21,6 +21,7 @@ public:
 	virtual void setEnabled(bool bEnabled);
 	virtual void setActive(bool bActive);
 	void activate(bool forceActivation = false);
+	bool isSimulationActive();
 	virtual void setPosition(irr::core::vector3df position);
 	virtual void setRotation(irr::core::vector3df rotation);
 	void EnableContinuousCollisionDetection(bool enabled);

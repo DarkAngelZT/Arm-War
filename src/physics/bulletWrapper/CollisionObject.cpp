@@ -100,3 +100,8 @@ float CollisionObject::getFriction()
 {
 	return m_collisionObject->getFriction();
 }
+
+bool CollisionObject::isSimulationActive()
+{
+	return m_collisionObject->isActive();
+}

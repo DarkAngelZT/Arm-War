@@ -8,4 +8,5 @@ public:
 	void EnableContinuousCollisionDetection(bool enabled);
 	void setFriction(float f);
 	float getFriction();
+	bool isSimulationActive();
 };

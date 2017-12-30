@@ -30,6 +30,10 @@ function Actor:OnDestroy()
 	end
 end
 
+function Actor:isAlive()
+	return (self.state == ACTOR_STATE.LIVE)
+end
+
 function Actor:setEntity( e )
 	self.entity=e
 	e.actor=self
@@ -63,11 +67,13 @@ function Actor:DealDamage( damage, invoker, event_to_trigger, still_trigger_even
 	if self.health == 0 then
 			--发出死亡命令
 		local deathEvent = { event_id=Scene.EVENT.PLAYER_DESTROYED, attacker = invoker }
-		local cmd = ActorDestroyedCommand.new(self,deathEvent)
+		local corpseId = "co"..self.id..os.time()
+		local cmd = ActorDestroyedCommand.new(self,deathEvent, corpseId)
 		Logic:addCommand(cmd)
 		if still_trigger_event_on_death and event_to_trigger then
 			Scene:notify(self,event_to_trigger)
 		end
+		return corpseId
 	else
 		if event_to_trigger then
 			Scene:notify(self,event_to_trigger)
@@ -79,6 +85,7 @@ function Actor:OnShellHit( shell )
 	local event = { 
 		event_id=Scene.EVENT.PLAYER_HIT, attacker = shell.owner, ricochet=false, pierce=false }
 	local damage = shell.property.damage
+	local corpse_id
 	if self.shield>0 then
 		--先扣护盾
 		if self.shield>=damage then
@@ -101,11 +108,40 @@ function Actor:OnShellHit( shell )
 			event.pierce=true
 		end
 		damage = damage*(1-0.06*self.armor/(1+0.06*self.armor))
+		damage=math.floor(damage)
 		if math.random()<shell.property.squashPossibility then
-			self.armor=clamp(self.armor-shell.property.armorDamage)
+			self.armor=clamp(self.armor-shell.property.armorDamage,0,math.huge)
 		end
 		
-		self:DealDamage(damage,shell.owner,event)
+		corpse_id = self:DealDamage(damage,shell.owner,event)
+	end
+	return event.ricochet, event.pierce, corpse_id
+end
+
+function Actor:MultiModeOnShellHit( shell )
+	if NeoGame.Network:getInstance():isServer() then
+		local dmg_health = self.health
+		local dmg_shield = self.shield
+		local dmg_armor = self.armor
+		local ricochet, pierce, corpse_id = self:OnShellHit(shell)
+		dmg_health=dmg_health-self.health
+		dmg_shield=dmg_shield-self.shield
+		dmg_armor=dmg_armor-self.armor
+		local hit_result = SHELL_HIT_RESULT_HIT
+		if ricochet then
+			hit_result = SHELL_HIT_RESULT_RICOCHET
+		elseif pierce then
+			hit_result = SHELL_HIT_RESULT_PIERCED
+		end
+		Synchronizer:OnGameEvent( ID_GAME_EVENT_PLAYER_HIT, {
+			victimId=self.id, attackerId=shell.owner.id, 
+			hit_result=hit_result, damage2shield=dmg_shield, 
+			damage2armor=dmg_armor, damage2health=dmg_health
+			} )
+		if self.health == 0 and corpse_id then
+			Synchronizer:OnGameEvent( ID_GAME_EVENT_PLAYER_DIE, {
+				victimId = self.id, killerId = shell.owner.id, corpseId=corpse_id } )
+		end
 	end
 end
 
@@ -174,12 +210,16 @@ end
 function Actor:UpdateReloadBar( delta_time )
 	local percent = 1-self.reload_timer.time_remain/self.reload_timer.duration
 	percent=percent*100
-	gamehud:setReloadingPercent(percent)
+	if self == Logic.actor_me then
+		gamehud:setReloadingPercent(percent)
+	end
 end
 
 function Actor:OnReloadFinish( )
 	self.fire_ready=true
-	gamehud:setReloadingPercent(100)
+	if self == Logic.actor_me then
+		gamehud:setReloadingPercent(100)
+	end
 end
 
 function Actor:Attack()
@@ -234,10 +274,10 @@ function Actor:LockTurret( state )
 	end
 end
 
-function Actor:Die()
+function Actor:Die(corpse_id)
 	if self.state==ACTOR_STATE.LIVE then
 		self.state=ACTOR_STATE.DESTROYED
-		self.entity:Die()
+		self.entity:Die(corpse_id)
 	end
 end
 

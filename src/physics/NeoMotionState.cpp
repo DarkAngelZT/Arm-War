@@ -48,9 +48,9 @@ void NeoMotionState::setWorldTransform(const btTransform& worldTrans)
 		irr::core::matrix4 mat;
 		NeoPhysics::btTransformToIrrlichtMatrix(worldTrans, mat);
 		m_node->updateAbsolutePosition();
-		matrix4 transform = m_node->getParent()->getAbsoluteTransformation();
-		transform.makeInverse();
-		mat=transform*mat;
+		matrix4 transform(m_node->getParent()->getAbsoluteTransformation(),
+				irr::core::matrix4::EM4CONST_INVERSE);
+		mat = transform * mat;
 
 		m_node->setPosition(mat.getTranslation());
 		m_node->setRotation(mat.getRotationDegrees());
