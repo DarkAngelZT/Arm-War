@@ -11,17 +11,11 @@
 
 using namespace irr;
 using namespace irr::core;
-NeoEditor* NeoEditor::_instance = NULL;
+
+SINGLETON_SOURCE(NeoEditor)
 
 NeoEditor::NeoEditor()
 {
-}
-
-NeoEditor* NeoEditor::getInstance()
-{
-	if (_instance == NULL)
-		_instance = new NeoEditor();
-	return _instance;
 }
 
 void NeoEditor::CreateFileOpenDialog(const std::string& lua_callback)

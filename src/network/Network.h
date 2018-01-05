@@ -14,6 +14,7 @@
 #include <unordered_map>
 #include <list>
 #include "NetworkedObject.h"
+#include "game/SingletonMacro.h"
 
 using namespace RakNet;
 
@@ -22,9 +23,8 @@ namespace NeoGame
 
 class Network
 {
+SINGLETON_HEADER(Network)
 public:
-	static Network* getInstance();
-	static void Destroy();
 	void Init();
 	void CleanUp();
 	void Update();
@@ -48,13 +48,12 @@ public:
 			bool autoDecallocatePacket = true);
 	void SendDataToAll(RakNet::BitStream* bitstream, int orderingChannel = 0);
 	void Ping(const std::string&address, int port);
-	network::NetworkedObject* CreateNetworkedObject(
-			const std::string& id,const std::string& obj_type="common");
+	network::NetworkedObject* CreateNetworkedObject(const std::string& id,
+			const std::string& obj_type = "common");
 	/*create a empty networked object, attention this object is not registered,
 	 you have to register it with registerNetworkedObject() after set its lua id*/
 	network::NetworkedObject* CreateNetworkedObject();
-	network::NetworkedObject* getNetWorkedObject(
-			const std::string& guid);
+	network::NetworkedObject* getNetWorkedObject(const std::string& guid);
 	void DestroyNetworkedObject(network::NetworkedObject*object);
 	//return whether register succeed
 	bool RegisterNetworkedObject(network::NetworkedObject*object);
@@ -86,7 +85,6 @@ public:
 	ReplicaManager3* getReplicaManager();
 
 protected:
-	static Network* _instance;
 	Network();
 	virtual ~Network();
 	struct GuidHasher
@@ -103,7 +101,7 @@ protected:
 	NetworkIDManager* m_networkIDManager;
 	ReplicaManager3* m_replicaManager;
 	std::unordered_map<int, std::list<std::string>> m_protocol_listeners;
-	std::unordered_map<std::string , network::NetworkedObject*> m_networkedObjects;
+	std::unordered_map<std::string, network::NetworkedObject*> m_networkedObjects;
 	ReadyEvent* m_readyEvent;
 	bool m_server;
 };

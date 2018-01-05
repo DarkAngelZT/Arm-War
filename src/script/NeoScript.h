@@ -7,17 +7,17 @@
 
 #ifndef SRC_SCRIPT_NEOSCRIPT_H_
 #define SRC_SCRIPT_NEOSCRIPT_H_
-#include"../game/stdafx.h"
+#include "game/stdafx.h"
+#include "game/SingletonMacro.h"
 #include <vector>
-#include "../game/NeoEvent.h"
-#include "../network/Packet.h"
+#include "game/NeoEvent.h"
+#include "network/Packet.h"
 #include <RakNet/BitStream.h>
 
 class NeoScript
 {
+SINGLETON_HEADER(NeoScript)
 public:
-	static NeoScript* getInstance();
-	static void Destroy();
 	void Init(lua_State* lua_State = 0);
 	int ExecuteScriptFile(std::string fname);
 	int ExecuteScriptGlobalFunc(std::string& func_name);
@@ -42,7 +42,6 @@ private:
 	NeoScript();
 	virtual ~NeoScript();
 	void createExtraBindings();
-	static NeoScript* _instance;
 	lua_State*lua_S;
 };
 

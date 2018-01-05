@@ -9,31 +9,12 @@
 #include "BasicExplosionPhysics.h"
 //#include<algorithm>
 
-NeoPhysics* NeoPhysics::_instance = NULL;
+SINGLETON_SOURCE(NeoPhysics)
 
 NeoPhysics::NeoPhysics()
 {
 	fTimeScale = 1;
 	fWorldScale = 1;
-}
-
-NeoPhysics* NeoPhysics::getInstance()
-{
-	if (!_instance)
-	{
-		_instance = new NeoPhysics();
-	}
-	return _instance;
-}
-
-void NeoPhysics::Destroy()
-{
-	if (_instance)
-	{
-		delete _instance;
-		_instance = NULL;
-	}
-
 }
 
 void NeoPhysics::Init()
@@ -51,8 +32,8 @@ void NeoPhysics::Init()
 	m_dynamicsWorld->getSolverInfo().m_solverMode |=
 			SOLVER_ENABLE_FRICTION_DIRECTION_CACHING;
 	//ghost object collision detection
-	m_ghostpairCallback = shared_ptr < btGhostPairCallback
-			> (new btGhostPairCallback());
+	m_ghostpairCallback = shared_ptr<btGhostPairCallback>(
+			new btGhostPairCallback());
 	m_dynamicsWorld->getBroadphase()->getOverlappingPairCache()->setInternalGhostPairCallback(
 			m_ghostpairCallback.get());
 	//---Explosion creators---//
@@ -276,22 +257,18 @@ int NeoPhysics::CreateCylinderShape(irr::core::vector3df& extents, char align,
 	{
 	case 'X':
 	case 'x':
-		ptr = std::shared_ptr < btCollisionShape
-				> (new btCylinderShapeX(halfext));
+		ptr = std::shared_ptr<btCollisionShape>(new btCylinderShapeX(halfext));
 		break;
 	case 'Y':
 	case 'y':
-		ptr = std::shared_ptr < btCollisionShape
-				> (new btCylinderShape(halfext));
+		ptr = std::shared_ptr<btCollisionShape>(new btCylinderShape(halfext));
 		break;
 	case 'Z':
 	case 'z':
-		ptr = std::shared_ptr < btCollisionShape
-				> (new btCylinderShapeZ(halfext));
+		ptr = std::shared_ptr<btCollisionShape>(new btCylinderShapeZ(halfext));
 		break;
 	default:
-		ptr = std::shared_ptr < btCollisionShape
-				> (new btCylinderShape(halfext));
+		ptr = std::shared_ptr<btCollisionShape>(new btCylinderShape(halfext));
 		break;
 	}
 	return assignShapeIndex(ptr);
@@ -305,22 +282,22 @@ int NeoPhysics::CreateCapsuleShape(float radius, float height, char align,
 	{
 	case 'X':
 	case 'x':
-		ptr = std::shared_ptr < btCollisionShape
-				> (new btCapsuleShapeX(radius * scale.Y, height * scale.X));
+		ptr = std::shared_ptr<btCollisionShape>(
+				new btCapsuleShapeX(radius * scale.Y, height * scale.X));
 		break;
 	case 'Y':
 	case 'y':
-		ptr = std::shared_ptr < btCollisionShape
-				> (new btCapsuleShape(radius * scale.X, height * scale.Y));
+		ptr = std::shared_ptr<btCollisionShape>(
+				new btCapsuleShape(radius * scale.X, height * scale.Y));
 		break;
 	case 'Z':
 	case 'z':
-		ptr = std::shared_ptr < btCollisionShape
-				> (new btCapsuleShapeZ(radius * scale.Y, height * scale.Z));
+		ptr = std::shared_ptr<btCollisionShape>(
+				new btCapsuleShapeZ(radius * scale.Y, height * scale.Z));
 		break;
 	default:
-		ptr = std::shared_ptr < btCollisionShape
-				> (new btCapsuleShape(radius * scale.X, height * scale.Y));
+		ptr = std::shared_ptr<btCollisionShape>(
+				new btCapsuleShape(radius * scale.X, height * scale.Y));
 		break;
 	}
 	return assignShapeIndex(ptr);
@@ -334,22 +311,22 @@ int NeoPhysics::CreateConeShape(float radius, float height, char align,
 	{
 	case 'X':
 	case 'x':
-		ptr = std::shared_ptr < btCollisionShape
-				> (new btConeShapeX(radius * scale.Y, height * scale.X));
+		ptr = std::shared_ptr<btCollisionShape>(
+				new btConeShapeX(radius * scale.Y, height * scale.X));
 		break;
 	case 'Y':
 	case 'y':
-		ptr = std::shared_ptr < btCollisionShape
-				> (new btConeShape(radius * scale.X, height * scale.Y));
+		ptr = std::shared_ptr<btCollisionShape>(
+				new btConeShape(radius * scale.X, height * scale.Y));
 		break;
 	case 'Z':
 	case 'z':
-		ptr = std::shared_ptr < btCollisionShape
-				> (new btConeShapeZ(radius * scale.Y, height * scale.Z));
+		ptr = std::shared_ptr<btCollisionShape>(
+				new btConeShapeZ(radius * scale.Y, height * scale.Z));
 		break;
 	default:
-		ptr = std::shared_ptr < btCollisionShape
-				> (new btConeShape(radius * scale.X, height * scale.Y));
+		ptr = std::shared_ptr<btCollisionShape>(
+				new btConeShape(radius * scale.X, height * scale.Y));
 		break;
 	}
 	return assignShapeIndex(ptr);
@@ -763,7 +740,7 @@ HingeJoint* NeoPhysics::CreateHingeJoint(RigidBody* rigidbody1,
 			pivot2, axisIn1, axisIn2);
 	int index = assignConstraintIndex(ptr);
 	HingeJoint*joint = new HingeJoint(
-			dynamic_pointer_cast < btHingeConstraint > (ptr), rigidbody1,
+			dynamic_pointer_cast<btHingeConstraint>(ptr), rigidbody1,
 			rigidbody2);
 	joint->setInternalIndex(index);
 	return joint;
@@ -778,7 +755,7 @@ HingeJoint* NeoPhysics::CreateHingeJoint(RigidBody* body,
 			body->getBtRigidBody(), pivot, axis);
 	int index = assignConstraintIndex(ptr);
 	HingeJoint*joint = new HingeJoint(
-			dynamic_pointer_cast < btHingeConstraint > (ptr), body,
+			dynamic_pointer_cast<btHingeConstraint>(ptr), body,
 			NULL);
 	joint->setInternalIndex(index);
 	return joint;

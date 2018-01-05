@@ -7,28 +7,11 @@
 
 #include "NeoScene.h"
 
-NeoScene* NeoScene::_instance = NULL;
+SINGLETON_SOURCE(NeoScene)
+
 NeoScene::NeoScene()
 {
 	go_id_counter = 0;
-}
-
-NeoScene* NeoScene::getInstance()
-{
-	if (_instance == NULL)
-	{
-		_instance = new NeoScene();
-	}
-	return _instance;
-}
-
-void NeoScene::Destroy()
-{
-	if (_instance != NULL)
-	{
-		delete _instance;
-	}
-	_instance = NULL;
 }
 
 void NeoScene::Clean()

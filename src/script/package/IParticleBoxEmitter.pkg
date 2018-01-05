@@ -9,10 +9,10 @@ class IParticleBoxEmitter : public IParticleEmitter
 public:
 
 	//! Set the box shape
-	virtual void setBox( const irr::core::aabbox3d<f32>& box ) ;
+	virtual void setBox( const irr::core::aabbox3d<float>& box ) ;
 
 	//! Get the box shape set
-	virtual const irr::core::aabbox3d<f32>& getBox() const ;
+	virtual const irr::core::aabbox3d<float>& getBox() const ;
 
 	//! Get emitter type
 	virtual irr::scene::E_PARTICLE_EMITTER_TYPE getType() const ;

@@ -97,3 +97,18 @@ irr::core::vector3df matrix4_getRotationZXY_rad(const irr::core::matrix4& mx)
 	}
 	return r;
 }
+
+std::string NeoGame::io::getRelativePath(const std::string& file,
+		const std::string& dir)
+{
+	irr::io::IFileSystem* file_sys =
+				NeoGraphics::getInstance()->getDevice()->getFileSystem();
+		return file_sys->getRelativeFilename(file.c_str(),dir.c_str()).c_str();
+}
+
+std::string NeoGame::io::getAbsolutePath(const std::string& file)
+{
+	irr::io::IFileSystem* file_sys =
+				NeoGraphics::getInstance()->getDevice()->getFileSystem();
+		return file_sys->getAbsolutePath(file.c_str()).c_str();
+}

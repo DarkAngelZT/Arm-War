@@ -25,19 +25,20 @@
 								<option id="gnu.cpp.compiler.exe.debug.option.debugging.level.1635867387" name="调试级别" superClass="gnu.cpp.compiler.exe.debug.option.debugging.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.other.other.1581773035" name="其他标志" superClass="gnu.cpp.compiler.option.other.other" useByScannerDiscovery="false" value="-c -fmessage-length=0 -fpermissive -std=c++11" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.include.paths.929320094" name="包含路径（-I）" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/graphics/irrlicht/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/script/include/lua}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ui/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/physics/bullet}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/freeType}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/cAudio/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/irrlicht/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/lua}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/bullet}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/freeType}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.dialect.std.1116889898" name="Language standard" superClass="gnu.cpp.compiler.option.dialect.std" useByScannerDiscovery="true" value="gnu.cpp.compiler.dialect.default" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.1586935371" name="已定义的符号（-D）" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="DEBUG"/>
-									<listOptionValue builtIn="false" value="__GXX_EXPERIMENTAL_CXX0X__"/>
-									<listOptionValue builtIn="false" value="_LINUX"/>
+									<listOptionValue builtIn="false" value="_DEBUG"/>
 									<listOptionValue builtIn="false" value="__cplusplus=201103L"/>
+									<listOptionValue builtIn="false" value="_LINUX"/>
+									<listOptionValue builtIn="false" value="__GXX_EXPERIMENTAL_CXX0X__"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.628994249" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
@@ -50,24 +51,25 @@
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.exe.debug.989069746" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.debug"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.1718993262" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug">
 								<option id="gnu.cpp.link.option.libs.391577535" name="库（-l）" superClass="gnu.cpp.link.option.libs" valueType="libs">
-									<listOptionValue builtIn="false" value="Irrlicht"/>
-									<listOptionValue builtIn="false" value="BulletDynamics"/>
-									<listOptionValue builtIn="false" value="BulletCollision"/>
-									<listOptionValue builtIn="false" value="LinearMath"/>
-									<listOptionValue builtIn="false" value="lua5.1"/>
-									<listOptionValue builtIn="false" value="tolua++5.1"/>
-									<listOptionValue builtIn="false" value="CEGUIBase-0"/>
-									<listOptionValue builtIn="false" value="CEGUIIrrlichtRenderer-0"/>
-									<listOptionValue builtIn="false" value="CEGUILuaScriptModule-0"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="Irrlicht"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="BulletDynamics"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="BulletCollision"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="LinearMath"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="lua5.1"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="tolua++5.1"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="CEGUIBase-0"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="CEGUIIrrlichtRenderer-0"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="CEGUILuaScriptModule-0"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="irrAddOn"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="freetype"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="RakNetLibStatic"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="pthread"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="cAudio"/>
 								</option>
 								<option id="gnu.cpp.link.option.paths.1703312228" name="库搜索路径（-L）" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/libs}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/libs/BulletPhysics}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/NeoGameFrameWork/src/ThirdParty/static}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/static}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1236552227" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
@@ -112,15 +114,18 @@
 								<option id="gnu.cpp.compiler.option.other.other.1310863404" name="其他标志" superClass="gnu.cpp.compiler.option.other.other" useByScannerDiscovery="false" value="-c -fmessage-length=0 -fpermissive -std=c++11" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.dialect.std.1934982437" name="Language standard" superClass="gnu.cpp.compiler.option.dialect.std" useByScannerDiscovery="true" value="gnu.cpp.compiler.dialect.default" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.include.paths.1178860436" name="包含路径（-I）" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/graphics/irrlicht/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/script/include/lua}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ui/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/physics/bullet}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/cAudio/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/irrlicht/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/lua}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/bullet}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/freeType}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.1525492170" name="已定义的符号（-D）" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="__GXX_EXPERIMENTAL_CXX0X__"/>
-									<listOptionValue builtIn="false" value="_LINUX"/>
 									<listOptionValue builtIn="false" value="__cplusplus=201103L"/>
+									<listOptionValue builtIn="false" value="_LINUX"/>
+									<listOptionValue builtIn="false" value="__GXX_EXPERIMENTAL_CXX0X__"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.532437529" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
@@ -132,20 +137,25 @@
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.exe.release.1514720106" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.release"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.release.740047378" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.release">
 								<option id="gnu.cpp.link.option.libs.629324267" name="库（-l）" superClass="gnu.cpp.link.option.libs" valueType="libs">
-									<listOptionValue builtIn="false" value="Irrlicht"/>
-									<listOptionValue builtIn="false" value="BulletDynamics"/>
-									<listOptionValue builtIn="false" value="BulletCollision"/>
-									<listOptionValue builtIn="false" value="LinearMath"/>
-									<listOptionValue builtIn="false" value="lua5.1"/>
-									<listOptionValue builtIn="false" value="tolua++5.1"/>
-									<listOptionValue builtIn="false" value="CEGUIBase-0"/>
-									<listOptionValue builtIn="false" value="CEGUIIrrlichtRenderer-0"/>
-									<listOptionValue builtIn="false" value="CEGUILuaScriptModule-0"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="Irrlicht"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="BulletDynamics"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="BulletCollision"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="LinearMath"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="lua5.1"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="tolua++5.1"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="CEGUIBase-0"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="CEGUIIrrlichtRenderer-0"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="CEGUILuaScriptModule-0"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="irrAddOn"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="freetype"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="RakNetLibStatic"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="pthread"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="cAudio"/>
 								</option>
 								<option id="gnu.cpp.link.option.paths.721011247" name="库搜索路径（-L）" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/libs}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/libs/BulletPhysics}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/static}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1001293487" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
@@ -183,16 +193,19 @@
 							<tool id="cdt.managedbuild.tool.gnu.archiver.mingw.base.2073774341" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.mingw.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.base.260902109" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.base">
 								<option id="gnu.cpp.compiler.option.include.paths.1367177033" name="包含路径（-I）" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/graphics/irrlicht/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/script/include/lua}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ui/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/physics/bullet}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/cAudio/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/irrlicht/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/lua}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/bullet}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/freeType}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.1491518251" name="已定义的符号（-D）" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="DEBUG"/>
-									<listOptionValue builtIn="false" value="__GXX_EXPERIMENTAL_CXX0X__"/>
 									<listOptionValue builtIn="false" value="_WINDOWS"/>
-									<listOptionValue builtIn="false" value="_WIN32"/>
+									<listOptionValue builtIn="false" value="_DEBUG"/>
+									<listOptionValue builtIn="false" value="__cplusplus=201103L"/>
+									<listOptionValue builtIn="false" value="__GXX_EXPERIMENTAL_CXX0X__"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.optimization.level.954275943" name="优化级别" superClass="gnu.cpp.compiler.option.optimization.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.debugging.level.1468004840" name="调试级别" superClass="gnu.cpp.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
@@ -204,6 +217,21 @@
 								<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.option.optimization.level.1466353789" name="优化级别" superClass="gnu.c.compiler.option.optimization.level" useByScannerDiscovery="false" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.debugging.level.1911324155" name="调试级别" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.dialect.std.132554738" name="Language standard" superClass="gnu.c.compiler.option.dialect.std" useByScannerDiscovery="true" value="gnu.c.compiler.dialect.default" valueType="enumerated"/>
+								<option id="gnu.c.compiler.option.include.paths.1393342051" name="包含路径（-I）" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/graphics/irrlicht/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/script/include/lua}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ui/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/physics/bullet}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/freeType}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/cAudio/include}&quot;"/>
+								</option>
+								<option id="gnu.c.compiler.option.preprocessor.def.symbols.1052651662" name="已定义的符号（-D）" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="DEBUG"/>
+									<listOptionValue builtIn="false" value="__GXX_EXPERIMENTAL_CXX0X__"/>
+									<listOptionValue builtIn="false" value="_LINUX"/>
+									<listOptionValue builtIn="false" value="__cplusplus=201103L"/>
+								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1553351845" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.base.1521614792" name="MinGW C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.base"/>
@@ -213,16 +241,20 @@
 									<listOptionValue builtIn="false" value="BulletDynamics"/>
 									<listOptionValue builtIn="false" value="BulletCollision"/>
 									<listOptionValue builtIn="false" value="LinearMath"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="lua5.1"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="tolua++5.1"/>
 									<listOptionValue builtIn="false" value="CEGUIBase-0"/>
 									<listOptionValue builtIn="false" value="CEGUIIrrlichtRenderer-0"/>
 									<listOptionValue builtIn="false" value="CEGUILuaScriptModule-0"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="irrAddOn"/>
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="lua"/>
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="toluapp"/>
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="ws2_32"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="freetype"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="RakNetLibStatic"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="pthread"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="cAudio"/>
 								</option>
 								<option id="gnu.cpp.link.option.paths.2065389659" name="库搜索路径（-L）" superClass="gnu.cpp.link.option.paths" useByScannerDiscovery="false" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/libs/win64}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/NeoGameFrameWork/src/ThirdParty/static/win64}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1321906045" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
@@ -257,15 +289,17 @@
 							<tool id="cdt.managedbuild.tool.gnu.archiver.mingw.base.519177182" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.mingw.base"/>
 							<tool command="g++" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" id="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.base.635960427" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.base">
 								<option id="gnu.cpp.compiler.option.include.paths.988653580" name="包含路径（-I）" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/graphics/irrlicht/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/script/include/lua}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ui/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/physics/bullet}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/cAudio/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/irrlicht/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/lua}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/bullet}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/freeType}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.1239167560" name="已定义的符号（-D）" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="__cplusplus=201103L"/>
 									<listOptionValue builtIn="false" value="__GXX_EXPERIMENTAL_CXX0X__"/>
-									<listOptionValue builtIn="false" value="_WINDOWS"/>
-									<listOptionValue builtIn="false" value="_WIN32"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.optimization.level.1597460149" name="优化级别" superClass="gnu.cpp.compiler.option.optimization.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.debugging.level.1097973926" name="调试级别" superClass="gnu.cpp.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
@@ -276,6 +310,21 @@
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.mingw.base.105210938" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.base">
 								<option defaultValue="gnu.c.optimization.level.most" id="gnu.c.compiler.option.optimization.level.196592105" name="优化级别" superClass="gnu.c.compiler.option.optimization.level" useByScannerDiscovery="false" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.debugging.level.1661642513" name="调试级别" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.none" valueType="enumerated"/>
+								<option id="gnu.c.compiler.option.include.paths.1994039812" name="包含路径（-I）" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/graphics/irrlicht/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/script/include/lua}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ui/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/physics/bullet}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/freeType}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/cAudio/include}&quot;"/>
+								</option>
+								<option id="gnu.c.compiler.option.preprocessor.def.symbols.1894815136" name="已定义的符号（-D）" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="DEBUG"/>
+									<listOptionValue builtIn="false" value="__GXX_EXPERIMENTAL_CXX0X__"/>
+									<listOptionValue builtIn="false" value="_LINUX"/>
+									<listOptionValue builtIn="false" value="__cplusplus=201103L"/>
+								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1072116358" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.base.1964517206" name="MinGW C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.base"/>
@@ -285,15 +334,19 @@
 									<listOptionValue builtIn="false" value="BulletDynamics"/>
 									<listOptionValue builtIn="false" value="BulletCollision"/>
 									<listOptionValue builtIn="false" value="LinearMath"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="lua5.1"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="tolua++5.1"/>
 									<listOptionValue builtIn="false" value="CEGUIBase-0"/>
 									<listOptionValue builtIn="false" value="CEGUIIrrlichtRenderer-0"/>
 									<listOptionValue builtIn="false" value="CEGUILuaScriptModule-0"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="irrAddOn"/>
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="lua"/>
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="toluapp"/>
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="ws2_32"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="freetype"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="RakNetLibStatic"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="pthread"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="cAudio"/>
 								</option>
 								<option id="gnu.cpp.link.option.paths.1150088010" name="库搜索路径（-L）" superClass="gnu.cpp.link.option.paths" useByScannerDiscovery="false" valueType="libPaths">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/ThirdParty/static/win64}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/libs/win64}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.438150915" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
@@ -313,6 +366,7 @@
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Release_win64"/>
 		<configuration configurationName="Debug">
 			<resource resourceType="PROJECT" workspacePath="/OpenGameFrameWork"/>
 		</configuration>

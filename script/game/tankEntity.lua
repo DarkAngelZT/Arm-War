@@ -403,6 +403,7 @@ function StandardTankEntity.Load( info, logic_data )
 end
 
 function StandardTankEntity.LoadRegularComponent( data )
+	data.cast_shadow=ApplicationSettings.realtimeShadow
 	local node, node_mesh = Scene.nodeLoader.mesh_animated(data)
 	local shape_index=-1
 	local collision_mesh_path = data.collision_mesh_path

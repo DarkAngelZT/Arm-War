@@ -23,6 +23,9 @@ end
 function SceneLoaderGeneric(map_info,player_info)
 	-- initialize sfx
 	NeoGraphics:getInstance():getSfxManager():Init()
+	if ApplicationSettings.realtimeShadow then
+		NeoGraphics:getInstance():setShadowColor(irr.video.SColor:new_local(150,0,0,0));
+	end
 	Scene.DisablePhysicsSimulation()
 	--load object
 	local settings=map_info.setting
@@ -194,6 +197,9 @@ function MultiPlayerSceneLoader(map_info,player_info)
 	Synchronizer.max_player_count=player_number
 	-- initialize sfx
 	NeoGraphics:getInstance():getSfxManager():Init()
+	if ApplicationSettings.realtimeShadow then
+		NeoGraphics:getInstance():setShadowColor(irr.video.SColor:new_local(150,0,0,0));
+	end
 	Scene.DisablePhysicsSimulation()
 	--load object
 	local settings=map_info.setting

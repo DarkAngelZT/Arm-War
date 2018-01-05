@@ -7,10 +7,10 @@
 
 #include "NeoScript.h"
 #include<fstream>
-#include "../game/NeoTrigger.h"
-#include "../game/NeoGameLogic.h"
+#include "game/NeoTrigger.h"
+#include "game/NeoGameLogic.h"
 
-NeoScript* NeoScript::_instance = NULL;
+SINGLETON_SOURCE(NeoScript)
 
 //extra lua binding functions-//
 int tolua_NeoGame_open(lua_State* tolua_S);
@@ -23,24 +23,6 @@ static int NeoGameLogic_TriggerEvent(lua_State* tolua_S);
 NeoScript::NeoScript()
 {
 
-}
-
-NeoScript* NeoScript::getInstance()
-{
-	if (_instance == NULL)
-	{
-		_instance = new NeoScript();
-	}
-	return _instance;
-}
-
-void NeoScript::Destroy()
-{
-	if (_instance != NULL)
-	{
-		delete _instance;
-		_instance = NULL;
-	}
 }
 
 void NeoScript::Init(lua_State* lua_State)

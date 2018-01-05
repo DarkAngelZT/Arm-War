@@ -7,21 +7,24 @@
 #include"stdafx.h"
 #include "Application.h"
 #include "NeoGameLogic.h"
-#include "../network/Network.h"
+#include "network/Network.h"
+#include "sound/Sound.h"
 
-Application* Application::_instance = NULL;
+SINGLETON_SOURCE(Application)
+
 Application::Application()
 {
 	running = true;
 	using namespace CEGUI;
 
 	NeoScript::getInstance()->Init();
-	if(NeoScript::getInstance()->ExecuteScriptFile("./script/startup.lua")<0)
+	if (NeoScript::getInstance()->ExecuteScriptFile("./script/startup.lua") < 0)
 	{
 		exit(-1);
 	}
 	NeoGraphics::getInstance()->Init();
 	NeoPhysics::getInstance()->Init();
+	NeoGame::Sound::getInstance()->Init();
 
 	LuaScriptModule& scrptmod(
 			LuaScriptModule::create(NeoScript::getInstance()->getLuaState()));
@@ -38,6 +41,7 @@ void Application::CleanUp()
 	NeoGameLogic::Destroy();
 	NeoPhysics::Destroy();
 	NeoGraphics::Drop();
+	NeoGame::Sound::Destroy();
 }
 
 Application::~Application()
@@ -50,7 +54,8 @@ void Application::MainLoop()
 	while (running)
 	{
 		NeoGraphics::getInstance()->Update();
-		NeoPhysics::getInstance()->Update(NeoGraphics::getInstance()->getDeltaTime());
+		NeoPhysics::getInstance()->Update(
+				NeoGraphics::getInstance()->getDeltaTime());
 		NeoGameLogic::getInstance()->Update();
 		NeoGame::Network::getInstance()->Update();
 	}

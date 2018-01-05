@@ -65,9 +65,9 @@ function options_menu.scrollbar( args )
 	local  wnd = CEGUI.toScrollbar(CEGUI.toWindowEventArgs(args).window)
 	local name = wnd:getName()
 	if name == "BGMVolume_sb" then
-		ApplicationSettings.SoundVolume.bgm=wnd:getScrollPosition()*100
+		ApplicationSettings.SoundVolume.bgm=math.floor(wnd:getScrollPosition()*100)
 	elseif name == "EffectVolume_sb" then
-		ApplicationSettings.SoundVolume.effect=wnd:getScrollPosition()*100
+		ApplicationSettings.SoundVolume.effect=math.floor(wnd:getScrollPosition()*100)
 	end
 end
 -----------------------------------------

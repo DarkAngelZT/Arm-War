@@ -8,15 +8,12 @@
 #ifndef SRC_GAME_APPLICATION_H_
 #define SRC_GAME_APPLICATION_H_
 
+#include "SingletonMacro.h"
+
 class Application
 {
+SINGLETON_HEADER(Application)
 public:
-	static Application* getInstance()
-	{
-		if (_instance == NULL)
-			_instance = new Application();
-		return _instance;
-	}
 
 	bool isRunning() const
 	{
@@ -30,7 +27,6 @@ private:
 	~Application();
 private:
 	bool running = false;
-	static Application* _instance;
 };
 
 #endif /* SRC_GAME_APPLICATION_H_ */

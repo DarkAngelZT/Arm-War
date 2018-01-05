@@ -7,12 +7,14 @@
 
 #ifndef SRC_EDITOR_NEOEDITOR_H_
 #define SRC_EDITOR_NEOEDITOR_H_
-#include "../game/stdafx.h"
+#include "game/stdafx.h"
 #include <IEventReceiver.h>
+#include "game/SingletonMacro.h"
 class NeoGraphics;
 
 class NeoEditor: public irr::IEventReceiver
 {
+SINGLETON_HEADER(NeoEditor)
 public:
 	enum OBJECT_OPS
 	{
@@ -20,7 +22,6 @@ public:
 	};
 	virtual bool OnEvent(const SEvent& event);
 	//===lua API===//
-	static NeoEditor* getInstance();
 
 	void CreateFileOpenDialog(const std::string& lua_callback);
 	void ShowSelectionCursor(bool visible = true,
@@ -32,8 +33,10 @@ public:
 	irr::scene::ISceneNode* getSelectedSceneNode();
 	bool isSelectionCursor(irr::scene::ISceneNode*node);
 	int getSelectedCursorIndex(irr::scene::ISceneNode*node);
-	void setSceneNodeTriangleSelector(irr::scene::ISceneNode*node,const std::string& type = "normal");
-	void setMeshNodeColor(irr::scene::IMeshSceneNode*node, irr::video::SColor& color);
+	void setSceneNodeTriangleSelector(irr::scene::ISceneNode*node,
+			const std::string& type = "normal");
+	void setMeshNodeColor(irr::scene::IMeshSceneNode*node,
+			irr::video::SColor& color);
 	std::string getWorkingDirectory();
 	std::string getRelativePath(const std::string& p, const std::string& dir);
 	void ChangeWorkingDirectory(const std::string& dest);
@@ -44,7 +47,6 @@ private:
 	NeoEditor();
 	virtual ~NeoEditor();
 	void CreateSelectionCursor();
-	static NeoEditor* _instance;
 	std::string file_open_callback_lua;
 	bool select_mode;
 	OBJECT_OPS current_op;

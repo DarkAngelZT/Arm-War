@@ -9,7 +9,8 @@
 #include "NeoGameLogic.h"
 #include "NeoEventHandler.h"
 
-NeoGameLogic*NeoGameLogic::_instance = NULL;
+SINGLETON_SOURCE(NeoGameLogic)
+
 NeoGameLogic::NeoGameLogic():m_gamePaused(false)
 {
 }
@@ -113,23 +114,6 @@ NeoGameLogic::~NeoGameLogic()
 			static_cast<NeoEventHandler*>(NeoGraphics::getInstance()->getDevice()->getEventReceiver());
 	delete eventHandler;
 	NeoGraphics::getInstance()->getDevice()->setEventReceiver(NULL);
-}
-
-NeoGameLogic* NeoGameLogic::getInstance()
-{
-	if (_instance == NULL)
-	{
-		_instance = new NeoGameLogic();
-	}
-	return _instance;
-}
-
-void NeoGameLogic::Destroy()
-{
-	if (_instance != NULL)
-	{
-		delete _instance;
-	}
 }
 
 void NeoGameLogic::Init()

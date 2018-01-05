@@ -44,7 +44,7 @@ end
 -- make directory
 --------------------------------------------
 function createDirectory( dirname )
-    os.execute("mkdir " .. dirname)
+    os.execute(string.format("mkdir \"%s\"",dirname))
 end
 --------------------------------------------
 -- copy file

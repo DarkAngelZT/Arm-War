@@ -17,10 +17,10 @@ function Application_Save_Settings()
 		cfgfile:write(string.format("%s%s\n\n","-- File created on: ",os.date()))
 		--settings
 		cfgfile:write("ApplicationSettings = {}\n\n")
-		cfgfile:write(string.format("%s{ %s = %s, %s = %s }\n",
+		cfgfile:write(string.format("%s{ %s = %d, %s = %d }\n",
 			"ApplicationSettings.resolution = ",
-			"width",tostring(ApplicationSettings.resolution.width),
-			"height",tostring(ApplicationSettings.resolution.height)))
+			"width",ApplicationSettings.resolution.width,
+			"height",ApplicationSettings.resolution.height))
 		cfgfile:write(string.format("%s = \"%s\" -- This cannot be empty\n\n",
 			"ApplicationSettings.caption",ApplicationSettings.caption))
 		cfgfile:write(string.format("%s%s\n","ApplicationSettings.fullscreen = ", 
@@ -28,10 +28,12 @@ function Application_Save_Settings()
 		cfgfile:write(string.format("%s%s\n\n","ApplicationSettings.realtimeShadow = ",
 			tostring(ApplicationSettings.realtimeShadow)))
 
+		cfgfile:write(string.format("%s = \"%s\"\n","ApplicationSettings.SoundDevice", 
+			ApplicationSettings.SoundDevice))
 		cfgfile:write("ApplicationSettings.SoundVolume = {}\n")
-		cfgfile:write(string.format("%s%s\n","ApplicationSettings.SoundVolume.bgm = ", 
+		cfgfile:write(string.format("%s%d\n","ApplicationSettings.SoundVolume.bgm = ", 
 			ApplicationSettings.SoundVolume.bgm))
-		cfgfile:write(string.format("%s%s\n","ApplicationSettings.SoundVolume.effect = ", 
+		cfgfile:write(string.format("%s%d\n","ApplicationSettings.SoundVolume.effect = ", 
 			ApplicationSettings.SoundVolume.effect))
 
 		--close file

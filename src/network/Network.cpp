@@ -14,29 +14,12 @@
 namespace NeoGame
 {
 
-Network* Network::_instance = NULL;
+SINGLETON_SOURCE(Network)
+
 Network::Network() :
 		m_rakPeer(0), m_broadcast_listener(0), m_networkIDManager(0), m_replicaManager(
 				0), m_readyEvent(0), m_server(false)
 {
-}
-
-Network* Network::getInstance()
-{
-	if (!_instance)
-	{
-		_instance = new Network;
-	}
-	return _instance;
-}
-
-void Network::Destroy()
-{
-	if (_instance)
-	{
-		delete _instance;
-		_instance = NULL;
-	}
 }
 
 void Network::Init()

@@ -1,1 +1,14 @@
 Remember to put same number of spawnpoint for each team that equal to maximum number players.
+==================================
+texture mapping (in property window)
+==================================
+
+texture resolution:
+{herizon_resolution,vertical_resolution}
+texture offset:
+{x_offset,y_offset,z_offset}
+
+light type:
+point
+directional
+spot

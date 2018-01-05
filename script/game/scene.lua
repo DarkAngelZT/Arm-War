@@ -8,6 +8,7 @@ Scene.light_type_list={
 	spot=irr.video.ELT_SPOT,
 	directional=irr.video.ELT_DIRECTIONAL
 }
+Scene.mesh_cache={}
 Scene.entityMap={
 	common=CommonObjectEntity
 }
@@ -30,19 +31,56 @@ Scene.EVENT={
 Scene.nodeLoader={
 	mesh_static=function( info )
 		local mesh=NeoGraphics:getInstance():getMesh(info.mesh_path)
+		if not Scene.mesh_cache[info.mesh_path] then
+			-- apply texture coord scale
+			if info.texture_resolution then
+				NeoGraphics:getInstance():ScaleTextureCoords(
+					mesh,irr.core.vector2df:new_local(info.texture_resolution[1],info.texture_resolution[2]))
+			end
+			Scene.mesh_cache[info.mesh_path]=true
+		end
 		local node=NeoGraphics:getInstance():AddMeshSceneNode(mesh)
+		-- apply (potential) external texture
+		if #info.textures == 1 then
+			local texture = NeoGraphics:getInstance():LoadTexture(info.textures[1])
+			node:setMaterialTexture(0,texture)
+		end
 		node:setPosition(info.position)
 		node:setRotation(info.rotation)
 		node:setScale(info.scale)
+		-- shadow
+		if ApplicationSettings.realtimeShadow and info.cast_shadow then
+			node:addShadowVolumeSceneNode()
+		end
+
+		if info.visible ~= nil then
+			node:setVisible(info.visible)
+		end
 		node:updateAbsolutePosition()
 		return node,mesh
 	end,
 	mesh_animated=function( info )
 		local mesh=NeoGraphics:getInstance():getMesh(info.mesh_path)
+		if not Scene.mesh_cache[info.mesh_path] then
+			-- apply texture coord scale
+			if info.texture_resolution then
+				NeoGraphics:getInstance():ScaleTextureCoords(
+					mesh,irr.core.vector2df:new_local(info.texture_resolution[1],info.texture_resolution[2]))
+			end
+			Scene.mesh_cache[info.mesh_path]=true
+		end
 		local node=NeoGraphics:getInstance():AddAnimatedMeshSceneNode(mesh)
 		node:setPosition(info.position)
 		node:setRotation(info.rotation)
 		node:setScale(info.scale)
+		-- shadow
+		if ApplicationSettings.realtimeShadow and info.cast_shadow then
+			node:addShadowVolumeSceneNode()
+		end
+
+		if info.visible ~= nil then
+			node:setVisible(info.visible)
+		end
 		node:updateAbsolutePosition()
 		return node,mesh
 	end,
@@ -57,6 +95,9 @@ Scene.nodeLoader={
 		node:setMaterialFlag(irr.video.EMF_LIGHTING, false)
 		node:setMaterialType(irr.video.EMT_TRANSPARENT_ALPHA_CHANNEL)
 		node:setPosition(position)
+		if info.visible ~= nil then
+			node:setVisible(info.visible)
+		end
 		node:updateAbsolutePosition()
 		return node
 	end,
@@ -75,15 +116,41 @@ Scene.nodeLoader={
 		node:getLightData().InnerCone=info.innerCone
 		node:getLightData().OuterCone=info.outerCone
 		node:setLightType(Scene.light_type_list[info.light_type])
+		if info.visible ~= nil then
+			node:setVisible(info.visible)
+		end
 		node:updateAbsolutePosition()
 		return node
 	end,
 	octree=function( info )
 		local mesh=NeoGraphics:getInstance():getMesh(info.mesh_path)
+		if not Scene.mesh_cache[info.mesh_path] then
+			-- apply texture coord scale
+			if info.texture_resolution then
+				NeoGraphics:getInstance():ScaleTextureCoords(
+					mesh,irr.core.vector2df:new_local(info.texture_resolution[1],info.texture_resolution[2]))
+			end
+			Scene.mesh_cache[info.mesh_path]=true
+		end
 		local node=NeoGraphics:getInstance():AddOctreeSceneNode(mesh)
+		-- apply (potential) external texture
+		if #info.textures == 1 then
+			local texture = NeoGraphics:getInstance():LoadTexture(info.textures[1])
+			node:setMaterialTexture(0,texture)
+		end
 		node:setPosition(info.position)
 		node:setRotation(info.rotation)
-		node:setScale(info.scale)
+		if info.scale.X~=1 or info.scale.Y~=1 or info.scale.Z~=1 then
+			node:setScale(info.scale)
+		end
+		-- shadow
+		if ApplicationSettings.realtimeShadow and info.cast_shadow then
+			node:addShadowVolumeSceneNode()
+		end
+
+		if info.visible ~= nil then
+			node:setVisible(info.visible)
+		end
 		node:updateAbsolutePosition()
 		return node, mesh
 	end,
@@ -94,20 +161,34 @@ Scene.nodeLoader={
 		
 	end,
 	cube=function( info )
-		local texture_path=info.textures[1] or DIR_RESOURCES.."model/default/default_cobe_texture.png"
+		local texture_path=info.textures[1] or DIR_RESOURCES.."model/default/default_cube_texture.png"
 		if texture_path=="" then
-			texture_path = DIR_RESOURCES.."model/default/default_cobe_texture.png"
+			texture_path = DIR_RESOURCES.."model/default/default_cube_texture.png"
 		end
 		local texture=NeoGraphics:getInstance():LoadTexture(texture_path)
 		local node=NeoGraphics:getInstance():AddCubeSceneNode(info.size)
 		if texture then
 			node:setMaterialTexture(0,texture)
 		end
+
+		-- apply texture coord scale
+		if info.texture_resolution then
+			NeoGraphics:getInstance():ScaleTextureCoords(
+				node:getMesh(),irr.core.vector2df:new_local(info.texture_resolution[1],info.texture_resolution[2]))
+		end
 		node:setPosition(info.position)
 		node:setRotation(info.rotation)
 		node:setScale(info.scale)
+		-- shadow
+		if ApplicationSettings.realtimeShadow and info.cast_shadow then
+			node:addShadowVolumeSceneNode()
+		end
+
+		if info.visible ~= nil then
+			node:setVisible(info.visible)
+		end
 		node:updateAbsolutePosition()
-		return node
+		return node, node:getMesh()
 	end,
 	sphere=function( info )
 		local texture_path=info.textures[1] or DIR_RESOURCES.."model/default/default_cobe_texture.png"
@@ -119,11 +200,26 @@ Scene.nodeLoader={
 		if texture then
 			node:setMaterialTexture(0,texture)
 		end
+
+		-- apply texture coord scale
+		if info.texture_resolution then
+			NeoGraphics:getInstance():ScaleTextureCoords(
+				node:getMesh(),irr.core.vector2df:new_local(info.texture_resolution[1],info.texture_resolution[2]))
+		end
+
 		node:setPosition(info.position)
 		node:setRotation(info.rotation)
 		node:setScale(info.scale)
+		-- shadow
+		if ApplicationSettings.realtimeShadow and info.cast_shadow then
+			node:addShadowVolumeSceneNode()
+		end
+
+		if info.visible ~= nil then
+			node:setVisible(info.visible)
+		end
 		node:updateAbsolutePosition()
-		return node
+		return node, node:getMesh()
 	end,
 	text=function( info )
 		local font = FontManager:getFont(info.font) or FontManager:getFont(FontManager.default)
@@ -134,8 +230,78 @@ Scene.nodeLoader={
 		local colour = info.colour or irr.video.SColor(100,255,255,255)
 		local node = NeoGraphics:getInstance():AddTextSceneNode(font,text,colour)
 		node:setPosition(info.position)
+		if info.visible ~= nil then
+			node:setVisible(info.visible)
+		end
 		node:updateAbsolutePosition()
 		return node
+	end,
+	quad=function( info )
+		local texture_path=info.textures[1] or DIR_RESOURCES.."model/default/default_cube_texture.png"
+		if texture_path=="" then
+			texture_path = DIR_RESOURCES.."model/default/default_cube_texture.png"
+		end
+		local texture=NeoGraphics:getInstance():LoadTexture(texture_path)
+		local quad_mesh = NeoGraphics:getInstance():CreateQuadMesh(info.size,info.tile_count,info.texture_repeat_count)
+		local node=NeoGraphics:getInstance():AddMeshSceneNode(quad_mesh)
+		if texture then
+			node:setMaterialTexture(0,texture)
+		end
+
+		node:setPosition(info.position)
+		node:setRotation(info.rotation)
+		node:setScale(info.scale)
+		-- shadow
+		if ApplicationSettings.realtimeShadow and info.cast_shadow then
+			node:addShadowVolumeSceneNode()
+		end
+		
+		if info.visible ~= nil then
+			node:setVisible(info.visible)
+		end
+		node:updateAbsolutePosition()
+		return node,quad_mesh
+	end,
+	water_surface=function( info )
+		local texture_path=info.textures[1] or DIR_RESOURCES.."sfx/env/common/water.jpg"
+		if texture_path=="" then
+			texture_path = DIR_RESOURCES.."sfx/env/common/water.jpg"
+		end
+		--build mesh
+		local mesh
+		if info.build_type == "quad" then
+			mesh = NeoGraphics:getInstance():CreateQuadMesh(info.size,info.tile_count,info.texture_repeat_count)
+		elseif info.build_type == "sphere" then
+			mesh = NeoGraphics:getInstance():CreateSphereMesh(info.radius)
+			if info.texture_resolution then
+				NeoGraphics:getInstance():ScaleTextureCoords(mesh,irr.core.vector2df:new_local(info.texture_resolution[1],info.texture_resolution[2]))
+			end
+		elseif info.build_type == "cube" then
+			mesh = NeoGraphics:getInstance():CreateCubeMesh(irr.core.vector3df:new_local(info.size))
+			if info.texture_resolution then
+				NeoGraphics:getInstance():ScaleTextureCoords(mesh,irr.core.vector2df:new_local(info.texture_resolution[1],info.texture_resolution[2]))
+			end
+		elseif info.build_type == "mesh" then
+			mesh = NeoGraphics:getInstance():getMesh(info.mesh_path)
+			if info.texture_resolution then
+				NeoGraphics:getInstance():ScaleTextureCoords(mesh,irr.core.vector2df:new_local(info.texture_resolution[1],info.texture_resolution[2]))
+			end
+		end
+		--construct node
+		local node = NeoGraphics:getInstance():AddWaterSurfaceNode(mesh,info.wave_height,info.wave_speed,info.wave_length)
+		if info.override_texture then
+			local texture = NeoGraphics:getInstance():LoadTexture(texture_path)
+			node:setMaterialTexture(0,texture)
+		end
+
+		node:setPosition(info.position)
+		node:setRotation(info.rotation)
+		node:setScale(info.scale)
+		if info.visible ~= nil then
+			node:setVisible(info.visible)
+		end
+		node:updateAbsolutePosition()
+		return node, mesh
 	end,
 	--particle_sys=, -- not available yet
 	-- camera=, -- not available yet
@@ -263,7 +429,8 @@ function Scene:AddShellToScene( property, impulse, data )
 end
 
 function Scene:Clear()
-	Scene.spawn_points={}
+	self.spawn_points={}
+	self.mesh_cache={}
 	ShellFactory:clear()
 	self:ClearShellPool()
 	self.internal_observers={}

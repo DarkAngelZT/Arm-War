@@ -43,14 +43,19 @@ function CommonObjectEntity.Load(data,logic_data)
 	if data.physics_data and data.physics_data.physics_type~="none" then
 		--load physics object
 		local attribute = data.physics_data
+		attribute.scale = tolua.cast(node:getScale(),"irr::core::vector3d<float>")
 		if mesh then
 			attribute.mesh=mesh
 		end
 		local shape_index = 
 			Scene.collisionShapeLoader[data.physics_data.physics_type](attribute)
 		local mass = data.physics_data.mass or 0
-		local rbody = self.gameobject:AddRigidBody(shape_index,mass)
-		rbody:setFriction(0.8)
+		if shape_index then
+			local rbody = self.gameobject:AddRigidBody(shape_index,mass)
+			rbody:setFriction(0.8)
+		else
+			print("failed to create collision: "..data.name.."["..data.id.."]")
+		end
 	end
 	self.gameobject:setLuaIdentifier(data.id)
 	self.id=data.id

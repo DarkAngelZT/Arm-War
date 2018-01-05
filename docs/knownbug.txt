@@ -3,3 +3,6 @@ multiconlumn list will display original item order after been reseted even in so
 [fix] reset sort direction to none each time before reloading the list
 
 CEGUI can't get upper case letter from edit box when using some font
+
+[Caution] The clone function isn't implemented for octree scene node, it will return null
+[irrlicht] Dynamic shadow doesn't work right under directional light

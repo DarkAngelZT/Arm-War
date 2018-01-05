@@ -14,6 +14,7 @@
 #include "objectPool/ExplosionObjectPool.h"
 #include "object/StandardTankBodyObject.h"
 #include "object/SimpleTankTrackObject.h"
+#include "game/SingletonMacro.h"
 
 class ExplosionObjectPool;
 class NeoData;
@@ -23,9 +24,8 @@ class Effector;
 
 class NeoScene
 {
+SINGLETON_HEADER(NeoScene)
 public:
-	static NeoScene*getInstance();
-	static void Destroy();
 	void Clean();
 	GameObject*CreateGameObject();
 	GameObject*GetGameObject(int goId);
@@ -47,7 +47,6 @@ public:
 private:
 	NeoScene();
 	virtual ~NeoScene();
-	static NeoScene*_instance;
 	std::unordered_map<int, GameObject*> list_gameObjects;
 	int go_id_counter;
 	//object pools

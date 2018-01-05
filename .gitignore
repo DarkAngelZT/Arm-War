@@ -4,5 +4,6 @@
 *.d
 *.o
 *.mk
+cAudioEngineLog.html
 makefile
 .settings/

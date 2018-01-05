@@ -1,6 +1,6 @@
 /*
 ** Lua binding: NeoGame
-** Generated automatically by tolua++-1.0.93 on Fri Dec 29 17:07:21 2017.
+** Generated automatically by tolua++-1.0.93 on Fri Jan  5 04:02:49 2018.
 */
 
 #ifndef __cplusplus
@@ -229,7 +229,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"Effector");
  tolua_usertype(tolua_S,"irr::scene::IBillboardSceneNode");
  tolua_usertype(tolua_S,"irr::core::vector2d<int>");
- tolua_usertype(tolua_S,"irr::scene::IParticleMeshEmitter");
+ tolua_usertype(tolua_S,"irr::scene::IParticleEmitter");
  tolua_usertype(tolua_S,"irr::core::aabbox3d<f32>");
  tolua_usertype(tolua_S,"irr::scene::IParticleAttractionAffector");
  tolua_usertype(tolua_S,"NeoData");
@@ -285,7 +285,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"irr::scene::IParticleAffector");
  tolua_usertype(tolua_S,"irr::scene::IParticleSphereEmitter");
  tolua_usertype(tolua_S,"irr::core::vector3d<float>");
- tolua_usertype(tolua_S,"irr::scene::IParticleEmitter");
+ tolua_usertype(tolua_S,"irr::scene::IParticleMeshEmitter");
  tolua_usertype(tolua_S,"irr::video::SColorf");
  tolua_usertype(tolua_S,"irr::scene::IMesh");
  tolua_usertype(tolua_S,"NeoGameLogic");
@@ -1501,6 +1501,69 @@ static int tolua_NeoGame_NeoGame_io_isFileExist00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'isFileExist'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: NeoGame::io::getRelativePath */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_io_getRelativePath00
+static int tolua_NeoGame_NeoGame_io_getRelativePath00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_iscppstring(tolua_S,1,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const std::string file = ((const std::string)  tolua_tocppstring(tolua_S,1,0));
+  const std::string dir = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  {
+   std::string tolua_ret = (std::string)  NeoGame::io::getRelativePath(file,dir);
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+   tolua_pushcppstring(tolua_S,(const char*)file);
+   tolua_pushcppstring(tolua_S,(const char*)dir);
+  }
+ }
+ return 3;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getRelativePath'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: NeoGame::io::getAbsolutePath */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_io_getAbsolutePath00
+static int tolua_NeoGame_NeoGame_io_getAbsolutePath00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_iscppstring(tolua_S,1,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const std::string file = ((const std::string)  tolua_tocppstring(tolua_S,1,0));
+  {
+   std::string tolua_ret = (std::string)  NeoGame::io::getAbsolutePath(file);
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+   tolua_pushcppstring(tolua_S,(const char*)file);
+  }
+ }
+ return 2;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getAbsolutePath'.",&tolua_err);
  return 0;
 #endif
 }
@@ -8515,7 +8578,7 @@ static int tolua_NeoGame_irr_scene_IParticleBoxEmitter_setBox00(lua_State* tolua
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"irr::scene::IParticleBoxEmitter",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::aabbox3d<f32>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::aabbox3d<float>",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -8523,7 +8586,7 @@ static int tolua_NeoGame_irr_scene_IParticleBoxEmitter_setBox00(lua_State* tolua
 #endif
  {
   irr::scene::IParticleBoxEmitter* self = (irr::scene::IParticleBoxEmitter*)  tolua_tousertype(tolua_S,1,0);
-  const irr::core::aabbox3d<f32>* box = ((const irr::core::aabbox3d<f32>*)  tolua_tousertype(tolua_S,2,0));
+  const irr::core::aabbox3d<float>* box = ((const irr::core::aabbox3d<float>*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setBox'", NULL);
 #endif
@@ -8559,8 +8622,8 @@ static int tolua_NeoGame_irr_scene_IParticleBoxEmitter_getBox00(lua_State* tolua
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getBox'", NULL);
 #endif
   {
-   const irr::core::aabbox3d<f32>& tolua_ret = (const irr::core::aabbox3d<f32>&)  self->getBox();
-    tolua_pushusertype(tolua_S,(void*)&tolua_ret,"const irr::core::aabbox3d<f32>");
+   const irr::core::aabbox3d<float>& tolua_ret = (const irr::core::aabbox3d<float>&)  self->getBox();
+    tolua_pushusertype(tolua_S,(void*)&tolua_ret,"const irr::core::aabbox3d<float>");
   }
  }
  return 1;
@@ -35594,6 +35657,179 @@ tolua_lerror:
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: AddWaterSurfaceNode of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_AddWaterSurfaceNode00
+static int tolua_NeoGame_NeoGraphics_AddWaterSurfaceNode00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"irr::scene::IMesh",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,1,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,1,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,1,&tolua_err) ||
+     !tolua_isusertype(tolua_S,6,"irr::scene::ISceneNode",1,&tolua_err) ||
+     !tolua_isnumber(tolua_S,7,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,8,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+  irr::scene::IMesh* mesh = ((irr::scene::IMesh*)  tolua_tousertype(tolua_S,2,0));
+  float waveHight = ((float)  tolua_tonumber(tolua_S,3,2.0f));
+  float waveSpeed = ((float)  tolua_tonumber(tolua_S,4,300.0f));
+  float waveLength = ((float)  tolua_tonumber(tolua_S,5,10.0f));
+  irr::scene::ISceneNode* parent = ((irr::scene::ISceneNode*)  tolua_tousertype(tolua_S,6,0));
+  int id = ((int)  tolua_tonumber(tolua_S,7,-1));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'AddWaterSurfaceNode'", NULL);
+#endif
+  {
+   irr::scene::ISceneNode* tolua_ret = (irr::scene::ISceneNode*)  self->AddWaterSurfaceNode(mesh,waveHight,waveSpeed,waveLength,parent,id);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"irr::scene::ISceneNode");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'AddWaterSurfaceNode'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: AddWaterSurfaceNode of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_AddWaterSurfaceNode01
+static int tolua_NeoGame_NeoGraphics_AddWaterSurfaceNode01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"irr::scene::IMesh",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,6,"irr::scene::ISceneNode",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,7,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,8,&tolua_err) || !tolua_isusertype(tolua_S,8,"const irr::core::vector3d<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,9,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+  irr::scene::IMesh* mesh = ((irr::scene::IMesh*)  tolua_tousertype(tolua_S,2,0));
+  float waveHight = ((float)  tolua_tonumber(tolua_S,3,0));
+  float waveSpeed = ((float)  tolua_tonumber(tolua_S,4,0));
+  float waveLength = ((float)  tolua_tonumber(tolua_S,5,0));
+  irr::scene::ISceneNode* parent = ((irr::scene::ISceneNode*)  tolua_tousertype(tolua_S,6,0));
+  int id = ((int)  tolua_tonumber(tolua_S,7,0));
+  const irr::core::vector3d<float>* position = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,8,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'AddWaterSurfaceNode'", NULL);
+#endif
+  {
+   irr::scene::ISceneNode* tolua_ret = (irr::scene::ISceneNode*)  self->AddWaterSurfaceNode(mesh,waveHight,waveSpeed,waveLength,parent,id,*position);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"irr::scene::ISceneNode");
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_NeoGame_NeoGraphics_AddWaterSurfaceNode00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: AddWaterSurfaceNode of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_AddWaterSurfaceNode02
+static int tolua_NeoGame_NeoGraphics_AddWaterSurfaceNode02(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"irr::scene::IMesh",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,6,"irr::scene::ISceneNode",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,7,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,8,&tolua_err) || !tolua_isusertype(tolua_S,8,"const irr::core::vector3d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,9,&tolua_err) || !tolua_isusertype(tolua_S,9,"const irr::core::vector3d<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,10,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+  irr::scene::IMesh* mesh = ((irr::scene::IMesh*)  tolua_tousertype(tolua_S,2,0));
+  float waveHight = ((float)  tolua_tonumber(tolua_S,3,0));
+  float waveSpeed = ((float)  tolua_tonumber(tolua_S,4,0));
+  float waveLength = ((float)  tolua_tonumber(tolua_S,5,0));
+  irr::scene::ISceneNode* parent = ((irr::scene::ISceneNode*)  tolua_tousertype(tolua_S,6,0));
+  int id = ((int)  tolua_tonumber(tolua_S,7,0));
+  const irr::core::vector3d<float>* position = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,8,0));
+  const irr::core::vector3d<float>* rotation = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,9,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'AddWaterSurfaceNode'", NULL);
+#endif
+  {
+   irr::scene::ISceneNode* tolua_ret = (irr::scene::ISceneNode*)  self->AddWaterSurfaceNode(mesh,waveHight,waveSpeed,waveLength,parent,id,*position,*rotation);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"irr::scene::ISceneNode");
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_NeoGame_NeoGraphics_AddWaterSurfaceNode01(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: AddWaterSurfaceNode of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_AddWaterSurfaceNode03
+static int tolua_NeoGame_NeoGraphics_AddWaterSurfaceNode03(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"irr::scene::IMesh",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,6,"irr::scene::ISceneNode",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,7,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,8,&tolua_err) || !tolua_isusertype(tolua_S,8,"const irr::core::vector3d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,9,&tolua_err) || !tolua_isusertype(tolua_S,9,"const irr::core::vector3d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,10,&tolua_err) || !tolua_isusertype(tolua_S,10,"const irr::core::vector3d<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,11,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+  irr::scene::IMesh* mesh = ((irr::scene::IMesh*)  tolua_tousertype(tolua_S,2,0));
+  float waveHight = ((float)  tolua_tonumber(tolua_S,3,0));
+  float waveSpeed = ((float)  tolua_tonumber(tolua_S,4,0));
+  float waveLength = ((float)  tolua_tonumber(tolua_S,5,0));
+  irr::scene::ISceneNode* parent = ((irr::scene::ISceneNode*)  tolua_tousertype(tolua_S,6,0));
+  int id = ((int)  tolua_tonumber(tolua_S,7,0));
+  const irr::core::vector3d<float>* position = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,8,0));
+  const irr::core::vector3d<float>* rotation = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,9,0));
+  const irr::core::vector3d<float>* scale = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,10,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'AddWaterSurfaceNode'", NULL);
+#endif
+  {
+   irr::scene::ISceneNode* tolua_ret = (irr::scene::ISceneNode*)  self->AddWaterSurfaceNode(mesh,waveHight,waveSpeed,waveLength,parent,id,*position,*rotation,*scale);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"irr::scene::ISceneNode");
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_NeoGame_NeoGraphics_AddWaterSurfaceNode02(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: ITextNodeSetText of class  NeoGraphics */
 #ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_ITextNodeSetText00
 static int tolua_NeoGame_NeoGraphics_ITextNodeSetText00(lua_State* tolua_S)
@@ -35661,6 +35897,199 @@ static int tolua_NeoGame_NeoGraphics_CreateColourAffactorQ00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'CreateColourAffactorQ'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateQuadMesh of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_CreateQuadMesh00
+static int tolua_NeoGame_NeoGraphics_CreateQuadMesh00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+  const irr::core::dimension2d<float>* tileSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateQuadMesh'", NULL);
+#endif
+  {
+   irr::scene::IMesh* tolua_ret = (irr::scene::IMesh*)  self->CreateQuadMesh(*tileSize);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"irr::scene::IMesh");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'CreateQuadMesh'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateQuadMesh of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_CreateQuadMesh01
+static int tolua_NeoGame_NeoGraphics_CreateQuadMesh01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const irr::core::dimension2d<unsigned>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+  const irr::core::dimension2d<float>* tileSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,2,0));
+  const irr::core::dimension2d<unsigned>* tileCount = ((const irr::core::dimension2d<unsigned>*)  tolua_tousertype(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateQuadMesh'", NULL);
+#endif
+  {
+   irr::scene::IMesh* tolua_ret = (irr::scene::IMesh*)  self->CreateQuadMesh(*tileSize,*tileCount);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"irr::scene::IMesh");
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_NeoGame_NeoGraphics_CreateQuadMesh00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateQuadMesh of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_CreateQuadMesh02
+static int tolua_NeoGame_NeoGraphics_CreateQuadMesh02(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const irr::core::dimension2d<unsigned>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+  const irr::core::dimension2d<float>* tileSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,2,0));
+  const irr::core::dimension2d<unsigned>* tileCount = ((const irr::core::dimension2d<unsigned>*)  tolua_tousertype(tolua_S,3,0));
+  const irr::core::dimension2d<float>* textureRepeatCount = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,4,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateQuadMesh'", NULL);
+#endif
+  {
+   irr::scene::IMesh* tolua_ret = (irr::scene::IMesh*)  self->CreateQuadMesh(*tileSize,*tileCount,*textureRepeatCount);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"irr::scene::IMesh");
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_NeoGame_NeoGraphics_CreateQuadMesh01(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateCubeMesh of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_CreateCubeMesh00
+static int tolua_NeoGame_NeoGraphics_CreateCubeMesh00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateCubeMesh'", NULL);
+#endif
+  {
+   irr::scene::IMesh* tolua_ret = (irr::scene::IMesh*)  self->CreateCubeMesh();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"irr::scene::IMesh");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'CreateCubeMesh'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateCubeMesh of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_CreateCubeMesh01
+static int tolua_NeoGame_NeoGraphics_CreateCubeMesh01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::vector3d<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+  const irr::core::vector3d<float>* size = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateCubeMesh'", NULL);
+#endif
+  {
+   irr::scene::IMesh* tolua_ret = (irr::scene::IMesh*)  self->CreateCubeMesh(*size);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"irr::scene::IMesh");
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_NeoGame_NeoGraphics_CreateCubeMesh00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateSphereMesh of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_CreateSphereMesh00
+static int tolua_NeoGame_NeoGraphics_CreateSphereMesh00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+  float radius = ((float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateSphereMesh'", NULL);
+#endif
+  {
+   irr::scene::IMesh* tolua_ret = (irr::scene::IMesh*)  self->CreateSphereMesh(radius);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"irr::scene::IMesh");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'CreateSphereMesh'.",&tolua_err);
  return 0;
 #endif
 }
@@ -36112,6 +36541,146 @@ static int tolua_NeoGame_NeoGraphics_getMeshTexturePath00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: MakePlanarTextureMapping of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_MakePlanarTextureMapping00
+static int tolua_NeoGame_NeoGraphics_MakePlanarTextureMapping00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"irr::scene::IMesh",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+  irr::scene::IMesh* mesh = ((irr::scene::IMesh*)  tolua_tousertype(tolua_S,2,0));
+  float resolution = ((float)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'MakePlanarTextureMapping'", NULL);
+#endif
+  {
+   self->MakePlanarTextureMapping(mesh,resolution);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'MakePlanarTextureMapping'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: MakePlanarTextureMapping of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_MakePlanarTextureMapping01
+static int tolua_NeoGame_NeoGraphics_MakePlanarTextureMapping01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"irr::scene::IMesh",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+  irr::scene::IMesh* mesh = ((irr::scene::IMesh*)  tolua_tousertype(tolua_S,2,0));
+  float resolution_herizon = ((float)  tolua_tonumber(tolua_S,3,0));
+  float resolution_vertical = ((float)  tolua_tonumber(tolua_S,4,0));
+  int project_axis = ((int)  tolua_tonumber(tolua_S,5,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'MakePlanarTextureMapping'", NULL);
+#endif
+  {
+   self->MakePlanarTextureMapping(mesh,resolution_herizon,resolution_vertical,project_axis);
+  }
+ }
+ return 0;
+tolua_lerror:
+ return tolua_NeoGame_NeoGraphics_MakePlanarTextureMapping00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: MakePlanarTextureMapping of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_MakePlanarTextureMapping02
+static int tolua_NeoGame_NeoGraphics_MakePlanarTextureMapping02(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"irr::scene::IMesh",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,6,&tolua_err) || !tolua_isusertype(tolua_S,6,"const irr::core::vector3d<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,7,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+  irr::scene::IMesh* mesh = ((irr::scene::IMesh*)  tolua_tousertype(tolua_S,2,0));
+  float resolution_herizon = ((float)  tolua_tonumber(tolua_S,3,0));
+  float resolution_vertical = ((float)  tolua_tonumber(tolua_S,4,0));
+  int project_axis = ((int)  tolua_tonumber(tolua_S,5,0));
+  const irr::core::vector3d<float>* offset = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,6,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'MakePlanarTextureMapping'", NULL);
+#endif
+  {
+   self->MakePlanarTextureMapping(mesh,resolution_herizon,resolution_vertical,project_axis,*offset);
+  }
+ }
+ return 0;
+tolua_lerror:
+ return tolua_NeoGame_NeoGraphics_MakePlanarTextureMapping01(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: ScaleTextureCoords of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_ScaleTextureCoords00
+static int tolua_NeoGame_NeoGraphics_ScaleTextureCoords00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"irr::scene::IMesh",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const irr::core::vector2d<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+  irr::scene::IMesh* mesh = ((irr::scene::IMesh*)  tolua_tousertype(tolua_S,2,0));
+  const irr::core::vector2d<float>* factor = ((const irr::core::vector2d<float>*)  tolua_tousertype(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'ScaleTextureCoords'", NULL);
+#endif
+  {
+   self->ScaleTextureCoords(mesh,*factor);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'ScaleTextureCoords'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: CleanUp of class  NeoGraphics */
 #ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_CleanUp00
 static int tolua_NeoGame_NeoGraphics_CleanUp00(lua_State* tolua_S)
@@ -36206,6 +36775,39 @@ static int tolua_NeoGame_NeoGraphics_UnloadTexture00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'UnloadTexture'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setShadowColor of class  NeoGraphics */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGraphics_setShadowColor00
+static int tolua_NeoGame_NeoGraphics_setShadowColor00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"irr::video::SColor",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+  irr::video::SColor color = *((irr::video::SColor*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setShadowColor'", NULL);
+#endif
+  {
+   self->setShadowColor(color);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setShadowColor'.",&tolua_err);
  return 0;
 #endif
 }
@@ -43356,6 +43958,8 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
     tolua_function(tolua_S,"getFileInfolder",tolua_NeoGame_NeoGame_io_getFileInfolder00);
     tolua_function(tolua_S,"getCurrentWorkingDirectory",tolua_NeoGame_NeoGame_io_getCurrentWorkingDirectory00);
     tolua_function(tolua_S,"isFileExist",tolua_NeoGame_NeoGame_io_isFileExist00);
+    tolua_function(tolua_S,"getRelativePath",tolua_NeoGame_NeoGame_io_getRelativePath00);
+    tolua_function(tolua_S,"getAbsolutePath",tolua_NeoGame_NeoGame_io_getAbsolutePath00);
    tolua_endmodule(tolua_S);
   tolua_endmodule(tolua_S);
   tolua_function(tolua_S,"matrix4_getRotationZXY_rad",tolua_NeoGame_matrix4_getRotationZXY_rad00);
@@ -45297,8 +45901,18 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"AddTextSceneNode",tolua_NeoGame_NeoGraphics_AddTextSceneNode00);
    tolua_function(tolua_S,"AddTextSceneNode",tolua_NeoGame_NeoGraphics_AddTextSceneNode01);
    tolua_function(tolua_S,"AddTextSceneNode",tolua_NeoGame_NeoGraphics_AddTextSceneNode02);
+   tolua_function(tolua_S,"AddWaterSurfaceNode",tolua_NeoGame_NeoGraphics_AddWaterSurfaceNode00);
+   tolua_function(tolua_S,"AddWaterSurfaceNode",tolua_NeoGame_NeoGraphics_AddWaterSurfaceNode01);
+   tolua_function(tolua_S,"AddWaterSurfaceNode",tolua_NeoGame_NeoGraphics_AddWaterSurfaceNode02);
+   tolua_function(tolua_S,"AddWaterSurfaceNode",tolua_NeoGame_NeoGraphics_AddWaterSurfaceNode03);
    tolua_function(tolua_S,"ITextNodeSetText",tolua_NeoGame_NeoGraphics_ITextNodeSetText00);
    tolua_function(tolua_S,"CreateColourAffactorQ",tolua_NeoGame_NeoGraphics_CreateColourAffactorQ00);
+   tolua_function(tolua_S,"CreateQuadMesh",tolua_NeoGame_NeoGraphics_CreateQuadMesh00);
+   tolua_function(tolua_S,"CreateQuadMesh",tolua_NeoGame_NeoGraphics_CreateQuadMesh01);
+   tolua_function(tolua_S,"CreateQuadMesh",tolua_NeoGame_NeoGraphics_CreateQuadMesh02);
+   tolua_function(tolua_S,"CreateCubeMesh",tolua_NeoGame_NeoGraphics_CreateCubeMesh00);
+   tolua_function(tolua_S,"CreateCubeMesh",tolua_NeoGame_NeoGraphics_CreateCubeMesh01);
+   tolua_function(tolua_S,"CreateSphereMesh",tolua_NeoGame_NeoGraphics_CreateSphereMesh00);
    tolua_function(tolua_S,"GetActiveCamera",tolua_NeoGame_NeoGraphics_GetActiveCamera00);
    tolua_function(tolua_S,"SetActiveCamera",tolua_NeoGame_NeoGraphics_SetActiveCamera00);
    tolua_function(tolua_S,"SetAmbientLight",tolua_NeoGame_NeoGraphics_SetAmbientLight00);
@@ -45312,9 +45926,14 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setOSClipboardText",tolua_NeoGame_NeoGraphics_setOSClipboardText00);
    tolua_function(tolua_S,"getOperatingSystemVersion",tolua_NeoGame_NeoGraphics_getOperatingSystemVersion00);
    tolua_function(tolua_S,"getMeshTexturePath",tolua_NeoGame_NeoGraphics_getMeshTexturePath00);
+   tolua_function(tolua_S,"MakePlanarTextureMapping",tolua_NeoGame_NeoGraphics_MakePlanarTextureMapping00);
+   tolua_function(tolua_S,"MakePlanarTextureMapping",tolua_NeoGame_NeoGraphics_MakePlanarTextureMapping01);
+   tolua_function(tolua_S,"MakePlanarTextureMapping",tolua_NeoGame_NeoGraphics_MakePlanarTextureMapping02);
+   tolua_function(tolua_S,"ScaleTextureCoords",tolua_NeoGame_NeoGraphics_ScaleTextureCoords00);
    tolua_function(tolua_S,"CleanUp",tolua_NeoGame_NeoGraphics_CleanUp00);
    tolua_function(tolua_S,"LoadTexture",tolua_NeoGame_NeoGraphics_LoadTexture00);
    tolua_function(tolua_S,"UnloadTexture",tolua_NeoGame_NeoGraphics_UnloadTexture00);
+   tolua_function(tolua_S,"setShadowColor",tolua_NeoGame_NeoGraphics_setShadowColor00);
    tolua_function(tolua_S,"getPositionOnScreen",tolua_NeoGame_NeoGraphics_getPositionOnScreen00);
    tolua_function(tolua_S,"get3DPositionFromScreen",tolua_NeoGame_NeoGraphics_get3DPositionFromScreen00);
    tolua_function(tolua_S,"GetAttachedGameObject",tolua_NeoGame_NeoGraphics_GetAttachedGameObject00);

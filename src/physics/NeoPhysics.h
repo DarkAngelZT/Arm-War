@@ -7,7 +7,8 @@
 
 #ifndef SRC_PHYSICS_NEOPHYSICS_H_
 #define SRC_PHYSICS_NEOPHYSICS_H_
-#include "../game/stdafx.h"
+#include "game/stdafx.h"
+#include "game/SingletonMacro.h"
 #include <vector>
 #include <set>
 #include <list>
@@ -21,7 +22,7 @@
 #include "bulletWrapper/Ragdoll.h"
 #include "bulletWrapper/GhostObject.h"
 
-#include "../game/objectPool/AreaDetectGhostObjectPool.h"
+#include "game/objectPool/AreaDetectGhostObjectPool.h"
 /*
  *物理系统封装类
  */
@@ -39,15 +40,15 @@ using namespace std;
 
 class NeoPhysics
 {
+SINGLETON_HEADER(NeoPhysics)
 public:
-	struct RaycastResult{
+	struct RaycastResult
+	{
 		bool hasHit;
-		irr::core::vector3df	m_hitNormalWorld;
-		irr::core::vector3df	m_hitPointWorld;
+		irr::core::vector3df m_hitNormalWorld;
+		irr::core::vector3df m_hitPointWorld;
 		GameObject* m_gameObject;
 	};
-	static NeoPhysics*getInstance();
-	static void Destroy();
 	void Init();
 	void Update(float timestep);
 	void CleanUp();
@@ -139,7 +140,8 @@ public:
 					void(GhostObject*,
 							btAlignedObjectArray<btCollisionObject*>&)> callback);
 
-	RaycastResult RayCast(const irr::core::vector3df& from,const irr::core::vector3df& to);
+	RaycastResult RayCast(const irr::core::vector3df& from,
+			const irr::core::vector3df& to);
 
 //	void RegisterPostProcessingCall();
 //	void RemovePostProcessingCall();
@@ -223,7 +225,7 @@ private:
 			irr::core::vector3df scale = irr::core::vector3df(1, 1, 1),
 			int*assignedIndex = NULL);
 	std::shared_ptr<btTriangleMesh> getTriangleMesh(int index);
-	static NeoPhysics*_instance;
+
 	std::vector<std::shared_ptr<btCollisionShape>> m_collisionShapes;
 	std::vector<std::shared_ptr<btRigidBody>> m_rigidBodies;
 	std::vector<std::shared_ptr<btTriangleMesh>> m_triangleMeshes;

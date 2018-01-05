@@ -32,6 +32,8 @@ std::vector<std::string> getFileInfolder(const std::string& folder_name,
 		const std::string& extensions);
 std::string getCurrentWorkingDirectory();
 bool isFileExist(const std::string& path);
+std::string getRelativePath(const std::string&file,const std::string&dir);
+std::string getAbsolutePath(const std::string&file);
 }
 }
 

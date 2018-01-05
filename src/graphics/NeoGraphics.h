@@ -38,7 +38,7 @@ public:
 	}
 	std::string GetAvailableResolution();
 	void setWindowCaption(const std::string& title);
-	gui::IGUIFont* LoadTTFFont(const std::string& filePath,int size);
+	gui::IGUIFont* LoadTTFFont(const std::string& filePath, int size);
 	irr::scene::IAnimatedMesh* getMesh(std::string&file);
 	irr::scene::IAnimatedMeshSceneNode* AddAnimatedMeshSceneNode(
 			irr::scene::IAnimatedMesh* mesh, irr::scene::ISceneNode* parent = 0,
@@ -135,16 +135,32 @@ public:
 	irr::scene::IDummyTransformationSceneNode* AddDummyTransformationSceneNode(
 			irr::scene::ISceneNode* parent = 0, int id = -1);
 
-	irr::scene::ITextSceneNode* AddTextSceneNode(gui::IGUIFont* font,const std::string&text,
-				video::SColor color=video::SColor(100,255,255,255),
-				ISceneNode* parent = 0, const core::vector3df& position = core::vector3df(0,0,0),
-				s32 id=-1);
+	irr::scene::ITextSceneNode* AddTextSceneNode(gui::IGUIFont* font,
+			const std::string&text,
+			video::SColor color = video::SColor(100, 255, 255, 255),
+			ISceneNode* parent = 0, const core::vector3df& position =
+					core::vector3df(0, 0, 0), s32 id = -1);
 
-	void ITextNodeSetText(irr::scene::ITextSceneNode*node,const std::string& text);
+	irr::scene::ISceneNode*AddWaterSurfaceNode(irr::scene::IMesh*mesh,
+			float waveHight = 2.0f, float waveSpeed = 300.0f, float waveLength =
+					10.0f, scene::ISceneNode*parent = 0, int id = -1,
+			const core::vector3df& position = core::vector3df(0, 0, 0),
+			const core::vector3df&rotation = core::vector3df(0, 0, 0),
+			const core::vector3df& scale = core::vector3df(1, 1, 1));
+
+	void ITextNodeSetText(irr::scene::ITextSceneNode*node,
+			const std::string& text);
 
 	irr::scene::IParticleAffector* CreateColourAffactorQ(
 			const irr::video::SColor& targetColor0,
 			const irr::video::SColor& targetColor1);
+	irr::scene::IMesh* CreateQuadMesh(const core::dimension2d<f32>& tileSize,
+			const core::dimension2d<u32>& tileCount = core::dimension2du(1, 1),
+			const core::dimension2df& textureRepeatCount = core::dimension2df(
+					1.f, 1.f));
+	irr::scene::IMesh* CreateCubeMesh(const irr::core::vector3df& size =
+			irr::core::vector3df(10.0f, 10.0f, 10.0f));
+	irr::scene::IMesh* CreateSphereMesh(float radius);
 
 	irr::scene::ICameraSceneNode* GetActiveCamera();
 	void SetActiveCamera(irr::scene::ICameraSceneNode*camera);
@@ -161,6 +177,8 @@ public:
 	video::ITexture* LoadTexture(std::string&path);
 	void UnloadTexture(video::ITexture*texture);
 
+	void setShadowColor(irr::video::SColor color);
+
 	irr::core::vector2di getPositionOnScreen(
 			const irr::core::vector3df& position);
 	irr::core::vector3df get3DPositionFromScreen(
@@ -174,6 +192,11 @@ public:
 	void setOSClipboardText(const std::string& text);
 	std::string getOperatingSystemVersion();
 	std::vector<std::string> getMeshTexturePath(irr::scene::IMesh*mesh);
+	void MakePlanarTextureMapping(scene::IMesh*mesh, float resolution);
+	void MakePlanarTextureMapping(scene::IMesh*mesh, float resolution_herizon,
+			float resolution_vertical, int project_axis,
+			const core::vector3df& offset = core::vector3df(0, 0, 0));
+	void ScaleTextureCoords(scene::IMesh*mesh, const core::vector2df& factor);
 	//-------c++ API---------//
 	irr::scene::ISceneNodeAnimator* createAxisAlignedRotateAnimator(
 			u32 cycleTime, char align, int direction);

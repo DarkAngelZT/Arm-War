@@ -3,6 +3,11 @@ map_editor={}
 map_editor.isOnScene=true
 map_editor.edit_mode=NeoEditor.EDITOR_MOVE
 map_editor.root_directory=NeoEditor:getInstance():getWorkingDirectory()
+map_editor.built_in_model_directory_full=map_editor.root_directory.."/resources/model/default"
+map_editor.built_in_texture_directory_full=map_editor.root_directory.."/resources/sfx/env/common"
+map_editor.default_cube_texture_path = DIR_RESOURCES.."sfx/env/common/default_cube_texture.jpg"
+map_editor.built_in_texture_directory = DIR_RESOURCES.."sfx/env/common/"
+map_editor.built_in_model_directory = DIR_RESOURCES.."model/default/"
 map_editor.key_states=
 {
 	control=false,
@@ -118,7 +123,7 @@ map_editor.property_parser={
 		local parse=loadstring("return "..text)
 		if parse then
 			local raw=parse(text)
-			return irr.core.vector3df(raw[1],raw[2],raw[3])
+			return irr.core.vector3df:new_local(raw[1],raw[2],raw[3])
 		end
 	end,
 	["irr::video::SColor"] = function( text )
@@ -133,9 +138,26 @@ map_editor.property_parser={
 			return irr.video.SColor:new_local(raw.a,raw.r,raw.g,raw.b)
 		end
 	end,
+	["irr::core::dimension2d<float>"] = function ( text )
+		local parse = loadstring("return "..text)
+		if parse then
+			local raw = parse(text)
+			return irr.core.dimension2df:new_local(raw[1],raw[2])
+		end
+	end,
+	["irr::core::dimension2d<unsigned>"] = function ( text )
+		local parse = loadstring("return "..text)
+		if parse then
+			local raw = parse(text)
+			return irr.core.dimension2du:new_local(raw[1],raw[2])
+		end
+	end,
 	StringList = function ( text )
 		paths=split(text,":")
 		return paths
+	end,
+	NumberArray = function( array )
+		return eval(array)
 	end,
 	string = function (text)
 		local parse=loadstring("return \""..text.."\"")
@@ -176,8 +198,14 @@ map_editor.property_converter={
 		return string.format("{a=%d, r=%d, g=%d, b=%d}", 
 			colour:getAlpha(),colour:getRed(),colour:getGreen(),colour:getBlue())
 	end,
+	["irr::core::dimension2d<float>"] = function(d)
+		return string.format("{%f, %f}", d.Width, d.Height)
+	end,
+	["irr::core::dimension2d<unsigned>"] = function(d)
+		return string.format("{%d, %d}", d.Width, d.Height)
+	end,
 	StringList = function ( list )
-		paths=""
+		local paths=""
 		if #list ==0 then
 			return paths
 		end
@@ -186,6 +214,14 @@ map_editor.property_converter={
 			paths=paths..":"..list[i]
 		end
 		return paths
+	end,
+	NumberArray = function(array)
+		local r = "{"
+		for _,v in ipairs(array) do
+			r=r..tostring(v)..","
+		end
+		r=r.."}"
+		return r
 	end,
 	string = function (text)
 		return text
@@ -435,7 +471,42 @@ function map_editor.Menu_Insert_callback( args )
 	elseif btnName == "spawn_point" then
 		map_editor.isOnScene=false
 		map_editor.AddSpawnPoint()
+	elseif btnName == "quad" then
+		map_editor.isOnScene=false
+		map_editor.OpenInputWindow("Parameters of quad: width,height,tile_count_x,tile_count_y,texture_repeat_x,texture_repeat_y",
+			map_editor.AddQuadCallback,"1,1,1,1,1,1")
 	end
+end
+
+function map_editor.Menu_Insert_watersuface_callback( args )
+	local btnName=CEGUI.toWindowEventArgs(args).window:getName()
+	if btnName == "quad" then
+		map_editor.isOnScene=false
+		map_editor.OpenInputWindow("Parameters: {width,height},tile_count{x,y},texture_repeat{x,y},{wave_height,wave_speed,wave_length}",
+			map_editor.AddQuadWaterSurfaceCallback,"{10,10},{32,32},{1,1},{2,300,10}")
+	elseif btnName == "cube" then
+		map_editor.isOnScene=false
+		map_editor.OpenInputWindow("Parameters: {size},texture_resolution{x,y},{wave_height,wave_speed,wave_length}",
+			map_editor.AddCubeWaterSurfaceCallback,"{50},{1,1},{2,300,10}")
+	elseif btnName == "sphere" then
+		map_editor.isOnScene=false
+		map_editor.OpenInputWindow("Parameters: {radius},texture_resolution{x,y},{wave_height,wave_speed,wave_length}",
+			map_editor.AddSphereWaterSurfaceCallback,"{25},{1,1},{2,300,10}")
+	elseif btnName == "mesh" then
+		map_editor.isOnScene=false
+		NeoEditor:getInstance():CreateFileOpenDialog("map_editor.MenuInsertWatersuface_OnSelectMesh")
+		
+	end
+end
+
+function map_editor.MenuInsertWatersuface_OnSelectMesh( path )
+	if not path then
+		-- no mesh path
+		map_editor.isOnScene=true
+		return
+	end
+	map_editor.OpenInputWindow("Parameters: texture_resolution{x,y},{wave_height,wave_speed,wave_length},{mesh_path}",
+			map_editor.AddMeshWaterSurfaceCallback,"{1,1},{2,300,10},{\""..path.."\"}")
 end
 
 function map_editor.PropertyChangeSubmitted( args )
@@ -479,7 +550,7 @@ function map_editor.PropertyItemSelected( args )
 	map_editor.current_editted_object_property.item=item
 	map_editor.current_editted_object_property.key=key
 	if not key or 
-		not map_editor.current_editted_object_property.obj[key] or 
+		map_editor.current_editted_object_property.obj[key] == nil or 
 		map_editor.current_editted_object_property.obj.property[key].readOnly then
 		map_editor.property_editbox:setReadOnly(true)
 		map_editor.property_submitbtn:disable()

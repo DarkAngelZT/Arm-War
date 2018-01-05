@@ -11,6 +11,7 @@
             <Property name="PixelAligned" value="false" />
             <Window type="GlossySerpent/MenuItem" name="File" >
                 <Property name="Area" value="{{0,10},{0,0},{0,40},{0,25}}" />
+                <Property name="Font" value="DejaVuSans-HD-10" />
                 <Property name="Text" value="File" />
                 <Property name="VerticalAlignment" value="Centre" />
                 <Property name="WantsMultiClickEvents" value="false" />
@@ -22,29 +23,34 @@
                     <Property name="AutoResizeEnabled" value="true" />
                     <Window type="GlossySerpent/MenuItem" name="New" >
                         <Property name="Area" value="{{0,5},{0,5},{0,82},{0,30}}" />
+                        <Property name="Font" value="DejaVuSans-HD-10" />
                         <Property name="Text" value="New Map" />
                         <Property name="TooltipText" value="Create New Map" />
                         <Property name="WantsMultiClickEvents" value="false" />
                     </Window>
                     <Window type="GlossySerpent/MenuItem" name="Open" >
                         <Property name="Area" value="{{0,5},{0,32},{0,82},{0,57}}" />
+                        <Property name="Font" value="DejaVuSans-HD-10" />
                         <Property name="Text" value="Open..." />
                         <Property name="TooltipText" value="Open Existed Map" />
                         <Property name="WantsMultiClickEvents" value="false" />
                     </Window>
                     <Window type="GlossySerpent/MenuItem" name="Save" >
                         <Property name="Area" value="{{0,5},{0,59},{0,82},{0,84}}" />
+                        <Property name="Font" value="DejaVuSans-HD-10" />
                         <Property name="Text" value="Save..." />
                         <Property name="TooltipText" value="Save current map" />
                         <Property name="WantsMultiClickEvents" value="false" />
                     </Window>
                     <Window type="GlossySerpent/MenuItem" name="SaveAs" >
                         <Property name="Area" value="{{0,5},{0,86},{0,82},{0,111}}" />
+                        <Property name="Font" value="DejaVuSans-HD-10" />
                         <Property name="Text" value="Save as ..." />
                         <Property name="WantsMultiClickEvents" value="false" />
                     </Window>
                     <Window type="GlossySerpent/MenuItem" name="Quit" >
                         <Property name="Area" value="{{0,5},{0,113},{0,82},{0,138}}" />
+                        <Property name="Font" value="DejaVuSans-HD-10" />
                         <Property name="Text" value="Quit" />
                         <Property name="TooltipText" value="Exit to main menu" />
                         <Property name="WantsMultiClickEvents" value="false" />
@@ -53,71 +59,126 @@
             </Window>
             <Window type="GlossySerpent/MenuItem" name="Insert" >
                 <Property name="Area" value="{{0,50.3704},{0,0},{0,95.3704},{0,25}}" />
+                <Property name="Font" value="DejaVuSans-HD-10" />
                 <Property name="Text" value="Insert" />
                 <Property name="VerticalAlignment" value="Centre" />
                 <Property name="WantsMultiClickEvents" value="false" />
                 <Window type="GlossySerpent/PopupMenu" name="PopupMenu" >
-                    <Property name="Area" value="{{0,0},{0,0},{0,129.741},{0,245.945}}" />
+                    <Property name="Area" value="{{0,0},{0,0},{0,133.23},{0,298.961}}" />
                     <Property name="Visible" value="false" />
                     <Property name="ItemSpacing" value="2" />
                     <Property name="SortEnabled" value="true" />
                     <Property name="ClippedByParent" value="false" />
                     <Property name="AutoResizeEnabled" value="true" />
                     <Window type="GlossySerpent/MenuItem" name="static_mesh" >
-                        <Property name="Area" value="{{0,5},{0,221},{0,126},{0,246}}" />
+                        <Property name="Area" value="{{0,5},{0,248},{0,129},{0,273}}" />
+                        <Property name="Font" value="DejaVuSans-HD-10" />
                         <Property name="Text" value="Static Mesh..." />
                         <Property name="WantsMultiClickEvents" value="false" />
                     </Window>
                     <Window type="GlossySerpent/MenuItem" name="animated_mesh" >
-                        <Property name="Area" value="{{0,5},{0,5},{0,126},{0,30}}" />
+                        <Property name="Area" value="{{0,5},{0,5},{0,129},{0,30}}" />
+                        <Property name="Font" value="DejaVuSans-HD-10" />
                         <Property name="Text" value="Animated Mesh..." />
                         <Property name="WantsMultiClickEvents" value="false" />
                     </Window>
                     <Window type="GlossySerpent/MenuItem" name="oct" >
-                        <Property name="Area" value="{{0,5},{0,140},{0,126},{0,165}}" />
+                        <Property name="Area" value="{{0,5},{0,140},{0,129},{0,165}}" />
+                        <Property name="Font" value="DejaVuSans-HD-10" />
                         <Property name="Text" value="Octree Mesh..." />
                         <Property name="WantsMultiClickEvents" value="false" />
                     </Window>
                     <Window type="GlossySerpent/MenuItem" name="light" >
-                        <Property name="Area" value="{{0,5},{0,113},{0,126},{0,138}}" />
+                        <Property name="Area" value="{{0,5},{0,113},{0,129},{0,138}}" />
+                        <Property name="Font" value="DejaVuSans-HD-10" />
                         <Property name="Text" value="Light" />
                         <Property name="WantsMultiClickEvents" value="false" />
                     </Window>
                     <Window type="GlossySerpent/MenuItem" name="billboard" >
-                        <Property name="Area" value="{{0,5},{0,32},{0,126},{0,57}}" />
+                        <Property name="Area" value="{{0,5},{0,32},{0,129},{0,57}}" />
+                        <Property name="Font" value="DejaVuSans-HD-10" />
                         <Property name="Text" value="Billboard" />
                         <Property name="WantsMultiClickEvents" value="false" />
                     </Window>
                     <Window type="GlossySerpent/MenuItem" name="cube" >
-                        <Property name="Area" value="{{0,5},{0,59},{0,126},{0,84}}" />
+                        <Property name="Area" value="{{0,5},{0,59},{0,129},{0,84}}" />
+                        <Property name="Font" value="DejaVuSans-HD-10" />
                         <Property name="Text" value="Cube" />
                         <Property name="WantsMultiClickEvents" value="false" />
                     </Window>
                     <Window type="GlossySerpent/MenuItem" name="sphere" >
-                        <Property name="Area" value="{{0,5},{0,194},{0,126},{0,219}}" />
+                        <Property name="Area" value="{{0,5},{0,221},{0,129},{0,246}}" />
+                        <Property name="Font" value="DejaVuSans-HD-10" />
                         <Property name="Text" value="Sphere" />
                         <Property name="WantsMultiClickEvents" value="false" />
                     </Window>
                     <Window type="GlossySerpent/MenuItem" name="event_point" >
-                        <Property name="Area" value="{{0,5},{0,86},{0,126},{0,111}}" />
+                        <Property name="Area" value="{{0,5},{0,86},{0,129},{0,111}}" />
+                        <Property name="Font" value="DejaVuSans-HD-10" />
                         <Property name="Text" value="Event Point" />
                         <Property name="WantsMultiClickEvents" value="false" />
                     </Window>
                     <Window type="GlossySerpent/MenuItem" name="spawn_point" >
-                        <Property name="Area" value="{{0,5},{0,167},{0,126},{0,192}}" />
+                        <Property name="Area" value="{{0,5},{0,194},{0,129},{0,219}}" />
+                        <Property name="Font" value="DejaVuSans-HD-10" />
                         <Property name="Text" value="Spawn Point" />
                         <Property name="WantsMultiClickEvents" value="false" />
+                    </Window>
+                    <Window type="GlossySerpent/MenuItem" name="quad" >
+                        <Property name="Area" value="{{0,5},{0,167},{0,129},{0,192}}" />
+                        <Property name="Font" value="DejaVuSans-HD-10" />
+                        <Property name="Text" value="Quad" />
+                        <Property name="WantsMultiClickEvents" value="false" />
+                    </Window>
+                    <Window type="GlossySerpent/MenuItem" name="water_surface" >
+                        <Property name="Area" value="{{0,5},{0,275},{0,129},{0,300}}" />
+                        <Property name="Font" value="DejaVuSans-HD-10" />
+                        <Property name="Text" value="Warer Surface" />
+                        <Property name="WantsMultiClickEvents" value="false" />
+                        <Window type="GlossySerpent/PopupMenu" name="water_surface_menu" >
+                            <Property name="Area" value="{{0,0},{0,0},{0,100.741},{0,113.406}}" />
+                            <Property name="Visible" value="false" />
+                            <Property name="ItemSpacing" value="2" />
+                            <Property name="ClippedByParent" value="false" />
+                            <Property name="AutoResizeEnabled" value="true" />
+                            <Window type="GlossySerpent/MenuItem" name="quad" >
+                                <Property name="Area" value="{{0,5},{0,5},{0,97},{0,30}}" />
+                                <Property name="Font" value="DejaVuSans-HD-10" />
+                                <Property name="Text" value="From Quad" />
+                                <Property name="WantsMultiClickEvents" value="false" />
+                            </Window>
+                            <Window type="GlossySerpent/MenuItem" name="cube" >
+                                <Property name="Area" value="{{0,5},{0,32},{0,97},{0,57}}" />
+                                <Property name="Font" value="DejaVuSans-HD-10" />
+                                <Property name="Text" value="From Cube" />
+                                <Property name="WantsMultiClickEvents" value="false" />
+                            </Window>
+                            <Window type="GlossySerpent/MenuItem" name="sphere" >
+                                <Property name="Area" value="{{0,5},{0,59},{0,97},{0,84}}" />
+                                <Property name="Font" value="DejaVuSans-HD-10" />
+                                <Property name="Text" value="From Sphere" />
+                                <Property name="WantsMultiClickEvents" value="false" />
+                            </Window>
+                            <Window type="GlossySerpent/MenuItem" name="mesh" >
+                                <Property name="Area" value="{{0,5},{0,86},{0,97},{0,111}}" />
+                                <Property name="Font" value="DejaVuSans-HD-10" />
+                                <Property name="Text" value="From Mesh" />
+                                <Property name="WantsMultiClickEvents" value="false" />
+                            </Window>
+                        </Window>
                     </Window>
                 </Window>
             </Window>
             <Window type="GlossySerpent/MenuItem" name="Help" >
                 <Property name="Area" value="{{0,105.741},{0,0},{0,142.741},{0,25}}" />
+                <Property name="Font" value="DejaVuSans-HD-10" />
                 <Property name="Text" value="Help" />
                 <Property name="VerticalAlignment" value="Centre" />
                 <Property name="WantsMultiClickEvents" value="false" />
             </Window>
             <Window type="GlossySerpent/MenuItem" name="Tool" >
                 <Property name="Area" value="{{0,153.111},{0,0},{0,189.111},{0,25}}" />
+                <Property name="Font" value="DejaVuSans-HD-10" />
                 <Property name="Text" value="Tool" />
                 <Property name="VerticalAlignment" value="Centre" />
                 <Property name="WantsMultiClickEvents" value="false" />
@@ -130,6 +191,7 @@
                     <Property name="AutoResizeEnabled" value="true" />
                     <Window type="GlossySerpent/MenuItem" name="tankbuilder" >
                         <Property name="Area" value="{{0,5},{0,5},{0,94},{0,30}}" />
+                        <Property name="Font" value="DejaVuSans-HD-10" />
                         <Property name="Text" value="Tank Builder" />
                         <Property name="WantsMultiClickEvents" value="false" />
                     </Window>
@@ -249,6 +311,7 @@
         </Window>
         <Window type="GlossySerpent/FrameWindow" name="Property" >
             <Property name="Area" value="{{0,0},{0,338},{0,259},{0,708}}" />
+            <Property name="Font" value="DejaVuSans-HD-10" />
             <Property name="Text" value="Property" />
             <Property name="Alpha" value="0.9" />
             <Property name="CloseButtonEnabled" value="false" />
@@ -482,6 +545,7 @@
         </Window>
         <Window type="GlossySerpent/FrameWindow" name="Scene" >
             <Property name="Area" value="{{0,0},{0,84},{0,224},{0,331}}" />
+            <Property name="Font" value="DejaVuSans-HD-10" />
             <Property name="Text" value="Scene" />
             <Property name="CloseButtonEnabled" value="false" />
             <Property name="AutoRenderingSurface" value="true" />
@@ -502,6 +566,7 @@
         </Window>
         <Window type="GlossySerpent/FrameWindow" name="InputWindow" >
             <Property name="Area" value="{{0,0},{0,0},{0,400},{0,190}}" />
+            <Property name="Font" value="OpenSans-Regular-12" />
             <Property name="Text" value="Input Window" />
             <Property name="Visible" value="false" />
             <Property name="VerticalAlignment" value="Centre" />
@@ -516,15 +581,17 @@
                 <Property name="AlwaysOnTop" value="true" />
             </AutoWindow>
             <Window type="GlossySerpent/Editbox" name="input" >
-                <Property name="Area" value="{{0,0},{0,0},{0.95,0},{0,40}}" />
+                <Property name="Area" value="{{0,-2},{0,14},{0.95,-2},{0,54}}" />
                 <Property name="VerticalAlignment" value="Centre" />
                 <Property name="HorizontalAlignment" value="Centre" />
             </Window>
             <Window type="GlossySerpent/StaticText" name="info" >
-                <Property name="Area" value="{{0,7},{0,9},{0.8,7},{0,32}}" />
+                <Property name="Area" value="{{0,7},{0,9},{0.8,58},{0,64}}" />
+                <Property name="Font" value="OpenSans-Regular-10" />
                 <Property name="Text" value="information to display" />
                 <Property name="MaxSize" value="{{1,0},{1,0}}" />
                 <Property name="FrameEnabled" value="false" />
+                <Property name="HorzFormatting" value="WordWrapLeftAligned" />
                 <Property name="BackgroundEnabled" value="false" />
                 <AutoWindow namePath="__auto_vscrollbar__" >
                     <Property name="VerticalScrollbar" value="true" />
@@ -532,6 +599,7 @@
             </Window>
             <Window type="GlossySerpent/Button" name="ok_btn" >
                 <Property name="Area" value="{{0,-7},{0,-4},{0,70},{0,28}}" />
+                <Property name="Font" value="DejaVuSerif-HD-12" />
                 <Property name="Text" value="OK" />
                 <Property name="VerticalAlignment" value="Bottom" />
                 <Property name="HorizontalAlignment" value="Right" />
@@ -539,6 +607,7 @@
         </Window>
         <Window type="GlossySerpent/FrameWindow" name="TankFactory" >
             <Property name="Area" value="{{0,0},{0,0},{0,206},{0,502}}" />
+            <Property name="Font" value="DejaVuSans-HD-10" />
             <Property name="Text" value="Tank Factory" />
             <Property name="Visible" value="false" />
             <Property name="HorizontalAlignment" value="Right" />
@@ -553,9 +622,11 @@
             </AutoWindow>
             <Window type="GlossySerpent/Editbox" name="ebx_name" >
                 <Property name="Area" value="{{0,67},{0,-1},{0,166},{0,25}}" />
+                <Property name="Font" value="DejaVuSans-HD-10" />
             </Window>
             <Window type="GlossySerpent/StaticText" name="name_text" >
                 <Property name="Area" value="{{0,0},{0,0},{0,62},{0,23}}" />
+                <Property name="Font" value="DejaVuSans-HD-10" />
                 <Property name="Text" value="Name" />
                 <Property name="MaxSize" value="{{1,0},{1,0}}" />
                 <Property name="FrameEnabled" value="false" />
@@ -566,26 +637,31 @@
             </Window>
             <Window type="GlossySerpent/Button" name="btn_body" >
                 <Property name="Area" value="{{0,0},{0,30},{0,181},{0,54}}" />
+                <Property name="Font" value="DejaVuSans-HD-10" />
                 <Property name="Text" value="Add Body" />
                 <Property name="HorizontalAlignment" value="Centre" />
             </Window>
             <Window type="GlossySerpent/Button" name="btn_wheel" >
                 <Property name="Area" value="{{0,0},{0,58},{0,181},{0,82}}" />
+                <Property name="Font" value="DejaVuSans-HD-10" />
                 <Property name="Text" value="Add Wheel" />
                 <Property name="HorizontalAlignment" value="Centre" />
             </Window>
             <Window type="GlossySerpent/Button" name="btn_turret" >
                 <Property name="Area" value="{{0,0},{0,87},{0,181},{0,111}}" />
+                <Property name="Font" value="DejaVuSans-HD-10" />
                 <Property name="Text" value="Add Turret" />
                 <Property name="HorizontalAlignment" value="Centre" />
             </Window>
             <Window type="GlossySerpent/Button" name="btn_canon" >
                 <Property name="Area" value="{{0,0},{0,118},{0,181},{0,142}}" />
+                <Property name="Font" value="DejaVuSans-HD-10" />
                 <Property name="Text" value="Add Canon" />
                 <Property name="HorizontalAlignment" value="Centre" />
             </Window>
             <Window type="GlossySerpent/Button" name="btn_track" >
                 <Property name="Area" value="{{0,0},{0,146},{0,181},{0,170}}" />
+                <Property name="Font" value="DejaVuSans-HD-10" />
                 <Property name="Text" value="Add Track" />
                 <Property name="HorizontalAlignment" value="Centre" />
             </Window>
@@ -616,6 +692,7 @@
             </Window>
             <Window type="GlossySerpent/Button" name="btn_firePoint" >
                 <Property name="Area" value="{{0,0},{0,178},{0,181},{0,202}}" />
+                <Property name="Font" value="DejaVuSans-HD-10" />
                 <Property name="Text" value="Add firePoint" />
                 <Property name="HorizontalAlignment" value="Centre" />
             </Window>

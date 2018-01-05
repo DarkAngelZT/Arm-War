@@ -11,23 +11,23 @@
 #include <map>
 #include "NeoTrigger.h"
 #include <set>
+#include "SingletonMacro.h"
 using namespace std;
 class NeoGameLogic
 {
+SINGLETON_HEADER(NeoGameLogic)
 public:
-	static NeoGameLogic*getInstance();
-	static void Destroy();
 	void Init();
 	void Update();
-	
+
 	//-------triggers-----//
-	void TriggerEvent(int eid,int argc=0,...);
+	void TriggerEvent(int eid, int argc = 0, ...);
 	/*
 	 * reserve for lua
 	 */
-	void TriggerEvent(int eid,std::vector<std::string>&params);
+	void TriggerEvent(int eid, std::vector<std::string>&params);
 	void RegisterTrigger(NeoTrigger* newTrigger);
-	void RegisterLongTermEvent(int eid,std::string param="");
+	void RegisterLongTermEvent(int eid, std::string param = "");
 	void RemoveLongTermEvent(int eid);
 	void RemoveAllLongTermTriggers();
 	void RemoveTrigger(NeoTrigger* trigger);
@@ -44,11 +44,10 @@ public:
 private:
 	NeoGameLogic();
 	virtual ~NeoGameLogic();
-	static NeoGameLogic*_instance;
-	std::set<NeoTrigger*>list_triggers;
-	std::map<int,std::string>list_longterm_triggers;
-	std::set<std::string>lua_update_functions;
-	std::set<std::string>lua_update_function_delete_queue;
+	std::set<NeoTrigger*> list_triggers;
+	std::map<int, std::string> list_longterm_triggers;
+	std::set<std::string> lua_update_functions;
+	std::set<std::string> lua_update_function_delete_queue;
 	bool m_gamePaused;
 };
 

@@ -14,7 +14,8 @@
 
 NeoGraphics* NeoGraphics::_instance = NULL;
 using namespace irr;
-NeoGraphics::NeoGraphics():m_delta_time(0)
+NeoGraphics::NeoGraphics() :
+		m_delta_time(0)
 {
 	device = NULL;
 }
@@ -149,7 +150,8 @@ void NeoGraphics::InitialiseResourceGroupDirectories()
 	sprintf(resourcePath, "%s/%s", dataPathPrefix, "animations/");
 	rp->setResourceGroupDirectory("animations", resourcePath);
 	//以下代码是自己打的
-	rp->setResourceGroupDirectory("tankTopview","./resources/ui/images/tankTopView");
+	rp->setResourceGroupDirectory("tankTopview",
+			"./resources/ui/images/tankTopView");
 	rp->setResourceGroupDirectory("images", "./resources/ui/images/");
 	rp->setResourceGroupDirectory("mapPreview",
 			"./resources/ui/images/mapPreview");
@@ -363,13 +365,24 @@ core::dimension2du NeoGraphics::getScreenSize()
 	return size;
 }
 
-irr::scene::ITextSceneNode* NeoGraphics::AddTextSceneNode(gui::IGUIFont* font,const std::string&text,
-		video::SColor color, ISceneNode* parent,
+irr::scene::ITextSceneNode* NeoGraphics::AddTextSceneNode(gui::IGUIFont* font,
+		const std::string&text, video::SColor color, ISceneNode* parent,
 		const core::vector3df& position, s32 id)
 {
 	std::wstring str;
 	str.assign(text.begin(), text.end());
-	return smgr->addTextSceneNode(font,str.c_str(),color,parent,position,id);
+	return smgr->addTextSceneNode(font, str.c_str(), color, parent, position,
+			id);
+}
+
+irr::scene::ISceneNode* NeoGraphics::AddWaterSurfaceNode(
+		irr::scene::IMesh* mesh, float waveHight, float waveSpeed,
+		float waveLength, scene::ISceneNode*parent, int id,
+		const core::vector3df& position, const core::vector3df& rotation,
+		const core::vector3df& scale)
+{
+	return smgr->addWaterSurfaceSceneNode(mesh, waveHight, waveSpeed,
+			waveLength, parent, id, position, rotation, scale);
 }
 
 void NeoGraphics::ITextNodeSetText(irr::scene::ITextSceneNode* node,
@@ -382,10 +395,53 @@ void NeoGraphics::ITextNodeSetText(irr::scene::ITextSceneNode* node,
 	node->setText(str.c_str());
 }
 
+void NeoGraphics::MakePlanarTextureMapping(scene::IMesh* mesh,
+		float resolution_herizon, float resolution_vertical, int project_axis,
+		const core::vector3df& offset)
+{
+	if (mesh)
+	{
+		u8 axis = static_cast<u8>(project_axis);
+		smgr->getMeshManipulator()->makePlanarTextureMapping(mesh,
+				resolution_herizon, resolution_vertical, axis, offset);
+	}
+}
+
+void NeoGraphics::MakePlanarTextureMapping(scene::IMesh* mesh, float resolution)
+{
+	if (mesh)
+		smgr->getMeshManipulator()->makePlanarTextureMapping(mesh, resolution);
+}
+
+irr::scene::IMesh* NeoGraphics::CreateQuadMesh(
+		const core::dimension2d<f32>& tileSize,
+		const core::dimension2d<u32>& tileCount /*= core::dimension2du(1, 1)*/,
+		const core::dimension2df& textureRepeatCount /*= core::dimension2df(1.f,
+		 1.f)*/)
+{
+	return smgr->getGeometryCreator()->createPlaneMesh(tileSize, tileCount, 0,
+			textureRepeatCount);
+}
+
+irr::scene::IMesh* NeoGraphics::CreateCubeMesh(const irr::core::vector3df& size)
+{
+	return smgr->getGeometryCreator()->createCubeMesh(size);
+}
+
+irr::scene::IMesh* NeoGraphics::CreateSphereMesh(float radius)
+{
+	return smgr->getGeometryCreator()->createSphereMesh(radius);
+}
+
+void NeoGraphics::setShadowColor(irr::video::SColor sColor)
+{
+	smgr->setShadowColor(sColor);
+}
+
 void NeoGraphics::InitialiseDefaultResourceGroups()
 {
-	//以下代码搬运自cegui Sample
-	// set the default resource groups to be used
+//以下代码搬运自cegui Sample
+// set the default resource groups to be used
 	CEGUI::ImageManager::setImagesetDefaultResourceGroup("imagesets");
 	CEGUI::Font::setDefaultResourceGroup("fonts");
 	CEGUI::Scheme::setDefaultResourceGroup("schemes");
@@ -394,7 +450,7 @@ void NeoGraphics::InitialiseDefaultResourceGroups()
 	CEGUI::ScriptModule::setDefaultResourceGroup("lua_scripts");
 	CEGUI::AnimationManager::setDefaultResourceGroup("animations");
 
-	// setup default group for validation schemas
+// setup default group for validation schemas
 	CEGUI::XMLParser* parser = CEGUI::System::getSingleton().getXMLParser();
 	if (parser->isPropertyPresent("SchemaDefaultResourceGroup"))
 		parser->setProperty("SchemaDefaultResourceGroup", "schemas");
@@ -553,5 +609,11 @@ float NeoGraphics::getDeltaTime() const
 gui::IGUIFont* NeoGraphics::LoadTTFFont(const std::string& filePath, int size)
 {
 	io::path p(filePath.data());
-	return gui::CGUITTFont::createTTFont(guiEnv,p,size);
+	return gui::CGUITTFont::createTTFont(guiEnv, p, size);
+}
+
+void NeoGraphics::ScaleTextureCoords(scene::IMesh* mesh,
+		const core::vector2df& factor)
+{
+	smgr->getMeshManipulator()->scaleTCoords(mesh, factor);
 }

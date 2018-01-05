@@ -43,6 +43,12 @@ root:getChild(insertOption.."/cube"):subscribeEvent("Clicked","map_editor.Menu_I
 root:getChild(insertOption.."/sphere"):subscribeEvent("Clicked","map_editor.Menu_Insert_callback")
 root:getChild(insertOption.."/spawn_point"):subscribeEvent("Clicked","map_editor.Menu_Insert_callback")
 root:getChild(insertOption.."/event_point"):subscribeEvent("Clicked","map_editor.Menu_Insert_callback")
+root:getChild(insertOption.."/quad"):subscribeEvent("Clicked","map_editor.Menu_Insert_callback")
+local water_sufaceOption = insertOption.."/water_surface/water_surface_menu/"
+root:getChild(water_sufaceOption.."cube"):subscribeEvent("Clicked","map_editor.Menu_Insert_watersuface_callback")
+root:getChild(water_sufaceOption.."mesh"):subscribeEvent("Clicked","map_editor.Menu_Insert_watersuface_callback")
+root:getChild(water_sufaceOption.."quad"):subscribeEvent("Clicked","map_editor.Menu_Insert_watersuface_callback")
+root:getChild(water_sufaceOption.."sphere"):subscribeEvent("Clicked","map_editor.Menu_Insert_watersuface_callback")
 --property window
 property_wnd:subscribeEvent("SelectionChanged","map_editor.PropertyItemSelected")
 root:getChild("Property/TabControl/Tab_attribute/submit"):subscribeEvent("Clicked","map_editor.PropertyChangeSubmitted")
