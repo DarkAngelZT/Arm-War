@@ -72,5 +72,6 @@ $pfile "InternalData.pkg"
 $pfile "NeoEditor.pkg"
 $pfile "NeoScene.pkg"
 $pfile "Network.pkg"
+$pfile "sound/Sound.pkg"
 
 $pfile "SimpleTankTrackObject.pkg"

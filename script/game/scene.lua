@@ -242,7 +242,7 @@ Scene.nodeLoader={
 			texture_path = DIR_RESOURCES.."model/default/default_cube_texture.png"
 		end
 		local texture=NeoGraphics:getInstance():LoadTexture(texture_path)
-		local quad_mesh = NeoGraphics:getInstance():CreateQuadMesh(info.size,info.tile_count,info.texture_repeat_count)
+		local quad_mesh = NeoGraphics:getInstance():CreateQuadMesh("quad"..info.id,info.size,info.tile_count,info.texture_repeat_count)
 		local node=NeoGraphics:getInstance():AddMeshSceneNode(quad_mesh)
 		if texture then
 			node:setMaterialTexture(0,texture)
@@ -270,14 +270,14 @@ Scene.nodeLoader={
 		--build mesh
 		local mesh
 		if info.build_type == "quad" then
-			mesh = NeoGraphics:getInstance():CreateQuadMesh(info.size,info.tile_count,info.texture_repeat_count)
+			mesh = NeoGraphics:getInstance():CreateQuadMesh("quad"..info.id,info.size,info.tile_count,info.texture_repeat_count)
 		elseif info.build_type == "sphere" then
-			mesh = NeoGraphics:getInstance():CreateSphereMesh(info.radius)
+			mesh = NeoGraphics:getInstance():CreateSphereMesh("sphere"..info.id,info.radius)
 			if info.texture_resolution then
 				NeoGraphics:getInstance():ScaleTextureCoords(mesh,irr.core.vector2df:new_local(info.texture_resolution[1],info.texture_resolution[2]))
 			end
 		elseif info.build_type == "cube" then
-			mesh = NeoGraphics:getInstance():CreateCubeMesh(irr.core.vector3df:new_local(info.size))
+			mesh = NeoGraphics:getInstance():CreateCubeMesh("cube"..info.id,irr.core.vector3df:new_local(info.size))
 			if info.texture_resolution then
 				NeoGraphics:getInstance():ScaleTextureCoords(mesh,irr.core.vector2df:new_local(info.texture_resolution[1],info.texture_resolution[2]))
 			end
@@ -478,7 +478,16 @@ function Scene.LoadUpdate()
 end
 
 function Scene.Update()
-	-- body
+	if Scene.audio_listener then
+		local cam = NeoGraphics:getInstance():GetActiveCamera()
+		if cam then
+			local pos = cam:getPosition()
+			Scene.audio_listener:setPosition(pos)
+			local forward = cam:getTarget() - pos
+			Scene.audio_listener:setDirection(forward)
+			Scene.audio_listener:setUpVector(cam:getUpVector())
+		end
+	end
 end
 
 function Scene.Init(map_path,player_info)
@@ -489,6 +498,9 @@ function Scene.Init(map_path,player_info)
 	Scene.player_info=player_info
 	Scene.internal_observers={}
 	Scene.screen_size=NeoGraphics:getInstance():getScreenSize()
+
+	Scene.audio_listener=Sound:getListener()
+
 	-- Scene.load(Scene.map_info)
 end
 

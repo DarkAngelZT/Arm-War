@@ -6,11 +6,12 @@
  */
 
 #include "StandardTankBodyObject.h"
+#include "graphics/NeoGraphics.h"
 
 StandardTankBodyObject::StandardTankBodyObject() :
-		m_body(NULL), m_left_track(NULL), m_right_track(NULL), m_left_track_animator(
-		NULL), m_right_track_animator(NULL), m_left_wheel_animator(0), m_right_wheel_animator(
-				0)
+		m_left_wheel_animator(nullptr), m_right_wheel_animator(nullptr), m_body(
+				nullptr), m_left_track(nullptr), m_right_track(nullptr), m_left_track_animator(
+				nullptr), m_right_track_animator(nullptr)
 {
 	m_sceneNode = NeoGraphics::getInstance()->AddEmptySceneNode();
 }
@@ -18,7 +19,7 @@ StandardTankBodyObject::StandardTankBodyObject() :
 StandardTankBodyObject::~StandardTankBodyObject()
 {
 	m_sceneNode->remove();
-	m_sceneNode=NULL;
+	m_sceneNode = NULL;
 	m_left_wheels.clear();
 	m_right_wheels.clear();
 	m_left_wheel_animator->drop();

@@ -1,0 +1,35 @@
+$pfile "sound/AudioSource.pkg"
+$pfile "sound/AudioListener.pkg"
+
+namespace NeoGame
+{
+
+class Sound
+{
+	static Sound*getInstance();
+	static void Destroy();
+public:
+	bool Init();
+	void Clear();
+	bool setAudioDevice(std::string deviceName);
+	std::vector<std::string>& getDeviceList();
+	void setMasterVolume(float volume);
+	float getMasterVolume();
+
+	AudioSource* Play2DSound(std::string path, bool loop = false);
+	AudioSource* Play3DSound(std::string path, const irr::core::vector3d<float>& pos =
+			irr::core::vector3d<float>(), bool loop = false);
+
+	//audio source for instant use, will self-deactive when stopped
+	AudioSource* CreateInstantAudioSource(const char* name,
+			const char* filename, bool stream = false);
+	//normal audio source
+	AudioSource* CreateAudioSource(const char* name, const char* filename,
+			bool stream = false);
+	void ReleaseAudioSource(AudioSource*audio);
+	void StopAllSounds();
+	const std::string& getDefaultDevice();
+	AudioListener& getListener();
+};
+
+} /* namespace NeoGame */

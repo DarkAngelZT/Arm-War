@@ -32,6 +32,7 @@ function ( args )
 		--直接退出
 		g_ui_table.switchto("main")
 	end
+	Sound:setMasterVolume(ApplicationSettings.SoundVolume.master/100)
 end
 -----------------------------------------
 -- Handler to  resulotion combo box
@@ -45,6 +46,16 @@ function options_menu.resolutionChange( args )
 		ApplicationSettings.resolution.height=resolution[2]
 	end
 
+end
+-----------------------------------------
+-- Handler to  audio device combo box
+-----------------------------------------
+function options_menu.audiodeviceChange( args )
+	--取出当前的选项，作为key来获取表中的分辨率数值
+	local selection = CEGUI.toWindowEventArgs(args).window:getText()
+	if selection ~= nil then
+		ApplicationSettings.resolution.SoundDevice=selection
+	end
 end
 -----------------------------------------
 -- Handler to  all check box item
@@ -68,6 +79,9 @@ function options_menu.scrollbar( args )
 		ApplicationSettings.SoundVolume.bgm=math.floor(wnd:getScrollPosition()*100)
 	elseif name == "EffectVolume_sb" then
 		ApplicationSettings.SoundVolume.effect=math.floor(wnd:getScrollPosition()*100)
+		elseif name == "MasterVolume_sb" then
+		ApplicationSettings.SoundVolume.master=math.floor(wnd:getScrollPosition()*100)
+		Sound:setMasterVolume(ApplicationSettings.SoundVolume.master/100)
 	end
 end
 -----------------------------------------
@@ -90,6 +104,7 @@ function options_menu.refresh(  )
 	--音效设置
 	CEGUI.toScrollbar(rootWnd:getChild("BGMVolume_sb")):setScrollPosition(ApplicationSettings.SoundVolume.bgm/100)
 	CEGUI.toScrollbar(rootWnd:getChild("EffectVolume_sb")):setScrollPosition(ApplicationSettings.SoundVolume.effect/100)
+	CEGUI.toScrollbar(rootWnd:getChild("MasterVolume_sb")):setScrollPosition(ApplicationSettings.SoundVolume.master/100)
 end
 -----------------------------------------
 -- Script Entry Point
@@ -119,13 +134,28 @@ for i,v in pairs(options_menu.resolution_list) do
 	resolution_cbx:addItem(listItem)
 end
 
+local audio_device_cbx = CEGUI.toCombobox(root:getChild("AudioDevice_cb"))
+options_menu.audio_device_list = Sound:getDeviceList()
+
+for i=0, options_menu.audio_device_list:size()-1 do
+	local listItem = CEGUI.createListboxTextItem(options_menu.audio_device_list[i])
+	listItem:setSelectionBrushImage("GlossySerpent/ListboxSelectionBrush")
+	audio_device_cbx:addItem(listItem)
+end
+
+options_menu.background=root:getChild("bg")
+
+CEGUI.ImageManager:getSingleton():addFromImageFile("option_menu_bg","main_menu_1.jpg","images")
+options_menu.background:setProperty("Image","option_menu_bg")
 
 --注册事件
 resolution_cbx:subscribeEvent("ListSelectionAccepted","options_menu.resolutionChange")
+audio_device_cbx:subscribeEvent("ListSelectionAccepted","options_menu.audiodeviceChange")
 root:getChild("FullScreen_cb"):subscribeEvent("SelectStateChanged","options_menu.checkbox")
 root:getChild("RealTimeShadow"):subscribeEvent("SelectStateChanged","options_menu.checkbox")
 root:getChild("BGMVolume_sb"):subscribeEvent("ScrollPositionChanged","options_menu.scrollbar")
 root:getChild("EffectVolume_sb"):subscribeEvent("ScrollPositionChanged","options_menu.scrollbar")
+root:getChild("MasterVolume_sb"):subscribeEvent("ScrollPositionChanged","options_menu.scrollbar")
 root:getChild("btn_ok"):subscribeEvent("Clicked","options_menu.exit")
 root:getChild("btn_cancel"):subscribeEvent("Clicked","options_menu.exit")
 root:subscribeEvent("KeyUp","options_menu.keyInput")

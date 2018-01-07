@@ -44,6 +44,8 @@ public:
 	//--c++ interface--//
 	std::shared_ptr<Explosion> CreateExplosion_cpp(std::string& explosion_type,
 			NeoData&visual_data, NeoData&physics_data);
+
+	void Update();
 private:
 	NeoScene();
 	virtual ~NeoScene();

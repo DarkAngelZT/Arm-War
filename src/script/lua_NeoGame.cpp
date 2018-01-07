@@ -1,6 +1,6 @@
 /*
 ** Lua binding: NeoGame
-** Generated automatically by tolua++-1.0.93 on Fri Jan  5 04:02:49 2018.
+** Generated automatically by tolua++-1.0.93 on Sat Jan  6 19:40:47 2018.
 */
 
 #ifndef __cplusplus
@@ -243,9 +243,12 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"irr::scene::IAnimatedMeshSceneNode");
  tolua_usertype(tolua_S,"irr::video::SColor");
  tolua_usertype(tolua_S,"NeoEditor");
+ tolua_usertype(tolua_S,"NeoGame::Sound");
  tolua_usertype(tolua_S,"irr::scene::ISceneNode");
- tolua_usertype(tolua_S,"irr::scene::IParticleAnimatedMeshSceneNodeEmitter");
  tolua_usertype(tolua_S,"SimpleTankTrackObject");
+ tolua_usertype(tolua_S,"NeoGame::AudioListener");
+ tolua_usertype(tolua_S,"irr::scene::IParticleAnimatedMeshSceneNodeEmitter");
+ tolua_usertype(tolua_S,"NeoGame::AudioSource");
  tolua_usertype(tolua_S,"irr::video::ITexture");
  tolua_usertype(tolua_S,"irr::scene::IParticleBoxEmitter");
  tolua_usertype(tolua_S,"irr::core::vector3d<int>");
@@ -35910,24 +35913,27 @@ static int tolua_NeoGame_NeoGraphics_CreateQuadMesh00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
-  const irr::core::dimension2d<float>* tileSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,2,0));
+  const std::string name = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const irr::core::dimension2d<float>* tileSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateQuadMesh'", NULL);
 #endif
   {
-   irr::scene::IMesh* tolua_ret = (irr::scene::IMesh*)  self->CreateQuadMesh(*tileSize);
+   irr::scene::IMesh* tolua_ret = (irr::scene::IMesh*)  self->CreateQuadMesh(name,*tileSize);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"irr::scene::IMesh");
+   tolua_pushcppstring(tolua_S,(const char*)name);
   }
  }
- return 1;
+ return 2;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'CreateQuadMesh'.",&tolua_err);
@@ -35943,25 +35949,28 @@ static int tolua_NeoGame_NeoGraphics_CreateQuadMesh01(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const irr::core::dimension2d<unsigned>",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"const irr::core::dimension2d<unsigned>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
  )
   goto tolua_lerror;
  else
  {
   NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
-  const irr::core::dimension2d<float>* tileSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,2,0));
-  const irr::core::dimension2d<unsigned>* tileCount = ((const irr::core::dimension2d<unsigned>*)  tolua_tousertype(tolua_S,3,0));
+  const std::string name = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const irr::core::dimension2d<float>* tileSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,3,0));
+  const irr::core::dimension2d<unsigned>* tileCount = ((const irr::core::dimension2d<unsigned>*)  tolua_tousertype(tolua_S,4,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateQuadMesh'", NULL);
 #endif
   {
-   irr::scene::IMesh* tolua_ret = (irr::scene::IMesh*)  self->CreateQuadMesh(*tileSize,*tileCount);
+   irr::scene::IMesh* tolua_ret = (irr::scene::IMesh*)  self->CreateQuadMesh(name,*tileSize,*tileCount);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"irr::scene::IMesh");
+   tolua_pushcppstring(tolua_S,(const char*)name);
   }
  }
- return 1;
+ return 2;
 tolua_lerror:
  return tolua_NeoGame_NeoGraphics_CreateQuadMesh00(tolua_S);
 }
@@ -35974,27 +35983,30 @@ static int tolua_NeoGame_NeoGraphics_CreateQuadMesh02(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const irr::core::dimension2d<unsigned>",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"const irr::core::dimension2d<unsigned>",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,5,&tolua_err) || !tolua_isusertype(tolua_S,5,"const irr::core::dimension2d<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
  )
   goto tolua_lerror;
  else
  {
   NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
-  const irr::core::dimension2d<float>* tileSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,2,0));
-  const irr::core::dimension2d<unsigned>* tileCount = ((const irr::core::dimension2d<unsigned>*)  tolua_tousertype(tolua_S,3,0));
-  const irr::core::dimension2d<float>* textureRepeatCount = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,4,0));
+  const std::string name = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const irr::core::dimension2d<float>* tileSize = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,3,0));
+  const irr::core::dimension2d<unsigned>* tileCount = ((const irr::core::dimension2d<unsigned>*)  tolua_tousertype(tolua_S,4,0));
+  const irr::core::dimension2d<float>* textureRepeatCount = ((const irr::core::dimension2d<float>*)  tolua_tousertype(tolua_S,5,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateQuadMesh'", NULL);
 #endif
   {
-   irr::scene::IMesh* tolua_ret = (irr::scene::IMesh*)  self->CreateQuadMesh(*tileSize,*tileCount,*textureRepeatCount);
+   irr::scene::IMesh* tolua_ret = (irr::scene::IMesh*)  self->CreateQuadMesh(name,*tileSize,*tileCount,*textureRepeatCount);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"irr::scene::IMesh");
+   tolua_pushcppstring(tolua_S,(const char*)name);
   }
  }
- return 1;
+ return 2;
 tolua_lerror:
  return tolua_NeoGame_NeoGraphics_CreateQuadMesh01(tolua_S);
 }
@@ -36008,22 +36020,25 @@ static int tolua_NeoGame_NeoGraphics_CreateCubeMesh00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
+  const std::string name = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateCubeMesh'", NULL);
 #endif
   {
-   irr::scene::IMesh* tolua_ret = (irr::scene::IMesh*)  self->CreateCubeMesh();
+   irr::scene::IMesh* tolua_ret = (irr::scene::IMesh*)  self->CreateCubeMesh(name);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"irr::scene::IMesh");
+   tolua_pushcppstring(tolua_S,(const char*)name);
   }
  }
- return 1;
+ return 2;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'CreateCubeMesh'.",&tolua_err);
@@ -36039,23 +36054,26 @@ static int tolua_NeoGame_NeoGraphics_CreateCubeMesh01(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::vector3d<float>",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const irr::core::vector3d<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
  else
  {
   NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
-  const irr::core::vector3d<float>* size = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
+  const std::string name = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const irr::core::vector3d<float>* size = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateCubeMesh'", NULL);
 #endif
   {
-   irr::scene::IMesh* tolua_ret = (irr::scene::IMesh*)  self->CreateCubeMesh(*size);
+   irr::scene::IMesh* tolua_ret = (irr::scene::IMesh*)  self->CreateCubeMesh(name,*size);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"irr::scene::IMesh");
+   tolua_pushcppstring(tolua_S,(const char*)name);
   }
  }
- return 1;
+ return 2;
 tolua_lerror:
  return tolua_NeoGame_NeoGraphics_CreateCubeMesh00(tolua_S);
 }
@@ -36069,24 +36087,27 @@ static int tolua_NeoGame_NeoGraphics_CreateSphereMesh00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"NeoGraphics",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   NeoGraphics* self = (NeoGraphics*)  tolua_tousertype(tolua_S,1,0);
-  float radius = ((float)  tolua_tonumber(tolua_S,2,0));
+  const std::string name = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  float radius = ((float)  tolua_tonumber(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateSphereMesh'", NULL);
 #endif
   {
-   irr::scene::IMesh* tolua_ret = (irr::scene::IMesh*)  self->CreateSphereMesh(radius);
+   irr::scene::IMesh* tolua_ret = (irr::scene::IMesh*)  self->CreateSphereMesh(name,radius);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"irr::scene::IMesh");
+   tolua_pushcppstring(tolua_S,(const char*)name);
   }
  }
- return 1;
+ return 2;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'CreateSphereMesh'.",&tolua_err);
@@ -43810,6 +43831,2725 @@ static int tolua_NeoGame_NeoGame_Network_isServer00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: getFilePath of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_getFilePath00
+static int tolua_NeoGame_NeoGame_AudioSource_getFilePath00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getFilePath'", NULL);
+#endif
+  {
+   std::string tolua_ret = (std::string)  self->getFilePath();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getFilePath'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setPath of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_setPath00
+static int tolua_NeoGame_NeoGame_AudioSource_setPath00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+  const std::string path = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setPath'", NULL);
+#endif
+  {
+   self->setPath(path);
+   tolua_pushcppstring(tolua_S,(const char*)path);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setPath'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: isInitialized of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_isInitialized00
+static int tolua_NeoGame_NeoGame_AudioSource_isInitialized00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isInitialized'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->isInitialized();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'isInitialized'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getId of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_getId00
+static int tolua_NeoGame_NeoGame_AudioSource_getId00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getId'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getId();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getId'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: play of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_play00
+static int tolua_NeoGame_NeoGame_AudioSource_play00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'play'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->play();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'play'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: play2d of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_play2d00
+static int tolua_NeoGame_NeoGame_AudioSource_play2d00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'play2d'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->play2d();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'play2d'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: play2d of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_play2d01
+static int tolua_NeoGame_NeoGame_AudioSource_play2d01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+  const bool toLoop = ((const bool)  tolua_toboolean(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'play2d'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->play2d(toLoop);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+   tolua_pushboolean(tolua_S,(bool)toLoop);
+  }
+ }
+ return 2;
+tolua_lerror:
+ return tolua_NeoGame_NeoGame_AudioSource_play2d00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: play3d of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_play3d00
+static int tolua_NeoGame_NeoGame_AudioSource_play3d00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::vector3d<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+  const irr::core::vector3d<float>* position = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'play3d'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->play3d(*position);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'play3d'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: play3d of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_play3d01
+static int tolua_NeoGame_NeoGame_AudioSource_play3d01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::vector3d<float>",0,&tolua_err)) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+  const irr::core::vector3d<float>* position = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
+  const float soundstr = ((const float)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'play3d'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->play3d(*position,soundstr);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+   tolua_pushnumber(tolua_S,(lua_Number)soundstr);
+  }
+ }
+ return 2;
+tolua_lerror:
+ return tolua_NeoGame_NeoGame_AudioSource_play3d00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: play3d of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_play3d02
+static int tolua_NeoGame_NeoGame_AudioSource_play3d02(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::vector3d<float>",0,&tolua_err)) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+  const irr::core::vector3d<float>* position = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
+  const float soundstr = ((const float)  tolua_tonumber(tolua_S,3,0));
+  const bool toLoop = ((const bool)  tolua_toboolean(tolua_S,4,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'play3d'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->play3d(*position,soundstr,toLoop);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+   tolua_pushnumber(tolua_S,(lua_Number)soundstr);
+   tolua_pushboolean(tolua_S,(bool)toLoop);
+  }
+ }
+ return 3;
+tolua_lerror:
+ return tolua_NeoGame_NeoGame_AudioSource_play3d01(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: pause of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_pause00
+static int tolua_NeoGame_NeoGame_AudioSource_pause00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'pause'", NULL);
+#endif
+  {
+   self->pause();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'pause'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: stop of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_stop00
+static int tolua_NeoGame_NeoGame_AudioSource_stop00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'stop'", NULL);
+#endif
+  {
+   self->stop();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'stop'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: loop of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_loop00
+static int tolua_NeoGame_NeoGame_AudioSource_loop00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+  const bool toLoop = ((const bool)  tolua_toboolean(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'loop'", NULL);
+#endif
+  {
+   self->loop(toLoop);
+   tolua_pushboolean(tolua_S,(bool)toLoop);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'loop'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: seek of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_seek00
+static int tolua_NeoGame_NeoGame_AudioSource_seek00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,3,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+  const float seconds = ((const float)  tolua_tonumber(tolua_S,2,0));
+  bool relative = ((bool)  tolua_toboolean(tolua_S,3,false));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'seek'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->seek(seconds,relative);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+   tolua_pushnumber(tolua_S,(lua_Number)seconds);
+  }
+ }
+ return 2;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'seek'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getTotalAudioTime of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_getTotalAudioTime00
+static int tolua_NeoGame_NeoGame_AudioSource_getTotalAudioTime00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getTotalAudioTime'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getTotalAudioTime();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getTotalAudioTime'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getTotalAudioSize of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_getTotalAudioSize00
+static int tolua_NeoGame_NeoGame_AudioSource_getTotalAudioSize00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getTotalAudioSize'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getTotalAudioSize();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getTotalAudioSize'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getCompressedAudioSize of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_getCompressedAudioSize00
+static int tolua_NeoGame_NeoGame_AudioSource_getCompressedAudioSize00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getCompressedAudioSize'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getCompressedAudioSize();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getCompressedAudioSize'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getCurrentAudioTime of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_getCurrentAudioTime00
+static int tolua_NeoGame_NeoGame_AudioSource_getCurrentAudioTime00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getCurrentAudioTime'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getCurrentAudioTime();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getCurrentAudioTime'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getCurrentAudioPosition of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_getCurrentAudioPosition00
+static int tolua_NeoGame_NeoGame_AudioSource_getCurrentAudioPosition00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getCurrentAudioPosition'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getCurrentAudioPosition();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getCurrentAudioPosition'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getCurrentCompressedAudioPosition of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_getCurrentCompressedAudioPosition00
+static int tolua_NeoGame_NeoGame_AudioSource_getCurrentCompressedAudioPosition00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getCurrentCompressedAudioPosition'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getCurrentCompressedAudioPosition();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getCurrentCompressedAudioPosition'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: isValid of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_isValid00
+static int tolua_NeoGame_NeoGame_AudioSource_isValid00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoGame::AudioSource* self = (const NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isValid'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->isValid();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'isValid'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: isPlaying of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_isPlaying00
+static int tolua_NeoGame_NeoGame_AudioSource_isPlaying00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoGame::AudioSource* self = (const NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isPlaying'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->isPlaying();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'isPlaying'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: isPaused of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_isPaused00
+static int tolua_NeoGame_NeoGame_AudioSource_isPaused00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoGame::AudioSource* self = (const NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isPaused'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->isPaused();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'isPaused'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: isStopped of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_isStopped00
+static int tolua_NeoGame_NeoGame_AudioSource_isStopped00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoGame::AudioSource* self = (const NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isStopped'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->isStopped();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'isStopped'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: isLooping of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_isLooping00
+static int tolua_NeoGame_NeoGame_AudioSource_isLooping00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoGame::AudioSource* self = (const NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isLooping'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->isLooping();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'isLooping'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setPosition of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_setPosition00
+static int tolua_NeoGame_NeoGame_AudioSource_setPosition00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::vector3d<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+  const irr::core::vector3d<float>* position = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setPosition'", NULL);
+#endif
+  {
+   self->setPosition(*position);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setPosition'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setVelocity of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_setVelocity00
+static int tolua_NeoGame_NeoGame_AudioSource_setVelocity00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::vector3d<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+  const irr::core::vector3d<float>* velocity = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setVelocity'", NULL);
+#endif
+  {
+   self->setVelocity(*velocity);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setVelocity'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setDirection of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_setDirection00
+static int tolua_NeoGame_NeoGame_AudioSource_setDirection00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::vector3d<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+  const irr::core::vector3d<float>* direction = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setDirection'", NULL);
+#endif
+  {
+   self->setDirection(*direction);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setDirection'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setRolloffFactor of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_setRolloffFactor00
+static int tolua_NeoGame_NeoGame_AudioSource_setRolloffFactor00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+  const float rolloff = ((const float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setRolloffFactor'", NULL);
+#endif
+  {
+   self->setRolloffFactor(rolloff);
+   tolua_pushnumber(tolua_S,(lua_Number)rolloff);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setRolloffFactor'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setStrength of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_setStrength00
+static int tolua_NeoGame_NeoGame_AudioSource_setStrength00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+  const float soundstrength = ((const float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setStrength'", NULL);
+#endif
+  {
+   self->setStrength(soundstrength);
+   tolua_pushnumber(tolua_S,(lua_Number)soundstrength);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setStrength'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setMinDistance of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_setMinDistance00
+static int tolua_NeoGame_NeoGame_AudioSource_setMinDistance00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+  const float minDistance = ((const float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setMinDistance'", NULL);
+#endif
+  {
+   self->setMinDistance(minDistance);
+   tolua_pushnumber(tolua_S,(lua_Number)minDistance);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setMinDistance'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setMaxAttenuationDistance of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_setMaxAttenuationDistance00
+static int tolua_NeoGame_NeoGame_AudioSource_setMaxAttenuationDistance00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+  const float maxDistance = ((const float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setMaxAttenuationDistance'", NULL);
+#endif
+  {
+   self->setMaxAttenuationDistance(maxDistance);
+   tolua_pushnumber(tolua_S,(lua_Number)maxDistance);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setMaxAttenuationDistance'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setPitch of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_setPitch00
+static int tolua_NeoGame_NeoGame_AudioSource_setPitch00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+  const float pitch = ((const float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setPitch'", NULL);
+#endif
+  {
+   self->setPitch(pitch);
+   tolua_pushnumber(tolua_S,(lua_Number)pitch);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setPitch'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setVolume of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_setVolume00
+static int tolua_NeoGame_NeoGame_AudioSource_setVolume00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+  const float volume = ((const float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setVolume'", NULL);
+#endif
+  {
+   self->setVolume(volume);
+   tolua_pushnumber(tolua_S,(lua_Number)volume);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setVolume'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setMinVolume of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_setMinVolume00
+static int tolua_NeoGame_NeoGame_AudioSource_setMinVolume00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+  const float minVolume = ((const float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setMinVolume'", NULL);
+#endif
+  {
+   self->setMinVolume(minVolume);
+   tolua_pushnumber(tolua_S,(lua_Number)minVolume);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setMinVolume'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setMaxVolume of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_setMaxVolume00
+static int tolua_NeoGame_NeoGame_AudioSource_setMaxVolume00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+  const float maxVolume = ((const float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setMaxVolume'", NULL);
+#endif
+  {
+   self->setMaxVolume(maxVolume);
+   tolua_pushnumber(tolua_S,(lua_Number)maxVolume);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setMaxVolume'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setInnerConeAngle of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_setInnerConeAngle00
+static int tolua_NeoGame_NeoGame_AudioSource_setInnerConeAngle00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+  const float innerAngle = ((const float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setInnerConeAngle'", NULL);
+#endif
+  {
+   self->setInnerConeAngle(innerAngle);
+   tolua_pushnumber(tolua_S,(lua_Number)innerAngle);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setInnerConeAngle'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setOuterConeAngle of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_setOuterConeAngle00
+static int tolua_NeoGame_NeoGame_AudioSource_setOuterConeAngle00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+  const float outerAngle = ((const float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setOuterConeAngle'", NULL);
+#endif
+  {
+   self->setOuterConeAngle(outerAngle);
+   tolua_pushnumber(tolua_S,(lua_Number)outerAngle);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setOuterConeAngle'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setOuterConeVolume of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_setOuterConeVolume00
+static int tolua_NeoGame_NeoGame_AudioSource_setOuterConeVolume00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+  const float outerVolume = ((const float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setOuterConeVolume'", NULL);
+#endif
+  {
+   self->setOuterConeVolume(outerVolume);
+   tolua_pushnumber(tolua_S,(lua_Number)outerVolume);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setOuterConeVolume'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setDopplerStrength of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_setDopplerStrength00
+static int tolua_NeoGame_NeoGame_AudioSource_setDopplerStrength00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+  const float dstrength = ((const float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setDopplerStrength'", NULL);
+#endif
+  {
+   self->setDopplerStrength(dstrength);
+   tolua_pushnumber(tolua_S,(lua_Number)dstrength);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setDopplerStrength'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setDopplerVelocity of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_setDopplerVelocity00
+static int tolua_NeoGame_NeoGame_AudioSource_setDopplerVelocity00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::vector3d<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+  const irr::core::vector3d<float>* dvelocity = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setDopplerVelocity'", NULL);
+#endif
+  {
+   self->setDopplerVelocity(*dvelocity);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setDopplerVelocity'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: move of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_move00
+static int tolua_NeoGame_NeoGame_AudioSource_move00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::vector3d<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+  const irr::core::vector3d<float>* position = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'move'", NULL);
+#endif
+  {
+   self->move(*position);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'move'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getPosition of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_getPosition00
+static int tolua_NeoGame_NeoGame_AudioSource_getPosition00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getPosition'", NULL);
+#endif
+  {
+   irr::core::vector3d<float> tolua_ret = (irr::core::vector3d<float>)  self->getPosition();
+   {
+#ifdef __cplusplus
+    void* tolua_obj = Mtolua_new((irr::core::vector3d<float>)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3d<float>");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#else
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(irr::core::vector3d<float>));
+     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3d<float>");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#endif
+   }
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getPosition'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getVelocity of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_getVelocity00
+static int tolua_NeoGame_NeoGame_AudioSource_getVelocity00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getVelocity'", NULL);
+#endif
+  {
+   irr::core::vector3d<float> tolua_ret = (irr::core::vector3d<float>)  self->getVelocity();
+   {
+#ifdef __cplusplus
+    void* tolua_obj = Mtolua_new((irr::core::vector3d<float>)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3d<float>");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#else
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(irr::core::vector3d<float>));
+     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3d<float>");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#endif
+   }
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getVelocity'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getDirection of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_getDirection00
+static int tolua_NeoGame_NeoGame_AudioSource_getDirection00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getDirection'", NULL);
+#endif
+  {
+   irr::core::vector3d<float> tolua_ret = (irr::core::vector3d<float>)  self->getDirection();
+   {
+#ifdef __cplusplus
+    void* tolua_obj = Mtolua_new((irr::core::vector3d<float>)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3d<float>");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#else
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(irr::core::vector3d<float>));
+     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3d<float>");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#endif
+   }
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getDirection'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getRolloffFactor of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_getRolloffFactor00
+static int tolua_NeoGame_NeoGame_AudioSource_getRolloffFactor00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoGame::AudioSource* self = (const NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getRolloffFactor'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getRolloffFactor();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getRolloffFactor'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getStrength of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_getStrength00
+static int tolua_NeoGame_NeoGame_AudioSource_getStrength00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoGame::AudioSource* self = (const NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getStrength'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getStrength();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getStrength'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getMinDistance of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_getMinDistance00
+static int tolua_NeoGame_NeoGame_AudioSource_getMinDistance00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoGame::AudioSource* self = (const NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getMinDistance'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getMinDistance();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getMinDistance'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getMaxDistance of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_getMaxDistance00
+static int tolua_NeoGame_NeoGame_AudioSource_getMaxDistance00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoGame::AudioSource* self = (const NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getMaxDistance'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getMaxDistance();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getMaxDistance'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: isRelative of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_isRelative00
+static int tolua_NeoGame_NeoGame_AudioSource_isRelative00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoGame::AudioSource* self = (const NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isRelative'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->isRelative();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'isRelative'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: calculateGain of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_calculateGain00
+static int tolua_NeoGame_NeoGame_AudioSource_calculateGain00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoGame::AudioSource* self = (const NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'calculateGain'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->calculateGain();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'calculateGain'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getPitch of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_getPitch00
+static int tolua_NeoGame_NeoGame_AudioSource_getPitch00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoGame::AudioSource* self = (const NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getPitch'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getPitch();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getPitch'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getVolume of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_getVolume00
+static int tolua_NeoGame_NeoGame_AudioSource_getVolume00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoGame::AudioSource* self = (const NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getVolume'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getVolume();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getVolume'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getMinVolume of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_getMinVolume00
+static int tolua_NeoGame_NeoGame_AudioSource_getMinVolume00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoGame::AudioSource* self = (const NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getMinVolume'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getMinVolume();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getMinVolume'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getMaxVolume of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_getMaxVolume00
+static int tolua_NeoGame_NeoGame_AudioSource_getMaxVolume00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoGame::AudioSource* self = (const NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getMaxVolume'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getMaxVolume();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getMaxVolume'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getInnerConeAngle of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_getInnerConeAngle00
+static int tolua_NeoGame_NeoGame_AudioSource_getInnerConeAngle00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoGame::AudioSource* self = (const NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getInnerConeAngle'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getInnerConeAngle();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getInnerConeAngle'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getOuterConeAngle of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_getOuterConeAngle00
+static int tolua_NeoGame_NeoGame_AudioSource_getOuterConeAngle00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoGame::AudioSource* self = (const NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getOuterConeAngle'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getOuterConeAngle();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getOuterConeAngle'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getOuterConeVolume of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_getOuterConeVolume00
+static int tolua_NeoGame_NeoGame_AudioSource_getOuterConeVolume00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoGame::AudioSource* self = (const NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getOuterConeVolume'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getOuterConeVolume();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getOuterConeVolume'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getDopplerStrength of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_getDopplerStrength00
+static int tolua_NeoGame_NeoGame_AudioSource_getDopplerStrength00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"const NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const NeoGame::AudioSource* self = (const NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getDopplerStrength'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getDopplerStrength();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getDopplerStrength'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getDopplerVelocity of class  NeoGame::AudioSource */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioSource_getDopplerVelocity00
+static int tolua_NeoGame_NeoGame_AudioSource_getDopplerVelocity00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioSource* self = (NeoGame::AudioSource*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getDopplerVelocity'", NULL);
+#endif
+  {
+   irr::core::vector3d<float> tolua_ret = (irr::core::vector3d<float>)  self->getDopplerVelocity();
+   {
+#ifdef __cplusplus
+    void* tolua_obj = Mtolua_new((irr::core::vector3d<float>)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3d<float>");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#else
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(irr::core::vector3d<float>));
+     tolua_pushusertype(tolua_S,tolua_obj,"irr::core::vector3d<float>");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#endif
+   }
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getDopplerVelocity'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setPosition of class  NeoGame::AudioListener */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioListener_setPosition00
+static int tolua_NeoGame_NeoGame_AudioListener_setPosition00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioListener",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::vector3d<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioListener* self = (NeoGame::AudioListener*)  tolua_tousertype(tolua_S,1,0);
+  const irr::core::vector3d<float>* position = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setPosition'", NULL);
+#endif
+  {
+   self->setPosition(*position);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setPosition'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setDirection of class  NeoGame::AudioListener */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioListener_setDirection00
+static int tolua_NeoGame_NeoGame_AudioListener_setDirection00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioListener",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::vector3d<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioListener* self = (NeoGame::AudioListener*)  tolua_tousertype(tolua_S,1,0);
+  const irr::core::vector3d<float>* dir = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setDirection'", NULL);
+#endif
+  {
+   self->setDirection(*dir);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setDirection'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setUpVector of class  NeoGame::AudioListener */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioListener_setUpVector00
+static int tolua_NeoGame_NeoGame_AudioListener_setUpVector00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioListener",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const irr::core::vector3d<float>",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioListener* self = (NeoGame::AudioListener*)  tolua_tousertype(tolua_S,1,0);
+  const irr::core::vector3d<float>* up = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setUpVector'", NULL);
+#endif
+  {
+   self->setUpVector(*up);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setUpVector'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setMasterVolume of class  NeoGame::AudioListener */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioListener_setMasterVolume00
+static int tolua_NeoGame_NeoGame_AudioListener_setMasterVolume00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioListener",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioListener* self = (NeoGame::AudioListener*)  tolua_tousertype(tolua_S,1,0);
+  float volume = ((float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setMasterVolume'", NULL);
+#endif
+  {
+   self->setMasterVolume(volume);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setMasterVolume'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getMasterVolume of class  NeoGame::AudioListener */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_AudioListener_getMasterVolume00
+static int tolua_NeoGame_NeoGame_AudioListener_getMasterVolume00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::AudioListener",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::AudioListener* self = (NeoGame::AudioListener*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getMasterVolume'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getMasterVolume();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getMasterVolume'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getInstance of class  NeoGame::Sound */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Sound_getInstance00
+static int tolua_NeoGame_NeoGame_Sound_getInstance00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"NeoGame::Sound",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   NeoGame::Sound* tolua_ret = (NeoGame::Sound*)  NeoGame::Sound::getInstance();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"NeoGame::Sound");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getInstance'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: Destroy of class  NeoGame::Sound */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Sound_Destroy00
+static int tolua_NeoGame_NeoGame_Sound_Destroy00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"NeoGame::Sound",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   NeoGame::Sound::Destroy();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'Destroy'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: Init of class  NeoGame::Sound */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Sound_Init00
+static int tolua_NeoGame_NeoGame_Sound_Init00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Sound",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Sound* self = (NeoGame::Sound*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'Init'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->Init();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'Init'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: Clear of class  NeoGame::Sound */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Sound_Clear00
+static int tolua_NeoGame_NeoGame_Sound_Clear00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Sound",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Sound* self = (NeoGame::Sound*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'Clear'", NULL);
+#endif
+  {
+   self->Clear();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'Clear'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setAudioDevice of class  NeoGame::Sound */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Sound_setAudioDevice00
+static int tolua_NeoGame_NeoGame_Sound_setAudioDevice00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Sound",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Sound* self = (NeoGame::Sound*)  tolua_tousertype(tolua_S,1,0);
+  std::string deviceName = ((std::string)  tolua_tocppstring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setAudioDevice'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->setAudioDevice(deviceName);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setAudioDevice'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getDeviceList of class  NeoGame::Sound */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Sound_getDeviceList00
+static int tolua_NeoGame_NeoGame_Sound_getDeviceList00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Sound",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Sound* self = (NeoGame::Sound*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getDeviceList'", NULL);
+#endif
+  {
+   std::vector<std::string>& tolua_ret = (std::vector<std::string>&)  self->getDeviceList();
+    tolua_pushusertype(tolua_S,(void*)&tolua_ret,"std::vector<std::string>");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getDeviceList'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setMasterVolume of class  NeoGame::Sound */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Sound_setMasterVolume00
+static int tolua_NeoGame_NeoGame_Sound_setMasterVolume00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Sound",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Sound* self = (NeoGame::Sound*)  tolua_tousertype(tolua_S,1,0);
+  float volume = ((float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setMasterVolume'", NULL);
+#endif
+  {
+   self->setMasterVolume(volume);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setMasterVolume'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getMasterVolume of class  NeoGame::Sound */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Sound_getMasterVolume00
+static int tolua_NeoGame_NeoGame_Sound_getMasterVolume00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Sound",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Sound* self = (NeoGame::Sound*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getMasterVolume'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getMasterVolume();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getMasterVolume'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: Play2DSound of class  NeoGame::Sound */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Sound_Play2DSound00
+static int tolua_NeoGame_NeoGame_Sound_Play2DSound00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Sound",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,3,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Sound* self = (NeoGame::Sound*)  tolua_tousertype(tolua_S,1,0);
+  std::string path = ((std::string)  tolua_tocppstring(tolua_S,2,0));
+  bool loop = ((bool)  tolua_toboolean(tolua_S,3,false));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'Play2DSound'", NULL);
+#endif
+  {
+   NeoGame::AudioSource* tolua_ret = (NeoGame::AudioSource*)  self->Play2DSound(path,loop);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"NeoGame::AudioSource");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'Play2DSound'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: Play3DSound of class  NeoGame::Sound */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Sound_Play3DSound00
+static int tolua_NeoGame_NeoGame_Sound_Play3DSound00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Sound",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Sound* self = (NeoGame::Sound*)  tolua_tousertype(tolua_S,1,0);
+  std::string path = ((std::string)  tolua_tocppstring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'Play3DSound'", NULL);
+#endif
+  {
+   NeoGame::AudioSource* tolua_ret = (NeoGame::AudioSource*)  self->Play3DSound(path);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"NeoGame::AudioSource");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'Play3DSound'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: Play3DSound of class  NeoGame::Sound */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Sound_Play3DSound01
+static int tolua_NeoGame_NeoGame_Sound_Play3DSound01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Sound",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"const irr::core::vector3d<float>",0,&tolua_err)) ||
+     !tolua_isboolean(tolua_S,4,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  NeoGame::Sound* self = (NeoGame::Sound*)  tolua_tousertype(tolua_S,1,0);
+  std::string path = ((std::string)  tolua_tocppstring(tolua_S,2,0));
+  const irr::core::vector3d<float>* pos = ((const irr::core::vector3d<float>*)  tolua_tousertype(tolua_S,3,0));
+  bool loop = ((bool)  tolua_toboolean(tolua_S,4,false));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'Play3DSound'", NULL);
+#endif
+  {
+   NeoGame::AudioSource* tolua_ret = (NeoGame::AudioSource*)  self->Play3DSound(path,*pos,loop);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"NeoGame::AudioSource");
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_NeoGame_NeoGame_Sound_Play3DSound00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateInstantAudioSource of class  NeoGame::Sound */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Sound_CreateInstantAudioSource00
+static int tolua_NeoGame_NeoGame_Sound_CreateInstantAudioSource00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Sound",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,4,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Sound* self = (NeoGame::Sound*)  tolua_tousertype(tolua_S,1,0);
+  const char* name = ((const char*)  tolua_tostring(tolua_S,2,0));
+  const char* filename = ((const char*)  tolua_tostring(tolua_S,3,0));
+  bool stream = ((bool)  tolua_toboolean(tolua_S,4,false));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateInstantAudioSource'", NULL);
+#endif
+  {
+   NeoGame::AudioSource* tolua_ret = (NeoGame::AudioSource*)  self->CreateInstantAudioSource(name,filename,stream);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"NeoGame::AudioSource");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'CreateInstantAudioSource'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: CreateAudioSource of class  NeoGame::Sound */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Sound_CreateAudioSource00
+static int tolua_NeoGame_NeoGame_Sound_CreateAudioSource00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Sound",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,4,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Sound* self = (NeoGame::Sound*)  tolua_tousertype(tolua_S,1,0);
+  const char* name = ((const char*)  tolua_tostring(tolua_S,2,0));
+  const char* filename = ((const char*)  tolua_tostring(tolua_S,3,0));
+  bool stream = ((bool)  tolua_toboolean(tolua_S,4,false));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'CreateAudioSource'", NULL);
+#endif
+  {
+   NeoGame::AudioSource* tolua_ret = (NeoGame::AudioSource*)  self->CreateAudioSource(name,filename,stream);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"NeoGame::AudioSource");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'CreateAudioSource'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: ReleaseAudioSource of class  NeoGame::Sound */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Sound_ReleaseAudioSource00
+static int tolua_NeoGame_NeoGame_Sound_ReleaseAudioSource00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Sound",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"NeoGame::AudioSource",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Sound* self = (NeoGame::Sound*)  tolua_tousertype(tolua_S,1,0);
+  NeoGame::AudioSource* audio = ((NeoGame::AudioSource*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'ReleaseAudioSource'", NULL);
+#endif
+  {
+   self->ReleaseAudioSource(audio);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'ReleaseAudioSource'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: StopAllSounds of class  NeoGame::Sound */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Sound_StopAllSounds00
+static int tolua_NeoGame_NeoGame_Sound_StopAllSounds00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Sound",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Sound* self = (NeoGame::Sound*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'StopAllSounds'", NULL);
+#endif
+  {
+   self->StopAllSounds();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'StopAllSounds'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getDefaultDevice of class  NeoGame::Sound */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Sound_getDefaultDevice00
+static int tolua_NeoGame_NeoGame_Sound_getDefaultDevice00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Sound",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Sound* self = (NeoGame::Sound*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getDefaultDevice'", NULL);
+#endif
+  {
+   const std::string tolua_ret = (const std::string)  self->getDefaultDevice();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getDefaultDevice'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getListener of class  NeoGame::Sound */
+#ifndef TOLUA_DISABLE_tolua_NeoGame_NeoGame_Sound_getListener00
+static int tolua_NeoGame_NeoGame_Sound_getListener00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"NeoGame::Sound",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  NeoGame::Sound* self = (NeoGame::Sound*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getListener'", NULL);
+#endif
+  {
+   NeoGame::AudioListener& tolua_ret = (NeoGame::AudioListener&)  self->getListener();
+    tolua_pushusertype(tolua_S,(void*)&tolua_ret,"NeoGame::AudioListener");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getListener'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: getSpeed of class  SimpleTankTrackObject */
 #ifndef TOLUA_DISABLE_tolua_NeoGame_SimpleTankTrackObject_getSpeed00
 static int tolua_NeoGame_SimpleTankTrackObject_getSpeed00(lua_State* tolua_S)
@@ -46432,6 +49172,106 @@ TOLUA_API int tolua_NeoGame_open (lua_State* tolua_S)
     tolua_function(tolua_S,"ReadyEventRemoveFromRemoteList",tolua_NeoGame_NeoGame_Network_ReadyEventRemoveFromRemoteList00);
     tolua_function(tolua_S,"BaseProtocolIDToString",tolua_NeoGame_NeoGame_Network_BaseProtocolIDToString00);
     tolua_function(tolua_S,"isServer",tolua_NeoGame_NeoGame_Network_isServer00);
+   tolua_endmodule(tolua_S);
+  tolua_endmodule(tolua_S);
+  tolua_module(tolua_S,"NeoGame",0);
+  tolua_beginmodule(tolua_S,"NeoGame");
+   tolua_cclass(tolua_S,"AudioSource","NeoGame::AudioSource","Component",NULL);
+   tolua_beginmodule(tolua_S,"AudioSource");
+    tolua_function(tolua_S,"getFilePath",tolua_NeoGame_NeoGame_AudioSource_getFilePath00);
+    tolua_function(tolua_S,"setPath",tolua_NeoGame_NeoGame_AudioSource_setPath00);
+    tolua_function(tolua_S,"isInitialized",tolua_NeoGame_NeoGame_AudioSource_isInitialized00);
+    tolua_function(tolua_S,"getId",tolua_NeoGame_NeoGame_AudioSource_getId00);
+    tolua_function(tolua_S,"play",tolua_NeoGame_NeoGame_AudioSource_play00);
+    tolua_function(tolua_S,"play2d",tolua_NeoGame_NeoGame_AudioSource_play2d00);
+    tolua_function(tolua_S,"play2d",tolua_NeoGame_NeoGame_AudioSource_play2d01);
+    tolua_function(tolua_S,"play3d",tolua_NeoGame_NeoGame_AudioSource_play3d00);
+    tolua_function(tolua_S,"play3d",tolua_NeoGame_NeoGame_AudioSource_play3d01);
+    tolua_function(tolua_S,"play3d",tolua_NeoGame_NeoGame_AudioSource_play3d02);
+    tolua_function(tolua_S,"pause",tolua_NeoGame_NeoGame_AudioSource_pause00);
+    tolua_function(tolua_S,"stop",tolua_NeoGame_NeoGame_AudioSource_stop00);
+    tolua_function(tolua_S,"loop",tolua_NeoGame_NeoGame_AudioSource_loop00);
+    tolua_function(tolua_S,"seek",tolua_NeoGame_NeoGame_AudioSource_seek00);
+    tolua_function(tolua_S,"getTotalAudioTime",tolua_NeoGame_NeoGame_AudioSource_getTotalAudioTime00);
+    tolua_function(tolua_S,"getTotalAudioSize",tolua_NeoGame_NeoGame_AudioSource_getTotalAudioSize00);
+    tolua_function(tolua_S,"getCompressedAudioSize",tolua_NeoGame_NeoGame_AudioSource_getCompressedAudioSize00);
+    tolua_function(tolua_S,"getCurrentAudioTime",tolua_NeoGame_NeoGame_AudioSource_getCurrentAudioTime00);
+    tolua_function(tolua_S,"getCurrentAudioPosition",tolua_NeoGame_NeoGame_AudioSource_getCurrentAudioPosition00);
+    tolua_function(tolua_S,"getCurrentCompressedAudioPosition",tolua_NeoGame_NeoGame_AudioSource_getCurrentCompressedAudioPosition00);
+    tolua_function(tolua_S,"isValid",tolua_NeoGame_NeoGame_AudioSource_isValid00);
+    tolua_function(tolua_S,"isPlaying",tolua_NeoGame_NeoGame_AudioSource_isPlaying00);
+    tolua_function(tolua_S,"isPaused",tolua_NeoGame_NeoGame_AudioSource_isPaused00);
+    tolua_function(tolua_S,"isStopped",tolua_NeoGame_NeoGame_AudioSource_isStopped00);
+    tolua_function(tolua_S,"isLooping",tolua_NeoGame_NeoGame_AudioSource_isLooping00);
+    tolua_function(tolua_S,"setPosition",tolua_NeoGame_NeoGame_AudioSource_setPosition00);
+    tolua_function(tolua_S,"setVelocity",tolua_NeoGame_NeoGame_AudioSource_setVelocity00);
+    tolua_function(tolua_S,"setDirection",tolua_NeoGame_NeoGame_AudioSource_setDirection00);
+    tolua_function(tolua_S,"setRolloffFactor",tolua_NeoGame_NeoGame_AudioSource_setRolloffFactor00);
+    tolua_function(tolua_S,"setStrength",tolua_NeoGame_NeoGame_AudioSource_setStrength00);
+    tolua_function(tolua_S,"setMinDistance",tolua_NeoGame_NeoGame_AudioSource_setMinDistance00);
+    tolua_function(tolua_S,"setMaxAttenuationDistance",tolua_NeoGame_NeoGame_AudioSource_setMaxAttenuationDistance00);
+    tolua_function(tolua_S,"setPitch",tolua_NeoGame_NeoGame_AudioSource_setPitch00);
+    tolua_function(tolua_S,"setVolume",tolua_NeoGame_NeoGame_AudioSource_setVolume00);
+    tolua_function(tolua_S,"setMinVolume",tolua_NeoGame_NeoGame_AudioSource_setMinVolume00);
+    tolua_function(tolua_S,"setMaxVolume",tolua_NeoGame_NeoGame_AudioSource_setMaxVolume00);
+    tolua_function(tolua_S,"setInnerConeAngle",tolua_NeoGame_NeoGame_AudioSource_setInnerConeAngle00);
+    tolua_function(tolua_S,"setOuterConeAngle",tolua_NeoGame_NeoGame_AudioSource_setOuterConeAngle00);
+    tolua_function(tolua_S,"setOuterConeVolume",tolua_NeoGame_NeoGame_AudioSource_setOuterConeVolume00);
+    tolua_function(tolua_S,"setDopplerStrength",tolua_NeoGame_NeoGame_AudioSource_setDopplerStrength00);
+    tolua_function(tolua_S,"setDopplerVelocity",tolua_NeoGame_NeoGame_AudioSource_setDopplerVelocity00);
+    tolua_function(tolua_S,"move",tolua_NeoGame_NeoGame_AudioSource_move00);
+    tolua_function(tolua_S,"getPosition",tolua_NeoGame_NeoGame_AudioSource_getPosition00);
+    tolua_function(tolua_S,"getVelocity",tolua_NeoGame_NeoGame_AudioSource_getVelocity00);
+    tolua_function(tolua_S,"getDirection",tolua_NeoGame_NeoGame_AudioSource_getDirection00);
+    tolua_function(tolua_S,"getRolloffFactor",tolua_NeoGame_NeoGame_AudioSource_getRolloffFactor00);
+    tolua_function(tolua_S,"getStrength",tolua_NeoGame_NeoGame_AudioSource_getStrength00);
+    tolua_function(tolua_S,"getMinDistance",tolua_NeoGame_NeoGame_AudioSource_getMinDistance00);
+    tolua_function(tolua_S,"getMaxDistance",tolua_NeoGame_NeoGame_AudioSource_getMaxDistance00);
+    tolua_function(tolua_S,"isRelative",tolua_NeoGame_NeoGame_AudioSource_isRelative00);
+    tolua_function(tolua_S,"calculateGain",tolua_NeoGame_NeoGame_AudioSource_calculateGain00);
+    tolua_function(tolua_S,"getPitch",tolua_NeoGame_NeoGame_AudioSource_getPitch00);
+    tolua_function(tolua_S,"getVolume",tolua_NeoGame_NeoGame_AudioSource_getVolume00);
+    tolua_function(tolua_S,"getMinVolume",tolua_NeoGame_NeoGame_AudioSource_getMinVolume00);
+    tolua_function(tolua_S,"getMaxVolume",tolua_NeoGame_NeoGame_AudioSource_getMaxVolume00);
+    tolua_function(tolua_S,"getInnerConeAngle",tolua_NeoGame_NeoGame_AudioSource_getInnerConeAngle00);
+    tolua_function(tolua_S,"getOuterConeAngle",tolua_NeoGame_NeoGame_AudioSource_getOuterConeAngle00);
+    tolua_function(tolua_S,"getOuterConeVolume",tolua_NeoGame_NeoGame_AudioSource_getOuterConeVolume00);
+    tolua_function(tolua_S,"getDopplerStrength",tolua_NeoGame_NeoGame_AudioSource_getDopplerStrength00);
+    tolua_function(tolua_S,"getDopplerVelocity",tolua_NeoGame_NeoGame_AudioSource_getDopplerVelocity00);
+   tolua_endmodule(tolua_S);
+  tolua_endmodule(tolua_S);
+  tolua_module(tolua_S,"NeoGame",0);
+  tolua_beginmodule(tolua_S,"NeoGame");
+   tolua_cclass(tolua_S,"AudioListener","NeoGame::AudioListener","Component",NULL);
+   tolua_beginmodule(tolua_S,"AudioListener");
+    tolua_function(tolua_S,"setPosition",tolua_NeoGame_NeoGame_AudioListener_setPosition00);
+    tolua_function(tolua_S,"setDirection",tolua_NeoGame_NeoGame_AudioListener_setDirection00);
+    tolua_function(tolua_S,"setUpVector",tolua_NeoGame_NeoGame_AudioListener_setUpVector00);
+    tolua_function(tolua_S,"setMasterVolume",tolua_NeoGame_NeoGame_AudioListener_setMasterVolume00);
+    tolua_function(tolua_S,"getMasterVolume",tolua_NeoGame_NeoGame_AudioListener_getMasterVolume00);
+   tolua_endmodule(tolua_S);
+  tolua_endmodule(tolua_S);
+  tolua_module(tolua_S,"NeoGame",0);
+  tolua_beginmodule(tolua_S,"NeoGame");
+   tolua_cclass(tolua_S,"Sound","NeoGame::Sound","",NULL);
+   tolua_beginmodule(tolua_S,"Sound");
+    tolua_function(tolua_S,"getInstance",tolua_NeoGame_NeoGame_Sound_getInstance00);
+    tolua_function(tolua_S,"Destroy",tolua_NeoGame_NeoGame_Sound_Destroy00);
+    tolua_function(tolua_S,"Init",tolua_NeoGame_NeoGame_Sound_Init00);
+    tolua_function(tolua_S,"Clear",tolua_NeoGame_NeoGame_Sound_Clear00);
+    tolua_function(tolua_S,"setAudioDevice",tolua_NeoGame_NeoGame_Sound_setAudioDevice00);
+    tolua_function(tolua_S,"getDeviceList",tolua_NeoGame_NeoGame_Sound_getDeviceList00);
+    tolua_function(tolua_S,"setMasterVolume",tolua_NeoGame_NeoGame_Sound_setMasterVolume00);
+    tolua_function(tolua_S,"getMasterVolume",tolua_NeoGame_NeoGame_Sound_getMasterVolume00);
+    tolua_function(tolua_S,"Play2DSound",tolua_NeoGame_NeoGame_Sound_Play2DSound00);
+    tolua_function(tolua_S,"Play3DSound",tolua_NeoGame_NeoGame_Sound_Play3DSound00);
+    tolua_function(tolua_S,"Play3DSound",tolua_NeoGame_NeoGame_Sound_Play3DSound01);
+    tolua_function(tolua_S,"CreateInstantAudioSource",tolua_NeoGame_NeoGame_Sound_CreateInstantAudioSource00);
+    tolua_function(tolua_S,"CreateAudioSource",tolua_NeoGame_NeoGame_Sound_CreateAudioSource00);
+    tolua_function(tolua_S,"ReleaseAudioSource",tolua_NeoGame_NeoGame_Sound_ReleaseAudioSource00);
+    tolua_function(tolua_S,"StopAllSounds",tolua_NeoGame_NeoGame_Sound_StopAllSounds00);
+    tolua_function(tolua_S,"getDefaultDevice",tolua_NeoGame_NeoGame_Sound_getDefaultDevice00);
+    tolua_function(tolua_S,"getListener",tolua_NeoGame_NeoGame_Sound_getListener00);
    tolua_endmodule(tolua_S);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"SimpleTankTrackObject","SimpleTankTrackObject","GameObject",NULL);

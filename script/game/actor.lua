@@ -254,12 +254,14 @@ end
 function Actor:Move( dir, side )
 	if self.state==ACTOR_STATE.LIVE then
 		self.entity:Move(dir,side)
+		self.entity:PlayEngineSound()
 	end
 end
 
 function Actor:Stop()
 	if self.state==ACTOR_STATE.LIVE then
 		self.entity:Stop()
+		self.entity:StopEngineSound()
 	end
 end
 
@@ -278,6 +280,7 @@ function Actor:Die(corpse_id)
 	if self.state==ACTOR_STATE.LIVE then
 		self.state=ACTOR_STATE.DESTROYED
 		self.entity:Die(corpse_id)
+		self.entity:StopEngineSound()
 	end
 end
 

@@ -7,7 +7,6 @@
 
 #ifndef SRC_PHYSICS_NEOPHYSICS_H_
 #define SRC_PHYSICS_NEOPHYSICS_H_
-#include "game/stdafx.h"
 #include "game/SingletonMacro.h"
 #include <vector>
 #include <set>

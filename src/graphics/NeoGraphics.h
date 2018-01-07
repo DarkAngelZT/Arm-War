@@ -154,13 +154,15 @@ public:
 	irr::scene::IParticleAffector* CreateColourAffactorQ(
 			const irr::video::SColor& targetColor0,
 			const irr::video::SColor& targetColor1);
-	irr::scene::IMesh* CreateQuadMesh(const core::dimension2d<f32>& tileSize,
+	irr::scene::IMesh* CreateQuadMesh(const std::string&name,
+			const core::dimension2d<f32>& tileSize,
 			const core::dimension2d<u32>& tileCount = core::dimension2du(1, 1),
 			const core::dimension2df& textureRepeatCount = core::dimension2df(
 					1.f, 1.f));
-	irr::scene::IMesh* CreateCubeMesh(const irr::core::vector3df& size =
-			irr::core::vector3df(10.0f, 10.0f, 10.0f));
-	irr::scene::IMesh* CreateSphereMesh(float radius);
+	irr::scene::IMesh* CreateCubeMesh(const std::string&name,
+			const irr::core::vector3df& size = irr::core::vector3df(10.0f,
+					10.0f, 10.0f));
+	irr::scene::IMesh* CreateSphereMesh(const std::string&name, float radius);
 
 	irr::scene::ICameraSceneNode* GetActiveCamera();
 	void SetActiveCamera(irr::scene::ICameraSceneNode*camera);

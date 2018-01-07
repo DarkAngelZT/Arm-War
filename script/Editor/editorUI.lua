@@ -439,6 +439,8 @@ end
 function map_editor.Quit()
 	g_ui_table.switchto("main")
 	map_editor.CleanUp()
+	Sound:Play2D("main_menu",true):setVolume(
+			ApplicationSettings.SoundVolume.bgm/100)
 end
 
 function map_editor.Menu_Insert_callback( args )

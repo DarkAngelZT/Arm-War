@@ -1,0 +1,24 @@
+namespace NeoGame
+{
+
+class AudioListener : Component
+{
+public:
+	void setPosition(const irr::core::vector3d<float>& position);
+	//! Sets the direction the listener is facing
+	/**
+	 \param dir: New direction vector for the listener. */
+	void setDirection(const irr::core::vector3d<float>& dir);
+
+	//! Sets the up vector to use for the listener
+	/** Default up vector is Y+, same as OpenGL.
+	 \param up: New up vector for the listener. */
+	void setUpVector(const irr::core::vector3d<float>& up);
+	//! Sets the global volume modifier (will effect all sources)
+	/**
+	 \param volume: Volume to scale all sources by. Range: 0.0 to +inf. */
+	void setMasterVolume( float volume);
+	float getMasterVolume(void);
+};
+
+} /* namespace NeoGame */

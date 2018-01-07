@@ -10,8 +10,11 @@
 
 #include<memory>
 #include <btBulletDynamicsCommon.h>
-#include "../../game/NeoReusableObject.h"
-#include "../../game/Component.h"
+#include "game/NeoReusableObject.h"
+#include "game/Component.h"
+
+class Component;
+class NeoReusableObject;
 
 class CollisionObject: public NeoReusableObject, public Component
 {

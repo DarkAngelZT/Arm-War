@@ -10,6 +10,8 @@ function SingleMenu.keyInput( args )
 	local keycode = CEGUI.toKeyEventArgs(args)
 	if keycode.scancode == CEGUI.Key.Escape then
 		--直接退出
+		Sound:Play2D("main_menu",true):setVolume(
+			ApplicationSettings.SoundVolume.bgm/100)
 		g_ui_table.switchto("main")
 	end
 end
@@ -21,6 +23,8 @@ function SingleMenu.OnButtonClick(args)
 	if btnName=="StartBtn" then
 		SingleMenu.LoadGame()
 	elseif btnName=="ExitBtn" then
+		Sound:Play2D("main_menu",true):setVolume(
+			ApplicationSettings.SoundVolume.bgm/100)
 		g_ui_table.switchto("main")
 	end
 end
@@ -239,6 +243,11 @@ SingleMenu.ui={
 	map_preview=root:getChild("FrameWnd/mapOverView"),
 	map_name=root:getChild("FrameWnd/MapName")
 }
+
+SingleMenu.ui.background=root:getChild("bg")
+
+CEGUI.ImageManager:getSingleton():addFromImageFile("single_menu_bg","game_menu.jpg","images")
+SingleMenu.ui.background:setProperty("Image","single_menu_bg")
 
 -- subscribe required events
 root:subscribeEvent("KeyUp","SingleMenu.keyInput")

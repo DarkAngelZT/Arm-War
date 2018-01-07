@@ -399,7 +399,19 @@ function StandardTankEntity.Load( info, logic_data )
 	tank.destroyed_prefab.shape_index = Scene.collisionShapeLoader.convexHull(
 		{mesh=tank.destroyed_prefab.mesh, scale=irr.core.vector3df:new_local(1,1,1)})
 
+	tank:AddEngineSound(tank.components.body.object)
+
 	return tank
+end
+
+function StandardTankEntity:AddEngineSound( body_object )
+	if body_object then
+		local s = Sound:CreateAudioSource("effect","tank_engine", "engine"..self.id,true)
+		if s then
+			self.components.engine_sound = s
+			body_object:AddComponent("engine_sound",s)
+		end
+	end
 end
 
 function StandardTankEntity.LoadRegularComponent( data )
@@ -578,6 +590,25 @@ function StandardTankEntity:Stop()
 	self:setTrackSpeed("right",0)
 end
 
+function StandardTankEntity:StopEngineSound()
+	if self.components.engine_sound and self.components.engine_sound:isPlaying() then
+		self.components.engine_sound:pause()
+	end
+end
+
+function StandardTankEntity:PlayEngineSound()
+	if self.components.engine_sound and (not self.components.engine_sound:isPlaying()) then
+		self.components.engine_sound:play3d(self.components.body.object:getPosition(),2,true)
+	end
+end
+
+function StandardTankEntity:PlayFireSound(position)
+	if position then
+		local s = Sound:Play3D("tank_fire_1",position)
+		s:setStrength(1)
+	end
+end
+
 function StandardTankEntity:Attack( shell_type )
 	local fire_position, fire_dir = self:getCurrentFireInfo()
 	local impulse = fire_dir*self.property.fire_power
@@ -596,6 +627,8 @@ function StandardTankEntity:Attack( shell_type )
 	Scene:ShootShell(shell_prop,impulse,data)
 	--炮火特效
 	self:PlayFireEffect(fire_position)
+	--声音
+	self:PlayFireSound(fire_position)
 	--反作用力
 	local turret = self.components.turret.object:getRigidBody()
 	local impulse_turret = impulse * -0.2

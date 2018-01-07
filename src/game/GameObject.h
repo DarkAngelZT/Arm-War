@@ -7,13 +7,15 @@
 
 #ifndef SRC_GAME_GAMEOBJECT_H_
 #define SRC_GAME_GAMEOBJECT_H_
-#include"stdafx.h"
 #include<map>
 #include<set>
 #include <functional>
+#include <memory>
+#include <btBulletDynamicsCommon.h>
+#include <irrlicht.h>
 #include "../Utilities/NeoTypedData.h"
-#include "Component.h"
 
+using namespace irr;
 using namespace irr::core;
 using namespace std;
 
@@ -31,6 +33,8 @@ public:
 	void RemoveComponent(std::string&key);
 	irr::scene::ISceneNode* GetSceneNode();
 	void setSceneNode(irr::scene::ISceneNode*node);
+
+	void Update();
 
 	void setParent(GameObject*);
 	GameObject*getParent() const;

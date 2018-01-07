@@ -7,6 +7,9 @@
 #include "NeoScene.h"
 #include "GameObject.h"
 
+using namespace irr;
+using namespace irr::core;
+
 GameObject::GameObject() :
 		m_rigidBody(NULL), collisionShapeIndex(-1)
 {
@@ -71,6 +74,7 @@ void GameObject::AddComponent(std::string&key, Component* c)
 {
 	shared_ptr<Component> ptr(c);
 	components[key] = ptr;
+	ptr->setGameObject(this);
 }
 
 void GameObject::RemoveComponent(std::string& key)
@@ -133,7 +137,7 @@ vector3df GameObject::getRotation() const
 {
 	vector3df result;
 	if (m_sceneNode != NULL)
-		result = m_sceneNode->getAbsoluteTransformation().getRotationDegrees ();
+		result = m_sceneNode->getAbsoluteTransformation().getRotationDegrees();
 	else if (m_rigidBody)
 		result = m_rigidBody->getCenterOfMassTransform().getRotationDegrees();
 	return result;
@@ -343,10 +347,19 @@ void GameObject::setOnCollisionExitLuaCallback(std::string& func)
 
 void GameObject::ResetPhysicsStates()
 {
-	if(m_rigidBody){
+	if (m_rigidBody)
+	{
 		core::vector3df zero;
 		m_rigidBody->clearForces();
 		m_rigidBody->setLinearVelocity(zero);
 		m_rigidBody->setAngularVelocity(zero);
+	}
+}
+
+void GameObject::Update()
+{
+	for (auto iter = components.begin(); iter != components.end(); iter++)
+	{
+		iter->second->Update();
 	}
 }

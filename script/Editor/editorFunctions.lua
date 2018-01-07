@@ -1925,7 +1925,7 @@ function map_editor.AddQuad( texture_path, id, selected, size, tile_count, textu
 	obj.tile_count=irr.core.dimension2du:new_local(tile_count[1],tile_count[2])
 	obj.texture_repeat_count=irr.core.dimension2df:new_local(texture_repeat_count[1],texture_repeat_count[2])
 	local texture=NeoGraphics:getInstance():LoadTexture(texture_path)
-	local quad_mesh = NeoGraphics:getInstance():CreateQuadMesh(obj.size,obj.tile_count,obj.texture_repeat_count)
+	local quad_mesh = NeoGraphics:getInstance():CreateQuadMesh("quad"..id,obj.size,obj.tile_count,obj.texture_repeat_count)
 	local node=NeoGraphics:getInstance():AddMeshSceneNode(quad_mesh)
 	if texture then
 		node:setMaterialTexture(0,texture)
@@ -2104,6 +2104,7 @@ function map_editor.AddWaterSurface( build_type, build_data,texture_data, overri
 	local mesh
 	local node
 	local mesh_path
+	id=id or makeId()
 	texture_path = texture_data.texture_path or map_editor.built_in_texture_directory.."water.jpg"
 	if texture_path=="" then
 		texture_path = map_editor.built_in_texture_directory.."water.jpg"
@@ -2120,16 +2121,16 @@ function map_editor.AddWaterSurface( build_type, build_data,texture_data, overri
 		local size=irr.core.dimension2df:new_local(build_data.size[1],build_data.size[2])
 		local tile_count=irr.core.dimension2du:new_local(build_data.tile_count[1],build_data.tile_count[2])
 		local texture_repeat_count=irr.core.dimension2df:new_local(build_data.texture_repeat_count[1],build_data.texture_repeat_count[2])
-		mesh = NeoGraphics:getInstance():CreateQuadMesh(size,tile_count,texture_repeat_count)
+		mesh = NeoGraphics:getInstance():CreateQuadMesh("quad"..id,size,tile_count,texture_repeat_count)
 		-- texture_repeat_count and resolution conflict
 		--NeoGraphics:getInstance():ScaleTextureCoords(mesh,irr.core.vector2df:new_local(texture_res[1],texture_res[2]))
 	elseif build_type == "cube" then
 		build_data = build_data or {size=50}
-		mesh = NeoGraphics:getInstance():CreateCubeMesh(irr.core.vector3df:new_local(build_data.size))
+		mesh = NeoGraphics:getInstance():CreateCubeMesh("cube"..id,irr.core.vector3df:new_local(build_data.size))
 		NeoGraphics:getInstance():ScaleTextureCoords(mesh,irr.core.vector2df:new_local(texture_res[1],texture_res[2]))
 	elseif build_type == "sphere" then
 		build_data = build_data or {radius=25}
-		mesh = NeoGraphics:getInstance():CreateSphereMesh(build_data.radius)
+		mesh = NeoGraphics:getInstance():CreateSphereMesh("sphere"..id,build_data.radius)
 		NeoGraphics:getInstance():ScaleTextureCoords(mesh,irr.core.vector2df:new_local(texture_res[1],texture_res[2]))
 	elseif build_type == "mesh" then
 		if not build_data or not build_data.path then
@@ -2153,7 +2154,6 @@ function map_editor.AddWaterSurface( build_type, build_data,texture_data, overri
 	node, override_texture = map_editor.AddWaterSurfaceNode(mesh,texture_path,override_texture,wave_height,wave_speed,wave_length)
 	if node then
 		local obj=destObj or EditorWaterSurfaceObject.new()
-		id=id or makeId()
 		obj.id=id
 		obj.name=name or "watersurface"
 		obj.scene_type="water_surface"

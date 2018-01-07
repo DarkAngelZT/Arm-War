@@ -104,6 +104,14 @@ void NeoScene::RemoveEffector(Effector* effector)
 
 }
 
+void NeoScene::Update()
+{
+	for(auto iter = list_gameObjects.begin();iter!=list_gameObjects.end();++iter)
+	{
+		iter->second->Update();
+	}
+}
+
 NeoScene::~NeoScene()
 {
 	Clean();

@@ -46,3 +46,7 @@ require(DIR_SCRIPT.."game/game")
 
 -- set the layout as the root
 g_ui_table.switchto("main")
+
+Sound:setMasterVolume(ApplicationSettings.SoundVolume.master/100)
+Sound:Play2D("main_menu",true):setVolume(
+			ApplicationSettings.SoundVolume.bgm/100)

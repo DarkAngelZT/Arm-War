@@ -413,24 +413,62 @@ void NeoGraphics::MakePlanarTextureMapping(scene::IMesh* mesh, float resolution)
 		smgr->getMeshManipulator()->makePlanarTextureMapping(mesh, resolution);
 }
 
-irr::scene::IMesh* NeoGraphics::CreateQuadMesh(
+irr::scene::IMesh* NeoGraphics::CreateQuadMesh(const std::string&name,
 		const core::dimension2d<f32>& tileSize,
 		const core::dimension2d<u32>& tileCount /*= core::dimension2du(1, 1)*/,
 		const core::dimension2df& textureRepeatCount /*= core::dimension2df(1.f,
 		 1.f)*/)
 {
-	return smgr->getGeometryCreator()->createPlaneMesh(tileSize, tileCount, 0,
-			textureRepeatCount);
+	IMesh* mesh = smgr->getGeometryCreator()->createPlaneMesh(tileSize,
+			tileCount, 0, textureRepeatCount);
+	if (mesh)
+	{
+		SAnimatedMesh* animatedMesh = new SAnimatedMesh();
+		if (!animatedMesh)
+		{
+			mesh->drop();
+			return 0;
+		}
+
+		animatedMesh->addMesh(mesh);
+		mesh->drop();
+		animatedMesh->recalculateBoundingBox();
+
+		smgr->getMeshCache()->addMesh(name.data(), animatedMesh);
+		animatedMesh->drop();
+		return animatedMesh;
+	}
+	return NULL;
 }
 
-irr::scene::IMesh* NeoGraphics::CreateCubeMesh(const irr::core::vector3df& size)
+irr::scene::IMesh* NeoGraphics::CreateCubeMesh(const std::string&name,
+		const irr::core::vector3df& size)
 {
-	return smgr->getGeometryCreator()->createCubeMesh(size);
+	IMesh* mesh = smgr->getGeometryCreator()->createCubeMesh(size);
+	if (mesh)
+	{
+		SAnimatedMesh* animatedMesh = new SAnimatedMesh();
+		if (!animatedMesh)
+		{
+			mesh->drop();
+			return 0;
+		}
+
+		animatedMesh->addMesh(mesh);
+		mesh->drop();
+		animatedMesh->recalculateBoundingBox();
+
+		smgr->getMeshCache()->addMesh(name.data(), animatedMesh);
+		animatedMesh->drop();
+		return animatedMesh;
+	}
+	return NULL;
 }
 
-irr::scene::IMesh* NeoGraphics::CreateSphereMesh(float radius)
+irr::scene::IMesh* NeoGraphics::CreateSphereMesh(const std::string&name,
+		float radius)
 {
-	return smgr->getGeometryCreator()->createSphereMesh(radius);
+	return smgr->addSphereMesh(name.data(), radius);
 }
 
 void NeoGraphics::setShadowColor(irr::video::SColor sColor)

@@ -7,6 +7,7 @@
 
 #include "SimpleTankTrackObject.h"
 #include <limits>
+#include "physics/bulletWrapper/RigidBody.h"
 using namespace irr;
 
 SimpleTankTrackObject::SimpleTankTrackObject() :

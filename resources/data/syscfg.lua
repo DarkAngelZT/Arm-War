@@ -1,6 +1,6 @@
 -- Auto saved system settings
 
--- File created on: Sat Nov 12 12:17:22 2016
+-- File created on: Sat Jan  6 22:40:16 2018
 
 ApplicationSettings = {}
 
@@ -12,5 +12,6 @@ ApplicationSettings.realtimeShadow = true
 
 ApplicationSettings.SoundDevice = ""
 ApplicationSettings.SoundVolume = {}
+ApplicationSettings.SoundVolume.master = 87
 ApplicationSettings.SoundVolume.bgm = 81
-ApplicationSettings.SoundVolume.effect = 100
+ApplicationSettings.SoundVolume.effect = 68

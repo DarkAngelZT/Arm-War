@@ -31,6 +31,8 @@ function Application_Save_Settings()
 		cfgfile:write(string.format("%s = \"%s\"\n","ApplicationSettings.SoundDevice", 
 			ApplicationSettings.SoundDevice))
 		cfgfile:write("ApplicationSettings.SoundVolume = {}\n")
+		cfgfile:write(string.format("ApplicationSettings.SoundVolume.master = %d\n",
+			ApplicationSettings.SoundVolume.master))
 		cfgfile:write(string.format("%s%d\n","ApplicationSettings.SoundVolume.bgm = ", 
 			ApplicationSettings.SoundVolume.bgm))
 		cfgfile:write(string.format("%s%d\n","ApplicationSettings.SoundVolume.effect = ", 

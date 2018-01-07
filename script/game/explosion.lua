@@ -8,5 +8,7 @@ DefaultExplosion={
 		end_color_low_speed = irr.video.SColor:new_local(0, 0, 0, 0),
 		shock_wave_color = irr.video.SColor:new_local(180, 255, 255, 255)
 	},
-	explosion_type_internal = "BasiceExplosion"
+	explosion_type_internal = "BasiceExplosion",
+	sound = "explosion_1",
+	sound_strength = 1,
 }

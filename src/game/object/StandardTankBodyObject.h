@@ -10,6 +10,7 @@
 #include "../GameObject.h"
 #include "../../graphics/animators/CSceneNodeAnimatorAxisAlignedRotate.h"
 #include "../../graphics/animators/CSceneNodeAnimatorTextureMove.h"
+#include <vector>
 class StandardTankBodyObject: public GameObject
 {
 public:

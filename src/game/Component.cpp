@@ -7,14 +7,22 @@
 
 #include "Component.h"
 
-Component::Component():enabled(true)
+Component::Component() :
+		enabled(true),gameObject(nullptr)
 {
-	// TODO 自动生成的构造函数存根
 
 }
 
 Component::~Component()
 {
-	// TODO 自动生成的析构函数存根
 }
 
+void Component::setGameObject(GameObject* go)
+{
+	gameObject = go;
+}
+
+GameObject* Component::getGameObject()
+{
+	return gameObject;
+}

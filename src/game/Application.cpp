@@ -8,6 +8,7 @@
 #include "Application.h"
 #include "NeoGameLogic.h"
 #include "network/Network.h"
+#include "game/NeoScene.h"
 #include "sound/Sound.h"
 
 SINGLETON_SOURCE(Application)
@@ -56,6 +57,7 @@ void Application::MainLoop()
 		NeoGraphics::getInstance()->Update();
 		NeoPhysics::getInstance()->Update(
 				NeoGraphics::getInstance()->getDeltaTime());
+		NeoScene::getInstance()->Update();
 		NeoGameLogic::getInstance()->Update();
 		NeoGame::Network::getInstance()->Update();
 	}

@@ -13,6 +13,8 @@ function game:Clear()
 	print("NeoPhysics cleared")
 	NeoGraphics:getInstance():CleanUp()
 	print("NeoGraphics cleared")
+	Sound:Clear()
+	print("Sound resource cleared")
 	print("Game clear done")
 end
 

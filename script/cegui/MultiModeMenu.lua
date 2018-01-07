@@ -135,6 +135,8 @@ function MultiMenu.Exit( )
 	Lobby:Close()
 	NeoGame.Network:getInstance():CleanUp()
 	g_ui_table.switchto("main")
+	Sound:Play2D("main_menu",true):setVolume(
+			ApplicationSettings.SoundVolume.bgm/100)
 end
 
 function MultiMenu:PushUIToStack( ui )
@@ -562,6 +564,11 @@ root:getChild("HostSelectWnd/HostListPanel"):addChild(game_host_list)
 game_host_list:setProperty("ColumnsMovable",CEGUI.PropertyHelper:boolToString(false))
 MultiMenu.ui.host_list.list=game_host_list
 game_host_list:setSelectionMode(CEGUI.MultiColumnList.RowSingle)
+
+MultiMenu.ui.background=root:getChild("bg")
+
+CEGUI.ImageManager:getSingleton():addFromImageFile("multi_menu_bg","game_menu.jpg","images")
+MultiMenu.ui.background:setProperty("Image","multi_menu_bg")
 
 -- subscribe required events
 root:subscribeEvent("KeyUp","MultiMenu.keyInput")
