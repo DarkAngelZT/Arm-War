@@ -383,7 +383,11 @@ function MultiMenu:PrepareWndSetPreview( map_file_name )
 	if NeoGame.io.isFileExist(image) then
 		CEGUI.ImageManager:getSingleton():addFromImageFile(
 			"map_preview_image",map_name..".png","mapPreview")
-		self.ui.prepare_wnd.img_overview:setProperty("Image","map_preview_image")
+		if not CEGUI.ImageManager:getSingleton():isDefined(map_name) then
+			CEGUI.ImageManager:getSingleton():addFromImageFile(
+				map_name,map_name..".png","mapPreview")
+		end
+		self.ui.prepare_wnd.img_overview:setProperty("Image",map_name)
 	else 
 		self.ui.prepare_wnd.img_overview:setProperty("Image","map_preview_default")
 	end
