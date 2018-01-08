@@ -269,6 +269,7 @@ function StandardTankEntity.Load( info, logic_data )
 	rigid_body:setFriction(0.8)
 	--添加轮子
 	for _,wheel_data in ipairs(data.components.wheel) do
+		wheel_data.cast_shadow=ApplicationSettings.realtimeShadow
 		local node,_ = Scene.nodeLoader.mesh_animated(wheel_data)
 		if node then
 			tank.components.body.object:addWheelNode(node,wheel_data.side)
@@ -395,7 +396,7 @@ function StandardTankEntity.Load( info, logic_data )
 		tank.property[k]=v
 	end
 	-- 加载损毁状态的模型
-	tank.destroyed_prefab.mesh=NeoGraphics:getInstance():getMesh(data.property.mesh_destoryed)
+	tank.destroyed_prefab.mesh=NeoGraphics:getInstance():getMesh(data.property.mesh_destroyed)
 	tank.destroyed_prefab.shape_index = Scene.collisionShapeLoader.convexHull(
 		{mesh=tank.destroyed_prefab.mesh, scale=irr.core.vector3df:new_local(1,1,1)})
 

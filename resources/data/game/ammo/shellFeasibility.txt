@@ -1,2 +1,4 @@
 	AP	HE	HESH	HEAT
 t34	1	1	1	1
+m1a1	1	1	0	1
+panzer-IV	1	1	1	1

@@ -192,13 +192,19 @@ end
 -- Load preview Image
 -------------------------------------
 function SingleMenu:LoadPreviewImage( map_file_name )
+	if not map_file_name or map_file_name == "" then
+		return
+	end
 	local map_name = split(map_file_name,".")[1]
 	--load image
 	local image = DIR_MAP_PREVIEW..map_name..".png"
+	-- end
 	if NeoGame.io.isFileExist(image) then
-		CEGUI.ImageManager:getSingleton():addFromImageFile(
-			"map_preview_image",map_name..".png","mapPreview")
-		self.ui.map_preview:setProperty("Image","map_preview_image")
+		if not CEGUI.ImageManager:getSingleton():isDefined(map_name) then
+			CEGUI.ImageManager:getSingleton():addFromImageFile(
+				map_name,map_name..".png","mapPreview")
+		end
+		self.ui.map_preview:setProperty("Image",map_name)
 	else 
 		self.ui.map_preview:setProperty("Image","map_preview_default")
 	end

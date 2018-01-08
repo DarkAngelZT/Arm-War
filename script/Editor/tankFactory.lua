@@ -63,14 +63,7 @@ function TankFactory.Init()
 	TankFactory.tank_name="unnamed"
 	TankFactory.properties={}
 	TankFactory.ui.name:setText(TankFactory.tank_name)
-	TankFactory.ui.data:setText([[tank_type="standard",
-	health=120,
-	armor=3.5,
-	fire_power=60,
-	reload_time=15,
-	ricochet_possibility=0.4,
-	max_speed=55,
-	turret_rotation_speed=70,]]
+	TankFactory.ui.data:setText([[tank_type="standard",	mesh_destroyed="", turret_rotation_speed=70,]]
 		)
 end
 

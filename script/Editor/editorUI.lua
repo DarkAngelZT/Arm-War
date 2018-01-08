@@ -969,7 +969,7 @@ function map_editor.OnKeyUp( args )
 		map_editor.CancelAllSelections()
 	end
 
-	if event.scancode == CEGUI.Key.V and
+	if event.scancode == CEGUI.Key.D and
 		g_ui_table.editor:getActiveChild():getType() ~= "GlossySerpent/Editbox" and
 		g_ui_table.editor:getActiveChild():getType() ~= "GlossySerpent/MultiLineEditbox" then
 		-- remove all selected objects

@@ -84,7 +84,7 @@ end
 function Actor:OnShellHit( shell )
 	local event = { 
 		event_id=Scene.EVENT.PLAYER_HIT, attacker = shell.owner, ricochet=false, pierce=false }
-	local damage = shell.property.damage
+	local damage = shell.property.damage*shell.owner.damage_factor[1]+shell.owner.damage_factor[2]
 	local corpse_id
 	if self.shield>0 then
 		--先扣护盾
@@ -103,7 +103,7 @@ function Actor:OnShellHit( shell )
 		--处理伤害
 		if math.random()<shell.property.piercePossibility then
 			--穿甲伤害
-			damage=shell.property.pierceDamage
+			damage=shell.property.pierceDamage*shell.owner.damage_factor[1]+shell.owner.damage_factor[2]
 			--触发穿甲事件
 			event.pierce=true
 		end
