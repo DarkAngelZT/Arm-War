@@ -12,7 +12,7 @@
             <Property name="RiseOnClickEnabled" value="false" />
         </Window>
         <Window type="GlossySerpent/FrameWindow" name="FrameWnd" >
-            <Property name="Area" value="{{0,0},{0,0},{0,750},{0,600}}" />
+            <Property name="Area" value="{{0,0},{0,13},{0,750},{0,639}}" />
             <Property name="Text" value="Single Player" />
             <Property name="TitlebarFont" value="DejaVuSans-HD-10" />
             <Property name="SizingEnabled" value="false" />
@@ -59,10 +59,11 @@
                 <Property name="HorizontalAlignment" value="Right" />
             </Window>
             <Window type="GlossySerpent/SimplePanel" name="PlayerListRoot" >
-                <Property name="Area" value="{{0,34},{0,273},{0,434},{0,543}}" />
+                <Property name="Area" value="{{0,34},{0,258},{0,434},{0,528}}" />
                 <Property name="MaxSize" value="{{1,0},{1,0}}" />
                 <Window type="GlossySerpent/ItemListbox" name="PlayerList" >
-                    <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+                    <Property name="Area" value="{{0,0},{0,0},{0,400},{0,268.688}}" />
+                    <Property name="WantsMultiClickEvents" value="false" />
                     <AutoWindow namePath="__auto_content_pane__" >
                         <Property name="MouseInputPropagationEnabled" value="true" />
                     </AutoWindow>
@@ -79,12 +80,12 @@
                 <Window type="GlossySerpent/ListboxItem" name="PlayerItemPrefab" >
                     <Property name="Area" value="{{0,0},{0,0},{1,0},{0,32}}" />
                     <Property name="Visible" value="false" />
-                    <Property name="Selectable" value="true" />
+                    <Property name="Selectable" value="false" />
+                    <Property name="WantsMultiClickEvents" value="false" />
                     <Property name="MouseInputPropagationEnabled" value="false" />
                     <Window type="GlossySerpent/Combobox" name="PlayerName" >
-                        <Property name="Area" value="{{0,5},{0,5},{0,140},{1,61}}" />
+                        <Property name="Area" value="{{0,5},{0,5},{0,140},{0,91}}" />
                         <Property name="ReadOnly" value="true" />
-                        <Property name="ClippedByParent" value="false" />
                         <AutoWindow namePath="__auto_droplist__" >
                             <AutoWindow namePath="__auto_vscrollbar__" >
                                 <Property name="VerticalScrollbar" value="true" />
@@ -94,7 +95,6 @@
                     <Window type="GlossySerpent/Combobox" name="Type" >
                         <Property name="Area" value="{{0,150},{0,5},{0,267},{0,91}}" />
                         <Property name="ReadOnly" value="true" />
-                        <Property name="ClippedByParent" value="false" />
                         <AutoWindow namePath="__auto_droplist__" >
                             <AutoWindow namePath="__auto_vscrollbar__" >
                                 <Property name="VerticalScrollbar" value="true" />
@@ -104,7 +104,6 @@
                     <Window type="GlossySerpent/Combobox" name="Team" >
                         <Property name="Area" value="{{0,277},{0,5},{0,373},{0,96}}" />
                         <Property name="ReadOnly" value="true" />
-                        <Property name="ClippedByParent" value="false" />
                         <AutoWindow namePath="__auto_droplist__" >
                             <AutoWindow namePath="__auto_vscrollbar__" >
                                 <Property name="VerticalScrollbar" value="true" />

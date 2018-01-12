@@ -91,6 +91,20 @@ function SingleMenu.OnPlayerTeamChange( args )
 	player.team = team
 end
 -------------------------------------
+-- handle plahyer item combo box
+-------------------------------------
+function SingleMenu.OnPlayerListCbxOpen( args )
+	local event = CEGUI.toWindowEventArgs(args)
+	local wnd = event.window
+	wnd:setClippedByParent(false)
+	SingleMenu.ui.player_list:notifyScreenAreaChanged()
+end
+function SingleMenu.OnPlayerListClose( args )
+	local event = CEGUI.toWindowEventArgs(args)
+	local wnd = event.window
+	wnd:setClippedByParent(true)
+end
+-------------------------------------
 -- Initialize UI
 -------------------------------------
 function SingleMenu:Init()
@@ -136,6 +150,14 @@ function SingleMenu:InitPlayerList(map_info)
 		local cbx_name = CEGUI.toCombobox(item:getChild("PlayerName"))
 		local cbx_type = CEGUI.toCombobox(item:getChild("Type"))
 		local cbx_team = CEGUI.toCombobox(item:getChild("Team"))
+
+		cbx_name:subscribeEvent("DropListDisplayed","SingleMenu.OnPlayerListCbxOpen")
+		cbx_type:subscribeEvent("DropListDisplayed","SingleMenu.OnPlayerListCbxOpen")
+		cbx_team:subscribeEvent("DropListDisplayed","SingleMenu.OnPlayerListCbxOpen")
+
+		cbx_name:subscribeEvent("DropListRemoved","SingleMenu.OnPlayerListClose")
+		cbx_type:subscribeEvent("DropListRemoved","SingleMenu.OnPlayerListClose")
+		cbx_team:subscribeEvent("DropListRemoved","SingleMenu.OnPlayerListClose")
 
 		self.players[i]={}
 		local player = self.players[i]

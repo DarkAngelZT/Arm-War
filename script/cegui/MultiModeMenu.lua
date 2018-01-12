@@ -289,6 +289,12 @@ function MultiMenu:PrepareWndInitPlayerList( player_data, max_team_count , is_ho
 		local st_type = item:getChild("type")
 		local st_status = item:getChild("status")
 
+		cbx_name:subscribeEvent("DropListDisplayed","MultiMenu.OnPlayerListCbxOpen")
+		cbx_team:subscribeEvent("DropListDisplayed","MultiMenu.OnPlayerListCbxOpen")
+
+		cbx_name:subscribeEvent("DropListRemoved","MultiMenu.OnPlayerListClose")
+		cbx_team:subscribeEvent("DropListRemoved","MultiMenu.OnPlayerListClose")
+
 		cbx_name:setID(data.id)
 		cbx_team:setID(data.id)
 
@@ -451,6 +457,20 @@ function MultiMenu:PrepareWndSendChatMsg()
 		self.ui.prepare_wnd.eb_chat:setText("")
 		Lobby:SendChatMsg(msg)
 	end
+end
+-------------------------------------
+-- handle plahyer item combo box
+-------------------------------------
+function MultiMenu.OnPlayerListCbxOpen( args )
+	local event = CEGUI.toWindowEventArgs(args)
+	local wnd = event.window
+	wnd:setClippedByParent(false)
+	MultiMenu.ui.prepare_wnd.player_list:notifyScreenAreaChanged()
+end
+function MultiMenu.OnPlayerListClose( args )
+	local event = CEGUI.toWindowEventArgs(args)
+	local wnd = event.window
+	wnd:setClippedByParent(true)
 end
 -------------------------------------
 -- Tank selection window functions
