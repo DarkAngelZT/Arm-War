@@ -7,7 +7,6 @@ TankEntityLoader={
 StandardTankEntity=class(Entity)
 StandardTankEntity.tank_type="standard"
 StandardTankEntity.actor=nil
-StandardTankEntity.property={}
 StandardTankEntity.fire_effector=nil
 
 function StandardTankEntity:onCreate(id)
@@ -24,6 +23,7 @@ function StandardTankEntity:onCreate(id)
 		left_track_hinge=nil,
 		right_track_hinge=nil
 	}
+	self.property={}
 	self.destroyed_prefab={}
 end
 

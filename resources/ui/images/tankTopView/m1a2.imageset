@@ -1,4 +1,0 @@
-<Imageset autoScaled="true" imagefile="../../images/tankTopView/m1a2_topView.png" name="TankTopView" nativeHorzRes="93" nativeVertRes="140" version="2">
-    <Image height="140" name="top" width="43" xPos="48" yPos="0" />
-    <Image height="140" name="base" width="48" xPos="0" yPos="0" />
-</Imageset>
