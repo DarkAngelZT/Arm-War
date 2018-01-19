@@ -19,6 +19,7 @@ ID_GAME_EVENT_SHOOT_BULLET=1
 ID_GAME_EVENT_PLAYER_HIT=2
 ID_GAME_EVENT_PLAYER_DIE=3
 ID_GAME_EVENT_EXPLOSION=4
+ID_GAME_EVENT_SHOOT_LASER=5
 ------------------------------
 -- game event ids
 ------------------------------
@@ -87,6 +88,17 @@ Synchronizer.game_event_serialiser={
 		BitStreamHelper.SerializeFloat(stream,data.impulse)
 		--is attenuated by distance
 		BitStreamHelper.SerializeBool(stream,data.attenuate)
+	end,
+	[ID_GAME_EVENT_SHOOT_LASER]=function( stream, data )
+		-- data={ ownerId, origin, direction, damage}
+		--ownerId
+		BitStreamHelper.SerializeString(stream,data.ownerId)
+		--origin
+		BitStreamHelper.SerializeVector3(stream,data.origin)
+		--direction
+		BitStreamHelper.SerializeVector3(stream,data.direction)
+		--damage
+		BitStreamHelper.SerializeFloat(stream,data.damage)
 	end,
 }
 
@@ -175,6 +187,19 @@ Synchronizer.game_event_deserializer={
 		--is attenuated by distance
 		data.attenuate = BitStreamHelper.DeserializeBool(stream,data.attenuate)
 		MultiModeExplosionDispatcher:DoExplosion( data.explosion_type, data )
+	end,
+	[ID_GAME_EVENT_SHOOT_LASER]=function( stream )
+		local data={ownerId="", origin=irr.core.vector3df:new_local(),
+			direction=irr.core.vector3df:new_local(),damage=0}
+		--ownerId
+		data.ownerId = BitStreamHelper.DeserializeString(stream,data.ownerId)
+		--origin
+		BitStreamHelper.DeserializeVector3(stream,data.origin)
+		--direction
+		BitStreamHelper.DeserializeVector3(stream,data.direction)
+		--damage
+		BitStreamHelper.DeserializeFloat(stream,data.damage)
+		Scene:ShootLaser( data.origin,data.direction,{damage=data.damage,owner=Logic.actors[data.ownerId]} )
 	end,
 }
 

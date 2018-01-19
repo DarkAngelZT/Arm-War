@@ -41,7 +41,8 @@ gamehud.ammo_sprite_name={
 	AP="gameHUD/AP_icon",
 	HE="gameHUD/HE_icon",
 	HESH="gameHUD/HESH_icon",
-	HEAT="gameHUD/HEAT_icon"
+	HEAT="gameHUD/HEAT_icon",
+	laser="gameHUD/laser_icon",
 }
 
 
@@ -71,11 +72,18 @@ end
 function gamehud:Refresh(actor)
 	if actor then
 		self.ui.ammo_slot.root:setVisible(true)
+		local slot_count = #actor.ammo
 		--set shell icon
 		for i=1,3 do
-			local icon_type = self.ammo_sprite_name[actor.ammo[i].name]
-			self.ui.ammo_slot[i]:getChild("icon"):setProperty("Image",icon_type)
-			self.ui.ammo_slot[i]:getChild("amount"):setText(tostring(actor.ammo[i].amount))
+			if i<=slot_count then
+				self.ui.ammo_slot[i]:setVisible(true)
+				local icon_type = self.ammo_sprite_name[actor.ammo[i].name]
+				self.ui.ammo_slot[i]:getChild("icon"):setProperty("Image",icon_type)
+				self.ui.ammo_slot[i]:getChild("amount"):setText(tostring(actor.ammo[i].amount))
+			else
+				self.ui.ammo_slot[i]:setVisible(false)
+			end
+			
 		end
 		local tank_type=actor.entity.property.tank_name
 		CEGUI.ImageManager:getSingleton():loadImageset(tank_type..".imageset","tankTopview")

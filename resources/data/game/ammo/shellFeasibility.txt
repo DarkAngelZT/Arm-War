@@ -2,3 +2,5 @@
 t34	1	1	1	1
 m1a1	1	1	0	1
 panzer-IV	1	1	1	1
+maus	1	1	1	1
+m112-prism	0	0	0	0

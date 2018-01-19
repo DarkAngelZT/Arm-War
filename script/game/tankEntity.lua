@@ -1,15 +1,11 @@
 require(DIR_SCRIPT.."game/logic")
 
-TankEntityLoader={
-	standard=StandardTankEntity
-}
-
 StandardTankEntity=class(Entity)
-StandardTankEntity.tank_type="standard"
-StandardTankEntity.actor=nil
-StandardTankEntity.fire_effector=nil
 
 function StandardTankEntity:onCreate(id)
+	self.tank_type="standard"
+	self.actor=nil
+	self.fire_effector=nil
 	self.id=id or -1
 	self.components={
 		body={object=nil},
@@ -251,11 +247,14 @@ function StandardTankEntity.Load( info, logic_data )
 		return
 	end
 
+	local tank = StandardTankEntity.new(info.id)
+	return StandardTankEntity.DoLoad(tank,info, logic_data)
+end
+
+function StandardTankEntity.DoLoad( tank,info,data )
 	local graphics = NeoGraphics:getInstance()
 	local physics = NeoPhysics:getInstance()
 	local neo_scene = NeoScene:getInstance()
-
-	local tank = StandardTankEntity.new(info.id)
 	tank.property.tank_name = info.tank_name
 	local data =  info.data
 	--组装车身
@@ -521,11 +520,15 @@ StandardTankEntity.event_handlers={
 function StandardTankEntity.RegisterSingleModeEventHandler( )
 	Logic:RegisterEventHandler(
 		Logic.EVENT.SHELL_HIT,"StandardTankEntity",StandardTankEntity.OnShellHit)
+	Logic:RegisterEventHandler(
+		Logic.EVENT.LASER_HIT,"StandardTankEntity",StandardTankEntity.OnLaserHit)
 end
 
 function StandardTankEntity.RegisterMultiModeEventHandler( )
 	Logic:RegisterEventHandler(
 		Logic.EVENT.SHELL_HIT,"StandardTankEntity",StandardTankEntity.MultiModeOnShellHit)
+	Logic:RegisterEventHandler(
+		Logic.EVENT.LASER_HIT,"StandardTankEntity",StandardTankEntity.MultiModeOnLaserHit)
 end
 
 --event:NeoEvent 结构
@@ -548,6 +551,26 @@ function StandardTankEntity.MultiModeOnShellHit( event )
 	actor:MultiModeOnShellHit(shell)
 end
 
+--event:NeoEvent 结构
+function StandardTankEntity.OnLaserHit( event )
+	local victim_id = event:getData(0)
+	local attacker_id = event:getData(1)
+	local damage = tonumber(event:getData(2))
+
+	local victim = Logic.actors[victim_id]
+	local attacker=Logic.actors[attacker_id]
+	victim:OnLaserHit({damage=damage,owner=attacker})
+end
+function StandardTankEntity.MultiModeOnLaserHit( event )
+	local victim_id = event:getData(0)
+	local attacker_id = event:getData(1)
+	local damage = tonumber(event:getData(2))
+
+	local victim = Logic.actors[victim_id]
+	local attacker=Logic.actors[attacker_id]
+
+	victim:MultiModeOnLaserHit({damage=damage,owner=attacker})
+end
 -----------------
 --command interface
 -----------------

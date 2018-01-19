@@ -52,3 +52,5 @@ TankDeserializer.deserializers.standard=function( tank_entity, stream )
 
 	tank_entity:SynchronizeTransform(transform,{turret_rotation=turret_rot,canon_rotation=canon_rot})
 end
+
+TankDeserializer.deserializers.prism = TankDeserializer.deserializers.standard

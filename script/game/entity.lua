@@ -92,3 +92,9 @@ end
 
 require(DIR_SCRIPT.."game/tankEntity")
 require(DIR_SCRIPT.."game/shellEntity")
+require(DIR_SCRIPT.."game/PrismTankEntity")
+
+TankEntityLoader={
+	standard=StandardTankEntity,
+	prism=PrismTankEntity
+}

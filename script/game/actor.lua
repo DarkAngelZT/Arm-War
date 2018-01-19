@@ -118,6 +118,27 @@ function Actor:OnShellHit( shell )
 	return event.ricochet, event.pierce, corpse_id
 end
 
+--data={damage,owner}
+function Actor:OnLaserHit( data )
+	local event = { 
+		event_id=Scene.EVENT.PLAYER_HIT, attacker = data.owner, ricochet=false, pierce=false }
+	local damage = data.damage*data.owner.damage_factor[1]+data.owner.damage_factor[2]
+	local corpse_id
+	if self.shield>0 then
+		--先扣护盾
+		if self.shield>=damage then
+			self.shield=self.shield-damage
+		else
+			damage=damage-self.shield
+			self.shield=0
+		end
+	end
+	damage = damage*(1-0.06*self.armor/(1+0.06*self.armor))
+	damage=math.floor(damage)
+	corpse_id = self:DealDamage(damage,data.owner,event)
+	return false, false, corpse_id
+end
+
 function Actor:MultiModeOnShellHit( shell )
 	if NeoGame.Network:getInstance():isServer() then
 		local dmg_health = self.health
@@ -141,6 +162,30 @@ function Actor:MultiModeOnShellHit( shell )
 		if self.health == 0 and corpse_id then
 			Synchronizer:OnGameEvent( ID_GAME_EVENT_PLAYER_DIE, {
 				victimId = self.id, killerId = shell.owner.id, corpseId=corpse_id } )
+		end
+	end
+end
+
+--data={damage,owner}
+function Actor:MultiModeOnLaserHit( data )
+	if NeoGame.Network:getInstance():isServer() then
+		local dmg_health = self.health
+		local dmg_shield = self.shield
+		local dmg_armor = self.armor
+		local ricochet, pierce, corpse_id = self:OnLaserHit(data)
+		dmg_health=dmg_health-self.health
+		dmg_shield=dmg_shield-self.shield
+		dmg_armor=dmg_armor-self.armor
+		local hit_result = SHELL_HIT_RESULT_HIT
+
+		Synchronizer:OnGameEvent( ID_GAME_EVENT_PLAYER_HIT, {
+			victimId=self.id, attackerId=data.owner.id, 
+			hit_result=hit_result, damage2shield=dmg_shield, 
+			damage2armor=dmg_armor, damage2health=dmg_health
+			} )
+		if self.health == 0 and corpse_id then
+			Synchronizer:OnGameEvent( ID_GAME_EVENT_PLAYER_DIE, {
+				victimId = self.id, killerId = data.owner.id, corpseId=corpse_id } )
 		end
 	end
 end

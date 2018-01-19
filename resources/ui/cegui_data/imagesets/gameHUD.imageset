@@ -1,10 +1,11 @@
-<Imageset autoScaled="false" imagefile="gameHUD.png" name="gameHUD" nativeHorzRes="384" nativeVertRes="232" version="2">
-    <Image height="64" name="AP_icon" width="64" xPos="0" yPos="0" />
-    <Image height="34" name="canon_cursur" width="61" xPos="64" yPos="0" />
-    <Image height="64" name="HE_icon" width="64" xPos="125" yPos="0" />
-    <Image height="64" name="HEAT_icon" width="64" xPos="189" yPos="0" />
-    <Image height="64" name="HESH_icon" width="64" xPos="253" yPos="0" />
-    <Image height="35" name="iconFrame" width="35" xPos="317" yPos="0" />
-    <Image height="61" name="mouse_cursor" width="64" xPos="0" yPos="64" />
-    <Image height="168" name="panelBase_noShadow" width="320" xPos="64" yPos="64" />
+<Imageset name="gameHUD" imagefile="gameHUD.png" nativeHorzRes="416" nativeVertRes="232" autoScaled="false" version="2">
+    <Image name="AP_icon" xPos="0" yPos="0" width="64" height="64"/>
+    <Image name="canon_cursur" xPos="64" yPos="0" width="61" height="34"/>
+    <Image name="HE_icon" xPos="125" yPos="0" width="64" height="64"/>
+    <Image name="HEAT_icon" xPos="189" yPos="0" width="64" height="64"/>
+    <Image name="HESH_icon" xPos="253" yPos="0" width="64" height="64"/>
+    <Image name="iconFrame" xPos="317" yPos="0" width="35" height="35"/>
+    <Image name="laser_icon" xPos="352" yPos="0" width="64" height="64"/>
+    <Image name="mouse_cursor" xPos="0" yPos="64" width="64" height="61"/>
+    <Image name="panelBase_noShadow" xPos="64" yPos="64" width="320" height="168"/>
 </Imageset>

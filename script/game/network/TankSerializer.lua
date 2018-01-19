@@ -37,3 +37,5 @@ TankSerializer.serializers.standard=function( tank_entity, stream )
 	--canon angular velocity
 	BitStreamHelper.SerializeVector3(stream,rigid_canon:getAngularVelocity())
 end
+
+TankSerializer.serializers.prism = TankSerializer.serializers.standard

@@ -15,9 +15,7 @@ Scene.entityMap={
 Scene.spawn_points={
 	--[team number]={{points},...}
 }
-Scene.tankLoader={
-	standard=StandardTankEntity
-}
+Scene.tankLoader=TankEntityLoader
 Scene.cameras={
 	
 }
@@ -411,6 +409,37 @@ function Scene:ShootShell( property, impulse, data )
 				impulse=impulse, position=property.position, rotation=property.rotation
 				} )
 		end
+	end
+end
+
+function Scene:ShootLaser( origin,direction,data )
+	if Logic.game_mode == Logic.GAME_MODE.SINGLE then
+		return self:DoShootLaser( origin,direction,data )
+	elseif Logic.game_mode == Logic.GAME_MODE.MULTIPLE then
+		local network = NeoGame.Network:getInstance()
+		if network:isServer() then
+			-- send data
+			Synchronizer:OnGameEvent( ID_GAME_EVENT_SHOOT_LASER, {
+				ownerId=data.owner.id, origin=origin, direction=direction,damage=data.damage	} )
+		end
+		return self:DoShootLaser( origin,direction,data )
+	end
+end
+
+function Scene:DoShootLaser( origin,direction,data )
+	local to = origin+direction*2000
+	local raycastResult = NeoPhysics:getInstance():RayCast(origin,to)
+	if raycastResult.hasHit then
+		if raycastResult.m_gameObject then
+			local target = self.entities[raycastResult.m_gameObject:getLuaIdentifier()]
+			if target and target.actor then
+				NeoGameLogic:getInstance():TriggerEvent(Logic.EVENT.LASER_HIT,target.actor.id,data.owner.id,data.damage)
+			end
+		end
+		
+		return raycastResult.m_hitPointWorld, raycastResult.m_gameObject
+	else
+		return to
 	end
 end
 
