@@ -73,7 +73,7 @@ function MultiModeExplosionDispatcher:DoExplosion( explosion_type, data )
 	local audio = ExplosionTypes[event.type].sound or "explosion_1"
 	local sound_strength = ExplosionTypes[event.type].sound_strength or 1
 	local s = Sound:Play3D(audio, event.position)
-	s:setStrength(sound_strength)
+	--s:setStrength(sound_strength)
 end
 function MultiModeExplosionDispatcher:notify( invoker, event )
 	-- type, event_id, damage, position, range, impulse, attenuate
